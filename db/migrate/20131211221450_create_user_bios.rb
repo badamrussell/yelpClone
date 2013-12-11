@@ -16,8 +16,11 @@ class CreateUserBios < ActiveRecord::Migration
       t.string :recent_discovery
       t.string :crush
       t.integer :language_id, default: 1
+      t.integer :user_id, null: false
 
       t.timestamps
     end
+
+    add_index :user_bios, :user_id
   end
 end

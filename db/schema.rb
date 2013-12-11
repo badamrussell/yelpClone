@@ -11,7 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131211195247) do
+ActiveRecord::Schema.define(:version => 20131211221450) do
+
+  create_table "user_bios", :force => true do |t|
+    t.string   "headline"
+    t.string   "love_name"
+    t.string   "find_me_in"
+    t.string   "hometown"
+    t.string   "website"
+    t.string   "reviews"
+    t.string   "secondsite"
+    t.string   "book"
+    t.string   "concert"
+    t.string   "movie"
+    t.string   "meal"
+    t.string   "dont_tell"
+    t.string   "recent_discovery"
+    t.string   "crush"
+    t.integer  "language_id",      :default => 1
+    t.integer  "user_id",                         :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "user_bios", ["user_id"], :name => "index_user_bios_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",           :null => false
