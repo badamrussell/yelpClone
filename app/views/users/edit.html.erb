@@ -4,8 +4,12 @@
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
 
-  <label for=""></label>
-  <input type="text" name="" value="" id="">
+  <% @user.attributes.each do |key, value| %>
+  <label for="profile_<%= key %>"><%= key %></label>
+  <br>
+  <input type="text" name="profile[<%= key %>]" value="<%= value %>" id="profile_<%= key %>">
+  <br>
+  <% end %>
 
 
   <input type="submit" name="Save Changes" value="submit" id="Save Changes">

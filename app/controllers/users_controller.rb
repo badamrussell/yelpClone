@@ -33,12 +33,19 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.
+    @user = User.find(params[:id])
+
   end
 
   def update
     @user = User.find(params[:id])
 
+    if @user.update_attributes(params[:profile])
+      redirect_to user_url(params[:id])
+    else
+      flash[:errors] = @user.errors.full_messages
+      render :edit
+    end
   end
 
 end
