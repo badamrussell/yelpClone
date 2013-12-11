@@ -24,6 +24,10 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
+      newBio = UserBio.new()
+      newBio.user_id = @user.id
+      newBio.save!
+
       sign_in(@user)
       redirect_to user_url(user.id)
     else

@@ -7,6 +7,12 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, on: :create
   before_validation :ensure_token
 
+  has_one(
+    :bio,
+    class_name: "UserBio",
+    primary_key: :id,
+    foreign_key: :user_id
+  )
 
   def self.random_token
     SecureRandom::urlsafe_base64(16)

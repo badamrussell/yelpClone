@@ -1,15 +1,17 @@
 class ProfilesController < ApplicationController
+  before_filter :require_current_user!
 
   def show
-    @profile = User.find(params[:id])
+    @profile = UserBio.find_by_user_id(current_user.id)
+
   end
 
   def edit
-    @profile = User.find(params[:id])
+    @profile = UserBio.find_by_user_id(current_user.id)
   end
 
   def update
-    @profile = User.find(params[:id])
+    @profile = UserBio.find_by_user_id(current_user.id)
 
     if @profile.update_attribute(params[:profile])
       redirect_to profile_url
