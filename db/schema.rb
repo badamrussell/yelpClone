@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212015039) do
+ActiveRecord::Schema.define(:version => 20131212031015) do
 
   create_table "businesses", :force => true do |t|
     t.integer  "country_id",   :null => false
@@ -32,6 +32,49 @@ ActiveRecord::Schema.define(:version => 20131212015039) do
   end
 
   add_index "businesses", ["name"], :name => "index_businesses_on_name"
+
+  create_table "categories", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "cities", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cities", ["name"], :name => "index_cities_on_name", :unique => true
+
+  create_table "locations", :force => true do |t|
+    t.string   "name",       :null => false
+    t.integer  "city_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "locations", ["city_id"], :name => "index_locations_on_city_id"
+  add_index "locations", ["name"], :name => "index_locations_on_name", :unique => true
+
+  create_table "neighborhoods", :force => true do |t|
+    t.string   "name",        :null => false
+    t.integer  "location_id", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "neighborhoods", ["location_id"], :name => "index_neighborhoods_on_location_id"
+  add_index "neighborhoods", ["name"], :name => "index_neighborhoods_on_name", :unique => true
+
+  create_table "sub_categories", :force => true do |t|
+    t.string   "name",        :null => false
+    t.integer  "category_id", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "sub_categories", ["category_id"], :name => "index_sub_categories_on_category_id"
 
   create_table "user_bios", :force => true do |t|
     t.string   "headline"
