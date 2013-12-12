@@ -2,18 +2,18 @@ class CreateRestaurantDetails < ActiveRecord::Migration
   def change
     create_table :restaurant_details do |t|
       t.integer :review_id
-      t.integer :good_for_groups
+      t.integer :good_for_groups_id
 
-      t.integer :noise_level
-      t.integer :price_range
+      t.integer :noise_level_id
+      t.integer :price_range_id
 
-      t.integer :attire
-      t.integer :good_for_kids
-      t.integer :wifi
-      t.integer :drive_thru
+      t.integer :attire_id
+      t.integer :good_for_kids_id
+      t.integer :wifi_id
+      t.integer :drive_thru_id
 
-      t.integer :has_tv
-      t.integer :caters
+      t.integer :has_tv_id
+      t.integer :caters_id
 
       t.timestamps
     end

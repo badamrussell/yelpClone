@@ -11,4 +11,18 @@ class Business < ActiveRecord::Base
     foreign_key: :country_id
   )
 
+  has_many(
+    :reviews,
+    class_name: "Review",
+    primary_key: :id,
+    foreign_key: :business_id
+  )
+
+
+
+
+
+
+
+
 end

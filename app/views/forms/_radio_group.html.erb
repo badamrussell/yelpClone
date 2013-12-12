@@ -1,0 +1,7 @@
+<fieldset>
+  <h3><%= title %></h3>
+  <% data.each do |d| %>
+    <input type="radio" name="<%= name %>[<%= attr_name %>]" id="<%= name %>_<%= attr_name %>" value="<%= d.id %>" <%= "checked" if d.id == selected %>>
+    <label for="<%= name %>_<%= attr_name %>"><%= d.name %></label>
+  <% end %>
+</fieldset>

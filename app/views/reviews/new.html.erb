@@ -1,0 +1,126 @@
+<h4>Complete Your Review:</h4>
+
+<h2 class="business-name"><%= @business.name %></h2>
+
+  <form action="<%= reviews_url %>" method="post">
+    <input type="hidden" name="review[business_id]" value="<%= @business.id %>">
+
+    <fieldset>
+      <div class="rating-container">
+        <label for="review_rating">Rating</label>
+        <input type="text" name="review[rating]" value="<%= @review.rating %>" id="review_rating">
+
+
+      </div>
+      <label for="review_body">Your review</label>
+      <textarea name="review[body]" id="review_body"rows="8" cols="40"><%= @review.body %></textarea>
+
+
+    </fieldset>
+
+    <h2>Have additional tips on this business? <em>(Optional)</em><h2>
+      <h3>We're surveying Yelpers for more handy information on this business. If the majority says it's so, then that's what we'll show.</h3>
+
+    <fieldset>
+      <%= render "forms/photo_helpful" %>
+      <%= render "forms/photo_helpful" %>
+      <%= render "forms/photo_helpful" %>
+    </fieldset>
+
+    <%= render "forms/checkbox_group", {
+      title: "Ambience:",
+      prefix: "restaurant_detail",
+      name: "ambience_id",
+      data: Ambience.all,
+      selected: 1
+    } %>
+
+    <% decisions = Decision.all %>
+
+    <%= render "forms/radio_group", {
+      title: "Good for Groups:",
+      name: "restaurant_detail",
+      attr_name: "good_for_groups",
+      data: decisions ,
+      selected: 1
+    } %>
+
+    <%= render "forms/radio_group", {
+      title: "Drive Thru:",
+      name: "restaurant_detail",
+      attr_name: "drive_thru",
+      data: decisions ,
+      selected: 1
+    } %>
+
+    <%= render "forms/radio_group", {
+      title: "Good For:",
+      name: "restaurant_detail",
+      attr_name: "drive_thru",
+      data: GoodForMeal.all ,
+      selected: 1
+    } %>
+
+    <h3>Price Range</h3>
+    <%= render "forms/price_range", {
+      name: "restaurant_detail[price_range]",
+      id: "restaurant_detail_price_range",
+      value: 2
+    } %>
+
+
+
+    <%= render "forms/radio_group", {
+      title: "Attire:",
+      name: "restaurant_detail",
+      attr_name: "attire",
+      data: Attire.all,
+      selected: 1
+    } %>
+
+    <%= render "forms/radio_group", {
+      title: "Good for Kids",
+      name: "restaurant_detail",
+      attr_name: "good_for_kids",
+      data: decisions,
+      selected: 1
+    } %>
+
+    <%= render "forms/radio_group", {
+      title: "Noise Level:",
+      name: "restaurant_detail",
+      attr_name: "noise_level",
+      data: NoiseLevel.all ,
+      selected: 1
+    } %>
+
+    <%= render "forms/checkbox_group", {
+      title: "Good For:",
+      prefix: "review",
+      name: "good_for_meal",
+      data: GoodForMeal.all,
+      selected: 1
+    } %>
+
+
+    <%= render "forms/radio_group", {
+      title: "Has TV:",
+      name: "restaurant_detail",
+      attr_name: "has_tv",
+      data: decisions,
+      selected: 1
+    } %>
+
+    <%= render "forms/radio_group", {
+      title: "Caters:",
+      name: "restaurant_detail",
+      attr_name: "caters",
+      data: decisions,
+      selected: 1
+    } %>
+
+    <a href="#">Cancel</a>
+    <input type="submit" name="submit" value="Post Review" id="Review">
+
+    <h5>* You can always edit or remove reviews later.</h5>
+</form>

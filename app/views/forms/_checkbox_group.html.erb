@@ -1,0 +1,8 @@
+<fieldset>
+  <h3><%= title %></h3>
+  <% data.each do |d| %>
+    <input type="checkbox" name="<%= prefix %>[<%= name %>]" value="<%= d.id %>" id="<%= prefix %>_<%= name %>"><%= d.name %>
+  <% end %>
+</fieldset>
+
+

@@ -11,8 +11,6 @@ new_bio = UserBio.new()
 new_bio.user_id = 1
 new_bio.save
 
-
-
 Business.create(name: "Bob's Burgers", country_id: 1)
 
 Category.create([
@@ -138,3 +136,18 @@ Review.create(
   business_id: 1,
   body: "Food was amazing!"
 )
+
+Attire.create([
+  {name: "Casual"},
+  {name: "Dressy"},
+  {name: "Formal (Jacket Required)"},
+  {name: "Not Sure"},
+])
+
+NoiseLevel.create([
+  {name: "Quiet"},
+  {name: "Average"},
+  {name: "Loud"},
+  {name: "Very Loud"},
+  {name: "Not Sure"}
+])
