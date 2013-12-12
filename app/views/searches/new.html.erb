@@ -1,0 +1,5 @@
+<ul>
+  <% @results.each do |result| %>
+    <li><a href="<%= business_url(result.id) %>"><%= result.name %></a></li>
+  <% end %>
+</ul>

@@ -7,6 +7,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_name
       t.string :nickname
       t.date :birthdate
+      t.integer :year
+      t.integer :month
+      t.integer :day
       t.string :session_token
 
       t.timestamps

@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20131212034950) do
   create_table "user_bios", :force => true do |t|
     t.string   "headline"
     t.string   "love_name"
+    t.string   "not_yelp"
     t.string   "find_me_in"
     t.string   "hometown"
     t.string   "website"
@@ -112,6 +113,9 @@ ActiveRecord::Schema.define(:version => 20131212034950) do
     t.string   "last_name"
     t.string   "nickname"
     t.date     "birthdate"
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "day"
     t.string   "session_token"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false

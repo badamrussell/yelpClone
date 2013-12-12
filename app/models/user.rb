@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :birthdate, :email, :first_name, :last_name, :nickname, :session_token, :password, :img_url
+  attr_accessible :year, :month, :day
   attr_reader :password
 
   validates :email, :session_token, :first_name, :last_name, presence: true

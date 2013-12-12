@@ -1,17 +1,194 @@
+
+
 <form action="<%= profile_url %>" method="post">
   <input type="hidden" name="_method" value="put">
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-  <img href="#" src="<%= avatar_img %>" height="100">
-  <br>
-  <label for="profile_img_url">Profile Image</label>
-  <br>
-  <input type="text" name="user[img_url]" value="<%= current_user.img_url %>" id="profile_img_url %>">
-
+  <h2>Your Public Profile</h2>
+  <input type="submit" name="submit" value="Save Changes" id="Save Changes">
 
   <br>
-  <%= render "dev/attributes", obj: @profile, is_form: true, prefix: "profile" %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "user",
+    attr_name: "img_url",
+    title: "Your profile photo",
+    subTitle: "",
+    value: current_user.img_url
+    } %>
+
+  <a href="#">
+  <img src="<%= avatar_img %>" height="100">
+  </a>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "user",
+    attr_name: "first_name",
+    title: "First Name",
+    subTitle: "This field is required.",
+    value: current_user.first_name
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "user",
+    attr_name: "last_name",
+    title: "Last Name",
+    subTitle: "This field is required. Only your last initial will show on your profile.",
+    value: current_user.last_name
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "user",
+    attr_name: "nickname",
+    title: "Nickname",
+    subTitle: "The Rock, Skipper, The Zen Master",
+    value: current_user.nickname
+  } %>
+
+
+  <div class="form-unit">
+
+    <label  class="title">Birthdate</label>
+    <h4 class="sub-heading">Your birthdate will not be displayed on your profile.<h4>
+
+    <%= select_date(nil, {
+      prefix: "user",
+      start_year: 1950,
+      end_year: Time.now.year - 1,
+      include_blank: true,
+      order: [:month, :day, :year],
+      value: Date.new(current_user.year, current_user.month, current_user.day)
+      #default: [current_user.month, current_user.day, current_user.year ]
+    }) %>
+  </div>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "headline",
+    title: "Your Headline",
+    subTitle: "America's Next Top Yelper, Don't you wish your girlfriend was Elite like me?",
+    value: @profile.headline
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "love_name",
+    title: "I Love...",
+    subTitle: "Comma separated phrases (e.g. sushi, Radiohead, puppies)",
+    value: @profile.love_name
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "find_me_in",
+    title: "Find Me in",
+    subTitle: "Greenwich Village, Nob Hill, or short pants",
+    value: @profile.find_me_in
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "hometown",
+    title: "My Hometown",
+    subTitle: "Schenectady, NY",
+    value: @profile.hometown
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "website",
+    title: "My Blog or Website",
+    subTitle: "www.someblog.wordpress.com",
+    value: @profile.website
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "not_yelp",
+    title: "When I'm Not Yelping",
+    subTitle: "I see dead people; I work at a gallery in town",
+    value: @profile.not_yelp,
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "reviews",
+    title: "Why You Should read My Reviews",
+    subTitle: "I go out 7 times a week, sometimes 8; I'm the king of the world!",
+    value: @profile.reviews
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "secondsite",
+    title: "My Second Favorite Site",
+    subTitle: "www.flickr.com, www.pets.com",
+    value: @profile.secondsite
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "book",
+    title: "The Last Great Book I Read",
+    subTitle: "Stephen Colbert's I Am America, Whatever Oprah tells me",
+    value: @profile.book
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "concert",
+    title: "My First Concert",
+    subTitle: "Duran Duran, Vanilla Ice, Wang Chung",
+    value: @profile.concert
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "movie",
+    title: "My Favorite Movie",
+    subTitle: "Eat Drink Man Woman, Harold & Kumar Go to White Castle",
+    value: @profile.movie
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "meal",
+    title: "My Last Meal on Earth",
+    subTitle: "French Laundry, My mom's meatloaf, A tub of fried chicken",
+    value: @profile.meal
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "dont_tell",
+    title: "Don't Tell Anyone Else But...",
+    subTitle: "I love Starbucks; My mom nominated me for the Elite Squad",
+    value: @profile.dont_tell
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "recent_discovery",
+    title: "Most Recent Discovery",
+    subTitle: "Shoegazer Music, In-N-Out Animal Style",
+    value: @profile.recent_discovery
+  } %>
+
+  <%= render "forms/textbox_unit", {
+    prefix: "profile",
+    attr_name: "crush",
+    title: "Current Crush",
+    subTitle: "Hayden Panettiere, Jessie's Girl",
+    value: @profile.crush
+  } %>
+
+
+
+
+
+  <br>
+  <!-- <%= render "dev/attributes", obj: @profile, is_form: true, prefix: "profile" %> -->
 
 
   <input type="submit" name="submit" value="Save Changes" id="Save Changes">

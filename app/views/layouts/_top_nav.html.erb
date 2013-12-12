@@ -4,7 +4,7 @@
 
 
   <nav class="top-nav group">
-    <form class="form-top-search">
+    <form class="form-top-search" action="<%= new_search_url %>" method="get">
       <label for="find">Find</label>
       <input type="text" name="find" value="" id="find">
 
@@ -16,7 +16,7 @@
 
     <div id="header-account-box">
       <% if signed_in? %>
-        <img href="#" src="<%= avatar_img %>" height="40">
+      <a href="<%= profile_url %>"><img src="<%= avatar_img %>" height="40"></a>
         <%= button_to "sign out", session_url, method: :delete %>
         <!-- <button class="auth-button">log out</button> -->
       <% else %>

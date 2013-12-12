@@ -3,7 +3,6 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = UserBio.find_by_user_id(current_user.id)
-
   end
 
   def edit
@@ -11,16 +10,22 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    @profile = UserBio.find_by_user_id(current_user.id)
+    flash[:errors] = []
+
+    ActiveRecord::Base.transaction do
+      @profile = UserBio.find_by_user_id(current_user.id)
+
+      @profile.update_attributes(params[:profile])
+      current_user.update_attributes(params[:user])
+
+      flash[:errors] += @profile.errors.full_messages
+      flash[:errors] += current_user.errors.full_messages
+    end
 
 
-
-    if @profile.update_attributes(params[:profile])
-      current_user.set_avatar(params[:user][:img_url])
-
+    if flash[:errors].empty?
       redirect_to profile_url
     else
-      flash[:errors] = @profile.errors.full_messages
       render :edit
     end
   end

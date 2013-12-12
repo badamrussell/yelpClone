@@ -3,6 +3,7 @@ class CreateUserBios < ActiveRecord::Migration
     create_table :user_bios do |t|
       t.string :headline
       t.string :love_name
+      t.string :not_yelp
       t.string :find_me_in
       t.string :hometown
       t.string :website
