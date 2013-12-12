@@ -1,16 +1,13 @@
 .header-logo {
  float: left;
  margin: 10px;
+ padding: 20px;
 }
 
-li a {
-  float: left;
-  margin: 10px;
-  color: white;
-}
+
 
 .top-header {
-  width: 800px;
+  width: 1000px;
   margin: auto;
   text-align: 80px;
 }
@@ -23,6 +20,15 @@ li a {
 .nav-links {
   border: 1px solid green;
   margin: auto;
+  float: left;
+  width: 500px;
+}
+
+.nav-links li a {
+  float: left;
+  margin: 4px;
+  color: white;
+  font-size: .8em;
 }
 
 #header-account-box {
@@ -41,4 +47,9 @@ li a {
   display: block;
   margin: auto;
   color: white;
+}
+
+.form-top-search {
+  float: left;
+  padding: 15px;
 }

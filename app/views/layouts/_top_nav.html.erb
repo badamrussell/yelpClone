@@ -1,16 +1,18 @@
 <header class="top-header">
   <h3 class="header-logo">yelp*</h3>
 
+
+
   <nav class="top-nav group">
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About Me</a></li>
-      <li><a href="#">Write a Review</a></li>
-      <li><a href="#">Find Friends</a></li>
-      <li><a href="#">Messages</a></li>
-      <li><a href="#">Talk</a></li>
-      <li><a href="#">Events</a></li>
-    </ul>
+    <form class="form-top-search">
+      <label for="find">Find</label>
+      <input type="text" name="find" value="" id="find">
+
+      <label for="near">Near</label>
+      <input type="text" name="near" value="" id="near">
+
+      <input type="submit" name="submit" value="submit" id="submit">
+    </form>
 
     <div id="header-account-box">
       <% if signed_in? %>
@@ -26,6 +28,16 @@
 
       <% end %>
     </div>
+
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About Me</a></li>
+      <li><a href="#">Write a Review</a></li>
+      <li><a href="#">Find Friends</a></li>
+      <li><a href="#">Messages</a></li>
+      <li><a href="#">Talk</a></li>
+      <li><a href="#">Events</a></li>
+    </ul>
   </nav>
 
 
