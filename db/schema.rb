@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212182517) do
+ActiveRecord::Schema.define(:version => 20131212193610) do
 
   create_table "ambience_reviews", :force => true do |t|
     t.integer  "ambience_id"
@@ -135,6 +135,13 @@ ActiveRecord::Schema.define(:version => 20131212182517) do
 
   create_table "noise_levels", :force => true do |t|
     t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "price_ranges", :force => true do |t|
+    t.string   "name"
+    t.string   "color"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
