@@ -1,0 +1,25 @@
+<h2>Add a Business</h2>
+<hr>
+
+
+
+
+
+
+
+<form action="<%= businesses_url %>" method="post">
+
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="business[country_code]">Country</label>
+  <input type="text" name="" value="" id="">
+
+
+  <%= render "dev/attributes", obj: @business, is_form: true, prefix: "business" %>
+
+
+  <%= render "forms/quick_review", title: nil, body: "" %>
+
+
+  <input type="submit" name="submit" value="Add Business" id="Add Business">
+</form>

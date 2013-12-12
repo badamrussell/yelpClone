@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(:version => 20131212015039) do
     t.string   "phone_number"
     t.string   "website"
     t.float    "rating"
-    t.integer  "category1"
-    t.integer  "category2"
-    t.integer  "category3"
+    t.integer  "category1_id"
+    t.integer  "category2_id"
+    t.integer  "category3_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end

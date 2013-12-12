@@ -12,7 +12,7 @@
  *= require_tree .
  */
 
-body, header, ul, li, nav, h1, h2, h3, a, button {
+body, header, ul, li, nav, h1, h2, h3, h4, h5, a, p, button {
   margin: 0;
   padding: 0;
   font: inherit;

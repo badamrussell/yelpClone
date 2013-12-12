@@ -11,9 +11,9 @@ class CreateBusinesses < ActiveRecord::Migration
       t.string :phone_number
       t.string :website
       t.float :rating
-      t.integer :category1
-      t.integer :category2
-      t.integer :category3
+      t.integer :category1_id
+      t.integer :category2_id
+      t.integer :category3_id
 
       t.timestamps
     end

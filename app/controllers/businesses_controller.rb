@@ -13,7 +13,7 @@ class BusinessesController < ApplicationController
     if @business.save
       redirect_to business_url(@business.id)
     else
-      flash[:errors] = @businesses.errors.full_messages
+      flash[:errors] = @business.errors.full_messages
       render :new
     end
   end
