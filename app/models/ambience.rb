@@ -1,3 +1,5 @@
 class Ambience < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :name
+
+  validates :name, presence: true
 end

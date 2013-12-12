@@ -96,3 +96,45 @@ Country.create([
   {name: "Canada"},
   {name: "Spain"}
 ])
+
+Decision.create([
+  {name: "Yes"},
+  {name: "No"},
+  {name: "Not Sure"}
+])
+
+Ambience.create([
+  {name: "Divey"},
+  {name: "Hipster"},
+  {name: "Casual"},
+  {name: "Touristy"},
+  {name: "Trendy"},
+  {name: "Intimate"},
+  {name: "Romantic"},
+  {name: "Classy"},
+  {name: "Upscale"}
+])
+
+BusinessParking.create([
+  {name: "Valet"},
+  {name: "Garage"},
+  {name: "Street"},
+  {name: "Private Lot"},
+  {name: "Validated"}
+])
+
+GoodForMeal.create([
+  {name: "Breakfast"},
+  {name: "Brunch"},
+  {name: "Lunch"},
+  {name: "Dinner"},
+  {name: "Late Night"},
+  {name: "Dessert"}
+])
+
+Review.create(
+  rating: 3,
+  user_id: 1,
+  business_id: 1,
+  body: "Food was amazing!"
+)
