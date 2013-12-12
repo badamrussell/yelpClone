@@ -11,7 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131211224808) do
+ActiveRecord::Schema.define(:version => 20131212015039) do
+
+  create_table "businesses", :force => true do |t|
+    t.integer  "country_id",   :null => false
+    t.string   "name",         :null => false
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip_code"
+    t.string   "phone_number"
+    t.string   "website"
+    t.float    "rating"
+    t.integer  "category1"
+    t.integer  "category2"
+    t.integer  "category3"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "businesses", ["name"], :name => "index_businesses_on_name"
 
   create_table "user_bios", :force => true do |t|
     t.string   "headline"
