@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :birthdate, :email, :first_name, :last_name, :nickname, :session_token, :password
+  attr_accessible :birthdate, :email, :first_name, :last_name, :nickname, :session_token, :password, :img_url
   attr_reader :password
 
   validates :email, :session_token, :first_name, :last_name, presence: true
@@ -26,6 +26,13 @@ class User < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def set_avatar(new_url)
+    return if new_url.blank?
+
+    self.img_url = new_url
+    self.save!
   end
 
   def password=(secret)

@@ -1,10 +1,21 @@
-<form action="" method="post">
+<form action="<%= profile_url %>" method="post">
   <input type="hidden" name="_method" value="put">
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
+  <img href="#" src="<%= avatar_img %>" height="100">
+  <br>
+  <label for="profile_img_url">Profile Image</label>
+  <br>
+  <input type="text" name="user[img_url]" value="<%= current_user.img_url %>" id="profile_img_url %>">
 
+
+  <br>
   <% @profile.attributes.each do |key, value| %>
+  <% next if key.include?("id") %>
+  <% next if key == "created_at" %>
+  <% next if key == "updated_at" %>
+
   <label for="profile_<%= key %>"><%= key %></label>
   <br>
   <input type="text" name="profile[<%= key %>]" value="<%= value %>" id="profile_<%= key %>">
@@ -12,5 +23,5 @@
   <% end %>
 
 
-  <input type="submit" name="Save Changes" value="submit" id="Save Changes">
+  <input type="submit" name="submit" value="Save Changes" id="Save Changes">
 </form>

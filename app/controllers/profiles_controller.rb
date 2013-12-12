@@ -13,7 +13,11 @@ class ProfilesController < ApplicationController
   def update
     @profile = UserBio.find_by_user_id(current_user.id)
 
-    if @profile.update_attribute(params[:profile])
+
+
+    if @profile.update_attributes(params[:profile])
+      current_user.set_avatar(params[:user][:img_url])
+
       redirect_to profile_url
     else
       flash[:errors] = @profile.errors.full_messages

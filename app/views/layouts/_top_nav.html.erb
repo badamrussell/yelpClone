@@ -1,16 +1,34 @@
-<header>
-  <nav>
-    <%= current_user.email if current_user %>
-    <br>
-    <%= session[:session_token] %>
-    <br>
-    <% if signed_in? %>
-      <%= current_user.email %>
-      <%= button_to "sign out", session_url, method: :delete %>
-    <% else %>
-      <%= link_to "log_in", new_session_url %>
-      <%= link_to "sign up", new_user_url %>
-    <% end %>
+<header class="top-header">
+  <h3 class="header-logo">yelp*</h3>
+
+  <nav class="top-nav group">
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About Me</a></li>
+      <li><a href="#">Write a Review</a></li>
+      <li><a href="#">Find Friends</a></li>
+      <li><a href="#">Messages</a></li>
+      <li><a href="#">Talk</a></li>
+      <li><a href="#">Events</a></li>
+    </ul>
+
+
+    <div id="header-account-box">
+      <% if signed_in? %>
+        <img href="#" src="<%= avatar_img %>" height="40">
+        <%= button_to "sign out", session_url, method: :delete %>
+        <!-- <button class="auth-button">log out</button> -->
+      <% else %>
+        <!-- <button class="auth-button">log in</button>
+        <button class="auth-button">sign up</button> -->
+
+        <%= link_to "log_in", new_session_url %>
+        <%= link_to "sign up", new_user_url %>
+
+      <% end %>
+    </div>
   </nav>
+
+
 </header>
 <hr>

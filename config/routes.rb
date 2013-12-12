@@ -8,5 +8,5 @@ YelpClone::Application.routes.draw do
   # match "profile_bio" => "profile#profile_bio", via: :get
   # match "profile_bio" => "user#profile_bio", via: :put
 
-  root to: "users#new"
+  root to: "profiles#show"
 end
