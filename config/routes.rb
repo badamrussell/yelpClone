@@ -3,7 +3,7 @@ YelpClone::Application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   resources :businesses
-
+  resources :categories, only: [:index]
   resource :profile, only: [:show, :edit, :update]
   # match "profile" => "user#profile"
   # match "profile_bio" => "profile#profile_bio", via: :get

@@ -4,4 +4,11 @@ class Business < ActiveRecord::Base
 
   validates :name, :country_id, presence: true
 
+  belongs_to(
+    :country,
+    class_name: "Country",
+    primary_key: :id,
+    foreign_key: :country_id
+  )
+
 end
