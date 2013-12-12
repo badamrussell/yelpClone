@@ -84,3 +84,10 @@ SubCategory.create([
   {name: "Wineries", category_id: 14}
 ])
 
+Country.create([
+  {name: "United States"},
+  {name: "United Kingdom"},
+  {name: "Germany"},
+  {name: "Canada"},
+  {name: "Spain"}
+])
