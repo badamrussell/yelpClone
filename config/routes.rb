@@ -6,7 +6,7 @@ YelpClone::Application.routes.draw do
 
   resources :users do
     get "add_photo" => "photos#new"
-    get "photos" => "photos#show"
+    get "photos" => "photos#user_show"
   end
 
   resource :session, only: [:new, :create, :destroy]
@@ -14,12 +14,12 @@ YelpClone::Application.routes.draw do
   resources :businesses do
     match "writeareview" => "reviews#new"
     get "add_photo" => "photos#new"
-    get "photos" => "photos#show"
+    get "photos" => "photos#biz_show"
   end
 
   resources :photos, only: [:create] do
-    get "edit_details" => "photo_details#edit"
-    put "details", controller: "photo_details"
+    get "details" => "photo_details#edit"
+    put "details" => "photo_details#update"
     post "details" => "photo_details#create"
   end
 

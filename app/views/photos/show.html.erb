@@ -7,7 +7,7 @@
 </nav>
 
 <% photo = @photos[@select_id] || Photo.new %>
-<h1><%= photo %></h1>
+
 <section class="photo-show-container group">
 
   <% if photo %>
@@ -20,9 +20,9 @@
       <p><strong><%= photo.caption %></strong></p>
 
       <% if current_user.photo_details_for(photo) %>
-        <%= render "photo_details/form", url: photo_details_url(photo.id), method: "put", photo_details: [] %>
+        <%= render "photo_details/form", url: photo_details_url(photo.id, business_id: @business.id), method: "put", details: current_user.photo_details_for(photo) %>
       <% else %>
-        <%= render "photo_details/form", url: photo_details_url(photo.id), method: "post", photo_details: nil %>
+        <%= render "photo_details/form", url: photo_detail_url(photo.id, business_id: @business.id), method: "post", details: nil %>
       <% end %>
 
 

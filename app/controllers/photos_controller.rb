@@ -8,10 +8,10 @@ class PhotosController < ApplicationController
 
   def create
     @photo = current_user.photos.new(params[:photo])
-
+    fail
     if @photo.save
-      if @photo.business_id
-        redirect_to business_url(@photo.business_id)
+      if params[:business_id]
+        redirect_to business_url(params[:business_id])
       else
         redirect_to user_url(current_user.id)
       end
@@ -22,11 +22,20 @@ class PhotosController < ApplicationController
     end
   end
 
-  def show
+  def biz_show
     @photo = Photo.new
     @business = params[:business_id] ? Business.find(params[:business_id]) : nil
     @photos = @business.photos
     @select_id = @photos.index(Photo.find(params[:photo_id]))
+    render :show
+  end
+
+  def user_show
+    @photo = Photo.new
+    @user = User.find(params[:id])
+    @photos = @business.photos
+    @select_id = @photos.index(Photo.find(params[:photo_id]))
+    render :show
   end
 
   def destroy
