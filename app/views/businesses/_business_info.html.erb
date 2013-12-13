@@ -1,5 +1,5 @@
 <div class="business-info">
-  <h2 class="page-title"><%= business.name %></h2>
+  <a href="<%= business_url(business.id) %>"><h2 class="page-title"><%= business.name %></h2></a>
 
   <div class="rating-container group">
     <%= render "widgets/rating" %>

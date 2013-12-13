@@ -68,21 +68,24 @@
 }
 
 .business-result {
-  width: 500px;
-  .business-info {
+  width: 700px;
+
+  .business-info-container {
     img {
       float: left;
     }
-  }
-
-  .user_review {
-
-    .user-avatar {
+    .business-stats {
       float: left;
     }
 
-    .highlight-body {
-      float: left;
+    .business-address {
+      float: right;
     }
   }
+
+  .review-container div {
+      float: left;
+  }
+
 }
+

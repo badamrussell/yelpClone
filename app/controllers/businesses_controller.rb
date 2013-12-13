@@ -29,7 +29,7 @@ class BusinessesController < ApplicationController
   def update
     @business = Business.find(params[:id])
 
-    if @params.update_attributes(params[:business])
+    if @business.update_attributes(params[:business])
 
       redirect_to business_url(@business.id)
     else

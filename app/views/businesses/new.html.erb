@@ -1,60 +1,7 @@
 <h2>Add a Business</h2>
 <hr>
 
-<form action="<%= businesses_url %>" method="post">
-
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-  <label for="business_country_id">Country</label>
-  <select name="business[country_id]" id="business_country_code">
-    <% Country.all.each do |country| %>
-      <option value="<%= country.id %>"><%= country.name %></option>
-    <% end %>
-  </select>
-
-  <br>
 
 
+<%= render "businesses/form", method: "post", url: new_business_url, business: @business %>
 
-
-  <%= render "dev/attributes", obj: @business, is_form: true, prefix: "business" %>
-
-  <fieldset class="business-categories">
-  <legend>Categories</legend>
-    <div>
-      <select name>
-        <% Category.all.each do|category| %>
-          <option value="<%= category.id %>">
-            <%= category.name %>
-          </option>
-        <% end %>
-      </select>
-
-      <select name="business[category1_id]">
-        <% SubCategory.all.each do|sub_category| %>
-          <option value="<%= sub_category.id %>">
-            <%= sub_category.name %>
-          </option>
-        <% end %>
-      </select>
-      <a href="#" class="small-link">Remove</a>
-    </div>
-    <a href="#" class="small-link">Add another category</a>
-  </fieldset>
-
-  <a href="#" class="small-link">See Full Category List</a>
-
-  <br>
-
-  <input type="checkbox" name="business[is_opening]" value="true" id="business_is_opening"><label for="this_business_recently_opened_or_is_opening_soon">This business recently opened or is opening soon</label>
-
-
-  <%= render "forms/quick_review", title: nil, body: "" %>
-
-
-  <input type="submit" name="submit" value="Add Business" id="Add Business">
-</form>
-
-<section class="sidebar-right">
-  <img src="/assets/temp/map_square.png">
-</section>

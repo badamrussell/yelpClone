@@ -1,18 +1,6 @@
 <h2>Edit Business</h2>
 <hr>
 
+<%= render "businesses/form", method: "put", url: business_url(@business.id), business: @business %>
 
 
-
-
-<form action="<%= business_url(@business.id) %>" method="post">
-  <input type="hidden" name="_method" value="put">
-
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-
-  <%= render "dev/attributes", obj: @business, is_form: true %>
-
-
-  <input type="submit" name="submit" value="Save Changes" id="Save Changes">
-</form>
