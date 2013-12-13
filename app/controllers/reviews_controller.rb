@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  before_filter :require_current_user!, except: [:show]
 
   def new
     @review = Review.new

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131213201149) do
+ActiveRecord::Schema.define(:version => 20131213210336) do
 
   create_table "ambience_reviews", :force => true do |t|
     t.integer  "ambience_id"
@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20131213201149) do
     t.integer  "zip_code"
     t.string   "phone_number"
     t.string   "website"
-    t.float    "rating"
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"

@@ -91,6 +91,7 @@ class Business < ActiveRecord::Base
   end
 
   def rating
+    return 0 if reviews.empty?
     reviews.inject(0) { |sum, r| sum + r.rating}/reviews.length
   end
 

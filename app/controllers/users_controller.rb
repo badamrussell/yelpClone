@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :require_current_user!, only: [:edit, :update]
 
   def index
     @users = User.all

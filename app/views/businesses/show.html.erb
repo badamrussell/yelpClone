@@ -71,9 +71,9 @@
 <section class="best-yelp-category group">
   <h3><strong>Best of Yelp</strong></h3>
   <ul class="photos-container group">
-  <% bestBiz = Business.best(@business.category1_id) %>
-  <% 5.times do |rest| %>
-  <li><%= render "businesses/store_front_photo", business: @business %></li>
+
+  <% Business.best(@business.category1_id).each do |rest| %>
+  <li><%= render "businesses/store_front_photo", business: rest %></li>
   <% end %>
 </ul>
   <a href="#">See More</a>

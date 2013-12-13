@@ -1,4 +1,6 @@
 class BusinessesController < ApplicationController
+  before_filter :require_current_user!, except: [:show]
+
   def show
     @business = Business.find(params[:id])
   end
@@ -8,12 +10,27 @@ class BusinessesController < ApplicationController
   end
 
   def create
+    flash[:errors] = []
     @business = Business.new(params[:business])
+    @review = current_user.reviews.new(params[:review])
 
-    if @business.save
+
+
+    ActiveRecord::Base.transaction do
+      @review.business_id = @business.id
+
+      @business.save
+      @review.save
+
+      flash[:errors] += @business.errors.full_messages
+      flash[:errors] += @review.errors.full_messages
+    end
+
+    fail
+
+    if flash[:errors].empty?
       redirect_to business_url(@business.id)
     else
-      flash[:errors] = @business.errors.full_messages
       render :new
     end
   end

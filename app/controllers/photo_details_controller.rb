@@ -1,4 +1,5 @@
 class PhotoDetailsController < ApplicationController
+  before_filter :require_current_user!, except: [:show]
 
   def edit
     fail
