@@ -148,17 +148,17 @@ ActiveRecord::Schema.define(:version => 20131212193610) do
 
   create_table "restaurant_details", :force => true do |t|
     t.integer  "review_id"
-    t.integer  "good_for_groups"
-    t.integer  "noise_level"
-    t.integer  "price_range"
-    t.integer  "attire"
-    t.integer  "good_for_kids"
-    t.integer  "wifi"
-    t.integer  "drive_thru"
-    t.integer  "has_tv"
-    t.integer  "caters"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.integer  "good_for_groups_id"
+    t.integer  "noise_level_id"
+    t.integer  "price_range_id"
+    t.integer  "attire_id"
+    t.integer  "good_for_kids_id"
+    t.integer  "wifi_id"
+    t.integer  "drive_thru_id"
+    t.integer  "has_tv_id"
+    t.integer  "caters_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "reviews", :force => true do |t|

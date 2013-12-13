@@ -5,7 +5,7 @@ class BusinessParkingReview < ActiveRecord::Base
 
   belongs_to(
     :business_parking,
-    class_name: "ReviewDetail",
+    class_name: "BusinessParking",
     primary_key: :id,
     foreign_key: :business_parking_id
   )

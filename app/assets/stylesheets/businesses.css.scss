@@ -1,3 +1,37 @@
 // Place all the styles related to the Businesses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.top-shelf {
+  position: relative;
+  background-color: #ddd;
+  height: 400px;
+  padding: 10px;
+  border-bottom: 1px solid darkgray;
+  .business-info {
+    width: 300px;
+    height: 100px;
+    float: left;
+    padding: 0px 10px 10px 0;
+  }
+
+  .business-interact {
+    float: right;
+  }
+
+  .review-button {
+    background-color: red;
+    color: white;
+  }
+
+  .mosaic {
+  }
+
+  .m li{
+    float: left;
+  }
+
+  .more-photos {
+    float: right;
+  }
+}

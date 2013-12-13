@@ -10,14 +10,15 @@ class ReviewsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       newReview = current_user.reviews.create(params[:review])
-
-      newDetails = newReview.details.create(params[:restaurant_details])
+      newDetails = RestaurantDetail.new(params[:restaurant_detail])
+      #newReview.details.create(params[:restaurant_detail])
+      newDetails.review_id = newReview.id
+      newDetails.save
+      #newDetails = newReview.details.create(params[:restaurant_details])
 
       flash[:errors] += newReview.errors.full_messages
-      flash[:errors] += newDetails.errors.full_messages
+      #flash[:errors] += newDetails.errors.full_messages
     end
-
-
 
     if flash[:errors].empty?
       redirect_to business_url(params[:review][:business_id])

@@ -3,6 +3,9 @@
 <h2 class="business-name"><%= @business.name %></h2>
 
   <form action="<%= reviews_url %>" method="post">
+
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
     <input type="hidden" name="review[business_id]" value="<%= @business.id %>">
 
     <fieldset>
@@ -30,7 +33,7 @@
     <%= render "forms/checkbox_group", {
       title: "Ambience:",
       prefix: "restaurant_detail",
-      name: "ambience_id",
+      name: "ambience_ids",
       data: Ambience.all,
       selected: 1
     } %>
@@ -40,7 +43,7 @@
     <%= render "forms/radio_group", {
       title: "Good for Groups:",
       name: "restaurant_detail",
-      attr_name: "good_for_groups",
+      attr_name: "good_for_groups_id",
       data: decisions ,
       selected: 1
     } %>
@@ -48,23 +51,15 @@
     <%= render "forms/radio_group", {
       title: "Drive Thru:",
       name: "restaurant_detail",
-      attr_name: "drive_thru",
+      attr_name: "drive_thru_id",
       data: decisions ,
-      selected: 1
-    } %>
-
-    <%= render "forms/radio_group", {
-      title: "Good For:",
-      name: "restaurant_detail",
-      attr_name: "drive_thru",
-      data: GoodForMeal.all ,
       selected: 1
     } %>
 
     <h3>Price Range</h3>
     <%= render "forms/price_range", {
-      name: "restaurant_detail[price_range]",
-      id: "restaurant_detail_price_range",
+      name: "restaurant_detail[price_range_id]",
+      id: "restaurant_detail_price_range_id",
       value: 2
     } %>
 
@@ -73,7 +68,7 @@
     <%= render "forms/radio_group", {
       title: "Attire:",
       name: "restaurant_detail",
-      attr_name: "attire",
+      attr_name: "attire_id",
       data: Attire.all,
       selected: 1
     } %>
@@ -81,7 +76,7 @@
     <%= render "forms/radio_group", {
       title: "Good for Kids",
       name: "restaurant_detail",
-      attr_name: "good_for_kids",
+      attr_name: "good_for_kids_id",
       data: decisions,
       selected: 1
     } %>
@@ -89,15 +84,15 @@
     <%= render "forms/radio_group", {
       title: "Noise Level:",
       name: "restaurant_detail",
-      attr_name: "noise_level",
+      attr_name: "noise_level_id",
       data: NoiseLevel.all ,
       selected: 1
     } %>
 
     <%= render "forms/checkbox_group", {
       title: "Good For:",
-      prefix: "review",
-      name: "good_for_meal",
+      prefix: "restaurant_detail",
+      name: "meal_ids",
       data: GoodForMeal.all,
       selected: 1
     } %>
@@ -106,7 +101,7 @@
     <%= render "forms/radio_group", {
       title: "Has TV:",
       name: "restaurant_detail",
-      attr_name: "has_tv",
+      attr_name: "has_tv_id",
       data: decisions,
       selected: 1
     } %>
@@ -114,7 +109,7 @@
     <%= render "forms/radio_group", {
       title: "Caters:",
       name: "restaurant_detail",
-      attr_name: "caters",
+      attr_name: "caters_id",
       data: decisions,
       selected: 1
     } %>

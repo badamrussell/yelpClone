@@ -11,7 +11,7 @@ new_bio = UserBio.new()
 new_bio.user_id = 1
 new_bio.save
 
-Business.create(name: "Bob's Burgers", country_id: 1)
+Business.create(name: "Bob's Burgers", country_id: 1, category1: 1, category2: 4,category3: 7)
 
 Category.create([
   {name: "Restaurants"},

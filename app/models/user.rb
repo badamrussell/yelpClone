@@ -15,6 +15,18 @@ class User < ActiveRecord::Base
     foreign_key: :user_id
   )
 
+  has_many(
+    :reviews,
+    class_name: "Review",
+    primary_key: :id,
+    foreign_key: :user_id
+  )
+
+  #--temporary placeholders until associations can be made
+  def friends
+    [1,2,3,4,5,6,7,8]
+  end
+
   def self.random_token
     SecureRandom::urlsafe_base64(16)
   end
@@ -49,6 +61,12 @@ class User < ActiveRecord::Base
     self.session_token = self.class.random_token
     self.save!
   end
+
+
+  def name
+    "#{self.first_name} #{self.last_name[0]}."
+  end
+
 
   private
 

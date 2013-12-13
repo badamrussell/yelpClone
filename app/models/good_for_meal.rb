@@ -4,8 +4,8 @@ class GoodForMeal < ActiveRecord::Base
   validates :name, presence: true
 
   has_many(
-    :restaurant_details,
-    class_name: "RestaurantDetail",
+    :meal_reviews,
+    class_name: "GoodForMealReview",
     primary_key: :id,
     foreign_key: :good_for_meal_id
   )

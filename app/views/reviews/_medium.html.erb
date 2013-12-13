@@ -1,0 +1,16 @@
+<section>
+  <div class="review-user-side">
+    <%= render "users/medium", user: User.find(review.user_id) %>
+  </div>
+  <div class="review-review-side">
+    <span><%= render "widgets/rating" %><em><%= review.created_at.strftime("%m/%d/%Y") %></em></span>
+    <p><%= review.body %></p>
+
+    <div class="review-upvote-container">
+      <em>Was this review ...?</em>
+      <button>Useful</button>
+      <button>Funny</button>
+      <button>Cool</button>
+    </div>
+  </div>
+</section>

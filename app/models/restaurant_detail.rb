@@ -1,20 +1,9 @@
 class RestaurantDetail < ActiveRecord::Base
-  attr_accessible :review_id, :good_for_groups_id, :noise_level_id, :price_range_id, :attire_id, :good_for_kids_id, :wifi_id, :drive_thru_id, :has_tv_id, :caters_id
+  attr_accessible :review_id, :good_for_groups_id, :noise_level_id, :price_range_id
+  attr_accessible :attire_id, :good_for_kids_id, :wifi_id, :drive_thru_id, :has_tv_id, :caters_id
+  attr_accessible :ambience_ids, :meal_ids
 
-  validates :review_id, presence: true
-
-
-
-
-  has_many(
-    :restaurant_details,
-    class_name: "RestaurantDetail",
-    primary_key: :id,
-    foreign_key: :ambience_id
-  )
-
-  :good_for_groups, :noise_level, :price_range, :attire, :good_for_kids, :wifi, :drive_thru, :has_tv, :caters
-
+  validates :review, presence: true
 
   belongs_to(
     :review,
@@ -24,17 +13,10 @@ class RestaurantDetail < ActiveRecord::Base
   )
 
   belongs_to(
-    :good_for_groups,
+    :caters,
     class_name: "Decision",
     primary_key: :id,
-    foreign_key: :good_for_groups_id
-  )
-
-  belongs_to(
-    :noise_level,
-    class_name: "NoiseLevel",
-    primary_key: :id,
-    foreign_key: :noise_level_id
+    foreign_key: :caters_id
   )
 
   belongs_to(
@@ -52,17 +34,17 @@ class RestaurantDetail < ActiveRecord::Base
   )
 
   belongs_to(
+    :good_for_groups,
+    class_name: "Decision",
+    primary_key: :id,
+    foreign_key: :good_for_groups_id
+  )
+
+  belongs_to(
     :good_for_kids,
     class_name: "Decision",
     primary_key: :id,
     foreign_key: :good_for_kids_id
-  )
-
-  belongs_to(
-    :wifi,
-    class_name: "Decision",
-    primary_key: :id,
-    foreign_key: :wifi_id
   )
 
   belongs_to(
@@ -73,6 +55,13 @@ class RestaurantDetail < ActiveRecord::Base
   )
 
   belongs_to(
+    :noise_level,
+    class_name: "NoiseLevel",
+    primary_key: :id,
+    foreign_key: :noise_level_id
+  )
+
+  belongs_to(
     :has_tv,
     class_name: "Decision",
     primary_key: :id,
@@ -80,11 +69,31 @@ class RestaurantDetail < ActiveRecord::Base
   )
 
   belongs_to(
-    :caters,
+    :wifi,
     class_name: "Decision",
     primary_key: :id,
-    foreign_key: :caters_id
+    foreign_key: :wifi_id
   )
 
+
+
+  has_many(
+    :ambience_reviews,
+    class_name: "AmbienceReview",
+    primary_key: :id,
+    foreign_key: :restaurant_detail_id
+  )
+
+  has_many :ambience, through: :ambience_reviews, source: :ambience
+
+
+  has_many(
+    :meal_reviews,
+    class_name: "GoodForMealReview",
+    primary_key: :id,
+    foreign_key: :restaurant_detail_id
+  )
+
+  has_many :meals, through: :meal_reviews, source: :meal
 
 end

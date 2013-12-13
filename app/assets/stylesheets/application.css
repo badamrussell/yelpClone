@@ -18,6 +18,7 @@ body, header, ul, li, nav, h1, h2, h3, h4, h5, a, p, button, fieldset {
   font: inherit;
   border: 0;
   font-family: sans-serif;
+  text-align: baseline;
 }
 
 ul li {
@@ -28,5 +29,11 @@ ul li {
   content: "";
   clear: both;
   display: block;
+}
+
+body {
+  display: block;
+  width: 1000px;
+  margin: auto;
 }
 

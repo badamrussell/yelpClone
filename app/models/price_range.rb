@@ -1,3 +1,5 @@
 class PriceRange < ActiveRecord::Base
-  # attr_accessible :title, :body
+    attr_accessible :name, :color
+
+    validates :name, :color, presence: true
 end

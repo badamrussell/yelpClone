@@ -3,10 +3,9 @@ class Ambience < ActiveRecord::Base
 
   validates :name, presence: true
 
-
   has_many(
-    :review_details,
-    class_name: "RestaurantDetail",
+    :ambience_reviews,
+    class_name: "AmbienceReview",
     primary_key: :id,
     foreign_key: :ambience_id
   )
