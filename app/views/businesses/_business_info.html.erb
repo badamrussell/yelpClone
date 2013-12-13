@@ -1,0 +1,20 @@
+<div class="business-info">
+  <h2 class="page-title"><%= business.name %></h2>
+
+  <div class="rating-container group">
+    <%= render "widgets/rating" %>
+    <em class=""><%= business.reviews.length %> reviews</em>
+  </div>
+
+  <div class="category-container">
+    <%= render "widgets/price_range" %>
+
+
+
+    <% (1..3).each do |index| %>
+      <% category_id = business["category#{index}_id"] %>
+      <% next if category_id.nil? %>
+      <a href="#"><%= SubCategory.find(category_id).name %></a>
+    <% end %>
+  </div>
+</div>

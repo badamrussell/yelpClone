@@ -40,6 +40,10 @@ class Business < ActiveRecord::Base
     [1,2,3,4,5,6,7]
   end
 
+  def top_review
+    Review.first
+  end
+
 
 
 end

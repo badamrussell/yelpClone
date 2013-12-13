@@ -1,0 +1,22 @@
+<div class="business-result group">
+  <section class="business-info group">
+    <img width="100" src="<%= business.store_front_photo %>">
+
+    <div class="business-stats">
+      <%= render "businesses/business_info", business: business %>
+    </div>
+
+    <div class="business-address">
+      <%= business.address1 %>
+      <%= business.address2 %>
+      <%= business.phone_number %>
+    </div>
+  </section>
+
+  <section class="user-review group">
+    <div class="user-avatar"><img height="40" src="<%= business.top_review.user.avatar %>"></div>
+    <p class="highlight-body"><%= business.top_review.body[0..50] %></p>
+  </section>
+</div>
+
+

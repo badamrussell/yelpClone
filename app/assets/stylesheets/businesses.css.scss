@@ -66,3 +66,23 @@
      }
   }
 }
+
+.business-result {
+  width: 500px;
+  .business-info {
+    img {
+      float: left;
+    }
+  }
+
+  .user_review {
+
+    .user-avatar {
+      float: left;
+    }
+
+    .highlight-body {
+      float: left;
+    }
+  }
+}

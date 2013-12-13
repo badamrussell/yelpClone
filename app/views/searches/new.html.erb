@@ -1,5 +1,6 @@
 <ul>
   <% @results.each do |result| %>
-    <li><a href="<%= business_url(result.id) %>"><%= result.name %></a></li>
+
+    <li><%= render "businesses/search_result", business: result %></li>
   <% end %>
 </ul>
