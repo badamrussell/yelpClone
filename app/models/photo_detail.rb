@@ -17,11 +17,11 @@ class PhotoDetail < ActiveRecord::Base
     foreign_key: :user_id
   )
 
-  has_many(
-    :photo_details,
-    class_name: "PhotoDetail",
+  belongs_to(
+    :helpful,
+    class_name: "Helpful",
     primary_key: :id,
-    foreign_key: :photo_id
+    foreign_key: :helpful_id
   )
 
 end

@@ -22,7 +22,7 @@
       <% if current_user.photo_details_for(photo) %>
         <%= render "photo_details/form", url: photo_details_url(photo.id, business_id: @business.id), method: "put", details: current_user.photo_details_for(photo) %>
       <% else %>
-        <%= render "photo_details/form", url: photo_detail_url(photo.id, business_id: @business.id), method: "post", details: nil %>
+        <%= render "photo_details/form", url: photo_details_url(photo.id, business_id: @business.id), method: "post", details: nil %>
       <% end %>
 
 

@@ -32,13 +32,20 @@ class Business < ActiveRecord::Base
     foreign_key: :business_id
   )
 
+  has_many :photo_details, through: :photos, source: :photo_details
 
   def self.best(categoryID)
     Business.all[0..5]
   end
 
+
   def store_front_photo
-    store_front_id ? self.store_front : "/assets/temp/photo_med_square.jpg"
+    # store_front_id ? self.store_front : "/assets/temp/photo_med_square.jpg"
+    fronts = store_front_search.map { |pd| pd.photo.img_url }
+
+    fronts << "/assets/temp/photo_med_square.jpg" if fronts.empty?
+
+    fronts[0]
   end
 
   def category_list
@@ -58,15 +65,25 @@ class Business < ActiveRecord::Base
   end
 
   def main_photos
-    p = []
-    p << store_front if store_front_id
+    # p = []
+    # p << store_front if store_front_id
+    #
+    # self.photos.each do |photo|
+    #   break if p.length > 2
+    #   p << photo unless p.include?(photo)
+    # end
+    #
+    # p
 
-    self.photos.each do |photo|
-      break if p.length > 2
-      p << photo unless p.include?(photo)
+    fronts = store_front_search.map { |pd| pd.photo }
+
+    photos.each do |p|
+      break if fronts.length > 2
+      next if fronts.include?(p)
+      fronts << p
     end
 
-    p
+    fronts
   end
 
   def missing_store_front?
@@ -77,4 +94,11 @@ class Business < ActiveRecord::Base
     reviews.inject(0) { |sum, r| sum + r.rating}/reviews.length
   end
 
+
+
+  private
+
+  def store_front_search
+    photo_details.where(store_front: true)
+  end
 end

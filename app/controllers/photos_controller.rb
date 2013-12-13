@@ -28,7 +28,7 @@ class PhotosController < ApplicationController
     @photo = Photo.new
     @business = params[:business_id] ? Business.find(params[:business_id]) : nil
     @photos = @business.photos
-    @select_id = @photos.index(Photo.find(params[:photo_id]))
+    @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0
     render :show
   end
 
@@ -36,7 +36,7 @@ class PhotosController < ApplicationController
     @photo = Photo.new
     @user = User.find(params[:id])
     @photos = @business.photos
-    @select_id = @photos.index(Photo.find(params[:photo_id]))
+    @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0
     render :show
   end
 
