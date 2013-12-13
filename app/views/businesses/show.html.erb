@@ -18,9 +18,9 @@
   <div class"mosaic">
     <ul class="m group">
       <li><img width="290" src="/assets/temp/map_square.png"></li>
-      <li><img width="220" src="/assets/temp/photo_med_square.jpg"></li>
-      <li><img width="250" src="<%= @business.store_front_photo %>"></li>
-      <li><img width="220" src="/assets/temp/photo_med_square.jpg"></li>
+      <% @business.main_photos.each do |photo| %>
+        <li><img width="<%= photo.is_store_front? ? 250 : 220 %>" src="<%= photo.img_url %>"></li>
+      <% end %>
     </ul>
   </div>
 

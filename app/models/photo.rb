@@ -17,4 +17,7 @@ class Photo < ActiveRecord::Base
     foreign_key: :business_id
   )
 
+  def is_store_front?
+    business.store_front_id == self.id
+  end
 end

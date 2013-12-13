@@ -49,10 +49,6 @@ class Business < ActiveRecord::Base
     "WRONG PLACE"
   end
 
-  def photos
-    [1,2,3,4,5,6,7]
-  end
-
   def top_review
     Review.first
   end
@@ -61,5 +57,16 @@ class Business < ActiveRecord::Base
     self.reviews[0..3]
   end
 
+  def main_photos
+    p = []
+    p << store_front if store_front_id
+
+    self.photos.each do |photo|
+      break if p.length > 2
+      p << photo unless p.include?(photo)
+    end
+
+    p
+  end
 
 end
