@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_filter :require_current_user!, except: [:show]
 
   def new
     @photo = Photo.new
@@ -22,10 +23,10 @@ class PhotosController < ApplicationController
   end
 
   def show
-    @select_id = params[:photo_id].to_i
     @photo = Photo.new
     @business = params[:business_id] ? Business.find(params[:business_id]) : nil
     @photos = @business.photos
+    @select_id = @photos.index(Photo.find(params[:photo_id]))
   end
 
   def destroy

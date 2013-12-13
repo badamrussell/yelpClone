@@ -1,0 +1,30 @@
+
+<% helpful_checked = photo_details ? photo_details.helpful_id : nil %>
+<% store_front_checked = photo_details ? photo_details.store_front : false %>
+
+<form action="<%= url %>" method="post">
+  <input type="hidden" name="_method" value="<%= method %>">
+
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <fieldset>
+    <legend>Is this photo helpful?</legend>
+    <% Helpful.all.each do |help| %>
+    <input  type="radio"
+            id="photo_details_helpful_id"
+            name="photo_details[helpful_id]"
+            value="<%= help.id %>"
+            <%= "checked" if helpful_checked == help.id %>>
+    <label for="photo_details_helpful_id"><%= help.name %></label>
+    <% end %>
+  </fieldset>
+
+  <input  type="checkbox"
+          name="photo_details[store_front]"
+          value="1"
+          id="photo_details_store_front"
+          <%= "checked" if store_front_checked %>>
+  <label for="photo_details_store_front">Mark as storefront photo</label>
+
+  <input type="submit" name="submit" value="Update Details" id="submit">
+</form>

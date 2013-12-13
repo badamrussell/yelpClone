@@ -101,6 +101,10 @@ class User < ActiveRecord::Base
     self.profile_locations.first.address
   end
 
+  def photo_details_for(photo)
+    self.photo_details.where(photo_id: photo.id)[0]
+  end
+
   private
 
   def ensure_token

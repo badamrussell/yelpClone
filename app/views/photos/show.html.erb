@@ -2,11 +2,12 @@
 
 <nav class="photo-nav">
   <button>Prev</button>
-  <span><strong><%= 1 %></strong> of <strong><%= @photos.length %></strong></span>
+  <span><strong><%= @select_id+1 %></strong> of <strong><%= @photos.length %></strong></span>
   <button>Next</button>
 </nav>
 
 <% photo = @photos[@select_id] || Photo.new %>
+<h1><%= photo %></h1>
 <section class="photo-show-container group">
 
   <% if photo %>
@@ -15,19 +16,15 @@
     </section>
 
     <section class="sidebar-photo-info group">
-      <%= render "users/passport", user: photo.user %>
+      <%= render "users/passport", photo: photo, user: photo.user %>
       <p><strong><%= photo.caption %></strong></p>
 
-      <fieldset>
-        <legend>Is this photo helpful?</legend>
-        <% Helpful.all.each do |help| %>
-        <input type="radio" id="photo_details_helpful_id" name="photo_details[helpful_id]" value="<%= help.id %>">
-        <label for="photo_details_helpful_id"><%= help.name %></label>
-        <% end %>
-      </fieldset>
+      <% if current_user.photo_details_for(photo) %>
+        <%= render "photo_details/form", url: photo_details_url(photo.id), method: "put", photo_details: [] %>
+      <% else %>
+        <%= render "photo_details/form", url: photo_details_url(photo.id), method: "post", photo_details: nil %>
+      <% end %>
 
-      <input type="checkbox" name="photo_details[store_front]" value="1" id="photo_details_store_front">
-      <label for="photo_details_store_front">Mark as storefront photo</label>
 
       <div>
         <p>Additional Info</p>
