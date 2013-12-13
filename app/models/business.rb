@@ -21,8 +21,15 @@ class Business < ActiveRecord::Base
   has_one(
     :store_front,
     class_name: "Photo",
-    primary_key: id,
+    primary_key: :id,
     foreign_key: :store_front_id
+  )
+
+  has_many(
+    :photos,
+    class_name: "Photo",
+    primary_key: :id,
+    foreign_key: :business_id
   )
 
 
@@ -31,7 +38,7 @@ class Business < ActiveRecord::Base
   end
 
   def store_front_photo
-    self.store_front || "/assets/temp/photo_med_square.jpg"
+    store_front_id ? self.store_front : "/assets/temp/photo_med_square.jpg"
   end
 
   def category_list
@@ -50,6 +57,9 @@ class Business < ActiveRecord::Base
     Review.first
   end
 
+  def get_highlight_reviews(amount)
+    self.reviews[0..3]
+  end
 
 
 end

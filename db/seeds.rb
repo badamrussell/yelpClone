@@ -6,12 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create( email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell" )
-new_bio = UserBio.new()
-new_bio.user_id = 1
-new_bio.save
+# User.create( email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell" )
+# new_bio = UserBio.new()
+# new_bio.user_id = 1
+# new_bio.save
 
-Business.create(name: "Bob's Burgers", country_id: 1, category1: 1, category2: 4,category3: 7)
+Business.create(name: "Bob's Burgers", country_id: 1, category1_id: 1, category2_id: 4,category3_id: 7)
 
 Category.create([
   {name: "Restaurants"},

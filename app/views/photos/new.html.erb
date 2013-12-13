@@ -1,0 +1,17 @@
+<h4>Add a picture for <strong><%= @business.name %></strong></h4>
+
+
+<form action="<%= photos_url %>" method="post">
+
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <% if @business %>
+    <input type="hidden" name="photo[business_id]" value="<%= @business.id %>">
+  <% end %>
+
+  <label for="photo_img_url"></label>
+  <input type="text" name="photo[img_url]" value="<%= @photo.img_url %>" id="photo_img_url">
+
+  <input type="submit" name="submit" value="Add Photo" id="submit">
+
+</form>

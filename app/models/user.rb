@@ -29,6 +29,13 @@ class User < ActiveRecord::Base
     foreign_key: :user_id
   )
 
+  has_many(
+    :photos,
+    class_name: "Photo",
+    primary_key: :id,
+    foreign_key: :user_id
+  )
+
   #--temporary placeholders until associations can be made
   def friends
     [1,2,3,4,5,6,7,8]

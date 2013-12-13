@@ -6,8 +6,9 @@
   <div class="business-header group">
     <%= render "businesses/business_info", business: @business %>
     <div class="business-interact">
-      <button class="add-button review-button">Write a Review</button>
-      <button class="add-button photo-button">Add Photo</button>
+      <%= button_to "Write a Review", business_writeareview_url(@business.id), method: :get %>
+
+      <%= button_to "Add Photo", business_add_photo_url(@business.id), method: :get %>
       <button class="add-button share-button">Share</button>
       <button class="add-button bookmark-button">Bookmark</button>
     </div>
@@ -18,7 +19,7 @@
     <ul class="m group">
       <li><img width="290" src="/assets/temp/map_square.png"></li>
       <li><img width="220" src="/assets/temp/photo_med_square.jpg"></li>
-      <li><img width="250" src="/assets/temp/photo_med_square.jpg"></li>
+      <li><img width="250" src="<%= @business.store_front_photo %>"></li>
       <li><img width="220" src="/assets/temp/photo_med_square.jpg"></li>
     </ul>
   </div>
@@ -29,9 +30,9 @@
 
 <section class="content-left">
   <section class="review-highlights">
-      <%= render "reviews/highlight", review: @business.reviews[0] %>
-      <%= render "reviews/highlight", review: @business.reviews[1] %>
-      <%= render "reviews/highlight", review: @business.reviews[2] %>
+    <% @business.get_highlight_reviews(3).each do |review| %>
+      <%= render "reviews/highlight", review: review %>
+    <% end %>
   </section>
   <a href="#">Show more review highlights</a>
 

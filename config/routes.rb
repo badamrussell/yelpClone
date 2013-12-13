@@ -1,10 +1,18 @@
 YelpClone::Application.routes.draw do
-  resources :users
+  resources :users do
+    get "add_photo" => "photos#new"
+    get "photos" => "photos#show"
+  end
+
   resource :session, only: [:new, :create, :destroy]
 
   resources :businesses do
     match "writeareview" => "reviews#new"
+    get "add_photo" => "photos#new"
+    get "photos" => "photos#show"
   end
+
+  resources :photos, only: [:create]
 
   resources :reviews, except: [:new]
   resources :categories, only: [:index]

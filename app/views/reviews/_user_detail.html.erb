@@ -2,7 +2,7 @@
   <section class="biz-info-header">
     <div class="biz-info-side">
       <% business = review.business %>
-      <div class="biz-title"><a href="#"><%= business.name %></a></div>
+      <div class="biz-title"><a href="<%= business_url(business.id) %>"><%= business.name %></a></div>
       <div>Categories:
         <% business.category_list.each do |category| %>
           <a href="#"><%= category %></a>

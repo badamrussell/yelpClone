@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(:version => 20131213115641) do
   end
 
   create_table "businesses", :force => true do |t|
-    t.integer  "country_id",   :null => false
-    t.string   "name",         :null => false
+    t.integer  "country_id",     :null => false
+    t.string   "name",           :null => false
     t.string   "address1"
     t.string   "address2"
     t.string   "city"
@@ -65,8 +65,9 @@ ActiveRecord::Schema.define(:version => 20131213115641) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "store_front_id"
   end
 
   add_index "businesses", ["name"], :name => "index_businesses_on_name"
