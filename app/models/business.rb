@@ -69,6 +69,9 @@ class Business < ActiveRecord::Base
     p
   end
 
+  def missing_store_front?
+    self.store_front_id.nil?
+  end
 
   def rating
     reviews.inject(0) { |sum, r| sum + r.rating}/reviews.length

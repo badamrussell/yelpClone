@@ -8,9 +8,11 @@ class PhotosController < ApplicationController
 
   def create
     @photo = current_user.photos.new(params[:photo])
-    fail
+
     if @photo.save
       if params[:business_id]
+        business = Business.find(params[:business_id])
+        business.update_attribute(:store_front_id, @photo.id) if business.missing_store_front?
         redirect_to business_url(params[:business_id])
       else
         redirect_to user_url(current_user.id)
