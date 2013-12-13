@@ -20,6 +20,13 @@ class Business < ActiveRecord::Base
 
 
 
+  def self.best(categoryID)
+    Business.all[0..5]
+  end
+
+  def store_front_photo
+    "/assets/temp/photo_med_square.jpg"
+  end
 
   def photos
     [1,2,3,4,5,6,7]

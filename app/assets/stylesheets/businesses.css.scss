@@ -8,9 +8,11 @@
   height: 400px;
   padding: 10px;
   border-bottom: 1px solid darkgray;
+  margin-bottom: 50px;
+
   .business-info {
     width: 300px;
-    height: 100px;
+    height: 120px;
     float: left;
     padding: 0px 10px 10px 0;
   }
@@ -37,7 +39,7 @@
 }
 
 .content-left {
-  width: 700px;
+  width: 680px;
   float: left;
   border: 1px solid blue;
 }
@@ -47,4 +49,21 @@
   float: right;
   width: 300px;
   border: 1px solid red;
+}
+
+.best-yelp-category {
+  width: 600px;
+
+  .photos-container {
+     width: 1000px;
+
+     li {
+       float: left;
+       margin-right: 20px;
+     }
+
+     li:last {
+       margin-right: 0;
+     }
+  }
 }

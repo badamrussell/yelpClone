@@ -35,10 +35,10 @@
 
   <div class"mosaic">
     <ul class="m group">
-      <li><img width="250" src="/assets/temp/map_square.png"></li>
-      <li><img width="200" src="/assets/temp/photo_med_square.jpg"></li>
-      <li><img width="240" src="/assets/temp/photo_med_square.jpg"></li>
-      <li><img width="200" src="/assets/temp/photo_med_square.jpg"></li>
+      <li><img width="290" src="/assets/temp/map_square.png"></li>
+      <li><img width="220" src="/assets/temp/photo_med_square.jpg"></li>
+      <li><img width="250" src="/assets/temp/photo_med_square.jpg"></li>
+      <li><img width="220" src="/assets/temp/photo_med_square.jpg"></li>
     </ul>
   </div>
 
@@ -81,9 +81,20 @@
 
 </section>
 
-<section class="right-sidebar">
+<section class="right-sidebar group">
 
+  CONTENT
 </section>
 
+<section class="best-yelp-category group">
+  <h3><strong>Best of Yelp</strong></h3>
+  <ul class="photos-container group">
+  <% bestBiz = Business.best(@business.category1_id) %>
+  <% 5.times do |rest| %>
+  <li><%= render "businesses/store_front_photo", business: @business %></li>
+  <% end %>
+</ul>
+  <a href="#">See More</a>
+</section>
 
 
