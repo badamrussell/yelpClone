@@ -31,7 +31,7 @@
 
     <ul class="nav-links">
       <li><a href="#">Home</a></li>
-      <li><a href="<%= user_url(current_user.id) %>">About Me</a></li>
+      <li><a href="<%= current_user ? user_url(current_user.id) : new_user_url %>">About Me</a></li>
       <li><a href="#">Write a Review</a></li>
       <li><a href="#">Find Friends</a></li>
       <li><a href="#">Messages</a></li>

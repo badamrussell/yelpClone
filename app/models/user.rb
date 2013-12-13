@@ -22,6 +22,13 @@ class User < ActiveRecord::Base
     foreign_key: :user_id
   )
 
+  has_many(
+    :profile_locations,
+    class_name: "ProfileLocation",
+    primary_key: :id,
+    foreign_key: :user_id
+  )
+
   #--temporary placeholders until associations can be made
   def friends
     [1,2,3,4,5,6,7,8]
@@ -73,6 +80,11 @@ class User < ActiveRecord::Base
 
   def avatar
     self.img_url || "/assets/temp/default_user.jpg"
+  end
+
+  def display_location
+    #needs to be better and choose primary
+    self.profile_locations.first.address
   end
 
   private

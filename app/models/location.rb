@@ -17,4 +17,9 @@ class Location < ActiveRecord::Base
     foreign_key: :location_id
   )
 
+
+  def self.determine_neighborhood()
+    "Manhattan, NY"
+  end
+
 end

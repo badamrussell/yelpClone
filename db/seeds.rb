@@ -151,3 +151,7 @@ NoiseLevel.create([
   {name: "Very Loud"},
   {name: "Not Sure"}
 ])
+
+ProfileLocation.create([
+  {user_id: 1, name: "Home", address: "Manhattan, NY", primary: true}
+])

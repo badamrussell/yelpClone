@@ -28,8 +28,11 @@ class UsersController < ApplicationController
       newBio.user_id = @user.id
       newBio.save!
 
+      neighborhood = Location.determine_neighborhood()
+      newLocation = @user.profile_locations.create(address: neighborhood, name: "Home", primary: true)
+
       sign_in(@user)
-      redirect_to user_url(user.id)
+      redirect_to user_url(@user.id)
     else
       flash[:errors] = ["invalid email and/or password"]
       render :new
