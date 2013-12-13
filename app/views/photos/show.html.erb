@@ -14,7 +14,7 @@
       <img src="<%= photo.img_url %>">
     </section>
 
-    <section class="sidebar-photo-info">
+    <section class="sidebar-photo-info group">
       <%= render "users/passport", user: photo.user %>
       <p><strong><%= photo.caption %></strong></p>
 
@@ -25,6 +25,17 @@
         <label for="photo_details_helpful_id"><%= help.name %></label>
         <% end %>
       </fieldset>
+
+      <input type="checkbox" name="photo_details[store_front]" value="1" id="photo_details_store_front">
+      <label for="photo_details_store_front">Mark as storefront photo</label>
+
+      <div>
+        <p>Additional Info</p>
+        <em>Uploaded <strong><%= photo.created_at.strftime("%B %d,%Y") %></strong></em>
+      </div>
+
     </section>
+
+
   <% end %>
 </section>
