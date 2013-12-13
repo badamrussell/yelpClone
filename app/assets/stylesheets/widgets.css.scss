@@ -7,8 +7,8 @@
 }
 
 .review-highlight {
-  border: 1px solid green;
-
+  margin: 10px;
+  margin-left: 0;
   .user-avatar {
     float: left;
     margin: 5px;
@@ -18,5 +18,17 @@
     float: left;
     font-size: 1.5em;
     line-height: 60px;
+  }
+}
+
+.medium-review-container {
+
+  .biz-info-header {
+
+  }
+
+  .review-interest li {
+    float: left;
+    margin: 4px;
   }
 }

@@ -1,0 +1,15 @@
+<section class="user-sidebar">
+  <% if user == current_user %>
+  <a href="<%= edit_user_url(user.id) %>">edit</a>
+  <% end %>
+  <div class="user-avatar"><img width="120" src="<%= current_user.avatar %>"></div>
+
+  <span><strong><%= user.friends.length %></strong> friends</span>
+  <a href="<%= profile_url %>"><img src="/assets/temp/star.jpg" height="10"></a>
+  <span><strong><%= user.reviews.length %></strong> reviews</span>
+  <span><strong><%= user.fans.length %></strong> fans</span>
+
+  <a href="#">Upload a Photo</a>
+
+
+</section>

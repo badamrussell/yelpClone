@@ -28,6 +28,14 @@ class Business < ActiveRecord::Base
     "/assets/temp/photo_med_square.jpg"
   end
 
+  def category_list
+    ["food", "stuff"]
+  end
+
+  def neighborhood
+    "WRONG PLACE"
+  end
+
   def photos
     [1,2,3,4,5,6,7]
   end

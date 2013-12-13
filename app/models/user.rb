@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     [1,2,3,4,5,6,7,8]
   end
 
+  def fans
+    [1,2,3,4]
+  end
+
   def self.random_token
     SecureRandom::urlsafe_base64(16)
   end

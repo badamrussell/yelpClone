@@ -33,4 +33,8 @@ class Review < ActiveRecord::Base
     end
   end
 
+  def category_list
+    ["food", "stuff"]
+  end
+
 end
