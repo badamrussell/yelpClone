@@ -1,6 +1,6 @@
 class Business < ActiveRecord::Base
   # attr_accessible :title, :body
-  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website ,:rating ,:category1_id ,:category2_id ,:category3_id
+  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website ,:rating ,:category1_id ,:category2_id ,:category3_id, :store_front_id
 
   validates :name, :country_id, presence: true
 
@@ -18,6 +18,12 @@ class Business < ActiveRecord::Base
     foreign_key: :business_id
   )
 
+  has_one(
+    :store_front,
+    class_name: "Photo",
+    primary_key: id,
+    foreign_key: :store_front_id
+  )
 
 
   def self.best(categoryID)
@@ -25,7 +31,7 @@ class Business < ActiveRecord::Base
   end
 
   def store_front_photo
-    "/assets/temp/photo_med_square.jpg"
+    self.store_front || "/assets/temp/photo_med_square.jpg"
   end
 
   def category_list
