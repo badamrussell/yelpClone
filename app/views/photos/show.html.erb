@@ -1,0 +1,30 @@
+<h3><a href="<%= business_url(@business.id) %>"><%= @business.name %>:</a> Photos</h3>
+
+<nav class="photo-nav">
+  <button>Prev</button>
+  <span><strong><%= 1 %></strong> of <strong><%= @photos.length %></strong></span>
+  <button>Next</button>
+</nav>
+
+<% photo = @photos[@select_id] || Photo.new %>
+<section class="photo-show-container group">
+
+  <% if photo %>
+    <section class="content-photo">
+      <img src="<%= photo.img_url %>">
+    </section>
+
+    <section class="sidebar-photo-info">
+      <%= render "users/passport", user: photo.user %>
+      <p><strong><%= photo.caption %></strong></p>
+
+      <fieldset>
+        <legend>Is this photo helpful?</legend>
+        <% Helpful.all.each do |help| %>
+        <input type="radio" id="photo_details_helpful_id" name="photo_details[helpful_id]" value="<%= help.id %>">
+        <label for="photo_details_helpful_id"><%= help.name %></label>
+        <% end %>
+      </fieldset>
+    </section>
+  <% end %>
+</section>

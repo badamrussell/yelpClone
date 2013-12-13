@@ -19,12 +19,12 @@
     <ul class="m group">
       <li><img width="290" src="/assets/temp/map_square.png"></li>
       <% @business.main_photos.each do |photo| %>
-        <li><img width="<%= photo.is_store_front? ? 250 : 220 %>" src="<%= photo.img_url %>"></li>
+        <li><a href="<%= business_photos_url(@business.id, photo_id: photo.id) %>"><img width="<%= photo.is_store_front? ? 250 : 220 %>" src="<%= photo.img_url %>"></a></li>
       <% end %>
     </ul>
   </div>
 
-  <a class="more-photos" href="#">See all <%= @business.photos.length %> photos</a>
+  <a class="more-photos" href="<%= business_photos_url(@business.id) %>">See all <%= @business.photos.length %> photos</a>
 </div>
 
 

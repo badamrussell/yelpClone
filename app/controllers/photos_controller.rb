@@ -21,6 +21,13 @@ class PhotosController < ApplicationController
     end
   end
 
+  def show
+    @select_id = params[:photo_id].to_i
+    @photo = Photo.new
+    @business = params[:business_id] ? Business.find(params[:business_id]) : nil
+    @photos = @business.photos
+  end
+
   def destroy
 
   end

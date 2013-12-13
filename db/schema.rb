@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131213115641) do
+ActiveRecord::Schema.define(:version => 20131213145702) do
 
   create_table "ambience_reviews", :force => true do |t|
     t.integer  "ambience_id"
@@ -114,6 +114,12 @@ ActiveRecord::Schema.define(:version => 20131213115641) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "helpfuls", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "locations", :force => true do |t|
     t.string   "name",       :null => false
     t.integer  "city_id",    :null => false
@@ -140,10 +146,23 @@ ActiveRecord::Schema.define(:version => 20131213115641) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "photo_details", :force => true do |t|
+    t.integer  "photo_id",    :null => false
+    t.integer  "helpful_id"
+    t.boolean  "store_front"
+    t.integer  "user_id",     :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "photo_details", ["photo_id"], :name => "index_photo_details_on_photo_id"
+  add_index "photo_details", ["user_id"], :name => "index_photo_details_on_user_id"
+
   create_table "photos", :force => true do |t|
     t.string   "img_url",     :null => false
     t.integer  "user_id",     :null => false
     t.integer  "business_id"
+    t.string   "caption"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
