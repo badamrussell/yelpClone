@@ -35,7 +35,7 @@ class Business < ActiveRecord::Base
   has_many :photo_details, through: :photos, source: :photo_details
 
   def self.best(categoryID)
-    Business.all[0..5]
+    Business.all[0..4]
   end
 
 

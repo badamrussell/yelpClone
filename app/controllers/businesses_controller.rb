@@ -17,16 +17,15 @@ class BusinessesController < ApplicationController
 
 
     ActiveRecord::Base.transaction do
+      @business.save
+
       @review.business_id = @business.id
 
-      @business.save
       @review.save
 
       flash[:errors] += @business.errors.full_messages
       flash[:errors] += @review.errors.full_messages
     end
-
-    fail
 
     if flash[:errors].empty?
       redirect_to business_url(@business.id)
