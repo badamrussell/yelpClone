@@ -22,7 +22,7 @@
 
   <div class="review-review-side">
     <div class="rating-header group">
-      <%= render "widgets/rating" %>
+      <%= render "widgets/rating", rating: review.rating %>
       <em><%= review.created_at.strftime("%m/%d/%Y") %></em>
     </div>
 

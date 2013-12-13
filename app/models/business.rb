@@ -1,6 +1,6 @@
 class Business < ActiveRecord::Base
   # attr_accessible :title, :body
-  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website ,:rating ,:category1_id ,:category2_id ,:category3_id, :store_front_id
+  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website,:category1_id ,:category2_id ,:category3_id, :store_front_id
 
   validates :name, :country_id, presence: true
 
@@ -67,6 +67,11 @@ class Business < ActiveRecord::Base
     end
 
     p
+  end
+
+
+  def rating
+    reviews.inject(0) { |sum, r| sum + r.rating}/reviews.length
   end
 
 end
