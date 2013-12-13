@@ -1,5 +1,11 @@
 class CategoriesController < ApplicationController
+
   def index
-    @categories = Categories.all.include(:subcategories)
+
   end
+
+  def show
+
+  end
+
 end

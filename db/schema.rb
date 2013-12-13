@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131213145702) do
+ActiveRecord::Schema.define(:version => 20131213201149) do
 
   create_table "ambience_reviews", :force => true do |t|
     t.integer  "ambience_id"
@@ -73,10 +73,13 @@ ActiveRecord::Schema.define(:version => 20131213145702) do
   add_index "businesses", ["name"], :name => "index_businesses_on_name"
 
   create_table "categories", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "main_category_id", :null => false
+    t.string   "name",             :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
+
+  add_index "categories", ["main_category_id"], :name => "index_categories_on_main_category_id"
 
   create_table "cities", :force => true do |t|
     t.string   "name",       :null => false
@@ -130,6 +133,12 @@ ActiveRecord::Schema.define(:version => 20131213145702) do
   add_index "locations", ["city_id"], :name => "index_locations_on_city_id"
   add_index "locations", ["name"], :name => "index_locations_on_name", :unique => true
 
+  create_table "main_categories", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "neighborhoods", :force => true do |t|
     t.string   "name",        :null => false
     t.integer  "location_id", :null => false
@@ -147,12 +156,12 @@ ActiveRecord::Schema.define(:version => 20131213145702) do
   end
 
   create_table "photo_details", :force => true do |t|
-    t.integer  "photo_id",    :null => false
+    t.integer  "photo_id",                       :null => false
     t.integer  "helpful_id"
-    t.boolean  "store_front"
-    t.integer  "user_id",     :null => false
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.boolean  "store_front", :default => false
+    t.integer  "user_id",                        :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "photo_details", ["photo_id"], :name => "index_photo_details_on_photo_id"
@@ -214,15 +223,6 @@ ActiveRecord::Schema.define(:version => 20131213145702) do
 
   add_index "reviews", ["business_id"], :name => "index_reviews_on_business_id"
   add_index "reviews", ["user_id"], :name => "index_reviews_on_user_id"
-
-  create_table "sub_categories", :force => true do |t|
-    t.string   "name",        :null => false
-    t.integer  "category_id", :null => false
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "sub_categories", ["category_id"], :name => "index_sub_categories_on_category_id"
 
   create_table "user_bios", :force => true do |t|
     t.string   "headline"

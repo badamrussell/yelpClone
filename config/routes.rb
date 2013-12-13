@@ -23,6 +23,7 @@ YelpClone::Application.routes.draw do
     post "details" => "photo_details#create"
   end
 
+  resources :categories, only: [:show, :index]
 
   resources :reviews, except: [:new]
   resources :categories, only: [:index]

@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create( [
-  {email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell"},
+  {email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell", img_url: "/assets/temp/bob-burger.jpg"},
   {email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white"},
-  {email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants"}
+  {email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", img_url: "/assets/temp/imgres.jpg"}
 ])
 new_bio = UserBio.new()
 new_bio.user_id = 1
@@ -33,7 +33,7 @@ Business.create(name: "Bob's Burgers", country_id: 1, category1_id: 1, category2
 Business.create(name: "Cheers", country_id: 1, category1_id: 10, category2_id: 1,category3_id: 2)
 Business.create(name: "Chipotle", country_id: 1, category1_id: 12, category2_id: 1,category3_id: 2)
 
-Category.create([
+MainCategory.create([
   {name: "Restaurants"},
   {name: "Food"},
   {name: "Nightlife"},
@@ -85,26 +85,26 @@ Neighborhood.create([
   {name: "Midtown East", location_id: 1}
 ])
 
-SubCategory.create([
-  {name: "Arcades", category_id: 14},
-  {name: "Art Galleries", category_id: 14},
-  {name: "Botanical Gardens", category_id: 14},
-  {name: "Casinos", category_id: 14},
-  {name: "Cinema", category_id: 14},
-  {name: "Cultural Center", category_id: 14},
-  {name: "Festivals", category_id: 14},
-  {name: "Jazz & Blues", category_id: 14},
-  {name: "Museums", category_id: 14},
-  {name: "Music Venues", category_id: 14},
-  {name: "Opera & Ballet", category_id: 14},
-  {name: "Performing Arts", category_id: 14},
-  {name: "Professional Sports Teams", category_id: 14},
-  {name: "Psychics & Astrologers", category_id: 14},
-  {name: "Race Tracks", category_id: 14},
-  {name: "Social Clubs", category_id: 14},
-  {name: "Stadiums & Arenas", category_id: 14},
-  {name: "Ticket Sales", category_id: 14},
-  {name: "Wineries", category_id: 14}
+Category.create([
+  {name: "Arcades", main_category_id: 14},
+  {name: "Art Galleries", main_category_id: 14},
+  {name: "Botanical Gardens", main_category_id: 14},
+  {name: "Casinos", main_category_id: 14},
+  {name: "Cinema", main_category_id: 14},
+  {name: "Cultural Center", main_category_id: 14},
+  {name: "Festivals", main_category_id: 14},
+  {name: "Jazz & Blues", main_category_id: 14},
+  {name: "Museums", main_category_id: 14},
+  {name: "Music Venues", main_category_id: 14},
+  {name: "Opera & Ballet", main_category_id: 14},
+  {name: "Performing Arts", main_category_id: 14},
+  {name: "Professional Sports Teams", main_category_id: 14},
+  {name: "Psychics & Astrologers", main_category_id: 14},
+  {name: "Race Tracks", main_category_id: 14},
+  {name: "Social Clubs", main_category_id: 14},
+  {name: "Stadiums & Arenas", main_category_id: 14},
+  {name: "Ticket Sales", main_category_id: 14},
+  {name: "Wineries", main_category_id: 14}
 ])
 
 Country.create([
@@ -186,4 +186,20 @@ Helpful.create([
   {name: "Very Helpful"},
   {name: "Helpful"},
   {name: "Not Helpful"}
+])
+
+Photo.create([
+  {business_id:1, img_url: "/assets/temp/food_1.jpg", user_id:1},
+  {business_id:1, img_url: "/assets/temp/front.jpg", user_id:1},
+  {business_id:2, img_url: "/assets/temp/food_3.jpg", user_id:2},
+  {business_id:1, img_url: "/assets/temp/food_4.jpg", user_id:2},
+  {business_id:3, img_url: "/assets/temp/food_5.jpg", user_id:3},
+  {business_id:3, img_url: "/assets/temp/food_6.jpg", user_id:3}
+])
+
+PhotoDetail.create([
+  {helpful_id:1, photo_id:1, store_front: false, user_id:1},
+  {helpful_id:2, photo_id:2, store_front: true, user_id:2},
+  {helpful_id:3, photo_id:3, store_front: false, user_id:3},
+  {helpful_id:2, photo_id:4, store_front: false, user_id:3}
 ])

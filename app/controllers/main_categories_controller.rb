@@ -1,0 +1,2 @@
+class MainCategoriesController < ApplicationController
+end
