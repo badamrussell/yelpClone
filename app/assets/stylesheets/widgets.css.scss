@@ -5,3 +5,18 @@
 .price-range-container li{
   float: left;
 }
+
+.review-highlight {
+  border: 1px solid green;
+
+  .user-avatar {
+    float: left;
+    margin: 5px;
+  }
+
+  .highlight-body {
+    float: left;
+    font-size: 1.5em;
+    line-height: 60px;
+  }
+}

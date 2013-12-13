@@ -1,13 +1,29 @@
-<section>
+<section class="medium-review-container group">
   <div class="review-user-side">
-    <%= render "users/medium", user: User.find(review.user_id) %>
+    <%= render "users/medium", user: review.user %>
+
+    <div>
+      <ul>
+        <li><a href="#">Share Review</a></li>
+        <li><a href="#">Compliment</a></li>
+        <li><a href="#">Send Message</a></li>
+        <li><a href="#">Follow <%= review.user.name %></a></li>
+      </ul>
+    </div>
+
   </div>
   <div class="review-review-side">
-    <span><%= render "widgets/rating" %><em><%= review.created_at.strftime("%m/%d/%Y") %></em></span>
-    <p><%= review.body %></p>
+    <div class="rating-header group">
+      <%= render "widgets/rating" %>
+      <em><%= review.created_at.strftime("%m/%d/%Y") %></em>
+    </div>
+
+    <div>
+      <p><%= review.body %></p>
+    </div>
 
     <div class="review-upvote-container">
-      <em>Was this review ...?</em>
+      <div class="upvote-question"><em>Was this review ...?</em></div>
       <button>Useful</button>
       <button>Funny</button>
       <button>Cool</button>

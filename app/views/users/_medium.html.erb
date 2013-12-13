@@ -1,19 +1,10 @@
 
 <div>
-  <a href="<%= profile_url %>"><img src="<%= avatar_img %>" height="40"></a>
+  <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>" height="40"></a>
   <a href="<%= user_url(user.id) %>"><%= user.name %></a>
   <div>Sometown, NY</div>
-  <a href="<%= profile_url %>"><img src="<%= avatar_img %>" height="10"></a>
+  <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>" height="10"></a>
   <span><strong><%= user.friends.length %></strong> friends</span>
   <a href="<%= profile_url %>"><img src="/assets/temp/star.jpg" height="10"></a>
   <span><strong><%= user.reviews.length %></strong> reviews</span>
-
-  <div>
-    <ul>
-      <li><a>Share Review</a></li>
-      <li><a>Compliment</a></li>
-      <li><a>Send Message</a></li>
-      <li><a href="">Follow <%= user.name %></a></li>
-    </ul>
-  </div>
 </div>

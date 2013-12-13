@@ -45,28 +45,45 @@
   <a class="more-photos" href="#">See all <%= @business.photos.length %> photos</a>
 </div>
 
-<%= render "dev/attributes", obj: @business, is_form: false, prefix: "business" %>
 
-<hr>
-
-<div class="reviews-list">
-  <h2>Recommended Reviews</h2>
-  <label for="search_reviews">Search reviews</label>
-  <input type="text" name="search_reviews" value="" id="search_reviews">
-  <button>Search</button>
-</div>
-
-Yelp Sort
-
-<a href="#">Date</a>
-
-<a href="#">Rating</a>
-
-<a href="#">Elites</a>
+<section class="content-left">
+  <section class="review-highlights">
+      <%= render "reviews/highlight", review: @business.reviews[0] %>
+      <%= render "reviews/highlight", review: @business.reviews[1] %>
+      <%= render "reviews/highlight", review: @business.reviews[2] %>
+  </section>
+  <a href="#">Show more review highlights</a>
 
 
 
+  <div class="reviews-list">
+    <h2>Recommended Reviews</h2>
+    <label for="search_reviews">Search reviews</label>
+    <input type="text" name="search_reviews" value="" id="search_reviews">
+    <button>Search</button>
+  </div>
 
-<% @business.reviews.each do |review| %>
-  <%= render "reviews/medium", review: review %>
-<% end %>
+
+  Yelp Sort
+
+  <a href="#">Date</a>
+
+  <a href="#">Rating</a>
+
+  <a href="#">Elites</a>
+
+
+
+
+  <% @business.reviews.each do |review| %>
+    <%= render "reviews/medium", review: review %>
+  <% end %>
+
+</section>
+
+<section class="right-sidebar">
+
+</section>
+
+
+

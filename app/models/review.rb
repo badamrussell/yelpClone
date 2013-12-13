@@ -12,7 +12,7 @@ class Review < ActiveRecord::Base
 
   belongs_to(
     :user,
-    class_name: "user",
+    class_name: "User",
     primary_key: :id,
     foreign_key: :user_id
   )
@@ -23,5 +23,14 @@ class Review < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :business_id
   )
+
+
+  def snippet
+    if self.body.include?(".")
+      self.body[0, self.body.index(".")]
+    else
+      self.body[0..20]
+    end
+  end
 
 end

@@ -1,3 +1,34 @@
 // Place all the styles related to the Reviews controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.medium-review-container {
+  border: 1px solid orange;
+
+  .review-user-side {
+    float: left;
+    width: 300px;
+  }
+
+  .review-review-side {
+    float: left;
+    width: 380px;
+    padding: 5px;
+  }
+
+  .rating-header {
+
+  }
+
+  .review-upvote-container {
+    margin: 5px 5px 5px 0;
+
+    button {
+      margin: 5px;
+    }
+  }
+
+  .upvote-question {
+
+  }
+}

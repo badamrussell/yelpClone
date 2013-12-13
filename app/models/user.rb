@@ -67,6 +67,9 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name[0]}."
   end
 
+  def avatar
+    self.img_url || "/assets/temp/default_user.jpg"
+  end
 
   private
 

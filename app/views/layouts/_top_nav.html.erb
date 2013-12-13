@@ -16,7 +16,7 @@
 
     <div id="header-account-box">
       <% if signed_in? %>
-      <a href="<%= profile_url %>"><img src="<%= avatar_img %>" height="40"></a>
+      <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>" height="40"></a>
         <%= button_to "sign out", session_url, method: :delete %>
         <!-- <button class="auth-button">log out</button> -->
       <% else %>
