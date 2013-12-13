@@ -51,14 +51,17 @@
 
     <label  class="title">Birthdate</label>
     <h4 class="sub-heading">Your birthdate will not be displayed on your profile.<h4>
-
+    <% b_date = nil %>
+    <% if current_user.year && current_user.month&& current_user.day %>
+    <% b_date = Date.new(current_user.year, current_user.month, current_user.day) %>
+    <% end %>
     <%= select_date(nil, {
       prefix: "user",
       start_year: 1950,
       end_year: Time.now.year - 1,
       include_blank: true,
       order: [:month, :day, :year],
-      value: Date.new(current_user.year, current_user.month, current_user.day)
+      value: b_date
       #default: [current_user.month, current_user.day, current_user.year ]
     }) %>
   </div>
