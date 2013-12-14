@@ -10,6 +10,8 @@ feedback messages (flash[:errors] and success)
 Data validation (is correct type)
 html_safe...
 
+Faker Data
+
 clean up routes
 
 new businesses

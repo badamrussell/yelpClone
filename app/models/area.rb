@@ -1,4 +1,4 @@
-class Location < ActiveRecord::Base
+class Area < ActiveRecord::Base
   attr_accessible :city_id, :name
 
   validates :city_id, :name, presence: true
@@ -14,9 +14,8 @@ class Location < ActiveRecord::Base
     :neighborhoods,
     class_name: "Neighborhood",
     primary_key: :id,
-    foreign_key: :location_id
+    foreign_key: :area_id
   )
-
 
   def self.determine_neighborhood()
     "Manhattan, NY"

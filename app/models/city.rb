@@ -4,12 +4,12 @@ class City < ActiveRecord::Base
   validates :name, presence: true
 
   has_many(
-    :locations,
-    class_name: "Location",
+    :areas,
+    class_name: "Area",
     primary_key: :id,
-    foreign_key: :city_id
+    foreign_key: :area_id
   )
 
-  has_many :neighborhoods, through: :locations, source: :neighborhoods
+  has_many :neighborhoods, through: :areas, source: :neighborhoods
 
 end

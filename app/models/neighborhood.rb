@@ -1,14 +1,12 @@
 class Neighborhood < ActiveRecord::Base
-  attr_accessible :location_id, :name
+  attr_accessible :area_id, :name
 
-  validates :location_id, :name, presence: true
+  validates :area_id, :name, presence: true
 
   belongs_to(
-    :location,
-    class_name: "Location",
+    :area,
+    class_name: "Area",
     primary_key: :id,
-    foreign_key: :location_id
+    foreign_key: :area_id
   )
-
-
 end
