@@ -27,6 +27,7 @@ site location name? (i.e. best in... New York)
 SQL INSERTION ATTACKS
 SECURITY
 
+Implement businesses recently opened
 
 MAYBE WAIT FOR JS...
 ------------------------------

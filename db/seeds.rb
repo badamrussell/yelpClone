@@ -379,7 +379,7 @@ PriceRange.create([
   {name: "$$$$", color: "green"}
 ])
 
-Features.create([
+Feature.create([
   { name: "Accepts Credit Cards" },
   { name: "BYOB" },
   { name: "Caters" },
