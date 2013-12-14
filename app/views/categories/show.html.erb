@@ -1,0 +1,83 @@
+<h1>Best <%= @category.name %> in New York</h1>
+
+<section class="category-mosaic group">
+  <% sizes = [[500,300], [140,300], [300,140], [140,140], [140,140]] %>
+  <% @category.best_businesses(5).each_with_index do |business,index| %>
+  <div class="mosaic-photo group">
+      <% size = sizes.shift %>
+      <%= render "widgets/photo_shape",{
+        url: business_url(business.id),
+        width: size[0],
+        height: size[1],
+        source: business.store_front_photo
+      } %>
+    <% end %>
+  </div>
+
+  <a href="#">More <%= @category.name %></a>
+</section>
+
+<section class="search-filters group">
+  <div class="side-neighborhoods">
+    <h3 class="filter-title">Neighborhoods</h3>
+
+    <%= render "widgets/columns", columns: 2, data: Neighborhood.where(location_id: 1) %>
+  </div>
+
+  <div class="right-side">
+    <div class="filter-prices">
+      <h3 class="filter-title">Prices</h3>
+      <%= render "widgets/columns", columns: 2, data: PriceRange.all %>
+    </div>
+
+    <div class="filter-features">
+      <h3 class="filter-title">Features</h3>
+      <%= render "widgets/columns", columns: 2, data: RestaurantDetail.features %>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="group">
+  <section class="category-reviews left">
+    <h3 class="filter-title">Fresh <%= @category.name %> Reviews</h3>
+
+    <% reviews = @category.new_reviews(4) %>
+    <ul class="review-block left">
+    <% reviews[0...2].each do |review| %>
+      <li><%= render "reviews/quick", review: review , title: "?????", body: review.body %></li>
+    <% end %>
+    </ul>
+    <ul class="review-block left">
+    <% reviews[2...4].each do |review| %>
+      <li><%= render "reviews/quick", review: review , title: "?????", body: review.body %></li>
+    <% end %>
+    </ul>
+  </section>
+
+  <section class="category-photos left">
+    <h3 class="filter-title">Recent Photos</h3>
+
+    <ul class="photo-block group">
+    <% @category.new_photos(8).each do |photo| %>
+      <li class="photo-icons left"><a href="<%= business_photos_url(photo.business_id, photo: photo) %>"><img width="70" src="<%= photo.img_url %>"></a></li>
+    <% end %>
+    </ul>
+
+  </section>
+</section>
+
+<section class="category-new-business group">
+  <h3 class="filter-title">New <%= @category.name %> in NEW YORK</h3>
+
+
+  <ul class="new-business-block group">
+  <% @category.new_businesses(5).each do |biz| %>
+    <li class="biz-storefronts left"><%= render "businesses/store_front_photo", business: biz %></li>
+  <% end %>
+  </ul>
+  <div>
+    <a href="#">More New Business Openings</a>
+  </div>
+</section>

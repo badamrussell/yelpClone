@@ -1,0 +1,14 @@
+
+<% rows = data.length / columns %>
+
+<% cnt = 1 %>
+<ul class="lef">
+<% data.each do |d| %>
+  <li><a href="#"><%= d.name %></a></li>
+  <% cnt += 1 %>
+  <% if cnt >= rows %>
+    <% cnt = 1 %>
+    </ul><ul class="lef">
+  <% end %>
+<% end %>
+</ul>

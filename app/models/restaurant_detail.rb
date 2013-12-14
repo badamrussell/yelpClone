@@ -96,4 +96,38 @@ class RestaurantDetail < ActiveRecord::Base
 
   has_many :meals, through: :meal_reviews, source: :meal
 
+
+  def self.list
+    list = [  { name: "", attribute_name: "good_for_groups_id" },
+              { name: "", attribute_name: "noise_level_id" },
+              { name: "", attribute_name: "price_range_id" },
+              { name: "Attire", attribute_name: "attire_id" },
+              { name: "Good For Kids", attribute_name: "good_for_kids_id" },
+              { name: "WiFi", attribute_name: "wifi_id" },
+              { name: "Drive Thru", attribute_name: "drive_thru_id" },
+              { name: "Has TV", attribute_name: "has_tv_id" },
+              { name: "Caters", attribute_name: "caters_id" }
+            ]
+  end
+
+  def self.features
+    [ { name: "Accepts Credit Cards", attribute_name: "" },
+      { name: "BYOB", attribute_name: "" },
+      { name: "Caters", attribute_name: "caters_id" },
+      { name: "Corkage", attribute_name: "" },
+      { name: "Delivery", attribute_name: "" },
+      { name: "Dogs Allowed", attribute_name: "" },
+      { name: "Good for Groups", attribute_name: "good_for_groups_id" },
+      { name: "Good for Kids", attribute_name: "good_for_kids_id" },
+      { name: "Has TV", attribute_name: "has_tv_id" },
+      { name: "Open 24 Hours", attribute_name: "" },
+      { name: "Order at Counter", attribute_name: "" },
+      { name: "Outdoor Seating", attribute_name: "" },
+      { name: "Take-out", attribute_name: "" },
+      { name: "Takes Reservations", attribute_name: "" },
+      { name: "Waiter Service", attribute_name: "" },
+      { name: "Wheelchair Accessible", attribute_name: "" }
+    ]
+  end
+
 end

@@ -31,11 +31,14 @@ class Review < ActiveRecord::Base
     foreign_key: :review_id
   )
 
-  def snippet
+  def snippet(size = 60)
+
     if self.body.include?(".")
       self.body[0, self.body.index(".")]
+    elsif self.body.length < size
+      self.body[0..size]
     else
-      self.body[0..60]
+      self.body[0..size] + "..."
     end
   end
 

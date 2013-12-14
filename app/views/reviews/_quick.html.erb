@@ -1,0 +1,18 @@
+<section class="quick-review-container group">
+  <div class="review-avatar left">
+    <a href="<%= profile_url %>"><img src="<%= review.user.avatar %>" height="100"></a>
+  </div>
+
+  <div class="review-content left group">
+
+    <a href="<%= user_url(review.user.id) %>"><%= review.user.name %></a> reviewed <a href="<%= business_url(review.business.id) %>"><%= review.business.name %></a>
+
+    <div class="rating-header group">
+      <%= render "widgets/rating", rating: review.rating %>
+   </div>
+
+    <div>
+      <p><%= review.snippet(60) %></p>
+    </div>
+  </div>
+</section>

@@ -371,3 +371,29 @@ PhotoDetail.create([
   {helpful_id:3, photo_id:3, store_front: false, user_id:3},
   {helpful_id:2, photo_id:4, store_front: false, user_id:3}
 ])
+
+PriceRange.create([
+  {name: "$", color: "green"},
+  {name: "$$", color: "green"},
+  {name: "$$$", color: "green"},
+  {name: "$$$$", color: "green"}
+])
+
+Features.create([
+  { name: "Accepts Credit Cards" },
+  { name: "BYOB" },
+  { name: "Caters" },
+  { name: "Corkage" },
+  { name: "Delivery" },
+  { name: "Dogs Allowed" },
+  { name: "Good for Groups" },
+  { name: "Good for Kids" },
+  { name: "Has TV" },
+  { name: "Open 24 Hours" },
+  { name: "Order at Counter" },
+  { name: "Outdoor Seating" },
+  { name: "Take-out" },
+  { name: "Takes Reservations" },
+  { name: "Waiter Service" },
+  { name: "Wheelchair Accessible" }
+])

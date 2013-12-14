@@ -44,3 +44,7 @@ body {
 img {
   max-width: 600px;
 }
+
+.left {
+  float: left;
+}

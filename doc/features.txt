@@ -1,6 +1,5 @@
 
-Navigate photos
-list all photos on photo show
+
 do categories better
 Category page
 
@@ -20,6 +19,20 @@ other user pages
 save reviews (to submit for later)
 reviews do not save formatting...
 BIG seed data
+category pages have names instead of ids
+dollar signs reflect actual price_range
+
+site location name? (i.e. best in... New York)
+
+SQL INSERTION ATTACKS
+SECURITY
+
+
+MAYBE WAIT FOR JS...
+------------------------------
+Navigate photos
+list all photos on photo show
+drag drop photos in
 
 
 RECOMMENDED FEATURES TO ADD

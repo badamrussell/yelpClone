@@ -1,3 +1,52 @@
 // Place all the styles related to the Categories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.category-mosaic {
+
+
+  .mosaic-photo {
+
+
+    img {
+      float: left;
+      margin: 6px;
+      border:1px solid red;
+    }
+  }
+
+
+}
+
+.category-reviews {
+  border: 1px solid red;
+  width: 630px;
+  font-size: 0.8em;
+
+  .review-block {
+    width: 300px;
+    margin: 2px;
+
+    li {
+      border: 1px solid green;
+    }
+  }
+}
+
+.category-photos {
+
+  .photo-block {
+    width: 300px;
+  }
+
+  li {
+    padding: 2px;
+  }
+}
+
+.category-new-business {
+
+  .biz-storefronts {
+    margin: 10px;
+  }
+}

@@ -35,10 +35,35 @@ class Business < ActiveRecord::Base
 
   has_many :photo_details, through: :photos, source: :photo_details
 
+
+  def <=>(otherBiz)
+    return 1 if otherBiz.rating < rating
+    return -1 if otherBiz.rating > rating
+    0
+  end
+
   def self.best(categoryID)
     Business.all[0..4]
   end
 
+  def self.best_random(category_id, size)
+    best = []
+
+    Business.all.limit(size)
+
+    best
+  end
+
+
+  def categories(category_id)
+    sql = <<-SQL
+      SELECT *
+      FROM businesses
+      WHERE category1_id = ? OR category2_id = ? OR category3_id = ?
+    SQL
+
+    Business.find_by_sql(sql,[category_id,category_id,category_id])
+  end
 
   def store_front_photo
     # store_front_id ? self.store_front : "/assets/temp/photo_med_square.jpg"
@@ -66,17 +91,7 @@ class Business < ActiveRecord::Base
   end
 
   def main_photos
-    # p = []
-    # p << store_front if store_front_id
-    #
-    # self.photos.each do |photo|
-    #   break if p.length > 2
-    #   p << photo unless p.include?(photo)
-    # end
-    #
-    # p
-
-    fronts = store_front_search.map { |pd| pd.photo }
+   fronts = store_front_search.map { |pd| pd.photo }
 
     photos.each do |p|
       break if fronts.length > 2
