@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       newBio.user_id = @user.id
       newBio.save!
 
-      neighborhood = Location.determine_neighborhood()
+      neighborhood = Area.determine_neighborhood()
       newLocation = @user.profile_locations.create(address: neighborhood, name: "Home", primary: true)
 
       sign_in(@user)

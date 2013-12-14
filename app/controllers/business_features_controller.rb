@@ -1,0 +1,2 @@
+class BusinessFeaturesController < ApplicationController
+end

@@ -19,6 +19,15 @@ class Business < ActiveRecord::Base
     order: "created_at DESC"
   )
 
+  has_many(
+    :business_features,
+    class_name: "BusinessFeature",
+    primary_key: :id,
+    foreign_key: :business_id
+  )
+
+  has_many :features, through: :business_features, source: :feature
+
   has_one(
     :store_front,
     class_name: "Photo",
@@ -54,6 +63,9 @@ class Business < ActiveRecord::Base
     best
   end
 
+  def first_review
+
+  end
 
   def categories(category_id)
     sql = <<-SQL
