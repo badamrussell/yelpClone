@@ -1,10 +1,10 @@
 class Review < ActiveRecord::Base
-  attr_accessible :rating, :user_id, :business_id, :body
+  attr_accessible :rating, :user_id, :business_id, :body, :feature_ids
 
   validates :rating, :user_id, :business_id, :body, presence: true
 
   has_one(
-    :features,
+    :business_features,
     class_name: "BusinessFeature",
     primary_key: :id,
     foreign_key: :review_id

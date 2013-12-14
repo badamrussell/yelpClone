@@ -1,7 +1,7 @@
 class BusinessFeature < ActiveRecord::Base
-  attr_accessible :business_id, :feature_id, :value_id, :review_id
+  attr_accessible :business_id, :feature_id, :value, :user_id
 
-  validates presence: :business_id, :feature_id, :value_id, :review_id, presence: true
+  validates :business_id, :feature_id, :user_id, presence: true
 
   belongs_to(
     :business,
@@ -18,17 +18,10 @@ class BusinessFeature < ActiveRecord::Base
   )
 
   belongs_to(
-    :value,
-    class_name: "FeatureValue",
+    :user,
+    class_name: "User",
     primary_key: :id,
-    foreign_key: :value_id
-  )
-
-  belongs_to(
-    :review,
-    class_name: "Review",
-    primary_key: :id,
-    foreign_key: :review_id
+    foreign_key: :user_id
   )
 
 end

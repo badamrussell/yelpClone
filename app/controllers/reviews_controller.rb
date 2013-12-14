@@ -11,14 +11,28 @@ class ReviewsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       newReview = current_user.reviews.create(params[:review])
-
-      fail
-      newFeatures = BusinessFeature.new
-
-
       newReview.save
 
-      if params[:photo]
+      #DOES NOT CONSIDER IF USER HAS ALREADY ADDED FEATURES BEFORE....
+      #b_features = current_user.business_features.where(business_id: newReview.business_id)
+      params[:feature_ids].each do |key,value|
+        unless value.blank?
+          bool_value = (value == "1" ? true : false)
+
+          newFeat = current_user.business_features.create( feature_id: key, business_id: newReview.business_id, value: bool_value )
+          puts value
+          puts bool_value
+          puts newFeat
+          puts "---------------"
+          flash[:errors] += newFeat.errors.full_messages
+        else
+          #remove it...
+        end
+      end
+
+
+
+      if params[:photo] && !params[:photo][:img_url].blank?
         params[:photo][:business_id] = newReview.business_id
         params[:photo][:review_id] = newReview.id
 

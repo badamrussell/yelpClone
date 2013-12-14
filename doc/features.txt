@@ -2,7 +2,7 @@
 
 do categories better
 Category page
-
+DOES NOT CONSIDER IF USER HAS ALREADY ADDED FEATURES BEFORE....
 show counters on review votes
 edit own reviews
 

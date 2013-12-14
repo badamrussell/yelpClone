@@ -37,88 +37,43 @@
       <%= render "forms/photo_helpful" %>
     </fieldset>
 
-    <%= render "forms/checkbox_group", {
-      title: "Ambience:",
-      prefix: "business_feature",
-      name: "ambience_ids",
-      data: Ambience.all,
-      selected: 1
-    } %>
-
-    <% decisions = Decision.all %>
-
-    <%= render "forms/radio_group", {
-      title: "Good for Groups:",
-      name: "business_feature",
-      attr_name: "good_for_groups_id",
-      data: decisions ,
-      selected: 1
-    } %>
-
-    <%= render "forms/radio_group", {
-      title: "Drive Thru:",
-      name: "business_feature",
-      attr_name: "drive_thru_id",
-      data: decisions ,
-      selected: 1
-    } %>
-
-    <h3>Price Range</h3>
-    <%= render "forms/price_range", {
-      name: "business_feature[price_range_id]",
-      id: "business_feature_price_range_id",
-      value: 2
-    } %>
-
-
+    <% fc_count = 0 %>
+    <% bool_choice = FeatureCategory.basic_choice %>
+    <% FeatureCategory.first.features.each do |feature| %>
       <%= render "forms/radio_group", {
-      title: "Attire:",
-      name: "business_feature",
-      attr_name: "attire_id",
-      data: Attire.all,
-      selected: 1
-    } %>
+        name: nil,
+        title: feature.name,
+        prefix: "feature_ids",
+        attr_name: feature.id,
+        nested_name: nil,
+        data: bool_choice,
+        selected: -1
+      } %>
 
-    <%= render "forms/radio_group", {
-      title: "Good for Kids",
-      name: "business_feature",
-      attr_name: "good_for_kids_id",
-      data: decisions,
-      selected: 1
-    } %>
+      <% fc_count += 1 %>
+    <% end %>
 
-    <%= render "forms/radio_group", {
-      title: "Noise Level:",
-      name: "business_feature",
-      attr_name: "noise_level_id",
-      data: NoiseLevel.all ,
-      selected: 1
-    } %>
+    <% FeatureCategory.all.each do |feature_category| %>
+      <% next if feature_category.id == 1 %>
 
-    <%= render "forms/checkbox_group", {
-      title: "Good For:",
-      prefix: "business_feature",
-      name: "meal_ids",
-      data: GoodForMeal.all,
-      selected: 1
-    } %>
+      <% p_form = feature_category.input_type == 1 ? "forms/radio_group" : "forms/checkbox_group" %>
 
+      <%= render p_form, {
+        name: "feature_ids[]",
+        title: feature_category.name,
+        prefix: "feature_ids",
+        attr_name: fc_count,
+        nested_name: nil,
+        data: feature_category.features,
+        selected: -1
+      } %>
 
-    <%= render "forms/radio_group", {
-      title: "Has TV:",
-      name: "business_feature",
-      attr_name: "has_tv_id",
-      data: decisions,
-      selected: 1
-    } %>
-
-    <%= render "forms/radio_group", {
-      title: "Caters:",
-      name: "business_feature",
-      attr_name: "caters_id",
-      data: decisions,
-      selected: 1
-    } %>
+      <% if feature_category.input_type == 2 %>
+        <% fc_count += feature_category.features.length %>
+      <% else %>
+        <% fc_count += 1 %>
+      <% end %>
+    <% end %>
 
     <a href="#">Cancel</a>
     <input type="submit" name="submit" value="Post Review" id="Review">

@@ -11,45 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131214144720) do
+ActiveRecord::Schema.define(:version => 20131214153011) do
 
-  create_table "ambience_reviews", :force => true do |t|
-    t.integer  "ambience_id"
-    t.integer  "restaurant_detail_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-  end
-
-  add_index "ambience_reviews", ["ambience_id"], :name => "index_ambience_reviews_on_ambience_id"
-  add_index "ambience_reviews", ["restaurant_detail_id"], :name => "index_ambience_reviews_on_restaurant_detail_id"
-
-  create_table "ambiences", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "attires", :force => true do |t|
+  create_table "areas", :force => true do |t|
+    t.integer  "city_id",    :null => false
     t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "business_parking_reviews", :force => true do |t|
-    t.integer  "business_parking_id"
-    t.integer  "restaurant_detail_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+  add_index "areas", ["city_id"], :name => "index_areas_on_city_id"
+
+  create_table "business_features", :force => true do |t|
+    t.integer  "business_id", :null => false
+    t.integer  "feature_id",  :null => false
+    t.boolean  "value",       :null => false
+    t.integer  "user_id",     :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
-  add_index "business_parking_reviews", ["business_parking_id"], :name => "index_business_parking_reviews_on_business_parking_id"
-  add_index "business_parking_reviews", ["restaurant_detail_id"], :name => "index_business_parking_reviews_on_restaurant_detail_id"
-
-  create_table "business_parkings", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+  add_index "business_features", ["business_id"], :name => "index_business_features_on_business_id"
+  add_index "business_features", ["feature_id"], :name => "index_business_features_on_feature_id"
+  add_index "business_features", ["user_id"], :name => "index_business_features_on_user_id"
 
   create_table "businesses", :force => true do |t|
     t.integer  "country_id",     :null => false
@@ -94,56 +78,27 @@ ActiveRecord::Schema.define(:version => 20131214144720) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "decisions", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "feature_categories", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",                      :null => false
+    t.integer  "input_type", :default => 1
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "features", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                               :null => false
+    t.integer  "feature_category_id", :default => 1
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
-    t.integer  "feature_category_id", :default => 1
   end
 
-  create_table "good_for_meal_reviews", :force => true do |t|
-    t.integer  "good_for_meal_id"
-    t.integer  "restaurant_detail_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-  end
-
-  add_index "good_for_meal_reviews", ["good_for_meal_id"], :name => "index_good_for_meal_reviews_on_good_for_meal_id"
-  add_index "good_for_meal_reviews", ["restaurant_detail_id"], :name => "index_good_for_meal_reviews_on_restaurant_detail_id"
-
-  create_table "good_for_meals", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+  add_index "features", ["feature_category_id"], :name => "index_features_on_feature_category_id"
 
   create_table "helpfuls", :force => true do |t|
     t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "locations", :force => true do |t|
-    t.string   "name",       :null => false
-    t.integer  "city_id",    :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "locations", ["city_id"], :name => "index_locations_on_city_id"
-  add_index "locations", ["name"], :name => "index_locations_on_name", :unique => true
 
   create_table "main_categories", :force => true do |t|
     t.string   "name",       :null => false
@@ -152,20 +107,13 @@ ActiveRecord::Schema.define(:version => 20131214144720) do
   end
 
   create_table "neighborhoods", :force => true do |t|
-    t.string   "name",        :null => false
-    t.integer  "location_id", :null => false
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "neighborhoods", ["location_id"], :name => "index_neighborhoods_on_location_id"
-  add_index "neighborhoods", ["name"], :name => "index_neighborhoods_on_name", :unique => true
-
-  create_table "noise_levels", :force => true do |t|
     t.string   "name",       :null => false
+    t.integer  "area_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "neighborhoods", ["name", "area_id"], :name => "index_neighborhoods_on_name_and_area_id", :unique => true
 
   create_table "photo_details", :force => true do |t|
     t.integer  "photo_id",                       :null => false
@@ -209,21 +157,6 @@ ActiveRecord::Schema.define(:version => 20131214144720) do
   end
 
   add_index "profile_locations", ["user_id"], :name => "index_profile_locations_on_user_id"
-
-  create_table "restaurant_details", :force => true do |t|
-    t.integer  "review_id"
-    t.integer  "good_for_groups_id"
-    t.integer  "noise_level_id"
-    t.integer  "price_range_id"
-    t.integer  "attire_id"
-    t.integer  "good_for_kids_id"
-    t.integer  "wifi_id"
-    t.integer  "drive_thru_id"
-    t.integer  "has_tv_id"
-    t.integer  "caters_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
 
   create_table "reviews", :force => true do |t|
     t.integer  "rating"

@@ -23,7 +23,7 @@ new_bio = UserBio.new()
 new_bio.user_id = 3
 new_bio.save
 
-neighborhood = Location.determine_neighborhood()
+neighborhood = Area.determine_neighborhood()
 ProfileLocation.create(user_id: 1, address: neighborhood, name: "Home", primary: true)
 ProfileLocation.create(user_id: 2, address: neighborhood, name: "Home", primary: true)
 ProfileLocation.create(user_id: 3, address: neighborhood, name: "Home", primary: true)
@@ -72,7 +72,7 @@ City.create([
   {name: "Palo Alto"}
 ])
 
-Location.create([
+Area.create([
   {name: "Manhattan", city_id: 1},
   {name: "Brooklyn", city_id: 1},
   {name: "Queens", city_id: 1},
@@ -657,23 +657,23 @@ PriceRange.create([
 ])
 
 FeatureCategory.create([
-  {name: "General Features"},
-  {name: "Alcohol"},
-  {name: "Meals Served"},
-  {name: "Music"},
-  {name: "Parking"},
-  {name: "Wi-Fi"},
-  {name: "Smoking"},
+  {name: "General Features", input_type: 1},
+  {name: "Alcohol", input_type: 2},
+  {name: "Meals Served", input_type: 2},
+  {name: "Music", input_type: 1},
+  {name: "Parking", input_type: 2},
+  {name: "Wi-Fi", input_type: 1},
+  {name: "Smoking", input_type: 1},
 
-  {name: "Ambience"},
-  {name: "Attire"},
-  {name: "Noise Level"}
+  {name: "Ambience", input_type: 2},
+  {name: "Attire", input_type: 1},
+  {name: "Noise Level", input_type: 1}
 ])
 
 Feature.create([
   { name: "Offering a Deal", feature_category_id: 1 },  #1
-  { name: "Open At:", feature_category_id: 1 },
-  { name: "Open Now:", feature_category_id: 1 },
+  # { name: "Open At:", feature_category_id: 1 },
+  # { name: "Open Now:", feature_category_id: 1 },
   { name: "Accepts Credit Cards", feature_category_id: 1 },
   { name: "Delivery", feature_category_id: 1 },
   { name: "Outdoor Seating", feature_category_id: 1 },
@@ -734,10 +734,10 @@ Feature.create([
   { name: "Dressy", feature_category_id: 9 },
   { name: "Formal (Jacket Required)", feature_category_id: 9 },
 
-  { name: "Quiet", feature_category_id: 9 },
-  { name: "Average", feature_category_id: 9 },
-  { name: "Loud", feature_category_id: 9 },
-  { name: "Very Loud", feature_category_id: 9 }
+  { name: "Quiet", feature_category_id: 10 },
+  { name: "Average", feature_category_id: 10 },
+  { name: "Loud", feature_category_id: 10 },
+  { name: "Very Loud", feature_category_id: 10 }
 ])
 
 

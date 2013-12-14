@@ -1,8 +1,17 @@
 <fieldset>
   <h3><%= title %></h3>
+  <% if name.nil? %>
+    <% name = "#{prefix}[#{attr_name}]" %>
+    <% name << "[#{nested_name}]" if nested_name %>
+  <% end %>
+  <% id_name = "#{prefix}_#{attr_name}" %>
 
   <% data.each_with_index do |d,i| %>
-    <input type="checkbox" name="<%= prefix %>[<%= name %>][]" value="<%= d.id %>" id="<%= prefix %>_<%= name %>"><%= d.name %>
+    <% name = "#{prefix}[#{d.id}]" %>
+    <% name << "[#{nested_name}]" if nested_name %>
+    <% id_name = "#{prefix}_#{attr_name}" %>
+    <input type="checkbox" name="<%= name %>" value="1" id="<%= id_name %>_<%= d.name %>">
+    <label for="<%= id_name %>_<%= d.name %>"><%= d.name %>
   <% end %>
 </fieldset>
 
