@@ -10,8 +10,20 @@
     <% name = "#{prefix}[#{d.id}]" %>
     <% name << "[#{nested_name}]" if nested_name %>
     <% id_name = "#{prefix}_#{attr_name}" %>
-    <input type="checkbox" name="<%= name %>" value="1" id="<%= id_name %>_<%= d.name %>">
-    <label for="<%= id_name %>_<%= d.name %>"><%= d.name %>
+    <% selected = if selected_data[d.id].nil? %>
+        <% -1 %>
+      <% elsif selected_data[d.id] %>
+        <% 1 %>
+      <% else %>
+        <% 0 %>
+      <% end %>
+
+    <input  type="checkbox"
+            name="<%= name %>"
+            value="1"
+            id="<%= id_name %>_<%= d.name %>"
+            <%= "checked" if selected == 1 %>>
+    <label for="<%= id_name %>_<%= d.name %>"><%= d.name %></label>
   <% end %>
 </fieldset>
 

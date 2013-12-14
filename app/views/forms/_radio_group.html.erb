@@ -5,6 +5,13 @@
     <% name << "[#{nested_name}]" if nested_name %>
   <% end %>
   <% id_name = "#{prefix}_#{attr_name}" %>
+  <% selected = if selected_data[select_name].nil? %>
+      <% -1 %>
+    <% elsif selected_data[select_name] %>
+      <% 1 %>
+    <% else %>
+      <% 0 %>
+    <% end %>
 
   <% data.each do |d| %>
     <input type="radio" name="<%= name %>" id="<%= id_name %>_<%= d.name %>" value="<%= d.id %>" <%= "checked" if d.id == selected %>>

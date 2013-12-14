@@ -1,10 +1,11 @@
-
-
+edit own reviews
 do categories better
 Category page
+
+
 DOES NOT CONSIDER IF USER HAS ALREADY ADDED FEATURES BEFORE....
 show counters on review votes
-edit own reviews
+
 
 feedback messages (flash[:errors] and success)
 Data validation (is correct type)

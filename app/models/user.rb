@@ -112,6 +112,15 @@ class User < ActiveRecord::Base
     self.photo_details.where(photo_id: photo.id)[0]
   end
 
+  def completed_biz_features(bizID)
+    feature_hash = {}
+    business_features.where(business_id: bizID).each do |feat|
+      feature_hash[feat.feature_id] = feat.value
+    end
+
+    feature_hash
+  end
+
   private
 
   def ensure_token

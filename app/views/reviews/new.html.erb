@@ -1,82 +1,9 @@
 <h4>Complete Your Review:</h4>
 
-<h2 class="business-name"><%= @business.name %></h2>
-
-  <form action="<%= reviews_url %>" method="post">
-
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-    <input type="hidden" name="review[business_id]" value="<%= @business.id %>">
-
-    <fieldset>
-      <div class="rating-container">
-        <label for="review_rating">Rating</label>
-        <input type="text" name="review[rating]" value="<%= @review.rating %>" id="review_rating">
-
-
-      </div>
-      <label for="review_body">Your review</label>
-      <textarea name="review[body]" id="review_body"rows="8" cols="40"><%= @review.body %></textarea>
-
-
-    </fieldset>
-
-    <label for="photo_img_url">Add Photo</label>
-    <input type="text" name="photo[img_url]" value="" id="photo_img_url">
-
-    <br>
-    <hr>
-
-
-    <h2>Have additional tips on this business? <em>(Optional)</em><h2>
-      <h3>We're surveying Yelpers for more handy information on this business. If the majority says it's so, then that's what we'll show.</h3>
-
-    <fieldset>
-      <%= render "forms/photo_helpful" %>
-      <%= render "forms/photo_helpful" %>
-      <%= render "forms/photo_helpful" %>
-    </fieldset>
-
-    <% fc_count = 0 %>
-    <% bool_choice = FeatureCategory.basic_choice %>
-    <% FeatureCategory.first.features.each do |feature| %>
-      <%= render "forms/radio_group", {
-        name: nil,
-        title: feature.name,
-        prefix: "feature_ids",
-        attr_name: feature.id,
-        nested_name: nil,
-        data: bool_choice,
-        selected: -1
-      } %>
-
-      <% fc_count += 1 %>
-    <% end %>
-
-    <% FeatureCategory.all.each do |feature_category| %>
-      <% next if feature_category.id == 1 %>
-
-      <% p_form = feature_category.input_type == 1 ? "forms/radio_group" : "forms/checkbox_group" %>
-
-      <%= render p_form, {
-        name: "feature_ids[]",
-        title: feature_category.name,
-        prefix: "feature_ids",
-        attr_name: fc_count,
-        nested_name: nil,
-        data: feature_category.features,
-        selected: -1
-      } %>
-
-      <% if feature_category.input_type == 2 %>
-        <% fc_count += feature_category.features.length %>
-      <% else %>
-        <% fc_count += 1 %>
-      <% end %>
-    <% end %>
-
-    <a href="#">Cancel</a>
-    <input type="submit" name="submit" value="Post Review" id="Review">
-
-    <h5>* You can always edit or remove reviews later.</h5>
-</form>
+<%= render "reviews/form", {
+  business: @business,
+  url: reviews_url,
+  method: "post",
+  review: @review,
+  business_features: @business_features
+} %>
