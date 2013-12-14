@@ -11,13 +11,13 @@ class ReviewsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       newReview = current_user.reviews.create(params[:review])
-      newDetails = RestaurantDetail.new(params[:restaurant_detail])
 
-      #newReview.details.create(params[:restaurant_detail])
+      fail
+      newFeatures = BusinessFeature.new
+
+
       newReview.save
-      newDetails.review_id = newReview.id
-      newDetails.save
-      #newDetails = newReview.details.create(params[:restaurant_details])
+
       if params[:photo]
         params[:photo][:business_id] = newReview.business_id
         params[:photo][:review_id] = newReview.id
@@ -28,7 +28,6 @@ class ReviewsController < ApplicationController
       end
 
       flash[:errors] += newReview.errors.full_messages
-      #flash[:errors] += newDetails.errors.full_messages
     end
 
     if flash[:errors].empty?

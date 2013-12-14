@@ -611,40 +611,7 @@ Country.create([
   {name: "Spain"}
 ])
 
-Decision.create([
-  {name: "Yes"},
-  {name: "No"},
-  {name: "Not Sure"}
-])
 
-Ambience.create([
-  {name: "Divey"},
-  {name: "Hipster"},
-  {name: "Casual"},
-  {name: "Touristy"},
-  {name: "Trendy"},
-  {name: "Intimate"},
-  {name: "Romantic"},
-  {name: "Classy"},
-  {name: "Upscale"}
-])
-
-BusinessParking.create([
-  {name: "Valet"},
-  {name: "Garage"},
-  {name: "Street"},
-  {name: "Private Lot"},
-  {name: "Validated"}
-])
-
-GoodForMeal.create([
-  {name: "Breakfast"},
-  {name: "Brunch"},
-  {name: "Lunch"},
-  {name: "Dinner"},
-  {name: "Late Night"},
-  {name: "Dessert"}
-])
 
 Review.create([
   {rating: 3, user_id: 1, business_id: 1, body: "Food was amazing!"},
@@ -659,30 +626,12 @@ Quisque id nisl dapibus, consequat nibh vel, tempus"},
 ]
 )
 
-Attire.create([
-  {name: "Casual"},
-  {name: "Dressy"},
-  {name: "Formal (Jacket Required)"},
-  {name: "Not Sure"},
-])
 
-NoiseLevel.create([
-  {name: "Quiet"},
-  {name: "Average"},
-  {name: "Loud"},
-  {name: "Very Loud"},
-  {name: "Not Sure"}
-])
 
 ProfileLocation.create([
   {user_id: 1, name: "Home", address: "Manhattan, NY", primary: true}
 ])
 
-Helpful.create([
-  {name: "Very Helpful"},
-  {name: "Helpful"},
-  {name: "Not Helpful"}
-])
 
 Photo.create([
   {business_id:1, img_url: "/assets/temp/food_1.jpg", user_id:1},
@@ -714,11 +663,15 @@ FeatureCategory.create([
   {name: "Music"},
   {name: "Parking"},
   {name: "Wi-Fi"},
-  {name: "Smoking"}
+  {name: "Smoking"},
+
+  {name: "Ambience"},
+  {name: "Attire"},
+  {name: "Noise Level"}
 ])
 
 Feature.create([
-  { name: "Offering a Deal", feature_category_id: 1 },
+  { name: "Offering a Deal", feature_category_id: 1 },  #1
   { name: "Open At:", feature_category_id: 1 },
   { name: "Open Now:", feature_category_id: 1 },
   { name: "Accepts Credit Cards", feature_category_id: 1 },
@@ -727,7 +680,7 @@ Feature.create([
   { name: "Good for Groups", feature_category_id: 1 },
   { name: "Good for Kids", feature_category_id: 1 },
   { name: "Take-out", feature_category_id: 1 },
-  { name: "Wheelchair Accessible", feature_category_id: 1 },
+  { name: "Wheelchair Accessible", feature_category_id: 1 }, #10
   { name: "Has TV", feature_category_id: 1 },
   { name: "Liked by 20-somethings:", feature_category_id: 1 },
 
@@ -738,7 +691,7 @@ Feature.create([
   { name: "Takes Reservations", feature_category_id: 1 },
   { name: "Waiter Service", feature_category_id: 1 },
 
-  { name: "Full Bar", feature_category_id: 2 },
+  { name: "Full Bar", feature_category_id: 2 }, #20
   { name: "Happy Hour", feature_category_id: 2 },
   { name: "Beer & Wine Only", feature_category_id: 2 },
   { name: "BYOB", feature_category_id: 2 },
@@ -749,7 +702,7 @@ Feature.create([
   { name: "Lunch", feature_category_id: 3 },
   { name: "Dinner", feature_category_id: 3 },
   { name: "Dessert", feature_category_id: 3 },
-  { name: "Late Night", feature_category_id: 3 },
+  { name: "Late Night", feature_category_id: 3 }, #30
 
   { name: "DJ", feature_category_id: 4 },
   { name: "Jukebox", feature_category_id: 4 },
@@ -762,8 +715,37 @@ Feature.create([
   { name: "Private-Lot", feature_category_id: 5 },
   { name: "Validated", feature_category_id: 5 },
 
-  { name: "Free", feature_category_id: 6 },
+  { name: "Free", feature_category_id: 6 }, #40
   { name: "Paid", feature_category_id: 6 },
 
-  { name: "Outdoor Area / Patio Only", feature_category_id: 7 }
+  { name: "Outdoor Area / Patio Only", feature_category_id: 7 },
+
+  { name: "Divey", feature_category_id: 8 },
+  { name: "Hipster", feature_category_id: 8 },
+  { name: "Casual", feature_category_id: 8 },
+  { name: "Touristy", feature_category_id: 8 },
+  { name: "Trendy", feature_category_id: 8 },
+  { name: "Intimate", feature_category_id: 8 },
+  { name: "Romantic", feature_category_id: 8 },
+  { name: "Classy", feature_category_id: 8 },
+  { name: "Upscale", feature_category_id: 8 },
+
+  { name: "Casual", feature_category_id: 9 },
+  { name: "Dressy", feature_category_id: 9 },
+  { name: "Formal (Jacket Required)", feature_category_id: 9 },
+
+  { name: "Quiet", feature_category_id: 9 },
+  { name: "Average", feature_category_id: 9 },
+  { name: "Loud", feature_category_id: 9 },
+  { name: "Very Loud", feature_category_id: 9 }
 ])
+
+
+
+
+Helpful.create([
+  {name: "Very Helpful"},
+  {name: "Helpful"},
+  {name: "Not Helpful"}
+])
+
