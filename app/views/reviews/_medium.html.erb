@@ -24,7 +24,7 @@
 
     <div class="review-photos-container group">
       <% review.photos.each do |photo| %>
-        <a href="<%= business_photos_url(photo.business_id) %>"><img src="<%= photo.img_url %>"></a>
+        <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.img_url %>"></a>
       <% end %>
     </div>
 

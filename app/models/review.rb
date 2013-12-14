@@ -35,7 +35,7 @@ class Review < ActiveRecord::Base
     if self.body.include?(".")
       self.body[0, self.body.index(".")]
     else
-      self.body[0..20]
+      self.body[0..60]
     end
   end
 
