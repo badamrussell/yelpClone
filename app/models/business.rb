@@ -15,7 +15,8 @@ class Business < ActiveRecord::Base
     :reviews,
     class_name: "Review",
     primary_key: :id,
-    foreign_key: :business_id
+    foreign_key: :business_id,
+    order: "created_at DESC"
   )
 
   has_one(

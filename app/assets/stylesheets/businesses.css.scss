@@ -41,6 +41,7 @@
 .content-left {
   width: 680px;
   float: left;
+  border: 1px solid orange;
 }
 
 
@@ -51,8 +52,8 @@
 }
 
 .best-yelp-category {
-  width: 600px;
-
+  border: 1px solid green;
+  clear: left;
   .photos-container {
      width: 1000px;
 
@@ -64,6 +65,10 @@
      li:last {
        margin-right: 0;
      }
+  }
+
+  h3 {
+    display: block;
   }
 }
 

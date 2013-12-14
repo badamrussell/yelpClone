@@ -26,9 +26,9 @@ class Photo < ActiveRecord::Base
 
   belongs_to(
     :review,
-    class_name: "Photo",
+    class_name: "Review",
     primary_key: :id,
-    foreign_key: :photo_id
+    foreign_key: :review_id
   )
 
   def is_store_front?

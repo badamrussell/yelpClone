@@ -28,7 +28,7 @@ class Review < ActiveRecord::Base
     :photos,
     class_name: "Photo",
     primary_key: :id,
-    foreign_key: :photo_id
+    foreign_key: :review_id
   )
 
   def snippet
