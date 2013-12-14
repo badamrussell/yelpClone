@@ -39,7 +39,7 @@
 
     <%= render "forms/checkbox_group", {
       title: "Ambience:",
-      prefix: "restaurant_detail",
+      prefix: "business_feature",
       name: "ambience_ids",
       data: Ambience.all,
       selected: 1
@@ -49,7 +49,7 @@
 
     <%= render "forms/radio_group", {
       title: "Good for Groups:",
-      name: "restaurant_detail",
+      name: "business_feature",
       attr_name: "good_for_groups_id",
       data: decisions ,
       selected: 1
@@ -57,7 +57,7 @@
 
     <%= render "forms/radio_group", {
       title: "Drive Thru:",
-      name: "restaurant_detail",
+      name: "business_feature",
       attr_name: "drive_thru_id",
       data: decisions ,
       selected: 1
@@ -65,15 +65,15 @@
 
     <h3>Price Range</h3>
     <%= render "forms/price_range", {
-      name: "restaurant_detail[price_range_id]",
-      id: "restaurant_detail_price_range_id",
+      name: "business_feature[price_range_id]",
+      id: "business_feature_price_range_id",
       value: 2
     } %>
 
 
       <%= render "forms/radio_group", {
       title: "Attire:",
-      name: "restaurant_detail",
+      name: "business_feature",
       attr_name: "attire_id",
       data: Attire.all,
       selected: 1
@@ -81,7 +81,7 @@
 
     <%= render "forms/radio_group", {
       title: "Good for Kids",
-      name: "restaurant_detail",
+      name: "business_feature",
       attr_name: "good_for_kids_id",
       data: decisions,
       selected: 1
@@ -89,7 +89,7 @@
 
     <%= render "forms/radio_group", {
       title: "Noise Level:",
-      name: "restaurant_detail",
+      name: "business_feature",
       attr_name: "noise_level_id",
       data: NoiseLevel.all ,
       selected: 1
@@ -97,7 +97,7 @@
 
     <%= render "forms/checkbox_group", {
       title: "Good For:",
-      prefix: "restaurant_detail",
+      prefix: "business_feature",
       name: "meal_ids",
       data: GoodForMeal.all,
       selected: 1
@@ -106,7 +106,7 @@
 
     <%= render "forms/radio_group", {
       title: "Has TV:",
-      name: "restaurant_detail",
+      name: "business_feature",
       attr_name: "has_tv_id",
       data: decisions,
       selected: 1
@@ -114,7 +114,7 @@
 
     <%= render "forms/radio_group", {
       title: "Caters:",
-      name: "restaurant_detail",
+      name: "business_feature",
       attr_name: "caters_id",
       data: decisions,
       selected: 1

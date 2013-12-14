@@ -4,8 +4,8 @@ class Review < ActiveRecord::Base
   validates :rating, :user_id, :business_id, :body, presence: true
 
   has_one(
-    :details,
-    class_name: "RestaurantDetail",
+    :features,
+    class_name: "BusinessFeature",
     primary_key: :id,
     foreign_key: :review_id
   )
