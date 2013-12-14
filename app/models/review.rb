@@ -24,6 +24,12 @@ class Review < ActiveRecord::Base
     foreign_key: :business_id
   )
 
+  has_many(
+    :photos,
+    class_name: "Photo",
+    primary_key: :id,
+    foreign_key: :photo_id
+  )
 
   def snippet
     if self.body.include?(".")

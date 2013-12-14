@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-  attr_accessible :business_id, :img_url, :user_id
+  attr_accessible :business_id, :img_url, :user_id, :review_id
 
   validates :img_url, :user_id, presence: true
 
@@ -24,7 +24,15 @@ class Photo < ActiveRecord::Base
     foreign_key: :photo_id
   )
 
+  belongs_to(
+    :review,
+    class_name: "Photo",
+    primary_key: :id,
+    foreign_key: :photo_id
+  )
+
   def is_store_front?
     business.store_front_id == self.id
   end
+
 end

@@ -12,10 +12,20 @@ class ReviewsController < ApplicationController
     ActiveRecord::Base.transaction do
       newReview = current_user.reviews.create(params[:review])
       newDetails = RestaurantDetail.new(params[:restaurant_detail])
+
       #newReview.details.create(params[:restaurant_detail])
+      newReview.save
       newDetails.review_id = newReview.id
       newDetails.save
       #newDetails = newReview.details.create(params[:restaurant_details])
+      if params[:photo]
+        params[:photo][:business_id] = newReview.business_id
+        params[:photo][:review_id] = newReview.id
+
+        newPhoto = current_user.photos.new(params[:photo])
+        newPhoto.save
+        flash[:errors] += newPhoto.errors.full_messages
+      end
 
       flash[:errors] += newReview.errors.full_messages
       #flash[:errors] += newDetails.errors.full_messages

@@ -1,0 +1,46 @@
+
+Reviews can have pictures
+Navigate photos
+list all photos on photo show
+do categories better
+Category page
+reviews display reverse order
+
+
+feedback messages (flash[:errors] and success)
+Data validation (is correct type)
+html_safe...
+
+clean up routes
+
+new businesses
+
+Upvoting
+other user pages
+save reviews (to submit for later)
+
+
+
+
+RECOMMENDED FEATURES TO ADD
+-------------------------------
+
+
+
+
+
+
+
+----------------------------------------------
+
+
+Business Photos Page
++ submit initial review with new business
++ clicking photos not going to right page
++ Rename Category and SubCategory
++ how does user storefront selection relate to actual storefront
+   maybe it should choose the top three storefront images
++ Star Images reflect actual rating
++ Can change storefront photo
++ stores show storefront photo as avatar image
+
