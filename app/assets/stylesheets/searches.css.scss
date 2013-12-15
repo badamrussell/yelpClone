@@ -7,8 +7,17 @@
   border-bottom: 1px solid lightgrey;
   height: 230px;
 
+  font-size: .7em;
+
+
   .filter-header {
     border-bottom: 1px solid lightgrey;
     padding: 10px;
   }
+}
+
+.filter-container {
+  width: 152px;
+  padding-right: 10px;
+  border: 2px solid red;
 }
