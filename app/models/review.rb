@@ -1,5 +1,5 @@
 class Review < ActiveRecord::Base
-  attr_accessible :rating, :user_id, :business_id, :body, :feature_ids
+  attr_accessible :rating, :user_id, :business_id, :body, :price_range, :feature_ids
 
   validates :rating, :user_id, :business_id, :body, presence: true
 
@@ -39,6 +39,33 @@ class Review < ActiveRecord::Base
     foreign_key: :review_id,
     inverse_of: :review
   )
+
+  has_many(
+    :review_votes,
+    class_name: "ReviewVote",
+    primary_key: :id,
+    foreign_key: :review_id
+  )
+
+  has_many :votes, through: :review_votes, source: :vote
+
+  has_many(
+    :review_compliments,
+    class_name: "ReviewCompliment",
+    primary_key: :id,
+    foreign_key: :review_id
+  )
+
+  has_many :compliments, through: :review_compliments, source: :compliment
+
+  has_many(
+    :list_reviews,
+    class_name: "ListReview",
+    primary_key: :id,
+    foreign_key: :review_id
+  )
+
+  has_many :lists, through: :list_review, source: :list
 
   def snippet(size = 60)
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131215145708) do
+ActiveRecord::Schema.define(:version => 20131215200210) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(:version => 20131215145708) do
   end
 
   add_index "areas", ["city_id"], :name => "index_areas_on_city_id"
+
+  create_table "bookmarks", :force => true do |t|
+    t.integer  "business_id", :null => false
+    t.integer  "user_id",     :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "bookmarks", ["business_id"], :name => "index_bookmarks_on_business_id"
+  add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
 
   create_table "business_categories", :force => true do |t|
     t.integer  "business_id", :null => false
@@ -80,6 +90,12 @@ ActiveRecord::Schema.define(:version => 20131215145708) do
 
   add_index "cities", ["name"], :name => "index_cities_on_name", :unique => true
 
+  create_table "compliments", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "countries", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -102,11 +118,40 @@ ActiveRecord::Schema.define(:version => 20131215145708) do
 
   add_index "features", ["feature_category_id"], :name => "index_features_on_feature_category_id"
 
+  create_table "follows", :force => true do |t|
+    t.integer  "fan_id",     :null => false
+    t.integer  "leader_id",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "follows", ["fan_id"], :name => "index_follows_on_fan_id"
+  add_index "follows", ["leader_id"], :name => "index_follows_on_leader_id"
+
   create_table "helpfuls", :force => true do |t|
     t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "list_reviews", :force => true do |t|
+    t.integer  "list_id",    :null => false
+    t.integer  "review_id",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "list_reviews", ["list_id"], :name => "index_list_reviews_on_list_id"
+  add_index "list_reviews", ["review_id"], :name => "index_list_reviews_on_review_id"
+
+  create_table "lists", :force => true do |t|
+    t.string   "name",       :null => false
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "lists", ["user_id"], :name => "index_lists_on_user_id"
 
   create_table "main_categories", :force => true do |t|
     t.string   "name",       :null => false
@@ -166,6 +211,31 @@ ActiveRecord::Schema.define(:version => 20131215145708) do
 
   add_index "profile_locations", ["user_id"], :name => "index_profile_locations_on_user_id"
 
+  create_table "review_compliments", :force => true do |t|
+    t.integer  "review_id",     :null => false
+    t.integer  "compliment_id", :null => false
+    t.text     "body"
+    t.integer  "user_id",       :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "review_compliments", ["compliment_id"], :name => "index_review_compliments_on_compliment_id"
+  add_index "review_compliments", ["review_id"], :name => "index_review_compliments_on_review_id"
+  add_index "review_compliments", ["user_id"], :name => "index_review_compliments_on_user_id"
+
+  create_table "review_votes", :force => true do |t|
+    t.integer  "review_id",  :null => false
+    t.integer  "vote_id",    :null => false
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "review_votes", ["review_id"], :name => "index_review_votes_on_review_id"
+  add_index "review_votes", ["user_id"], :name => "index_review_votes_on_user_id"
+  add_index "review_votes", ["vote_id"], :name => "index_review_votes_on_vote_id"
+
   create_table "reviews", :force => true do |t|
     t.integer  "rating"
     t.integer  "user_id"
@@ -177,6 +247,17 @@ ActiveRecord::Schema.define(:version => 20131215145708) do
 
   add_index "reviews", ["business_id"], :name => "index_reviews_on_business_id"
   add_index "reviews", ["user_id"], :name => "index_reviews_on_user_id"
+
+  create_table "tips", :force => true do |t|
+    t.string   "body",        :null => false
+    t.integer  "user_id",     :null => false
+    t.integer  "business_id", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "tips", ["business_id"], :name => "index_tips_on_business_id"
+  add_index "tips", ["user_id"], :name => "index_tips_on_user_id"
 
   create_table "user_bios", :force => true do |t|
     t.string   "headline"
@@ -219,5 +300,11 @@ ActiveRecord::Schema.define(:version => 20131215145708) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

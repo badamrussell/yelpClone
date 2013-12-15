@@ -52,6 +52,21 @@ class Business < ActiveRecord::Base
 
   has_many :photo_details, through: :photos, source: :photo_details
 
+  has_many(
+    :tips,
+    class_name: "Tip",
+    primary_key: :id,
+    foreign_key: :business_id
+  )
+
+  has_many(
+    :bookmarks,
+    class_name: "Bookmark",
+    primary_key: :id,
+    foreign_key: :business_id
+  )
+
+  has_many :bookmarkers, through: :bookmarks, source: :user
 
   def <=>(otherBiz)
     return 1 if otherBiz.rating < rating

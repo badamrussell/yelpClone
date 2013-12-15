@@ -15,6 +15,7 @@ google maps
 site location name? (i.e. best in... New York)
 do categories better (better way than the three columns)
 
+some redundancy in tables user_id and review_id...
 complex searching ( how to stack searches )
 search price range
 search by distance

@@ -43,7 +43,65 @@ class User < ActiveRecord::Base
     foreign_key: :user_id
   )
 
+  has_many(
+    :tips ,
+    class_name: "Tip",
+    primary_key: :id,
+    foreign_key: :user_id
+  )
 
+  has_many(
+    :review_votes,
+    class_name: "ReviewVote",
+    primary_key: :id,
+    foreign_key: :user_id
+  )
+
+  has_many :votes, through: :review_votes, source: :vote
+
+  has_many(
+    :review_compliments,
+    class_name: "ReviewCompliment",
+    primary_key: :id,
+    foreign_key: :user_id
+  )
+
+  has_many :compliments, through: :review_compliments, source: :compliment
+
+
+  has_many(
+    :lists,
+    class_name: "List",
+    primary_key: :id,
+    foreign_key: :user_id
+  )
+
+  has_many(
+    :follows,
+    class_name: "User",
+    primary_key: :id,
+    foreign_key: :leader_id
+  )
+
+  has_many :fans, through: :follows, source: :fan
+
+  has_many(
+    :followees,
+    class_name: "User",
+    primary_key: :id,
+    foreign_key: :fan_id
+  )
+
+  has_many :leaders, through: :followees, source: :leader
+
+  has_many(
+    :bookmarks,
+    class_name: "Bookmark",
+    primary_key: :id,
+    foreign_key: :user_id
+  )
+
+  has_many :bookmarked_businesses, through: :bookmarks, source: :business
 
   #--temporary placeholders until associations can be made
   def friends

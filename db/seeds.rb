@@ -811,7 +811,7 @@ Vote.create([
   {name: "Cool"}
 ])
 
-Compliments.create([
+Compliment.create([
   {name: "Thank You"},
   {name: "Good Writer"},
   {name: "Just a Note"},
@@ -824,7 +824,6 @@ Compliments.create([
   {name: "You're Cool"},
   {name: "Great Lists"}
 ])
-
 
 Bookmark.create([
   {business_id: 1, user_id: 1},
@@ -853,7 +852,7 @@ Tip.create([
   {body: "tip well", user_id: 3, business_id: 4}
 ])
 
-ReviewVotes.create([
+ReviewVote.create([
   {review_id: 1, vote_id: 1, user_id: 2},
   {review_id: 1, vote_id: 2, user_id: 10},
   {review_id: 1, vote_id: 3, user_id: 32},
@@ -871,4 +870,10 @@ ListReview.create([
   {list_id: 1, review_id: 3},
   {list_id: 2, review_id: 4},
   {list_id: 2, review_id: 5}
+])
+
+ReviewCompliment.create([
+  {compliment_id: 1, review_id: 1, user_id: 5, body: "Amazing"},
+  {compliment_id: 2, review_id: 1, user_id: 10, body: "You suck"},
+  {compliment_id: 3, review_id: 2, user_id: 20, body: "thanks!"}
 ])
