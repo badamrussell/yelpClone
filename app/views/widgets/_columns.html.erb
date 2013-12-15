@@ -1,14 +1,21 @@
 
-<% rows = (data.length / columns) + 1 %>
-
+<% rows = (data.length / columns) %>
+<% max_rows ||= rows %>
+<% rows = max_rows if rows > max_rows %>
+<%  %>
 <% cnt = 1 %>
-<ul class="left">
+<% col_count = 1 %>
+
+<ul class="column left">
 <% data.each do |d| %>
   <li><a href="<%= base_url %>&<%= param_name %>=<%= d.id %>"><%= d.name %></a></li>
   <% cnt += 1 %>
+  <% break if cnt >= rows and col_count == columns %>
   <% if cnt >= rows %>
     <% cnt = 1 %>
-    </ul><ul class="left">
+    <% col_count += 1 %>
+    </ul><ul class="column left">
   <% end %>
+
 <% end %>
 </ul>

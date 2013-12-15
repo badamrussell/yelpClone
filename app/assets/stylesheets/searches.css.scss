@@ -43,3 +43,20 @@
   padding:10px;
   background-color: pink;
 }
+
+.finer-filter-container {
+  margin-bottom: 10px;
+  border-bottom: 1px solid lightgrey;
+  .column {
+    width: 150px;
+    padding: 4px;
+    margin: 4px;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  li {
+    padding: 5px;
+    padding-left: 0;
+  }
+
+}
