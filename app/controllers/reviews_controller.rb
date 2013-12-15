@@ -44,7 +44,12 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    @review = Review.find(params[:id])
 
+    @review.destroy
+
+    flash[:errors] = @review.errors.full_messages
+    redirect_to business_url(@review.business_id)
   end
 
   def handle_transaction

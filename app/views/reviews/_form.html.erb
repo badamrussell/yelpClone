@@ -79,7 +79,13 @@
       <% end %>
     <% end %>
 
-    <a href="#">Cancel</a>
+    <% if method == "put" %>
+      <a href="<%= business_url(@business.id) %>">Cancel</a>
+      <%= button_to "Delete", review_url(@review.id), method: :delete%>
+    <% else %>
+      <a href="<%= business_url(@business.id) %>">Cancel</a>
+    <% end %>
+
     <input type="submit" name="submit" value="Post Review" id="Review">
 
     <h5>* You can always edit or remove reviews later.</h5>
