@@ -66,3 +66,8 @@ h3.red-title {
   font-weight: bold;
   margin-bottom: 8px;
 }
+
+.med-link {
+  font-size: .8em;
+  padding: 2px;
+}

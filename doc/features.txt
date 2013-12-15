@@ -1,15 +1,14 @@
 ??????????????? incrementing messed up for review form
 
-fix columns partial
-show categories in various review partials and business page
 
-show search terms on top of search page
+show categories in various review partials and business page
 relabel MainCategory to BusinessCategory
+dollar signs reflect actual price_range
 
 css practice for test...
 Upvoting
 show counters on review votes
-dollar signs reflect actual price_range
+
 
 figaro
 google maps
@@ -82,6 +81,8 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+show search terms on top of search page
+fix columns partial
 Search page reviews are not with correct business
 go from category page to search with correct search parameters
 are categories correct?

@@ -9,12 +9,8 @@
   <div class="category-container">
     <%= render "widgets/price_range" %>
 
-
-
-    <% (1..3).each do |index| %>
-      <% category_id = business["category#{index}_id"] %>
-      <% next if category_id.nil? %>
-      <a href="<%= search_url(c: category_id) %>"><%= Category.find(category_id).name %></a>
-    <% end %>
+    <% business.categories.map do |c| %>
+      <span class="med-link"><a href="<%= search_url(category_id: c.id) %>"><%= c.name %></a></span>
+    <% end.join(",") %>
   </div>
 </div>
