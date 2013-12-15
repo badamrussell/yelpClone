@@ -1,11 +1,14 @@
-
+2 columns working
 do categories better
 Category page
 
-delete reviews
 
-DOES NOT CONSIDER IF USER HAS ALREADY ADDED FEATURES BEFORE....
+
+dollar signs reflect actual price_range
 show counters on review votes
+
+Upvoting
+
 
 data dependencies
 
@@ -14,25 +17,33 @@ Data validation (is correct type)
 html_safe...
 
 Faker Data
+BIG seed data
 
 clean up routes
 
 new businesses
 
-Upvoting
+
 other user pages
-save reviews (to submit for later)
-reviews do not save formatting...
-BIG seed data
-category pages have names instead of ids
-dollar signs reflect actual price_range
+
 
 site location name? (i.e. best in... New York)
 
-SQL INSERTION ATTACKS
+
 SECURITY
 
 Implement businesses recently opened
+
+SQL INSERTION ATTACKS
+category pages have names instead of ids
+save reviews (to submit for later)
+reviews do not save formatting...
+
+
+
+TIME-CONSUMING BUGS
+-------------------------------
+ON BAD REVIEW VALIDATION, FEATURES ARE STILL ADDED AND FORM IS NOT PREFILLED...
 
 MAYBE WAIT FOR JS...
 ------------------------------
@@ -52,6 +63,8 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+delete reviews
+DOES NOT CONSIDER IF USER HAS ALREADY ADDED FEATURES BEFORE....
 edit own reviews
 Reviews can have pictures
 reviews display reverse order

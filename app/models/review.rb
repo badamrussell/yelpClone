@@ -3,12 +3,7 @@ class Review < ActiveRecord::Base
 
   validates :rating, :user_id, :business_id, :body, presence: true
 
-  has_one(
-    :business_features,
-    class_name: "BusinessFeature",
-    primary_key: :id,
-    foreign_key: :review_id
-  )
+  before_destroy :destroy_features
 
   belongs_to(
     :user,
@@ -22,6 +17,12 @@ class Review < ActiveRecord::Base
     class_name: "Business",
     primary_key: :id,
     foreign_key: :business_id
+  )
+
+  has_many(
+    :business_features,
+    through: :business,
+    source: :business_features
   )
 
   has_many(
@@ -46,4 +47,9 @@ class Review < ActiveRecord::Base
     ["food", "stuff"]
   end
 
+  def destroy_features
+    business_features.each do |bf|
+      bf.destroy
+    end
+  end
 end

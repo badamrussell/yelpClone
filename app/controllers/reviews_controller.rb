@@ -5,19 +5,35 @@ class ReviewsController < ApplicationController
     @review = Review.new
     @business = Business.find(params[:business_id])
     @business_features = current_user.completed_biz_features(params[:business_id])
+    puts @business_features
+    puts "-----------------------"
   end
 
   def create
     flash[:errors] = []
-    @review = current_user.reviews.create(params[:review])
-    @business = Business.find(params[:review][:business_id])
-    @business_features = current_user.completed_biz_features(@business.id)
+    @review = current_user.reviews.new(params[:review])
+    @business = Business.find(@review.business_id)
+
+
 
     handle_transaction
 
     if flash[:errors].empty?
       redirect_to business_url(params[:review][:business_id])
     else
+      @business_features = {}
+
+      params[:feature_ids].each do |k,v|
+        if v == "1"
+          @business_features[k] = true
+        elsif k.to_i > 1
+          @business_features[v] = true
+        else
+          @business_features[k] = false
+        end
+      end
+      puts @business_features
+      puts "----------------------------"
       render :new
     end
   end
@@ -53,7 +69,7 @@ class ReviewsController < ApplicationController
   end
 
   def handle_transaction
-    ActiveRecord::Base.transaction do
+    @review.transaction do
       existing_features = current_user.business_features.where(business_id: @business.id)
 
       existing_features.each do |f|
@@ -84,6 +100,7 @@ class ReviewsController < ApplicationController
         flash[:errors] += single_feature.errors.full_messages
       end
 
+      #save photo
       if params[:photo] && !params[:photo][:img_url].blank?
         params[:photo][:business_id] = newReview.business_id
         params[:photo][:review_id] = newReview.id
@@ -93,6 +110,7 @@ class ReviewsController < ApplicationController
         flash[:errors] += newPhoto.errors.full_messages
       end
 
+      @review.save
       flash[:errors] += @review.errors.full_messages
     end
   end
