@@ -15,8 +15,7 @@ class Business < ActiveRecord::Base
     :reviews,
     class_name: "Review",
     primary_key: :id,
-    foreign_key: :business_id,
-    order: "created_at DESC"
+    foreign_key: :business_id
   )
 
   has_many(
@@ -80,6 +79,38 @@ class Business < ActiveRecord::Base
     Business.find_by_sql([sql,cats])
   end
 
+  def self.search(search_params)
+    wheres = []
+    values = []
+    joins = []
+
+    if search_params.keys.include?("feature_id")
+      joins << "INNER JOIN business_features ON businesses.id = business_features.business_id"
+    end
+    if search_params.keys.include?("category_id")
+      joins << "INNER JOIN business_categories ON businesses.id = business_categories.business_id"
+    end
+
+    search_params.each do |key, value|
+      wheres << " #{key} = ? "
+      values << value
+    end
+
+    where = "WHERE #{wheres.join(" AND ")}"
+
+    sql = <<-SQL
+      SELECT *
+      FROM businesses
+      #{joins.join("\n")}
+      #{where}
+    SQL
+
+
+
+    values.unshift(sql)
+    Business.find_by_sql(values)
+  end
+
   def first_review
 
   end
@@ -102,7 +133,7 @@ class Business < ActiveRecord::Base
   end
 
   def top_review
-    Review.first
+    reviews.order("rating DESC").first
   end
 
   def get_highlight_reviews(amount)

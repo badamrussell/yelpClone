@@ -5,8 +5,8 @@ class SearchesController < ApplicationController
       next if key == "action" || key == "controller"
       search_terms[key] = value
     end
-    #
-    @results = Business.where(search_terms)
+
+    @results = Business.search(search_terms)
     #@results = Business.all
     #@results = Business.find_from_categories(params[:c])
 

@@ -1,6 +1,7 @@
 ??????????????? incrementing messed up for review form
 
 go from category page to search with correct search parameters
+show search terms on top of search page
 Search page reviews are not with correct business
 css practice for test...
 Upvoting
