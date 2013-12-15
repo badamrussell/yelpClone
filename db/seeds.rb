@@ -805,3 +805,70 @@ Helpful.create([
   {name: "Not Helpful"}
 ])
 
+Vote.create([
+  {name: "Useful"},
+  {name: "Funny"},
+  {name: "Cool"}
+])
+
+Compliments.create([
+  {name: "Thank You"},
+  {name: "Good Writer"},
+  {name: "Just a Note"},
+  {name: "Write More"},
+  {name: "Great Photo"},
+  {name: "You're Funny"},
+  {name: "Cute Pic"},
+  {name: "Hot Stuff"},
+  {name: "Like Your Profile"},
+  {name: "You're Cool"},
+  {name: "Great Lists"}
+])
+
+
+Bookmark.create([
+  {business_id: 1, user_id: 1},
+  {business_id: 2, user_id: 1},
+  {business_id: 10, user_id: 1},
+  {business_id: 4, user_id: 1},
+  {business_id: 45, user_id: 1}
+])
+
+Follow.create([
+  {fan_id: 2, leader_id: 1},
+  {fan_id: 3, leader_id: 1},
+  {fan_id: 4, leader_id: 1},
+  {fan_id: 5, leader_id: 1},
+  {fan_id: 1, leader_id: 2},
+  {fan_id: 1, leader_id: 6},
+  {fan_id: 1, leader_id: 10},
+  {fan_id: 1, leader_id: 20}
+])
+
+Tip.create([
+  {body: "beware of rats", user_id: 1, business_id: 1},
+  {body: "try the cheese", user_id: 1, business_id: 1},
+  {body: "beware of cat", user_id: 1, business_id: 2},
+  {body: "stay away from the bathrooms", user_id: 2, business_id: 3},
+  {body: "tip well", user_id: 3, business_id: 4}
+])
+
+ReviewVotes.create([
+  {review_id: 1, vote_id: 1, user_id: 2},
+  {review_id: 1, vote_id: 2, user_id: 10},
+  {review_id: 1, vote_id: 3, user_id: 32},
+  {review_id: 1, vote_id: 1, user_id: 15}
+])
+
+List.create([
+  {name: "favorite places", user_id: 1 },
+  {name: "exciting locations", user_id: 1 }
+])
+
+ListReview.create([
+  {list_id: 1, review_id: 1},
+  {list_id: 2, review_id: 2},
+  {list_id: 1, review_id: 3},
+  {list_id: 2, review_id: 4},
+  {list_id: 2, review_id: 5}
+])

@@ -7,7 +7,7 @@
   </div>
 
   <div class="category-container">
-    <%= render "widgets/price_range" %>
+    <%= render "widgets/price_range", price: business.price_range %>
 
     <% business.categories.map do |c| %>
       <span class="med-link"><a href="<%= search_url(category_id: c.id) %>"><%= c.name %></a></span>

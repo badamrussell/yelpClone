@@ -1,8 +1,7 @@
 ??????????????? incrementing messed up for review form
 
 
-show categories in various review partials and business page
-relabel MainCategory to BusinessCategory
+implement price_range, add it to review
 dollar signs reflect actual price_range
 
 css practice for test...
@@ -21,7 +20,7 @@ search price range
 search by distance
 search sorting
 
-
+friends...
 
 random user images for seed photos
 
@@ -34,6 +33,7 @@ feedback messages (flash[:errors] and success)
 Data validation (is correct type)
 html_safe...
 
+flagging
 
 BIG seed data
 
@@ -81,6 +81,7 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+show categories in various review partials and business page
 show search terms on top of search page
 fix columns partial
 Search page reviews are not with correct business

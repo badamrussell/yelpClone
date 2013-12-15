@@ -22,7 +22,7 @@ class SearchesController < ApplicationController
 
     search_terms = {}
     params.each do |key, value|
-      next if key == "action" || key == "controller"
+      next if key == "action" || key == "controller" || key == "find" || key = "submit"
       search_terms[key] = value
     end
 

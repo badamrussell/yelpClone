@@ -167,7 +167,11 @@ class Business < ActiveRecord::Base
     reviews.inject(0) { |sum, r| sum + r.rating}/reviews.length
   end
 
+  def price_range
+    business_features
 
+    3
+  end
 
   private
 
