@@ -36,7 +36,8 @@ class Review < ActiveRecord::Base
     :business_features,
     class_name: "BusinessFeature",
     primary_key: :id,
-    foreign_key: :review_id
+    foreign_key: :review_id,
+    inverse_of: :review
   )
 
   def snippet(size = 60)
@@ -58,5 +59,14 @@ class Review < ActiveRecord::Base
     business_features.each do |bf|
       bf.destroy
     end
+  end
+
+  def completed_biz_features
+    feat_hash = {}
+    business_features.each do |f|
+      feat_hash[f.feature_id] = f.value
+    end
+
+    feat_hash
   end
 end

@@ -1,7 +1,7 @@
 class BusinessFeature < ActiveRecord::Base
   attr_accessible :business_id, :feature_id, :value, :review_id
 
-  validates :business_id, :feature_id, :review_id, presence: true
+  validates :business_id, :feature_id, :review, presence: true
 
   belongs_to(
     :business,
@@ -21,7 +21,8 @@ class BusinessFeature < ActiveRecord::Base
     :review,
     class_name: "Review",
     primary_key: :id,
-    foreign_key: :review_id
+    foreign_key: :review_id,
+    inverse_of: :business_features
   )
 
 end

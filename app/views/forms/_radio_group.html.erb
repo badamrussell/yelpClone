@@ -5,7 +5,7 @@
     <% name << "[#{nested_name}]" if nested_name %>
   <% end %>
   <% id_name = "#{prefix}_#{attr_name}" %>
-  <% selected = if selected_data[select_name].nil? %>
+  <% selected = if select_name.nil? || selected_data[select_name].nil? %>
       <% -1 %>
     <% elsif selected_data[select_name] %>
       <% select_name %>

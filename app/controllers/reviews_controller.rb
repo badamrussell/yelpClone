@@ -4,9 +4,7 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @business = Business.find(params[:business_id])
-    @business_features = current_user.completed_biz_features(params[:business_id])
-    puts @business_features
-    puts "-----------------------"
+    @business_features = []
   end
 
   def create
@@ -15,7 +13,8 @@ class ReviewsController < ApplicationController
     @business = Business.find(@review.business_id)
 
 
-
+    puts params
+    puts "---------------------------------"
     handle_transaction
 
     if flash[:errors].empty?
@@ -41,17 +40,21 @@ class ReviewsController < ApplicationController
   def edit
     @review = Review.find(params[:id])
     @business = Business.find(@review.business_id)
-    @business_features = current_user.completed_biz_features(@review.business_id)
+    @business_features = @review.completed_biz_features
+
+    puts @business_features
+    puts "---------------------------------"
   end
 
   def update
     flash[:errors] = []
     @review = Review.find(params[:id])
-    @business = Business.find(params[:review][:business_id])
-    @business_features = current_user.completed_biz_features(@business.id)
+    @business = Business.find(@review[:business_id])
+    @business_features = @review.business_features
 
+    puts params[:feature_ids]
+    puts "---------------------------------"
     handle_transaction
-
     if flash[:errors].empty?
       redirect_to business_url(@business.id)
     else
@@ -70,7 +73,7 @@ class ReviewsController < ApplicationController
 
   def handle_transaction
     @review.transaction do
-      existing_features = current_user.business_features.where(business_id: @business.id)
+      existing_features = @review.business_features.where(business_id: @business.id)
 
       existing_features.each do |f|
         if params[:feature_ids][f.feature_id].nil?
@@ -92,10 +95,11 @@ class ReviewsController < ApplicationController
             else
               false
             end
+        single_feature = @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
 
-        single_feature = current_user.business_features.where(business_id: @business.id, feature_id: key_id).first_or_initialize
 
-        single_feature.update_attribute(:value, bool_value)
+        #single_feature = @review.business_features.where(business_id: @business.id, feature_id: key_id).first_or_initialize
+        #single_feature.update_attribute(:value, bool_value)
 
         flash[:errors] += single_feature.errors.full_messages
       end

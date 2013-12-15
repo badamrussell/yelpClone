@@ -73,20 +73,21 @@
       } %>
 
       <% if feature_category.input_type == 2 %>
-        <% fc_count += feature_category.features.length %>
+        <% fc_count += feature_category.features.length + 1%>
       <% else %>
         <% fc_count += 1 %>
       <% end %>
-    <% end %>
-
-    <% if method == "put" %>
-      <a href="<%= business_url(@business.id) %>">Cancel</a>
-      <%= button_to "Delete", review_url(@review.id), method: :delete%>
-    <% else %>
-      <a href="<%= business_url(@business.id) %>">Cancel</a>
+      <%= fc_count %>
     <% end %>
 
     <input type="submit" name="submit" value="Post Review" id="Review">
 
     <h5>* You can always edit or remove reviews later.</h5>
 </form>
+
+<% if method == "put" %>
+  <a href="<%= business_url(@business.id) %>">Cancel</a>
+  <%= button_to "Delete", review_url(@review.id), method: :delete %>
+<% else %>
+  <a href="<%= business_url(@business.id) %>">Cancel</a>
+<% end %>

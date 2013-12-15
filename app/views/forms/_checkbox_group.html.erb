@@ -24,6 +24,7 @@
             id="<%= id_name %>_<%= d.name %>"
             <%= "checked" if selected == 1 %>>
     <label for="<%= id_name %>_<%= d.name %>"><%= d.name %></label>
+    <% attr_name += 1 %>
   <% end %>
 </fieldset>
 
