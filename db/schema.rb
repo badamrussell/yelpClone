@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131214153011) do
+ActiveRecord::Schema.define(:version => 20131215145708) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(:version => 20131214153011) do
   end
 
   add_index "areas", ["city_id"], :name => "index_areas_on_city_id"
+
+  create_table "business_categories", :force => true do |t|
+    t.integer  "business_id", :null => false
+    t.integer  "category_id", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "business_categories", ["business_id", "category_id"], :name => "index_business_categories_on_business_id_and_category_id", :unique => true
 
   create_table "business_features", :force => true do |t|
     t.integer  "business_id", :null => false
@@ -45,18 +54,12 @@ ActiveRecord::Schema.define(:version => 20131214153011) do
     t.integer  "zip_code"
     t.string   "phone_number"
     t.string   "website"
-    t.integer  "category1_id"
-    t.integer  "category2_id"
-    t.integer  "category3_id"
     t.integer  "neighborhood_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "store_front_id"
   end
 
-  add_index "businesses", ["category1_id"], :name => "index_businesses_on_category1_id"
-  add_index "businesses", ["category2_id"], :name => "index_businesses_on_category2_id"
-  add_index "businesses", ["category3_id"], :name => "index_businesses_on_category3_id"
   add_index "businesses", ["name"], :name => "index_businesses_on_name"
   add_index "businesses", ["neighborhood_id"], :name => "index_businesses_on_neighborhood_id"
 

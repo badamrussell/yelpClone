@@ -54,6 +54,7 @@ class ReviewsController < ApplicationController
 
     puts params[:feature_ids]
     puts "---------------------------------"
+
     handle_transaction
     if flash[:errors].empty?
       redirect_to business_url(@business.id)
@@ -88,16 +89,24 @@ class ReviewsController < ApplicationController
         key_id = key
         bool_value = if value == "1"
               true
-            elsif value.to_i > 1
-
+            elsif key.to_i == 0
               key_id = value.to_i
               true
             else
               false
             end
-        single_feature = @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
 
+        single_feature = @review.business_features.where(feature_id: key_id, business_id: @review.business_id).first_or_initialize
+        single_feature.update_attribute(:value, bool_value)
 
+        # if params[:action] == "post"
+        #     @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
+        #   else
+        #
+        #     @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
+        #   end
+
+        puts ">  business_id: #{@business.id}, feature_id: #{key_id}, value: #{bool_value}, valid? #{single_feature.valid?}, #{single_feature.review_id}"
         #single_feature = @review.business_features.where(business_id: @business.id, feature_id: key_id).first_or_initialize
         #single_feature.update_attribute(:value, bool_value)
 

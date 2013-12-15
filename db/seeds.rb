@@ -29,10 +29,28 @@ ProfileLocation.create(user_id: 2, address: neighborhood, name: "Home", primary:
 ProfileLocation.create(user_id: 3, address: neighborhood, name: "Home", primary: true)
 
 
-Business.create(name: "Bob's Burgers", country_id: 1, category1_id: 1, category2_id: 4,category3_id: 7, neighborhood_id: 1)
-Business.create(name: "Cheers", country_id: 1, category1_id: 10, category2_id: 1,category3_id: 2, neighborhood_id: 1)
-Business.create(name: "Chipotle", country_id: 1, category1_id: 12, category2_id: 1,category3_id: 2, neighborhood_id: 1)
-Business.create(name: "Jack Rabbit Slims", country_id: 1, category1_id: 20, category2_id: 8,category3_id: 12, neighborhood_id: 1)
+Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1)
+Business.create(name: "Cheers", country_id: 1, neighborhood_id: 1)
+Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1)
+Business.create(name: "Jack Rabbit Slims", country_id: 1, neighborhood_id: 1)
+
+BusinessCategory.create([
+  {business_id: 1, category_id: 1},
+  {business_id: 1, category_id: 4},
+  {business_id: 1, category_id: 7},
+
+  {business_id: 2, category_id: 10},
+  {business_id: 2, category_id: 1},
+  {business_id: 2, category_id: 2},
+
+  {business_id: 3, category_id: 12},
+  {business_id: 3, category_id: 1},
+  {business_id: 3, category_id: 2},
+
+  {business_id: 4, category_id: 20},
+  {business_id: 4, category_id: 8},
+  {business_id: 4, category_id: 12}
+])
 
 MainCategory.create([
   {name: "Restaurants"},
@@ -415,16 +433,19 @@ Neighborhood.create([
 
 
 100.times do
-  Business.create( {  name: Faker::Company.name,
+  b = Business.create( {  name: Faker::Company.name,
                       country_id: 1,
-                      category1_id: rand(100)+1,
-                      category2_id: rand(100)+1,
-                      category3_id: rand(100)+1,
                       address1: Faker::Address.street_address,
                       address2: Faker::Address.secondary_address,
                       phone_number: Faker::PhoneNumber.phone_number,
                       neighborhood_id: rand(50)+1
                     } )
+
+  BusinessCategory.create([
+    {business_id: b.id, category_id: rand(1..30)},
+    {business_id: b.id, category_id: rand(31..60)},
+    {business_id: b.id, category_id: rand(61..100)}
+  ])
 end
 
 20.times do

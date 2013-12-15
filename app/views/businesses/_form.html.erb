@@ -20,25 +20,29 @@
 
   <fieldset class="business-categories">
   <legend>Categories</legend>
-    <div>
-      <select name>
-        <% Category.all.each do|category| %>
-          <option value="<%= category.id %>">
-            <%= category.name %>
-          </option>
-        <% end %>
-      </select>
+    <% 3.times do %>
+      <div>
+        <select name>
+          <% Category.all.each do|category| %>
+            <option value="<%= category.id %>">
+              <%= category.name %>
+            </option>
+          <% end %>
+        </select>
 
-      <select name="business[category1_id]">
-        <% Category.all.each do|sub_category| %>
-          <option value="<%= sub_category.id %>">
-            <%= sub_category.name %>
-          </option>
-        <% end %>
-      </select>
-      <a href="#" class="small-link">Remove</a>
-    </div>
+        <select name="business[category_ids][]">
+          <% Category.all.each do|sub_category| %>
+            <option value="<%= sub_category.id %>">
+              <%= sub_category.name %>
+            </option>
+          <% end %>
+        </select>
+        <a href="#" class="small-link">Remove</a>
+      </div>
+    <% end %>
     <a href="#" class="small-link">Add another category</a>
+
+
   </fieldset>
 
   <a href="#" class="small-link">See Full Category List</a>

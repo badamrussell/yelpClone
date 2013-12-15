@@ -1,29 +1,27 @@
-incrementing messed up for review form
+??????????????? incrementing messed up for review form
 
 go from category page to search with correct search parameters
 Search page reviews are not with correct business
 css practice for test...
+Upvoting
+show counters on review votes
+dollar signs reflect actual price_range
 
 figaro
 google maps
 
+site location name? (i.e. best in... New York)
 do categories better (better way than the three columns)
 
 complex searching ( how to stack searches )
 
+
+
+
+
 random user images for seed photos
 
-Category page
-
 ask confirmation before deleting
-
-dollar signs reflect actual price_range
-show counters on review votes
-
-Upvoting
-
-site location name? (i.e. best in... New York)
-
 how to crop photos for mosaic
 toggle list view from mosaic
 data dependencies
@@ -78,7 +76,7 @@ RECOMMENDED FEATURES TO ADD
 
 
 ----------------------------------------------
-
+Category page
 change BusinessFeatures to have review_id instead of user_id
 
 are categories correct?

@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
     self.save!
   end
 
-  def password=(secret)bus
+  def password=(secret)
     @password = secret
     self.password_digest = BCrypt::Password.create(secret)
   end

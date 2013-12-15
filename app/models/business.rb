@@ -1,6 +1,6 @@
 class Business < ActiveRecord::Base
   # attr_accessible :title, :body
-  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website,:category1_id ,:category2_id ,:category3_id, :store_front_id, :neighborhood_id
+  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids
 
   validates :name, :country_id, presence: true
 
@@ -18,6 +18,15 @@ class Business < ActiveRecord::Base
     foreign_key: :business_id,
     order: "created_at DESC"
   )
+
+  has_many(
+    :business_categories,
+    class_name: "BusinessCategory",
+    primary_key: :id,
+    foreign_key: :business_id
+  )
+
+  has_many :categories, through: :business_categories, source: :category
 
   has_many(
     :business_features,
@@ -55,36 +64,24 @@ class Business < ActiveRecord::Base
     Business.all[0..4]
   end
 
-  def self.best_random(category_id, size)
-    best = []
+  def self.best_random(category_objs, size)
+    cats = []
+    category_objs.each do |c|
+      cats << c.id
+    end
 
-    Business.all.limit(size)
+    sql = <<-SQL
+      SELECT *
+      FROM businesses
+      JOIN business_categories ON businesses.id = business_categories.business_id
+      WHERE business_categories.category_id IN (?)
+    SQL
 
-    best
+    Business.find_by_sql([sql,cats])
   end
 
   def first_review
 
-  end
-
-  def categories(category_id)
-    sql = <<-SQL
-      SELECT *
-      FROM businesses
-      WHERE category1_id = ? OR category2_id = ? OR category3_id = ?
-    SQL
-
-    Business.find_by_sql([sql,category_id,category_id,category_id])
-  end
-
-  def self.find_from_categories(cat1)
-    sql = <<-SQL
-      SELECT *
-      FROM businesses
-      WHERE category1_id = ? OR category2_id = ? OR category3_id = ?
-    SQL
-
-    Business.find_by_sql([sql,cat1,cat1,cat1])
   end
 
   def store_front_photo

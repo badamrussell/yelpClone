@@ -50,33 +50,38 @@
         nested_name: nil,
         data: bool_choice,
         select_name: feature.id,
-        selected_data: business_features
+        selected_data: business_features,
+        use_custom: false
       } %>
       <% fc_count += 1 %>
     <% end %>
-
+    <% fc_count += 1 %>
+    <%= business_features %>
     <% FeatureCategory.all.each do |feature_category| %>
       <% next if feature_category.id == 1 %>
       <% p_form = feature_category.input_type == 1 ? "forms/radio_group" : "forms/checkbox_group" %>
       <% p_name = feature_category.input_type == 1 ? feature_category.features.select { |f| business_features[f.id] }[0] : nil %>
       <% p_name = p_name.id if p_name %>
 
+
       <%= render p_form, {
         name: nil,
         title: feature_category.name,
         prefix: "feature_ids",
-        attr_name: fc_count,
+        attr_name: feature_category.name,
         nested_name: nil,
         data: feature_category.features,
         select_name: p_name,
-        selected_data: business_features
+        selected_data: business_features,
+        use_custom: false
       } %>
 
       <% if feature_category.input_type == 2 %>
-        <% fc_count += feature_category.features.length + 1%>
+        <% fc_count += feature_category.features.length%>
       <% else %>
         <% fc_count += 1 %>
       <% end %>
+
       <%= fc_count %>
     <% end %>
 
