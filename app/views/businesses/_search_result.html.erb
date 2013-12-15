@@ -15,6 +15,7 @@
     </div>
   </section>
 
+  <% if business.top_review %>
   <section class="review-container group">
     <div class="user-avatar">
       <img height="40" src="<%= business.top_review.user.avatar %>">
@@ -23,6 +24,7 @@
       <%= business.top_review.body[0..50] %>
     </div>
   </section>
+  <% end %>
 </div>
 
 

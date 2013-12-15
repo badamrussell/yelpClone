@@ -2,12 +2,12 @@
   <section class="filter-header group">
     <div class="group">
       <nav class="breadcrumb-container">
-        <% @breadcrumbs.each do |crumb| %>
+        <% @breadcrumbs.each do |crumb, c_url| %>
         <h3 class="title-link left">
-          <% if crumb == @breadcrumbs.last %>
+          <% if c_url == "" %>
             <%= crumb %>
           <% else %>
-            <a href="#"><%= crumb %></a> >
+            <a href="<%= c_url %>"><%= crumb %></a> >
           <% end %>
         </h3>
         <% end %>

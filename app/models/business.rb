@@ -89,6 +89,10 @@ class Business < ActiveRecord::Base
     end
     if search_params.keys.include?("category_id")
       joins << "INNER JOIN business_categories ON businesses.id = business_categories.business_id"
+    elsif search_params.keys.include?("main_category_id")
+      joins << "INNER JOIN business_categories ON business_categories.business_id = businesses.id"
+      joins << "INNER JOIN categories ON categories.id = business_categories.business_id"
+      joins << "INNER JOIN main_categories ON main_categories.id = categories.main_category_id"
     end
 
     search_params.each do |key, value|
@@ -99,7 +103,7 @@ class Business < ActiveRecord::Base
     where = "WHERE #{wheres.join(" AND ")}"
 
     sql = <<-SQL
-      SELECT *
+      SELECT DISTINCT businesses.*
       FROM businesses
       #{joins.join("\n")}
       #{where}

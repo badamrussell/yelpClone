@@ -2,6 +2,7 @@
 
 
 show search terms on top of search page
+relabel MainCategory to BusinessCategory
 
 css practice for test...
 Upvoting
@@ -18,7 +19,6 @@ complex searching ( how to stack searches )
 search price range
 search by distance
 search sorting
-
 
 
 
