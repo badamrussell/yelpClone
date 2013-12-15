@@ -1,5 +1,14 @@
+go from category page to search with correct search parameters
+Search page reviews are not with correct business
+css practice for test...
 
-do categories better
+change BusinessFeatures to have review_id instead of user_id
+
+do categories better (better way than the three columns)
+
+
+random user images for seed photos
+
 Category page
 
 
@@ -11,14 +20,15 @@ Upvoting
 
 site location name? (i.e. best in... New York)
 
-
+how to crop photos for mosaic
+toggle list view from mosaic
 data dependencies
 
 feedback messages (flash[:errors] and success)
 Data validation (is correct type)
 html_safe...
 
-Faker Data
+
 BIG seed data
 
 clean up routes
@@ -28,7 +38,7 @@ new businesses
 
 other user pages
 
-
+links should add to searches
 
 
 
@@ -64,11 +74,14 @@ RECOMMENDED FEATURES TO ADD
 
 
 ----------------------------------------------
+are categories correct?
 
+Faker Data
 2 columns working
 delete reviews
 DOES NOT CONSIDER IF USER HAS ALREADY ADDED FEATURES BEFORE....
 edit own reviews
+
 Reviews can have pictures
 reviews display reverse order
 Business Photos Page

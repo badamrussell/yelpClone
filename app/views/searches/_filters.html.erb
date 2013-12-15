@@ -1,8 +1,12 @@
 <nav class="search-filters-container">
   <section class="filter-header group">
     <div class="group">
-      <h3 class="left">SEARCH TITLE</h3>
+      <h3 class="left"> BUSINESS > RESTAURANTS > CATEGORY ></h3>
       <em class="right">Showing ...</em>
+    </div>
+    <div class="top-filter group">
+      <%#= render "widgets/columns", columns: 6, data: Neighborhood.where(area_id: 1), base_url: search_url(category_id: @category.id), param_name: "neighborhood_id" %>
+
     </div>
     <div class="group">
       <h4 class="left">Browse Category:</h4><a href="#">PLACE HOLDER</a>
@@ -13,79 +17,81 @@
     </select>
   </section>
 
-  <section class="filter-container left">
-    <h3 class="filter-title">Sort By</h3>
-    <ul>
-      <li>Best Match</li>
-      <li>Highest Rated</li>
-      <li>Most Reviewed</li>
-    </ul>
-    <a class="filter-more" href="#"></a>
-  </section>
+  <form action="<%= search_url %>" method="get">
+    <section class="filter-container left">
+      <h3 class="filter-title">Sort By</h3>
+      <ul>
+        <li>Best Match</li>
+        <li>Highest Rated</li>
+        <li>Most Reviewed</li>
+      </ul>
+      <a class="filter-more" href="#"></a>
+    </section>
 
-  <section class="filter-container left">
-    <h3 class="filter-title">Neighborhoods</h3>
-    <ul>
-      <% Neighborhood.where(area_id: 1).limit(5).each do |n| %>
-        <li>
-          <input type="checkbox" id="neighbor_<%= n.id %>">
-          <label for="neighbor_<%= n.id %>"><%= n.name %>
-        </li>
-      <% end %>
-    </ul>
-    <a class="filter-more" href="#">More Neighborhoods</a>
-  </section>
+    <section class="filter-container left">
+      <h3 class="filter-title">Neighborhoods</h3>
+      <ul>
+        <% Neighborhood.where(area_id: 1).limit(5).each do |n| %>
+          <li>
+            <input type="checkbox" id="neighbor_<%= n.id %>">
+            <label for="neighbor_<%= n.id %>"><%= n.name %>
+          </li>
+        <% end %>
+      </ul>
+      <a class="filter-more" href="#">More Neighborhoods</a>
+    </section>
 
-  <section class="filter-container left">
-    <h3 class="filter-title">Distance</h3>
-    <ul>
-      <li><a href="#">Bird's Eye View</a></li>
-      <li><a href="#">Driving (5 mi.)</a></li>
-      <li><a href="#">Biking (2 mi.)</a></li>
-      <li><a href="#">Walking (1 mi.)</a></li>
-      <li><a href="#">Within 4 blocks</a></li>
-    </ul>
-    <a class="filter-more" href="#"></a>
-  </section>
+    <section class="filter-container left">
+      <h3 class="filter-title">Distance</h3>
+      <ul>
+        <li><a href="#">Bird's Eye View</a></li>
+        <li><a href="#">Driving (5 mi.)</a></li>
+        <li><a href="#">Biking (2 mi.)</a></li>
+        <li><a href="#">Walking (1 mi.)</a></li>
+        <li><a href="#">Within 4 blocks</a></li>
+      </ul>
+      <a class="filter-more" href="#"></a>
+    </section>
 
-  <section class="filter-container left">
-    <h3 class="filter-title">Price</h3>
-    <ul>
-      <% PriceRange.all.each do |p| %>
-        <li>
-          <input type="checkbox" id="price_<%= p.id %>">
-          <label for="neighbor_<%= p.id %>"><%= p.name %>
-        </li>
-      <% end %>
-    </ul>
+    <section class="filter-container left">
+      <h3 class="filter-title">Price</h3>
+      <ul>
+        <% PriceRange.all.each do |p| %>
+          <li>
+            <input type="checkbox" id="price_<%= p.id %>">
+            <label for="neighbor_<%= p.id %>"><%= p.name %>
+          </li>
+        <% end %>
+      </ul>
 
-    <a class="filter-more" href="#"></a>
-  </section>
+      <a class="filter-more" href="#"></a>
+    </section>
 
-  <section class="filter-container left">
-    <h3 class="filter-title">Features</h3>
-    <ul>
-      <% Feature.limit(5).each do |f| %>
-        <li>
-          <input type="checkbox" id="feature_<%= f.id %>">
-          <label for="neighbor_<%= f.id %>"><%= f.name %>
-        </li>
-      <% end %>
-    </ul>
-    <a class="filter-more" href="#">More Features</a>
-  </section>
+    <section class="filter-container left">
+      <h3 class="filter-title">Features</h3>
+      <ul>
+        <% Feature.limit(5).each do |f| %>
+          <li>
+            <input type="checkbox" id="feature_<%= f.id %>">
+            <label for="neighbor_<%= f.id %>"><%= f.name %>
+          </li>
+        <% end %>
+      </ul>
+      <a class="filter-more" href="#">More Features</a>
+    </section>
 
-  <section class="filter-container left">
-    <h3 class="filter-title">Category</h3>
-    <ul>
-      <% Category.limit(5).each do |f| %>
-        <li>
-          <input type="checkbox" id="category_<%= f.id %>">
-          <label for="neighbor_<%= f.id %>"><%= f.name %>
-        </li>
-      <% end %>
-    </ul>
-    <a class="filter-more" href="#">More Categories</a>
-  </section>
-
+    <section class="filter-container left">
+      <h3 class="filter-title">Category</h3>
+      <ul>
+        <% Category.limit(5).each do |f| %>
+          <li>
+            <input type="checkbox" id="category_<%= f.id %>">
+            <label for="neighbor_<%= f.id %>"><%= f.name %>
+          </li>
+        <% end %>
+      </ul>
+      <a class="filter-more" href="#">More Categories</a>
+    </section>
+    <input type="submit" name="search" value="search" id="search">
+  </form>
 </nav>

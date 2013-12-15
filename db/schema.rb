@@ -26,18 +26,18 @@ ActiveRecord::Schema.define(:version => 20131214153011) do
     t.integer  "business_id", :null => false
     t.integer  "feature_id",  :null => false
     t.boolean  "value",       :null => false
-    t.integer  "user_id",     :null => false
+    t.integer  "review_id",   :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   add_index "business_features", ["business_id"], :name => "index_business_features_on_business_id"
   add_index "business_features", ["feature_id"], :name => "index_business_features_on_feature_id"
-  add_index "business_features", ["user_id"], :name => "index_business_features_on_user_id"
+  add_index "business_features", ["review_id"], :name => "index_business_features_on_review_id"
 
   create_table "businesses", :force => true do |t|
-    t.integer  "country_id",     :null => false
-    t.string   "name",           :null => false
+    t.integer  "country_id",      :null => false
+    t.string   "name",            :null => false
     t.string   "address1"
     t.string   "address2"
     t.string   "city"
@@ -48,12 +48,17 @@ ActiveRecord::Schema.define(:version => 20131214153011) do
     t.integer  "category1_id"
     t.integer  "category2_id"
     t.integer  "category3_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.integer  "neighborhood_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.integer  "store_front_id"
   end
 
+  add_index "businesses", ["category1_id"], :name => "index_businesses_on_category1_id"
+  add_index "businesses", ["category2_id"], :name => "index_businesses_on_category2_id"
+  add_index "businesses", ["category3_id"], :name => "index_businesses_on_category3_id"
   add_index "businesses", ["name"], :name => "index_businesses_on_name"
+  add_index "businesses", ["neighborhood_id"], :name => "index_businesses_on_neighborhood_id"
 
   create_table "categories", :force => true do |t|
     t.integer  "main_category_id", :null => false

@@ -14,10 +14,15 @@ class CreateBusinesses < ActiveRecord::Migration
       t.integer :category1_id
       t.integer :category2_id
       t.integer :category3_id
+      t.integer :neighborhood_id
 
       t.timestamps
     end
 
     add_index :businesses, :name
+    add_index :businesses, :neighborhood_id
+    add_index :businesses, :category1_id
+    add_index :businesses, :category2_id
+    add_index :businesses, :category3_id
   end
 end

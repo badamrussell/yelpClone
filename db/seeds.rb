@@ -29,10 +29,10 @@ ProfileLocation.create(user_id: 2, address: neighborhood, name: "Home", primary:
 ProfileLocation.create(user_id: 3, address: neighborhood, name: "Home", primary: true)
 
 
-Business.create(name: "Bob's Burgers", country_id: 1, category1_id: 1, category2_id: 4,category3_id: 7)
-Business.create(name: "Cheers", country_id: 1, category1_id: 10, category2_id: 1,category3_id: 2)
-Business.create(name: "Chipotle", country_id: 1, category1_id: 12, category2_id: 1,category3_id: 2)
-Business.create(name: "Jack Rabbit Slims", country_id: 1, category1_id: 20, category2_id: 8,category3_id: 12)
+Business.create(name: "Bob's Burgers", country_id: 1, category1_id: 1, category2_id: 4,category3_id: 7, neighborhood_id: 1)
+Business.create(name: "Cheers", country_id: 1, category1_id: 10, category2_id: 1,category3_id: 2, neighborhood_id: 1)
+Business.create(name: "Chipotle", country_id: 1, category1_id: 12, category2_id: 1,category3_id: 2, neighborhood_id: 1)
+Business.create(name: "Jack Rabbit Slims", country_id: 1, category1_id: 20, category2_id: 8,category3_id: 12, neighborhood_id: 1)
 
 MainCategory.create([
   {name: "Restaurants"},
@@ -412,6 +412,41 @@ Neighborhood.create([
   {name: "Westerleigh", area_id: 5},
   {name: "Woodrow", area_id: 5}
 ])
+
+
+100.times do
+  Business.create( {  name: Faker::Company.name,
+                      country_id: 1,
+                      category1_id: rand(100)+1,
+                      category2_id: rand(100)+1,
+                      category3_id: rand(100)+1,
+                      address1: Faker::Address.street_address,
+                      address2: Faker::Address.secondary_address,
+                      phone_number: Faker::PhoneNumber.phone_number,
+                      neighborhood_id: rand(50)+1
+                    } )
+end
+
+20.times do
+  user = User.create( email: Faker::Internet.email,
+                      password: "123456",
+                      first_name: Faker::Name.first_name,
+                      last_name: Faker::Name.last_name
+                    )
+  new_bio = UserBio.new()
+  new_bio.user_id = user.id
+  new_bio.save
+
+  ProfileLocation.create(user_id: user.id, address: neighborhood, name: "Home", primary: true)
+end
+
+200.times do
+  Review.create(  rating: rand(5)+1,
+                  user_id: rand(20)+1,
+                  business_id: rand(100)+1,
+                  body: Faker::Lorem.paragraph
+                )
+end
 
 Category.create([
 

@@ -43,12 +43,7 @@ class User < ActiveRecord::Base
     foreign_key: :user_id
   )
 
-  has_many(
-    :business_features,
-    class_name: "BusinessFeature",
-    primary_key: :id,
-    foreign_key: :user_id
-  )
+
 
   #--temporary placeholders until associations can be made
   def friends

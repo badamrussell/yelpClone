@@ -1,6 +1,6 @@
 class Business < ActiveRecord::Base
   # attr_accessible :title, :body
-  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website,:category1_id ,:category2_id ,:category3_id, :store_front_id
+  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website,:category1_id ,:category2_id ,:category3_id, :store_front_id, :neighborhood_id
 
   validates :name, :country_id, presence: true
 
@@ -74,7 +74,17 @@ class Business < ActiveRecord::Base
       WHERE category1_id = ? OR category2_id = ? OR category3_id = ?
     SQL
 
-    Business.find_by_sql(sql,[category_id,category_id,category_id])
+    Business.find_by_sql([sql,category_id,category_id,category_id])
+  end
+
+  def self.find_from_categories(cat1)
+    sql = <<-SQL
+      SELECT *
+      FROM businesses
+      WHERE category1_id = ? OR category2_id = ? OR category3_id = ?
+    SQL
+
+    Business.find_by_sql([sql,cat1,cat1,cat1])
   end
 
   def store_front_photo

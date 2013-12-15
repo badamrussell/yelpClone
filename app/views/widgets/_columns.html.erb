@@ -4,7 +4,7 @@
 <% cnt = 1 %>
 <ul class="left">
 <% data.each do |d| %>
-  <li><a href="#"><%= d.name %></a></li>
+  <li><a href="<%= base_url %>&<%= param_name %>=<%= d.id %>"><%= d.name %></a></li>
   <% cnt += 1 %>
   <% if cnt >= rows %>
     <% cnt = 1 %>

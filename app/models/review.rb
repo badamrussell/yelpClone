@@ -32,6 +32,13 @@ class Review < ActiveRecord::Base
     foreign_key: :review_id
   )
 
+  has_many(
+    :business_features,
+    class_name: "BusinessFeature",
+    primary_key: :id,
+    foreign_key: :review_id
+  )
+
   def snippet(size = 60)
 
     if self.body.include?(".")
