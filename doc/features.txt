@@ -1,4 +1,4 @@
-2 columns working
+
 do categories better
 Category page
 
@@ -8,6 +8,8 @@ dollar signs reflect actual price_range
 show counters on review votes
 
 Upvoting
+
+site location name? (i.e. best in... New York)
 
 
 data dependencies
@@ -27,7 +29,7 @@ new businesses
 other user pages
 
 
-site location name? (i.e. best in... New York)
+
 
 
 SECURITY
@@ -63,6 +65,7 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+2 columns working
 delete reviews
 DOES NOT CONSIDER IF USER HAS ALREADY ADDED FEATURES BEFORE....
 edit own reviews
