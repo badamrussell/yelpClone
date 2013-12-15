@@ -26,9 +26,12 @@ YelpClone::Application.routes.draw do
   resources :categories, only: [:show, :index]
 
   resources :reviews, except: [:new]
+
+  resources :review_votes, only: [:create, :destroy]
   resources :categories, only: [:index]
   resource :profile, only: [:show, :edit, :update]
   resource :search, only: :show
+
 
   # resources :reviews, only : [:new]
   # match "writeareview" => "reviews#new"

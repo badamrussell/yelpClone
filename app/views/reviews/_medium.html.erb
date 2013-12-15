@@ -18,7 +18,7 @@
       <em><%= review.created_at.strftime("%m/%d/%Y") %></em>
     </div>
 
-    <div>
+    <div class="review-body">
       <p><%= review.body %></p>
     </div>
 
@@ -29,12 +29,14 @@
     </div>
 
     <div class="review-upvote-container">
+      <div class="upvote-question"><em>Was this review ...?</em></div>
       <% votes = review.vote_count %>
       <% Vote.all.each do |vote| %>
-        <button><%= vote.name %> <strong><%= "( #{votes[vote.id]} )" if votes[vote.id] %></strong></button>
+      <% temp_class = (current_user.voted?(review, vote.id) ? "button-voted" : "button-vote") %>
+        <a href="<%=  %>">
+          <button class="<%= temp_class %>"><%= vote.name %> <strong><%= "( #{votes[vote.id]} )" if votes[vote.id] %></strong></button>
+        </a>
       <% end %>
-
-      <div class="upvote-question"><em>Was this review ...?</em></div>
 
       <% if current_user && review.user_id == current_user.id %>
         <a href="<%= edit_review_url(review.id) %>">edit</a>

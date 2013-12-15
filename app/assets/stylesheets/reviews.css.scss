@@ -33,6 +33,26 @@
   .upvote-question {
 
   }
+  .button-vote {
+    background-color: lightgrey;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .button-voted {
+    background-color: lightgrey;
+    color: green;
+    font-weight: bold;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .review-body {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 }
 
 .review-photos-container {
