@@ -21,18 +21,18 @@
   <div class="side-neighborhoods left">
     <h3 class="filter-title">Neighborhoods</h3>
 
-    <%= render "widgets/columns", columns: 2, data: Neighborhood.where(area_id: 1), base_url: search_url(category_id: @category.id), param_name: "neighborhood_id" %>
+    <%= render "widgets/columns", columns: 2, data: Neighborhood.where(area_id: 1), base_url: "#{search_url(category_id: @category.id)}&", param_name: "neighborhood_id" %>
   </div>
 
   <div class="side-features left">
     <div class="filter-prices group">
       <h3 class="filter-title">Prices</h3>
-      <%= render "widgets/columns", columns: 2, data: PriceRange.all, base_url: search_url, param_name: "" %>
+      <%= render "widgets/columns", columns: 2, data: PriceRange.all, base_url: "#{search_url}", param_name: "" %>
     </div>
 
     <div class="filter-features">
       <h3 class="filter-title">Features</h3>
-      <%= render "widgets/columns", columns: 2, data: Feature.all, base_url: search_url, param_name: ""  %>
+      <%= render "widgets/columns", columns: 2, data: Feature.all, base_url: "#{search_url}", param_name: ""  %>
     </div>
 
   </div>

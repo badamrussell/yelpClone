@@ -25,15 +25,17 @@
         <%#= render "widgets/columns", columns: 6, data: Neighborhood.where(area_id: 1), base_url: search_url(category_id: @category.id), param_name: "neighborhood_id" %>
         <%= render "widgets/columns", columns: 6, data: @finer_filters, base_url: "/search?", param_name: @finer_filter_name, max_rows: 4 %>
 
-        <div class="group">
-          <h4 class="left">Browse Category:</h4><a href="#">PLACE HOLDER</a>
-        </div>
 
-        <select class="">
-          <option value=1>Hide Filters</option>
-        </select>
 
       <% end %>
+
+      <div class="group">
+        <h4 class="left">Browse Category:</h4><a href="#">PLACE HOLDER</a>
+      </div>
+
+      <select class="">
+        <option value=1>Hide Filters</option>
+      </select>
     </div>
 
   </section>
