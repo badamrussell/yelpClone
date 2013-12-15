@@ -856,7 +856,13 @@ ReviewVote.create([
   {review_id: 1, vote_id: 1, user_id: 2},
   {review_id: 1, vote_id: 2, user_id: 10},
   {review_id: 1, vote_id: 3, user_id: 32},
-  {review_id: 1, vote_id: 1, user_id: 15}
+  {review_id: 1, vote_id: 1, user_id: 15},
+  {review_id: 202, vote_id: 1, user_id: 1},
+  {review_id: 202, vote_id: 2, user_id: 20},
+  {review_id: 202, vote_id: 3, user_id: 30},
+  {review_id: 202, vote_id: 2, user_id: 60},
+  {review_id: 202, vote_id: 3, user_id: 1},
+  {review_id: 202, vote_id: 3, user_id: 50}
 ])
 
 List.create([

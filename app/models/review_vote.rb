@@ -1,7 +1,6 @@
 class ReviewVote < ActiveRecord::Base
   attr_accessible :review_id, :vote_id, :user_id
 
-
   validates :review_id, :vote_id, :user_id, presence: true
 
   belongs_to(

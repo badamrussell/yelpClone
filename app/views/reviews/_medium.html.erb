@@ -29,10 +29,13 @@
     </div>
 
     <div class="review-upvote-container">
+      <% votes = review.vote_count %>
+      <% Vote.all.each do |vote| %>
+        <button><%= vote.name %> <strong><%= "( #{votes[vote.id]} )" if votes[vote.id] %></strong></button>
+      <% end %>
+
       <div class="upvote-question"><em>Was this review ...?</em></div>
-      <button>Useful</button>
-      <button>Funny</button>
-      <button>Cool</button>
+
       <% if current_user && review.user_id == current_user.id %>
         <a href="<%= edit_review_url(review.id) %>">edit</a>
       <% end %>

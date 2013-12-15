@@ -49,6 +49,18 @@ class Review < ActiveRecord::Base
 
   has_many :votes, through: :review_votes, source: :vote
 
+
+  has_many(
+    :vote_countA,
+    class_name: "ReviewVote",
+    primary_key: :id,
+    foreign_key: :review_id,
+    group: "review_votes.vote_id",
+    select: "review_votes.vote_id AS id, COUNT(review_votes.id) AS count",
+  )
+
+
+
   has_many(
     :review_compliments,
     class_name: "ReviewCompliment",
@@ -95,5 +107,30 @@ class Review < ActiveRecord::Base
     end
 
     feat_hash
+  end
+
+  has_many(
+    :vote_count,
+    through: :review_votes,
+    source: :vote,
+    group: "review_votes.vote_id",
+    select: "review_votes.vote_id AS id, vote.name AS name, COUNT(review_votes.id) AS count",
+  )
+
+  def vote_count
+    sql = <<-SQL
+      SELECT votes.id AS id, votes.name AS name, COUNT(review_votes.vote_id) AS count
+      FROM votes
+      INNER JOIN review_votes ON votes.id = review_votes.vote_id
+      WHERE review_votes.review_id = ?
+      GROUP BY votes.id
+    SQL
+
+    result = Business.find_by_sql([sql, id])
+
+    tallies = {}
+    result.each { |r| tallies[r.id] = r.count }
+
+    tallies
   end
 end
