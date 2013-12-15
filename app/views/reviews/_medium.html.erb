@@ -1,3 +1,6 @@
+
+
+
 <section class="medium-review-container group">
   <div class="review-user-side">
     <%= render "users/medium", user: review.user %>
@@ -32,10 +35,13 @@
       <div class="upvote-question"><em>Was this review ...?</em></div>
       <% votes = review.vote_count %>
       <% Vote.all.each do |vote| %>
-      <% temp_class = (current_user.voted?(review, vote.id) ? "button-voted" : "button-vote") %>
-        <a href="<%=  %>">
-          <button class="<%= temp_class %>"><%= vote.name %> <strong><%= "( #{votes[vote.id]} )" if votes[vote.id] %></strong></button>
-        </a>
+        <% voted_id = current_user.get_vote(review, vote.id) %>
+        <% display_name = (votes[vote.id] ? "#{vote.name} ( #{votes[vote.id]} )" : vote.name ) %>
+        <% if voted_id %>
+          <%= button_to display_name , review_vote_url(voted_id, back_url: business_url(review.business_id)), method: "delete", class: "button-voted left" %>
+        <% else %>
+          <%= button_to display_name , review_votes_url(vote: {review_id: review.id, vote_id: vote.id}, back_url: business_url(review.business_id)), method: "post", class: "button-vote left" %>
+        <% end %>
       <% end %>
 
       <% if current_user && review.user_id == current_user.id %>

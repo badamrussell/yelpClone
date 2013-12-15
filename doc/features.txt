@@ -21,6 +21,7 @@ search price range
 search by distance
 search sorting
 
+improve sql searching (lots for the user/vote buttons)
 friends...
 
 random user images for seed photos

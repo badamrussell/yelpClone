@@ -169,6 +169,12 @@ class User < ActiveRecord::Base
     review_votes.where(review_id: review.id, vote_id: vote_id).any?
   end
 
+  def get_vote(review, vote_id)
+    results = review_votes.where(review_id: review.id, vote_id: vote_id)
+
+    results[0] ? results[0].id : nil
+  end
+
   private
 
   def ensure_token

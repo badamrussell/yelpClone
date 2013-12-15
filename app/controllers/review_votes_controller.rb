@@ -1,7 +1,7 @@
 class ReviewVotesController < ApplicationController
 
   def create
-    newVote = ReviewVote.new(params[:review_id])
+    newVote = ReviewVote.new(params[:vote])
     newVote.user_id = current_user.id
 
     newVote.save
