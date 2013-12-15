@@ -61,5 +61,8 @@ h3.title-link {
 }
 
 h3.red-title {
-
+  color: red;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 8px;
 }

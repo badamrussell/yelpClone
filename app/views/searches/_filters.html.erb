@@ -12,7 +12,7 @@
           </h3>
         <% end %>
       </nav>
-      f
+
       <% if @results.length > 0 %>
         <em class="right">Showing 1 of <%= @results.length %></em>
       <% else %>
@@ -39,18 +39,18 @@
   </section>
 
   <form action="<%= search_url %>" method="get">
-    <section class="filter-container left">
-      <h3 class="filter-title">Sort By</h3>
+    <section class="column left">
+      <h3 class="filter-title red-title">Sort By</h3>
       <ul>
-        <li>Best Match</li>
-        <li>Highest Rated</li>
-        <li>Most Reviewed</li>
+        <li><a href="#">Best Match</a></li>
+        <li><a href="#">Highest Rated</a></li>
+        <li><a href="#">Most Reviewed</a></li>
       </ul>
       <a class="filter-more" href="#"></a>
     </section>
 
-    <section class="filter-container left">
-      <h3 class="filter-title">Neighborhoods</h3>
+    <section class="column left">
+      <h3 class="filter-title red-title">Neighborhoods</h3>
       <ul>
         <% Neighborhood.where(area_id: 1).limit(5).each do |n| %>
           <li>
@@ -62,8 +62,8 @@
       <a class="filter-more" href="#">More Neighborhoods</a>
     </section>
 
-    <section class="filter-container left">
-      <h3 class="filter-title">Distance</h3>
+    <section class="column left">
+      <h3 class="filter-title red-title">Distance</h3>
       <ul>
         <li><a href="#">Bird's Eye View</a></li>
         <li><a href="#">Driving (5 mi.)</a></li>
@@ -74,8 +74,8 @@
       <a class="filter-more" href="#"></a>
     </section>
 
-    <section class="filter-container left">
-      <h3 class="filter-title">Price</h3>
+    <section class="column left">
+      <h3 class="filter-title red-title">Price</h3>
       <ul>
         <% PriceRange.all.each do |p| %>
           <li>
@@ -88,8 +88,8 @@
       <a class="filter-more" href="#"></a>
     </section>
 
-    <section class="filter-container left">
-      <h3 class="filter-title">Features</h3>
+    <section class="column left">
+      <h3 class="filter-title red-title">Features</h3>
       <ul>
         <% Feature.limit(5).each do |f| %>
           <li>
@@ -101,8 +101,8 @@
       <a class="filter-more" href="#">More Features</a>
     </section>
 
-    <section class="filter-container left">
-      <h3 class="filter-title">Category</h3>
+    <section class="column left">
+      <h3 class="filter-title red-title">Category</h3>
       <ul>
         <% Category.limit(5).each do |f| %>
           <li>
