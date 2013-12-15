@@ -13,9 +13,7 @@ class ReviewsController < ApplicationController
     @business = Business.find(params[:review][:business_id])
     @business_features = current_user.completed_biz_features(@business.id)
 
-
     handle_transaction
-
 
     if flash[:errors].empty?
       redirect_to business_url(params[:review][:business_id])
@@ -52,7 +50,7 @@ class ReviewsController < ApplicationController
   def handle_transaction
     ActiveRecord::Base.transaction do
       existing_features = current_user.business_features.where(business_id: @business.id)
-      #DOES NOT CONSIDER IF USER HAS ALREADY ADDED FEATURES BEFORE....
+
       existing_features.each do |f|
         if params[:feature_ids][f.feature_id].nil?
           f.destroy
@@ -63,9 +61,18 @@ class ReviewsController < ApplicationController
       end
 
       params[:feature_ids].each do |key,value|
-        single_feature = current_user.business_features.where(business_id: @business.id, feature_id: key).first_or_initialize
+        key_id = key
+        bool_value = if value == "1"
+              true
+            elsif value.to_i > 1
 
-        bool_value = (value == "1" ? true : false)
+              key_id = value.to_i
+              true
+            else
+              false
+            end
+
+        single_feature = current_user.business_features.where(business_id: @business.id, feature_id: key_id).first_or_initialize
 
         single_feature.update_attribute(:value, bool_value)
 

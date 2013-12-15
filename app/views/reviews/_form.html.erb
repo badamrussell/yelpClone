@@ -57,9 +57,9 @@
 
     <% FeatureCategory.all.each do |feature_category| %>
       <% next if feature_category.id == 1 %>
-
       <% p_form = feature_category.input_type == 1 ? "forms/radio_group" : "forms/checkbox_group" %>
-      <% p_name = feature_category.input_type == 1 ? "forms/radio_group" : "forms/checkbox_group" %>
+      <% p_name = feature_category.input_type == 1 ? feature_category.features.select { |f| business_features[f.id] }[0] : nil %>
+      <% p_name = p_name.id if p_name %>
 
       <%= render p_form, {
         name: nil,
@@ -68,7 +68,7 @@
         attr_name: fc_count,
         nested_name: nil,
         data: feature_category.features,
-        select_name: feature_category.id,
+        select_name: p_name,
         selected_data: business_features
       } %>
 

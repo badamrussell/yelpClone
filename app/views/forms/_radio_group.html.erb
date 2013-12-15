@@ -8,7 +8,7 @@
   <% selected = if selected_data[select_name].nil? %>
       <% -1 %>
     <% elsif selected_data[select_name] %>
-      <% 1 %>
+      <% select_name %>
     <% else %>
       <% 0 %>
     <% end %>

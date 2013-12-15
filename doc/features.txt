@@ -1,11 +1,13 @@
-edit own reviews
+
 do categories better
 Category page
 
+delete reviews
 
 DOES NOT CONSIDER IF USER HAS ALREADY ADDED FEATURES BEFORE....
 show counters on review votes
 
+data dependencies
 
 feedback messages (flash[:errors] and success)
 Data validation (is correct type)
@@ -50,7 +52,7 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
-
+edit own reviews
 Reviews can have pictures
 reviews display reverse order
 Business Photos Page
