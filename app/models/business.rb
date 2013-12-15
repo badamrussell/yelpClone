@@ -83,6 +83,7 @@ class Business < ActiveRecord::Base
     wheres = []
     values = []
     joins = []
+    where = ""
 
     if search_params.keys.include?("feature_id")
       joins << "INNER JOIN business_features ON businesses.id = business_features.business_id"
@@ -100,7 +101,8 @@ class Business < ActiveRecord::Base
       values << value
     end
 
-    where = "WHERE #{wheres.join(" AND ")}"
+
+    where = "WHERE #{wheres.join(" AND ")}" if wheres.any?
 
     sql = <<-SQL
       SELECT DISTINCT businesses.*

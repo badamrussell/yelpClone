@@ -2,6 +2,7 @@ class SearchesController < ApplicationController
   def show
     @breadcrumbs = { "Business" => search_url }
     @finer_filters = nil
+    @finer_filter_name = nil
 
     if params["category_id"]
       crumb_category = Category.find(params["category_id"])
@@ -12,9 +13,11 @@ class SearchesController < ApplicationController
       main_name = MainCategory.find(params["main_category_id"]).name
       @breadcrumbs[main_name] = ""
       @finer_filters = Category.where(main_category_id: params["main_category_id"])
+      @finer_filter_name = :category_id
     else
       @breadcrumbs["Business"] = ""
       @finer_filters = MainCategory.all
+      @finer_filter_name = :main_category_id
     end
 
     search_terms = {}

@@ -1,5 +1,7 @@
 ??????????????? incrementing messed up for review form
 
+fix columns partial
+show categories in various review partials and business page
 
 show search terms on top of search page
 relabel MainCategory to BusinessCategory
