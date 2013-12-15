@@ -1,8 +1,23 @@
 <nav class="search-filters-container">
   <section class="filter-header group">
     <div class="group">
-      <h3 class="left"> BUSINESS > RESTAURANTS > CATEGORY ></h3>
-      <em class="right">Showing ...</em>
+      <nav class="breadcrumb-container">
+        <% @breadcrumbs.each do |crumb| %>
+        <h3 class="title-link left">
+          <% if crumb == @breadcrumbs.last %>
+            <%= crumb %>
+          <% else %>
+            <a href="#"><%= crumb %></a> >
+          <% end %>
+        </h3>
+        <% end %>
+      </nav>
+
+      <% if @results.length > 0 %>
+        <em class="right">Showing 1 of <%= @results.length %></em>
+      <% else %>
+        <em class="right">No results</em>
+      <% end %>
     </div>
     <div class="top-filter group">
       <%#= render "widgets/columns", columns: 6, data: Neighborhood.where(area_id: 1), base_url: search_url(category_id: @category.id), param_name: "neighborhood_id" %>

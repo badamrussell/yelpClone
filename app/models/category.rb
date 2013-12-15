@@ -17,6 +17,10 @@ class Category < ActiveRecord::Base
     foreign_key: :category_id
   )
 
+  def self.parent_category(category_id)
+    MainCategory.find(Category.find(category_id).main_category_id)
+  end
+
   def businesses
     sql = <<-SQL
       SELECT *

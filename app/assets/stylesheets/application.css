@@ -52,3 +52,14 @@ img {
 .right {
   float: right;
 }
+
+h3.title-link {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+h3.red-title {
+
+}
