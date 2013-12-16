@@ -1,19 +1,46 @@
 ??????????????? incrementing messed up for review form
 
 
-implement price_range, add it to review
-dollar signs reflect actual price_range
-
-css practice for test...
 Upvoting
-show counters on review votes
-
-
+site location name? (i.e. best in... New York)
 figaro
 google maps
 
-site location name? (i.e. best in... New York)
-do categories better (better way than the three columns)
+make compliment
+show compliments
+
+make lists
+show lists
+
+make tips
+show tips
+
+can fan/follow
+show users following
+
+make bookmarks
+display bookmarks
+
+insure before_filters are on for all controllers/views
+
+feedback messages (flash[:errors] and success)
+
+css practice for test...
+
+----------later
+
+
+implement price_range, add it to review
+dollar signs reflect actual price_range
+
+
+
+
+other user pages
+
+
+
+
 
 some redundancy in tables user_id and review_id...
 complex searching ( how to stack searches )
@@ -31,7 +58,7 @@ how to crop photos for mosaic
 toggle list view from mosaic
 data dependencies
 
-feedback messages (flash[:errors] and success)
+
 Data validation (is correct type)
 html_safe...
 
@@ -44,7 +71,7 @@ clean up routes
 new businesses
 
 
-other user pages
+
 
 links should add to searches
 
@@ -83,6 +110,8 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+do categories better (better way than the three columns)
+show counters on review votes
 show categories in various review partials and business page
 show search terms on top of search page
 fix columns partial

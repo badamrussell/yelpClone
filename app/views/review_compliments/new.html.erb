@@ -1,0 +1,8 @@
+<h3>New Compliment</h3>
+
+<%= render "review_compliments/form", {
+      compliment: @compliment,
+      review: @review,
+      url: review_compliments_url,
+      method: "post"
+    } %>

@@ -7,12 +7,7 @@ class ReviewVotesController < ApplicationController
     newVote.save
     flash[:errors] = newVote.errors.full_messages
 
-    if params[:back_url]
-      redirect_to params[:back_url]
-    else
-      redirect_to root_url
-    end
-
+    redirect_to :back
   end
 
   def destroy
@@ -21,11 +16,7 @@ class ReviewVotesController < ApplicationController
     newVote.destroy
     flash[:errors] = newVote.errors.full_messages
 
-    if params[:back_url]
-      redirect_to params[:back_url]
-    else
-      redirect_to root_url
-    end
+    redirect_to :back
   end
 
 end
