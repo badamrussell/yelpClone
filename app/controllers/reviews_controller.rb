@@ -114,7 +114,7 @@ class ReviewsController < ApplicationController
       end
 
       #save photo
-      if params[:photo] && !params[:photo][:img_url].blank?
+      if params[:photo] && !params[:photo][:url].blank?
         params[:photo][:business_id] = newReview.business_id
         params[:photo][:review_id] = newReview.id
 

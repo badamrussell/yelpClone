@@ -8,7 +8,7 @@
     <div class="user-avatar left"><img width="120" src="<%= current_user.avatar %>"></div>
     <div class="thumb-photos group">
       <% user.top_photos(9).each do |photo| %>
-        <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img width="30px" src="<%= photo.img_url %>"></a>
+        <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img width="30px" src="<%= photo.url %>"></a>
       <% end %>
     </div>
   </section>

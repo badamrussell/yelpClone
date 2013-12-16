@@ -61,7 +61,7 @@
 
     <ul class="photo-block group">
     <% @category.new_photos(8).each do |photo| %>
-      <li class="photo-icons left"><a href="<%= business_photos_url(photo.business_id, photo: photo) %>"><img width="70" src="<%= photo.img_url %>"></a></li>
+      <li class="photo-icons left"><a href="<%= business_photos_url(photo.business_id, photo: photo) %>"><img width="70" src="<%= photo.url %>"></a></li>
     <% end %>
     </ul>
 

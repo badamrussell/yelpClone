@@ -1,6 +1,6 @@
 
 
-<form action="<%= profile_url %>" method="post">
+<form action="<%= profile_url %>" method="post" enctype="multipart/form-data">
   <input type="hidden" name="_method" value="put">
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -10,17 +10,15 @@
 
   <br>
 
-  <%= render "forms/textbox_unit", {
-    prefix: "user",
-    attr_name: "img_url",
-    title: "Your profile photo",
-    subTitle: "",
-    value: current_user.img_url
-    } %>
+
 
   <a href="#">
   <img src="<%= current_user.avatar %>" height="100">
   </a>
+
+  <label for="profile_photo"></label>
+  <input type="file" name="user[profile_photo]" value="<%= current_user.profile_photo %>" id="profile_photo">
+
 
   <%= render "forms/textbox_unit", {
     prefix: "user",

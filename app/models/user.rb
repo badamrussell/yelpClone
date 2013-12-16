@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :birthdate, :email, :first_name, :last_name, :nickname, :session_token, :password, :img_url
+  attr_accessible :birthdate, :email, :first_name, :last_name, :nickname, :session_token, :password, :profile_photo
   attr_accessible :year, :month, :day
   attr_reader :password
 
@@ -103,6 +103,13 @@ class User < ActiveRecord::Base
 
   has_many :bookmarked_businesses, through: :bookmarks, source: :business
 
+
+  has_attached_file :profile_photo, styles: {
+    thumbnail: "40x40#",
+    icon: "90x90#"
+  }
+
+
   #--temporary placeholders until associations can be made
   def friends
     []
@@ -126,13 +133,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def set_avatar(new_url)
-    return if new_url.blank?
-
-    self.img_url = new_url
-    self.save!
-  end
-
   def password=(secret)
     @password = secret
     self.password_digest = BCrypt::Password.create(secret)
@@ -153,7 +153,7 @@ class User < ActiveRecord::Base
   end
 
   def avatar
-    self.img_url || "/assets/temp/default_user.jpg"
+    profile_photo_file_name ? self.profile_photo.url : "/assets/temp/default_user.jpg"
   end
 
   def display_location

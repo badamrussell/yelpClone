@@ -138,9 +138,9 @@ class Business < ActiveRecord::Base
 
   def avatar
     # store_front_id ? self.store_front : "/assets/temp/photo_med_square.jpg"
-    fronts = store_front_search.map { |pd| pd.photo.img_url }
+    fronts = store_front_search.map { |pd| pd.photo.url }
 
-    fronts << "/assets/temp/photo_med_square.jpg" if fronts.empty?
+    fronts << "/assets/temp/default_house.jpg" if fronts.empty?
 
     fronts[0]
   end

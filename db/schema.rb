@@ -182,12 +182,15 @@ ActiveRecord::Schema.define(:version => 20131216040103) do
   add_index "photo_details", ["user_id"], :name => "index_photo_details_on_user_id"
 
   create_table "photos", :force => true do |t|
-    t.string   "img_url",     :null => false
-    t.integer  "user_id",     :null => false
+    t.integer  "user_id",           :null => false
     t.integer  "business_id"
     t.string   "caption"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "review_id"
   end
 
@@ -286,8 +289,8 @@ ActiveRecord::Schema.define(:version => 20131216040103) do
   add_index "user_bios", ["user_id"], :name => "index_user_bios_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",           :null => false
-    t.string   "password_digest", :null => false
+    t.string   "email",                      :null => false
+    t.string   "password_digest",            :null => false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "nickname"
@@ -296,8 +299,12 @@ ActiveRecord::Schema.define(:version => 20131216040103) do
     t.integer  "month"
     t.integer  "day"
     t.string   "session_token"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "profile_photo_file_name"
+    t.string   "profile_photo_content_type"
+    t.integer  "profile_photo_file_size"
+    t.datetime "profile_photo_updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.string   "img_url"
   end
 

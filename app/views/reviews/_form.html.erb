@@ -22,8 +22,11 @@
 
     </fieldset>
 
-    <label for="photo_img_url">Add Photo</label>
-    <input type="text" name="photo[img_url]" value="" id="photo_img_url">
+    <label for="photo_file"></label>
+    <input type="file" name="photo[file]" value="<%= @photo.file %>" id="">
+
+    <label for="photo_caption">Caption:</label>
+    <textarea name="photo[caption]" id="photo_caption"><%= @photo.caption %></textarea>
 
     <br>
     <hr>

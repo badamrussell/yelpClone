@@ -1,7 +1,7 @@
 class Photo < ActiveRecord::Base
-  attr_accessible :business_id, :img_url, :user_id, :review_id
+  attr_accessible :business_id, :user_id, :review_id, :file, :caption
 
-  validates :img_url, :user_id, presence: true
+  validates :user_id, presence: true
 
   belongs_to(
     :user,
@@ -31,8 +31,16 @@ class Photo < ActiveRecord::Base
     foreign_key: :review_id
   )
 
+  has_attached_file :file, styles: {
+    thumbnail: "40x40#",
+    icon: "90x90#"
+  }
+
   def is_store_front?
     business.store_front_id == self.id
   end
 
+  def url
+    file.url
+  end
 end

@@ -35,7 +35,6 @@ class PhotosController < ApplicationController
   end
 
   def user_show
-
     @owner = User.find(params[:user_id])
     @photos = @owner.photos
     @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0

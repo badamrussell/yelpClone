@@ -9,6 +9,8 @@ gem 'pg'
 gem 'bcrypt-ruby', require: 'bcrypt'
 
 gem 'figaro'
+gem 'paperclip'
+gem 'aws-sdk'
 
 group :development do
   gem 'pry-rails'

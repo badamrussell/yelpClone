@@ -11,6 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :month
       t.integer :day
       t.string :session_token
+      t.attachment :profile_photo
 
       t.timestamps
     end

@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create( [
-  {email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell", img_url: "/assets/temp/bob-burger.jpg"},
+  {email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell"},
   {email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white"},
-  {email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", img_url: "/assets/temp/imgres.jpg"}
+  {email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants"}
 ])
 new_bio = UserBio.new()
 new_bio.user_id = 1
@@ -702,14 +702,14 @@ ProfileLocation.create([
 ])
 
 
-Photo.create([
-  {business_id:1, img_url: "/assets/temp/food_1.jpg", user_id:1},
-  {business_id:1, img_url: "/assets/temp/front.jpg", user_id:1},
-  {business_id:2, img_url: "/assets/temp/food_3.jpg", user_id:2},
-  {business_id:1, img_url: "/assets/temp/food_4.jpg", user_id:2},
-  {business_id:3, img_url: "/assets/temp/food_5.jpg", user_id:3},
-  {business_id:3, img_url: "/assets/temp/food_6.jpg", user_id:3}
-])
+# Photo.create([
+#   {business_id:1, img_url: "/assets/temp/food_1.jpg", user_id:1},
+#   {business_id:1, img_url: "/assets/temp/front.jpg", user_id:1},
+#   {business_id:2, img_url: "/assets/temp/food_3.jpg", user_id:2},
+#   {business_id:1, img_url: "/assets/temp/food_4.jpg", user_id:2},
+#   {business_id:3, img_url: "/assets/temp/food_5.jpg", user_id:3},
+#   {business_id:3, img_url: "/assets/temp/food_6.jpg", user_id:3}
+# ])
 
 PhotoDetail.create([
   {helpful_id:1, photo_id:1, store_front: false, user_id:1},
