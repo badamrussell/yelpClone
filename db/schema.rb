@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131215200210) do
+ActiveRecord::Schema.define(:version => 20131216040103) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20131215200210) do
     t.integer  "user_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "desc"
   end
 
   add_index "lists", ["user_id"], :name => "index_lists_on_user_id"

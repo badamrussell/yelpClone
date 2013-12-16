@@ -1,0 +1,8 @@
+
+<div class="left">
+  <h3 class="red-title"><%= list.name %></h3><em><%= list.reviews.length %> Items</em>
+  <p><%= list.desc || "" %></p>
+  <% list.reviews.each_with_index do |review, index| %>
+    <%= render "reviews/quick_biz", review: review, business: Business.find(review.business_id) %>
+  <% end %>
+</div>

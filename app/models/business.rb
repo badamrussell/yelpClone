@@ -136,7 +136,7 @@ class Business < ActiveRecord::Base
 
   end
 
-  def store_front_photo
+  def avatar
     # store_front_id ? self.store_front : "/assets/temp/photo_med_square.jpg"
     fronts = store_front_search.map { |pd| pd.photo.img_url }
 

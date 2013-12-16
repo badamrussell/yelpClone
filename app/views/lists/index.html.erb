@@ -1,0 +1,10 @@
+<h3 class="red-title">Lists</h3>
+
+<% cnt = 1 %>
+<section class="group">
+  <% @lists.each do |list| %>
+  <%= render "lists/medium", list: list %>
+  <%="</section><section class='group'>" if cnt.even? %>
+  <% cnt += 1 %>
+<% end %>
+</section>

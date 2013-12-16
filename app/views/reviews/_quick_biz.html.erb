@@ -1,0 +1,11 @@
+<section class="quick-review-container group">
+  <div class="biz-avatar left">
+    <a href="<%= business_url(business.id) %>"><img width="20" src="<%= business.avatar %>"></a>
+  </div>
+
+  <div class="biz-title med-link">
+    <a href="<%= business_url(business.id) %>"><%= business.name %></a>
+  </div>
+
+  <em><%= review.snippet(60) %></em>
+</section>
