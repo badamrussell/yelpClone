@@ -6,7 +6,7 @@
   <fieldset class="compliment-container group">
     <% Compliment.all.each do |c| %>
     <div class="compliment-choice">
-      <input type="radio" name="compliment[compliment_id]" value="<%= c.id %>" id="compliment_<%= c.name %>">
+      <input type="radio" name="compliment[compliment_id]" value="<%= c.id %>" id="compliment_<%= c.name %>" <%= "checked" if @compliment.compliment_id == c.id %>>
       <label for="compliment_<%= c.name %>"><%= c.name %></label>
     </div>
     <% end %>

@@ -24,13 +24,15 @@ YelpClone::Application.routes.draw do
   end
 
   resources :categories, only: [:show, :index]
+  resources :review_compliments, except: [:index, :new]
 
   resources :reviews, except: [:new] do
     get "compliment" => "review_compliments#new"
   end
 
 
-  resources :review_compliments, except: [:index, :show, :new]
+
+
   resources :review_votes, only: [:create, :destroy]
   resources :categories, only: [:index]
   resource :profile, only: [:show, :edit, :update]

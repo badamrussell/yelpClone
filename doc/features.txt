@@ -1,5 +1,7 @@
 ??????????????? incrementing messed up for review form
 
+can edit coompliment
+display compliments...
 
 Upvoting
 site location name? (i.e. best in... New York)

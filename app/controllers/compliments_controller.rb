@@ -1,5 +1,0 @@
-class ComplimentsController < ApplicationController
-
-
-
-end

@@ -19,13 +19,15 @@ class ReviewComplimentsController < ApplicationController
 
   def edit
     @compliment = ReviewCompliment.find(params[:id])
+    @review = Review.find(@compliment.review_id)
   end
 
   def update
     @compliment = ReviewCompliment.find(params[:id])
+    @review = Review.find(@compliment.review_id)
 
     if @compliment.update_attributes(params[:compliment])
-      redirect_to user_url(@review.user.id)
+      redirect_to business_url(@review.business_id)
     else
       flash[:errors] = @compliment.errors.full_messages
       render :new
