@@ -165,6 +165,10 @@ class User < ActiveRecord::Base
     self.photo_details.where(photo_id: photo.id)[0]
   end
 
+  def top_photos(qty)
+    photos.limit(qty)
+  end
+
   def voted?(review, vote_id)
     review_votes.where(review_id: review.id, vote_id: vote_id).any?
   end

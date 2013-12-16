@@ -1,4 +1,5 @@
-<h3><a href="<%= business_url(@business.id) %>"><%= @business.name %>:</a> Photos</h3>
+
+<h3><a href="<%= @back_link %>"><%= @owner.name %>:</a> Photos</h3>
 
 <nav class="photo-nav">
   <button>Prev</button>
@@ -6,29 +7,29 @@
   <button>Next</button>
 </nav>
 
-<% photo = @photos[@select_id] || Photo.new %>
+<%  %>
 
 <section class="photo-show-container group">
 
-  <% if photo %>
+  <% if @photo.id %>
     <section class="content-photo">
-      <img src="<%= photo.img_url %>">
+      <img src="<%= @photo.img_url %>">
     </section>
 
     <section class="sidebar-photo-info group">
-      <%= render "users/passport", photo: photo, user: photo.user %>
-      <p><strong><%= photo.caption %></strong></p>
+      <%= render "users/passport", photo: @photo, user: @photo.user %>
+      <p><strong><%= @photo.caption %></strong></p>
 
-      <% if current_user.photo_details_for(photo) %>
-        <%= render "photo_details/form", url: photo_details_url(photo.id, business_id: @business.id), method: "put", details: current_user.photo_details_for(photo) %>
+      <% if current_user.photo_details_for(@photo) %>
+        <%= render "photo_details/form", url: @url, method: "put", details: current_user.photo_details_for(@photo) %>
       <% else %>
-        <%= render "photo_details/form", url: photo_details_url(photo.id, business_id: @business.id), method: "post", details: nil %>
+        <%= render "photo_details/form", url: @url, method: "post", details: nil %>
       <% end %>
 
 
       <div>
         <p>Additional Info</p>
-        <em>Uploaded <strong><%= photo.created_at.strftime("%B %d,%Y") %></strong></em>
+        <em>Uploaded <strong><%= @photo.created_at.strftime("%B %d,%Y") %></strong></em>
       </div>
 
     </section>

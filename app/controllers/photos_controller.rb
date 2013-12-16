@@ -25,18 +25,23 @@ class PhotosController < ApplicationController
   end
 
   def biz_show
-    @photo = Photo.new
-    @business = params[:business_id] ? Business.find(params[:business_id]) : nil
-    @photos = @business.photos
+    @owner = params[:business_id] ? Business.find(params[:business_id]) : nil
+    @photos = @owner.photos
     @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0
+    @photo = @photos[@select_id] || Photo.new
+    @url = photo_details_url(@photo.id, business_id: @owner.id) if @photos.any?
+    @back_link = business_url(@owner.id)
     render :show
   end
 
   def user_show
-    @photo = Photo.new
-    @user = User.find(params[:id])
-    @photos = @business.photos
+
+    @owner = User.find(params[:user_id])
+    @photos = @owner.photos
     @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0
+    @photo = @photos[@select_id] || Photo.new
+    @url = photo_details_url(@photo.id, user_id: @owner.id) if @photos.any?
+    @back_link = user_url(@owner.id)
     render :show
   end
 
@@ -46,9 +51,11 @@ class PhotosController < ApplicationController
 
   def edit
     @photo = Photos.find(params[:id])
+    fail
   end
 
   def update
     @photo = Photos.find(params[:id])
+    fail
   end
 end

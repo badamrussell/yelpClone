@@ -2,7 +2,20 @@
   <% if user == current_user %>
   <a href="<%= edit_user_url(user.id) %>">edit</a>
   <% end %>
-  <div class="user-avatar"><img width="120" src="<%= current_user.avatar %>"></div>
+
+
+  <section class="photos-container group">
+    <div class="user-avatar left"><img width="120" src="<%= current_user.avatar %>"></div>
+    <div class="thumb-photos group">
+      <% user.top_photos(9).each do |photo| %>
+        <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img width="30px" src="<%= photo.img_url %>"></a>
+      <% end %>
+    </div>
+  </section>
+  <% bio = user.bio %>
+  <% if bio.headline %>
+  <section><strong><%= bio.headline %></strong></section>
+  <% end %>
 
   <span><strong><%= user.friends.length %></strong> friends</span>
   <a href="<%= profile_url %>"><img src="/assets/temp/star.jpg" height="10"></a>

@@ -17,7 +17,7 @@ class PhotoDetailsController < ApplicationController
     if params[:business_id]
       redirect_to business_photos_url(params[:business_id] , photo_id: params[:photo_id])
     elsif params[:user_id]
-      redirect_to business_photos_url(params[:user_id] , photo_id: params[:photo_id])
+      redirect_to user_photos_url(params[:user_id] , photo_id: params[:photo_id])
     end
   end
 
@@ -33,7 +33,7 @@ class PhotoDetailsController < ApplicationController
     if params[:business_id]
       redirect_to business_photos_url(params[:business_id] , photo_id: params[:photo_id])
     elsif params[:user_id]
-      redirect_to business_photos_url(params[:user_id] , photo_id: params[:photo_id])
+      redirect_to user_photos_url(params[:user_id] , photo_id: params[:photo_id])
     end
   end
 
