@@ -11,5 +11,21 @@
 
   <a href="#">Upload a Photo</a>
 
+  <section class="group">
+    <h3 class="red-title">Rating Distribution</h3>
+
+  </section>
+
+  <section class="group">
+    <h3 class="red-title">Compliments</h3>
+    <% user.compliment_count.each do |c| %>
+      <div class=""><%= c["name"] %> : <%= c["count"] %></div>
+    <% end %>
+  </section>
+
+  <section class="group">
+    <h3 class="red-title">Bio</h3>
+
+  </section>
 
 </section>

@@ -175,6 +175,20 @@ class User < ActiveRecord::Base
     results[0] ? results[0].id : nil
   end
 
+  def compliment_count
+    sql = <<-SQL
+      SELECT compliments.id AS id, compliments.name AS name, COUNT(compliments.id) AS count
+      FROM compliments
+      INNER JOIN review_compliments ON review_compliments.compliment_id = compliments.id
+      WHERE review_compliments.user_id = ?
+      GROUP BY compliments.id
+    SQL
+
+    result = Compliment.find_by_sql([sql, id])
+
+    result.map { |r| r.attributes }
+  end
+
   private
 
   def ensure_token

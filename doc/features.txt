@@ -1,6 +1,6 @@
 ??????????????? incrementing messed up for review form
 
-can edit coompliment
+
 display compliments...
 
 Upvoting
@@ -31,6 +31,7 @@ css practice for test...
 
 ----------later
 
+is there a good way to go back, like done with a form, after submit go back to previous page
 
 implement price_range, add it to review
 dollar signs reflect actual price_range
@@ -112,6 +113,7 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+can edit coompliment
 do categories better (better way than the three columns)
 show counters on review votes
 show categories in various review partials and business page
