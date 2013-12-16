@@ -44,9 +44,18 @@
     <section class="column left">
       <h3 class="filter-title red-title">Sort By</h3>
       <ul>
-        <li><a href="#">Best Match</a></li>
-        <li><a href="#">Highest Rated</a></li>
-        <li><a href="#">Most Reviewed</a></li>
+        <li>
+          <input type="radio" name="search[sort]" id="search_sort" value="match">
+          <label for="search_sort">Best Match</label>
+        </li>
+        <li>
+          <input type="radio" name="search[sort]" id="search_sort" value="rated">
+          <label for="search_sort">Highest Rated</label>
+        </li>
+        <li>
+          <input type="radio" name="search[sort]" id="search_sort" value="reviewd">
+          <label for="search_sort">Most Reviewed</label>
+        </li>
       </ul>
       <a class="filter-more" href="#"></a>
     </section>
@@ -67,11 +76,26 @@
     <section class="column left">
       <h3 class="filter-title red-title">Distance</h3>
       <ul>
-        <li><a href="#">Bird's Eye View</a></li>
-        <li><a href="#">Driving (5 mi.)</a></li>
-        <li><a href="#">Biking (2 mi.)</a></li>
-        <li><a href="#">Walking (1 mi.)</a></li>
-        <li><a href="#">Within 4 blocks</a></li>
+        <li>
+          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <label for="search_distance">Bird's Eye View</label>
+        </li>
+        <li>
+          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <label for="search_distance">Driving (5 mi.)</label>
+        </li>
+        <li>
+          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <label for="search_distance">Biking (2 mi.)</label>
+        </li>
+        <li>
+          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <label for="search_distance">Walking (1 mi.)</label>
+        </li>
+        <li>
+          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <label for="search_distance">Within 4 blocks</label>
+        </li>
       </ul>
       <a class="filter-more" href="#"></a>
     </section>

@@ -2,11 +2,13 @@ class SearchesController < ApplicationController
   def show
     puts "-------------- SEARCH ----------------"
     puts params[:search]
+    fail
     puts "--------------------------------------"
     @breadcrumbs = { "Business" => search_url }
     @finer_filters = nil
     @finer_filter_name = nil
 
+    @search_params = params[:search]
     if params["category_id"]
       crumb_category = Category.find(params["category_id"])
       main_name = MainCategory.find(crumb_category.id).name
