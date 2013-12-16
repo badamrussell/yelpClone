@@ -10,7 +10,9 @@ class SearchesController < ApplicationController
     @finer_filters = nil
     @finer_filter_name = nil
 
-    @search_params = params[:search]
+    @search_params = params[:search] || {}
+
+
     if params["category_id"]
       crumb_category = Category.find(params["category_id"])
       main_name = MainCategory.find(crumb_category.id).name
@@ -27,18 +29,19 @@ class SearchesController < ApplicationController
       @finer_filter_name = :main_category_id
     end
 
-    # search_terms = {}
-    # params.each do |key, value|
-    #   next if key == "action" || key == "controller" || key == "find" || key = "submit"
-    #   search_terms[key] = value
-    # end
+    @results = if @search_params && @search_params.any?
+      make_query(params[:search]) if params[:search]
+    else
+      search_terms =  if params["category_id"]
+                        { "category_id" => params["category_id"] }
+                      elsif params["main_category_id"]
+                        { "main_category_id" => params["main_category_id"] }
+                      else
+                        {}
+                      end
 
-
-    @results = make_query(params[:search]) if params[:search]
-    #@results = Business.search(search_terms)
-    #@results = Business.all
-    #@results = Business.find_from_categories(params[:c])
-
+      Business.search(search_terms)
+    end
   end
 
 end

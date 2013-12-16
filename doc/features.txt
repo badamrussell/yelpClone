@@ -1,21 +1,18 @@
 ??????????????? incrementing messed up for review form
 
-SEARCHING
-get parameters into search controller
-search strings
-search choices remain
-build sql
+figaro
+AWS
+google maps
 
 site location name? (i.e. best in... New York)
+
+
 
 make bookmarks
 display bookmarks
 
 does any of the voting have any impact? What should it?
 Upvoting
-
-figaro
-google maps
 
 make lists
 show lists
@@ -29,7 +26,7 @@ show users following
 
 
 
-if there are photos  show icon in review (other icons could appear here also)
+if there are photos for review show icon in review (other icons could appear here also)
 
 insure before_filters are on for all controllers/views
 
@@ -54,6 +51,8 @@ events
 
 other user pages
 
+MORE SEARCHING
+sort searches
 sort by relevence, more things it matches, the higher it is in the results
 
 
@@ -125,6 +124,12 @@ RECOMMENDED FEATURES TO ADD
 
 
 ----------------------------------------------
+
+SEARCHING
+get parameters into search controller
+search strings
+search choices remain
+build sql
 
 display thumbnail photos on user-sidebar
 if user has no pictures...

@@ -43,17 +43,18 @@
   <form action="<%= search_url %>" method="get">
     <section class="column left">
       <h3 class="filter-title red-title">Sort By</h3>
+
       <ul>
         <li>
-          <input type="radio" name="search[sort]" id="search_sort" value="">
+          <input type="radio" name="search[sort]" id="search_sort" value="" <%= "checked" if @search_params[:sort] == "" %>>
           <label for="search_sort">Best Match</label>
         </li>
         <li>
-          <input type="radio" name="search[sort]" id="search_sort" value="rated">
+          <input type="radio" name="search[sort]" id="search_sort" value="rated" <%= "checked" if @search_params[:sort] == "rated" %>>
           <label for="search_sort">Highest Rated</label>
         </li>
         <li>
-          <input type="radio" name="search[sort]" id="search_sort" value="reviewed">
+          <input type="radio" name="search[sort]" id="search_sort" value="reviewed" <%= "checked" if @search_params[:sort] == "reviewed" %>>
           <label for="search_sort">Most Reviewed</label>
         </li>
       </ul>
@@ -65,7 +66,8 @@
       <ul>
         <% Neighborhood.where(area_id: 1).limit(5).each do |n| %>
           <li>
-            <input type="checkbox" id="n_<%= n.id %>" name="search[neighborhood_id][]" value="<%= n.id %>">
+            <% n_choice = @search_params[:neighborhood_id] || [] %>
+            <input type="checkbox" id="n_<%= n.id %>" name="search[neighborhood_id][]" value="<%= n.id %>" <%= "checked" if n_choice.include?(n.id.to_s) %>>
             <label for="n_<%= n.id %>"><%= n.name %>
           </li>
         <% end %>
@@ -77,23 +79,23 @@
       <h3 class="filter-title red-title">Distance</h3>
       <ul>
         <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <input type="radio" name="search[distance]" id="search_distance" value="1" <%= "checked" if @search_params[:distance] == "1" %>>
           <label for="search_distance">Bird's Eye View</label>
         </li>
         <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <input type="radio" name="search[distance]" id="search_distance" value="2" <%= "checked" if @search_params[:distance] == "2" %>>
           <label for="search_distance">Driving (5 mi.)</label>
         </li>
         <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <input type="radio" name="search[distance]" id="search_distance" value="3" <%= "checked" if @search_params[:distance] == "3" %>>
           <label for="search_distance">Biking (2 mi.)</label>
         </li>
         <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <input type="radio" name="search[distance]" id="search_distance" value="4" <%= "checked" if @search_params[:distance] == "4" %>>
           <label for="search_distance">Walking (1 mi.)</label>
         </li>
         <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="1">
+          <input type="radio" name="search[distance]" id="search_distance" value="5" <%= "checked" if @search_params[:distance] == "5" %>>
           <label for="search_distance">Within 4 blocks</label>
         </li>
       </ul>
@@ -105,7 +107,8 @@
       <ul>
         <% PriceRange.all.each do |p| %>
           <li>
-            <input type="checkbox" id="p_<%= p.id %>" name="search[price_range][]" value="<%= p.id %>">
+            <% p_choice = @search_params[:price_range] || [] %>
+            <input type="checkbox" id="p_<%= p.id %>" name="search[price_range][]" value="<%= p.id %>" <%= "checked" if p_choice.include?(p.id.to_s) %>>
             <label for="p_<%= p.id %>"><%= p.name %>
           </li>
         <% end %>
@@ -119,7 +122,8 @@
       <ul>
         <% Feature.limit(5).each do |f| %>
           <li>
-            <input type="checkbox" id="f_<%= f.id %>" name="search[feature_id][]" value="<%= f.id %>">
+            <% f_choice = @search_params[:feature_id] || [] %>
+            <input type="checkbox" id="f_<%= f.id %>" name="search[feature_id][]" value="<%= f.id %>" <%= "checked" if f_choice.include?(f.id.to_s) %>>
             <label for="n_<%= f.id %>"><%= f.name %>
           </li>
         <% end %>
@@ -132,7 +136,8 @@
       <ul>
         <% Category.limit(5).each do |c| %>
           <li>
-            <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>">
+            <% c_choice = @search_params[:category_id] || [] %>
+            <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>" <%= "checked" if c_choice.include?(c.id.to_s) %>>
             <label for="c_<%= c.id %>"><%= c.name %>
           </li>
         <% end %>
