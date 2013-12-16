@@ -454,7 +454,14 @@ end
                       first_name: Faker::Name.first_name,
                       last_name: Faker::Name.last_name
                     )
-  new_bio = UserBio.new()
+  new_bio = UserBio.new({
+    headline: Faker::Lorem.sentence,
+    hometown: Faker::Address.city,
+    reviews: Faker::Lorem.sentence,
+    book: Faker::Lorem.words,
+    dont_tell: Faker::Lorem.sentence
+  })
+
   new_bio.user_id = user.id
   new_bio.save
 
@@ -467,6 +474,12 @@ end
                   business_id: rand(100)+1,
                   body: Faker::Lorem.paragraph
                 )
+
+  ReviewCompliment.create(  compliment_id: rand(1..11),
+                            review_id: rand(1..200),
+                            user_id: rand(1..100),
+                            body: Faker::Lorem.sentence
+                          )
 end
 
 Category.create([

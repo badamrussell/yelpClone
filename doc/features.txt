@@ -3,7 +3,8 @@
 
 site location name? (i.e. best in... New York)
 
-
+make bookmarks
+display bookmarks
 
 does any of the voting have any impact? What should it?
 Upvoting
@@ -20,8 +21,7 @@ show tips
 can fan/follow
 show users following
 
-make bookmarks
-display bookmarks
+
 
 
 if there are photos  show icon in review (other icons could appear here also)
@@ -32,6 +32,9 @@ feedback messages (flash[:errors] and success)
 
 css practice for test...
 
+Kaminari
+pagination
+
 ----------later
 
 is there a good way to go back, like done with a form, after submit go back to previous page
@@ -39,7 +42,9 @@ is there a good way to go back, like done with a form, after submit go back to p
 implement price_range, add it to review
 dollar signs reflect actual price_range
 
+messages
 
+events
 
 
 other user pages

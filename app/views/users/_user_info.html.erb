@@ -39,6 +39,19 @@
   <section class="group">
     <h3 class="red-title">Bio</h3>
 
+    <ul>
+      <% user.bio.attributes.each do |title, desc| %>
+        <% next if desc.blank? || title.include?("id") || title == "created_at" || title == "updated_at"%>
+        <li>
+          <div class="bio-title">
+            <strong><%= title%></strong>
+          </div>
+          <div class="bio-desc">
+            <%= desc %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </section>
 
 </section>

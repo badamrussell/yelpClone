@@ -31,22 +31,6 @@
       <% end %>
     </div>
 
-    <div class="review-upvote-container">
-      <div class="upvote-question"><em>Was this review ...?</em></div>
-      <% votes = review.vote_count %>
-      <% Vote.all.each do |vote| %>
-        <% voted_id = current_user.get_vote(review, vote.id) %>
-        <% display_name = (votes[vote.id] ? "#{vote.name} ( #{votes[vote.id]} )" : vote.name ) %>
-        <% if voted_id %>
-          <%= button_to display_name , review_vote_url(voted_id), method: "delete", class: "button-voted left" %>
-        <% else %>
-          <%= button_to display_name , review_votes_url(vote: {review_id: review.id, vote_id: vote.id}), method: "post", class: "button-vote left" %>
-        <% end %>
-      <% end %>
-
-      <% if current_user && review.user_id == current_user.id %>
-        <a href="<%= edit_review_url(review.id) %>">edit</a>
-      <% end %>
-    </div>
+    <%= render "widgets/review_upvote", review: review %>
   </div>
 </section>

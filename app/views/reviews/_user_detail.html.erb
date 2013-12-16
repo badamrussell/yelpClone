@@ -30,12 +30,7 @@
       <p><%= review.body %></p>
     </div>
 
-    <div class="review-upvote-container">
-      <div class="upvote-question"><em>Was this review ...?</em></div>
-      <button>Useful</button>
-      <button>Funny</button>
-      <button>Cool</button>
-    </div>
+    <%= render "widgets/review_upvote", review: review  %>
 
     <div class="review-interest group">
       <ul>

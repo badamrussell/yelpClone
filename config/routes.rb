@@ -7,6 +7,8 @@ YelpClone::Application.routes.draw do
   resources :users do
     get "add_photo" => "photos#new"
     get "photos" => "photos#user_show"
+    get "new_list" => "lists#new"
+    get "lists" => "lists#index"
   end
 
   resource :session, only: [:new, :create, :destroy]
@@ -31,7 +33,8 @@ YelpClone::Application.routes.draw do
   end
 
 
-
+  resources :lists, except: [:new, :show]
+  resources :tips, except: [:new, :show]
 
   resources :review_votes, only: [:create, :destroy]
   resources :categories, only: [:index]
