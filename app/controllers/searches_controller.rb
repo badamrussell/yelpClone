@@ -1,9 +1,11 @@
 class SearchesController < ApplicationController
   def show
-    puts "-------------- SEARCH ----------------"
-    puts params[:search]
-    fail
-    puts "--------------------------------------"
+    #search elements
+    # find, near
+    # sort, distance, neighborhoods, price, features, categories
+    extend SearchesHelper
+
+
     @breadcrumbs = { "Business" => search_url }
     @finer_filters = nil
     @finer_filter_name = nil
@@ -25,15 +27,15 @@ class SearchesController < ApplicationController
       @finer_filter_name = :main_category_id
     end
 
-    search_terms = {}
-    params.each do |key, value|
-      next if key == "action" || key == "controller" || key == "find" || key = "submit"
-      search_terms[key] = value
-    end
+    # search_terms = {}
+    # params.each do |key, value|
+    #   next if key == "action" || key == "controller" || key == "find" || key = "submit"
+    #   search_terms[key] = value
+    # end
 
 
-
-    @results = Business.search(search_terms)
+    @results = make_query(params[:search]) if params[:search]
+    #@results = Business.search(search_terms)
     #@results = Business.all
     #@results = Business.find_from_categories(params[:c])
 

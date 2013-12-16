@@ -2,6 +2,8 @@
 
 SEARCHING
 get parameters into search controller
+search strings
+search choices remain
 build sql
 
 site location name? (i.e. best in... New York)
@@ -52,7 +54,7 @@ events
 
 other user pages
 
-
+sort by relevence, more things it matches, the higher it is in the results
 
 
 
