@@ -56,8 +56,8 @@
       <ul>
         <% Neighborhood.where(area_id: 1).limit(5).each do |n| %>
           <li>
-            <input type="checkbox" id="neighbor_<%= n.id %>">
-            <label for="neighbor_<%= n.id %>"><%= n.name %>
+            <input type="checkbox" id="n_<%= n.id %>" name="search[neighborhood_id][]" value="<%= n.id %>">
+            <label for="n_<%= n.id %>"><%= n.name %>
           </li>
         <% end %>
       </ul>
@@ -81,8 +81,8 @@
       <ul>
         <% PriceRange.all.each do |p| %>
           <li>
-            <input type="checkbox" id="price_<%= p.id %>">
-            <label for="neighbor_<%= p.id %>"><%= p.name %>
+            <input type="checkbox" id="p_<%= p.id %>" name="search[price_range][]" value="<%= p.id %>">
+            <label for="p_<%= p.id %>"><%= p.name %>
           </li>
         <% end %>
       </ul>
@@ -95,8 +95,8 @@
       <ul>
         <% Feature.limit(5).each do |f| %>
           <li>
-            <input type="checkbox" id="feature_<%= f.id %>">
-            <label for="neighbor_<%= f.id %>"><%= f.name %>
+            <input type="checkbox" id="f_<%= f.id %>" name="search[feature_id][]" value="<%= f.id %>">
+            <label for="n_<%= f.id %>"><%= f.name %>
           </li>
         <% end %>
       </ul>
@@ -106,15 +106,15 @@
     <section class="column left">
       <h3 class="filter-title red-title">Category</h3>
       <ul>
-        <% Category.limit(5).each do |f| %>
+        <% Category.limit(5).each do |c| %>
           <li>
-            <input type="checkbox" id="category_<%= f.id %>">
-            <label for="neighbor_<%= f.id %>"><%= f.name %>
+            <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>">
+            <label for="c_<%= c.id %>"><%= c.name %>
           </li>
         <% end %>
       </ul>
       <a class="filter-more" href="#">More Categories</a>
     </section>
-    <input type="submit" name="search" value="search" id="search">
+    <input type="submit" name="Submit">
   </form>
 </nav>

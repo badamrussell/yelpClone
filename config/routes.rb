@@ -39,7 +39,7 @@ YelpClone::Application.routes.draw do
   resources :review_votes, only: [:create, :destroy]
   resources :categories, only: [:index]
   resource :profile, only: [:show, :edit, :update]
-  resource :search, only: :show
+  resource :search, only: [:show]
 
 
   # resources :reviews, only : [:new]

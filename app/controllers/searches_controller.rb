@@ -1,5 +1,8 @@
 class SearchesController < ApplicationController
   def show
+    puts "-------------- SEARCH ----------------"
+    puts params[:search]
+    puts "--------------------------------------"
     @breadcrumbs = { "Business" => search_url }
     @finer_filters = nil
     @finer_filter_name = nil
@@ -33,4 +36,5 @@ class SearchesController < ApplicationController
     #@results = Business.find_from_categories(params[:c])
 
   end
+
 end

@@ -1,5 +1,8 @@
 ??????????????? incrementing messed up for review form
 
+SEARCHING
+get parameters into search controller
+build sql
 
 site location name? (i.e. best in... New York)
 
