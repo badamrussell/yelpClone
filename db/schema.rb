@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20131216040103) do
     t.string   "phone_number"
     t.string   "website"
     t.integer  "neighborhood_id"
+    t.string   "gps"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "store_front_id"

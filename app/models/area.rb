@@ -21,4 +21,8 @@ class Area < ActiveRecord::Base
     "Manhattan, NY"
   end
 
+  def self.random_ny_gps
+    "40.#{rand(100000)},-73.#{rand(100000)}"
+  end
+
 end

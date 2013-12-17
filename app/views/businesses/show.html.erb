@@ -17,7 +17,7 @@
 
   <div class"mosaic">
     <ul class="m group">
-      <li><img width="290" src="/assets/temp/map_square.png"></li>
+      <li><img width="290" src="<%= get_half_map(@business.gps) %>"></li>
       <% @business.main_photos.each do |photo| %>
         <li><a href="<%= business_photos_url(@business.id, photo_id: photo.id) %>"><img width="<%= photo.is_store_front? ? 250 : 220 %>" src="<%= photo.url %>"></a></li>
       <% end %>

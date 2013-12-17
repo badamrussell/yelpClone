@@ -1,7 +1,6 @@
 ??????????????? incrementing messed up for review form
 
-figaro
-AWS
+
 google maps
 
 site location name? (i.e. best in... New York)
@@ -23,7 +22,7 @@ show tips
 can fan/follow
 show users following
 
-
+images have lower thirds
 
 
 if there are photos for review show icon in review (other icons could appear here also)
@@ -125,6 +124,8 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+figaro
+AWS
 SEARCHING
 get parameters into search controller
 search strings

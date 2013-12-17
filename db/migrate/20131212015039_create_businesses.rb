@@ -12,6 +12,7 @@ class CreateBusinesses < ActiveRecord::Migration
       t.string :website
       t.float :rating
       t.integer :neighborhood_id
+      t.string :gps
 
       t.timestamps
     end

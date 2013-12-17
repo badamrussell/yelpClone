@@ -29,10 +29,10 @@ ProfileLocation.create(user_id: 2, address: neighborhood, name: "Home", primary:
 ProfileLocation.create(user_id: 3, address: neighborhood, name: "Home", primary: true)
 
 
-Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1)
-Business.create(name: "Cheers", country_id: 1, neighborhood_id: 1)
-Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1)
-Business.create(name: "Jack Rabbit Slims", country_id: 1, neighborhood_id: 1)
+Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, gps: Area.random_ny_gps )
+Business.create(name: "Cheers", country_id: 1, neighborhood_id: 1, gps: Area.random_ny_gps)
+Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1, gps: Area.random_ny_gps)
+Business.create(name: "Jack Rabbit Slims", country_id: 1, neighborhood_id: 1, gps: Area.random_ny_gps)
 
 BusinessCategory.create([
   {business_id: 1, category_id: 1},
@@ -438,7 +438,8 @@ Neighborhood.create([
                       address1: Faker::Address.street_address,
                       address2: Faker::Address.secondary_address,
                       phone_number: Faker::PhoneNumber.phone_number,
-                      neighborhood_id: rand(50)+1
+                      neighborhood_id: rand(50)+1,
+                      gps: Area.random_ny_gps
                     } )
 
   BusinessCategory.create([
