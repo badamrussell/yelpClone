@@ -86,3 +86,12 @@ h3.red-title {
   color: white;
   letter-spacing: 1;
 }
+
+button {
+  font-size: 14px;
+  background-color: lightgrey;
+  height: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 110px;
+}

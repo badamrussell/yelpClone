@@ -1,12 +1,24 @@
 ??????????????? incrementing messed up for review form
 
+Javascript
+  send compliments
+  photos lower-third appears
+  pop-ups over links (blue-link to business, shows a pop up)
+  rating-star
+  search page
+  google maps
+  various list sorting
+  Photo like buttons
 
-google maps
-images have lower thirds
+top-right icon menu
 
-site location name? (i.e. best in... New York)
+Best of Yelp - Main Page
 
 Presenter Pattern (extrating display logic from models)
+
+Home Page
+
+site location name? (i.e. best in... New York)
 
 make bookmarks
 display bookmarks
@@ -33,6 +45,8 @@ insure before_filters are on for all controllers/views
 feedback messages (flash[:errors] and success)
 
 css practice for test...
+
+http://css-tricks.com/crop-top/
 
 Kaminari
 pagination
@@ -125,6 +139,9 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+upvote buttons
+
+images have lower thirds
 figaro
 AWS
 SEARCHING

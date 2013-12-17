@@ -127,4 +127,33 @@ class ReviewsController < ApplicationController
       flash[:errors] += @review.errors.full_messages
     end
   end
+
+  def toggle_vote
+    existingVote = current_user.review_votes.find_by_review_id_and_vote_id(params[:id], params[:vote_id])
+
+    action = 1
+    if existingVote.nil?
+      existingVote = current_user.review_votes.create(vote_id: params[:vote_id], review_id: params[:id])
+    else
+      existingVote.destroy
+      action = -1
+    end
+
+    vote = Vote.find(params[:vote_id])
+    vote_count = Review.find(params[:id]).vote_count[vote.id]
+    display_name = if vote_count
+        "#{vote.name} ( #{vote_count} )"
+      else
+        vote.name
+      end
+
+    flash[:errors] = existingVote.errors.full_messages
+
+    if request.xhr?
+      render json: { id: vote.id, name: display_name, actino: action }
+    else
+      redirect_to review_url(params[:id])
+    end
+  end
+
 end

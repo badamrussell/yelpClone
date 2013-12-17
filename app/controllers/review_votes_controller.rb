@@ -7,6 +7,7 @@ class ReviewVotesController < ApplicationController
     newVote.save
     flash[:errors] = newVote.errors.full_messages
 
+
     redirect_to :back
   end
 

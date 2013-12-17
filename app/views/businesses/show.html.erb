@@ -84,3 +84,22 @@
 </section>
 
 
+<script>
+
+//display_name = (votes[vote.id] ? "#{vote.name} ( #{votes[vote.id]} )" : vote.name )
+
+  $(document).ready( function(event) {
+    //<%#= button_to display_name , review_vote_url(voted_id), method: "delete", class: "button-voted left" %>
+
+    //<%#= button_to display_name , review_votes_url(vote: {review_id: review.id, vote_id: vote.id}), method: "post", class: "button-vote left" %>
+
+    //review_votes_url(vote: {review_id: review.id, vote_id: vote.id})
+
+    $(".review-vote").on("ajax:success", function(event, data) {
+        $button = $(event.currentTarget).find(".vote_"+data["id"])
+        $button.text(data.name);
+
+        $button.toggleClass("voted")
+    });
+  });
+</script

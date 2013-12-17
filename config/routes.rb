@@ -30,6 +30,10 @@ YelpClone::Application.routes.draw do
 
   resources :reviews, except: [:new] do
     get "compliment" => "review_compliments#new"
+
+    member do
+      post "toggle_vote"
+    end
   end
 
 
