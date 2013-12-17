@@ -43,4 +43,12 @@ class Photo < ActiveRecord::Base
   def url
     file.url
   end
+
+  def avatar
+    business_id ? business.avatar : user.avatar
+  end
+
+  def title
+    caption.blank? ? business.name : caption
+  end
 end

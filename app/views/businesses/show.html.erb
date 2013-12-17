@@ -12,14 +12,19 @@
       <button class="add-button share-button">Share</button>
       <button class="add-button bookmark-button">Bookmark</button>
     </div>
-    <a href="<%= edit_business_url(@business.id) %>">edit</a>
   </div>
 
   <div class"mosaic">
+    <%= render "widgets/half_map", business: @business %>
+
     <ul class="m group">
-      <li><img width="290" src="<%= get_half_map(@business.gps) %>"></li>
-      <% @business.main_photos.each do |photo| %>
-        <li><a href="<%= business_photos_url(@business.id, photo_id: photo.id) %>"><img width="<%= photo.is_store_front? ? 250 : 220 %>" src="<%= photo.url %>"></a></li>
+      <% @business.main_photos.each_with_index do |photo,i| %>
+      <li>
+        <%= render "photos/with_lower3",  icon_url: business_photos_url(@business.id, photo_id: photo.id),
+                                          width: i==1 ? 250 : 220,
+                                          photo: photo
+                                        %>
+      </li>
       <% end %>
     </ul>
   </div>

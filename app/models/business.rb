@@ -188,6 +188,12 @@ class Business < ActiveRecord::Base
     3
   end
 
+  def avatar_tag(size_name="icon", link = "")
+    size = 30 if size_name == "icon"
+
+    "<a href='#{link}'><img width='#{size}' src='#{avatar}'></a>"
+  end
+
   private
 
   def store_front_search

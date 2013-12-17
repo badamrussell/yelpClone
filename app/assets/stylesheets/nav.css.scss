@@ -7,8 +7,6 @@
 
 
 .top-header {
-  width: 1000px;
-  margin: auto;
   text-align: 80px;
 }
 
@@ -21,7 +19,7 @@
   border: 1px solid green;
   margin: auto;
   float: left;
-  width: 500px;
+  width: 600px;
 }
 
 .nav-links li a {
@@ -29,6 +27,7 @@
   margin: 4px;
   color: white;
   font-size: .8em;
+  text-shadow: 2px 0px 1px #111;
 }
 
 #header-account-box {

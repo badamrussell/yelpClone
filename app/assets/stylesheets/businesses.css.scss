@@ -6,7 +6,6 @@
   position: relative;
   background-color: #ddd;
   height: 400px;
-  padding: 10px;
   border-bottom: 1px solid darkgray;
   margin-bottom: 50px;
 
@@ -35,6 +34,35 @@
 
   .more-photos {
     float: right;
+  }
+
+  .edit-biz {
+  }
+
+  .biz-map {
+    background-color: white;
+    padding: 6px;
+    box-shadow: 1px 1px 10px #888;
+  }
+
+  .biz-map img {
+    border: 1px solid #bbb;
+    padding:0;
+    margin: 0;
+  }
+
+  .address-back {
+    width: 280px;
+    height: 145px;
+    background-color: #ddd;
+    border: 1px solid #bbb;
+    padding: 5px;
+    margin: 0;
+  }
+
+  .title {
+    margin: 2px;
+    font-weight: bold;
   }
 }
 
