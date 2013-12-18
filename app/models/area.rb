@@ -22,15 +22,15 @@ class Area < ActiveRecord::Base
   end
 
   def self.random_ny_gps
-    "40.73#{rand(1000)},-73.98#{rand(1000)}"
+    "40.76#{rand(1000)},-73.97#{rand(1000)}"
   end
 
   def self.rand_lat
-    "40.73#{rand(1000)}".to_f
+    "40.76#{rand(1000)}".to_f
   end
 
   def self.rand_long
-    "-73.98#{rand(1000)}".to_f
+    "-73.97#{rand(1000)}".to_f
   end
 
 end

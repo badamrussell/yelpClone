@@ -35,7 +35,6 @@ ProfileLocation.create(user_id: 3, address: neighborhood, name: "Home", primary:
 
 
 Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
-Business.create(name: "Cheers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
 Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
 Business.create(name: "Jack Rabbit Slims", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
 

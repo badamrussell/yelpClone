@@ -2,11 +2,17 @@
 
 
 add new business page
+clicking either search submit button uses all active choices ...
+show search terms
 
+new compliments should show up on user profile (the actual compliment comment)
 on search page, a google map
+  map centers on first location
   with pins for each location
   the pins highlight
   keep map on top
+  store browser location in a cookie
+  pin for current location
 
 Javascript
 

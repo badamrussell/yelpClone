@@ -13,4 +13,8 @@
       <span class="med-link"><a href="<%= category_url(c.id) %>"><%= c.name %></a></span>
     <% end.join(",") %>
   </div>
+
+  <% if business.latitude.blank? || business.latitude.blank? %>
+    <div class="missing">?</div>
+  <% end %>
 </div>

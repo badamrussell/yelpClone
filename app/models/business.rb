@@ -1,6 +1,6 @@
 class Business < ActiveRecord::Base
   # attr_accessible :title, :body
-  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids, :latitude, :longitude
+  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids
 
   validates :name, :country_id, presence: true
 
@@ -154,7 +154,7 @@ class Business < ActiveRecord::Base
   end
 
   def gps
-    "#{latitude},#{longitude}"
+    {lat: latitude, lng: longitude}
   end
 
   def first_review

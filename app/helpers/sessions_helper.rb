@@ -30,7 +30,8 @@ module SessionsHelper
   end
 
   def current_location
-    @location ||= [43.6031097, -116.1934067]
+
+    @location ||= [40.7641548, -73.9731302]
   end
 
 

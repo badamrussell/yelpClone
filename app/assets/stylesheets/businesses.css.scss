@@ -102,7 +102,8 @@
 
 .business-result {
   width: 620px;
-
+  padding: 20px;
+  border: 1px solid red;
   .business-info-container {
     img {
       float: left;
@@ -120,6 +121,10 @@
       float: left;
   }
 
+}
+
+.selected {
+  background: green;
 }
 
 .business-info {

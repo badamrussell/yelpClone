@@ -31,6 +31,11 @@ class SearchesController < ApplicationController
 
     @results = if @search_params && @search_params.any?
       make_query(params[:search]) if params[:search]
+      # box = Geocoder::Calculations.bounding_box(current_location, 20)
+      #
+      # biz_within_range = Business.within_bounding_box(box)
+      # fail
+
     else
       search_terms =  if params["category_id"]
                         { "category_id" => params["category_id"] }

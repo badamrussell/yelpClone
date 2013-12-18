@@ -23,6 +23,9 @@ module SearchesHelper
 
     where_q = []
     where_v = []
+    order_q = ""
+    select_q = ""
+
     joins = []
     poss_joins = {
       reviews: "JOIN reviews ON businesses.id = reviews.business_id",
@@ -83,27 +86,39 @@ module SearchesHelper
     # #   distance = "WHERE location BETWEEN ( AND )"
     # # end
     #
-    # sort =  if search_params[:sort] == "rated"
-    #           sub_sql = "JOIN reviews ON businesses.id = reviews.business_id"
-    #           "ORDER BY COUNT()"
-    #         elsif search_params[:sort] == "reviewed"
-    #           "ORDER BY COUNT()"
-    #         else
-    #           ""
-    #         end
+    if search_params[:sort] == "rated"
+      if poss_joins[:reviews]
+        joins << poss_joins[:reviews]
+        poss_joins.delete(:reviews)
+      end
+      select_q = ", AVG(business.rating) AS rating_count"
+      order_q = ", rating_count DESC"
+    elsif search_params[:sort] == "reviewed"
+      if poss_joins[:reviews]
+        joins << poss_joins[:reviews]
+        poss_joins.delete(:reviews)
+      end
+      # end
+      # "ORDER BY COUNT() AS review_count"
+    else
+      ""
+    end
+
 
 
 
     s_join = joins.join(' ') if joins.any?
-    s_where = "WHERE #{where_q.join(' OR ')}"
+    s_where = "WHERE #{where_q.join(' OR ')}" if where_q.any?
     #w = "JOIN business_features ON businesses.id = business_features.business_id WHERE business_features.id = ?"
     s_sort = ""
 
     sql = <<-SQL
-      SELECT DISTINCT businesses.*
+      SELECT businesses.*, COUNT(businesses.id) AS relevence
       FROM businesses
       #{s_join}
       #{s_where}
+      GROUP BY businesses.id
+      ORDER BY relevence DESC #{order_q}
     SQL
 
     sql_param = [sql] + where_v
