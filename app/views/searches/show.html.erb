@@ -54,10 +54,10 @@
 
 
 <script>
-  var latitude = <%= current_location[0] %>
-  var longitude = <%= current_location[1] %>
+  var locations = <%= @results.map { |r| {lat: r.latitude, lng: r.longitude } }.to_json.html_safe %>;
+
   $( function() {
     // loadGoogleMaps(latitude, longitude);
-    getLocation();
+    getLocation(locations);
   })
 </script>

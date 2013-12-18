@@ -15,6 +15,7 @@
 //= require_tree .
 
 
+//----- POPUPS
 
 var closePopup = function() {
   $pop = $(".popup-show");
@@ -37,6 +38,9 @@ var showPopup = function(popupName, id) {
   console.log("OPEN", $pop, popupName);
 }
 
+
+// ----------- GOOGLE PLACES API
+
 var placeSearch = function(event) {
   console.log(event);
   $.ajax({
@@ -51,16 +55,27 @@ var placeSearch = function(event) {
 
 }
 
-var getLocation = function() {
+// ----------- GOOGLE MAPS API
+
+var getLocation = function(locations) {
   var location_callback = function(geoPosition) {
     console.log(geoPosition, geoPosition.coords)
-    loadGoogleMaps(geoPosition.coords.latitude, geoPosition.coords.longitude);
+    var coords = geoPosition.coords;
+    var map = loadGoogleMaps(coords.latitude, coords.longitude, locations);
+
+    loc = { lat: 40.7308361, lng: -73.9922004 }
+    //locLit = "" + 40.7308361 + "," + -73.9922004;
+    //placeMarker(loc, map);
+    // for (var i=0; i < loc.length; i++) {
+    //   placeMarker(loc[i], map);
+    // }
   }
   navigator.geolocation.getCurrentPosition(location_callback);
 }
 
 
-var loadGoogleMaps = function(latitude, longitude) {
+var loadGoogleMaps = function(latitude, longitude, locations) {
+  console.log(latitude, longitude)
   var mapProp = {
     center:new google.maps.LatLng(latitude, longitude),
     zoom:16,
@@ -68,7 +83,17 @@ var loadGoogleMaps = function(latitude, longitude) {
   };
 
   var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
+  // loc = [ { lat: 40.7308361, lng: -73.9922004 },
+  //         { lat: 40.7308370, lng: -73.9934135 },
+  //         { lat: 40.7328370, lng: -73.9914135 }]
+  for (var i=0; i < locations.length; i++) {
+    placeMarker(locations[i], map);
+  }
 
   // google.maps.event.addDomListener(window, 'load', initialize);
+}
+
+var placeMarker = function(pos, map) {
+  var marker = new google.maps.Marker( { position: pos } );
+  marker.setMap(map);
 }
