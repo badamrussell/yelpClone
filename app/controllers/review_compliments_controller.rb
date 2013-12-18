@@ -6,11 +6,12 @@ class ReviewComplimentsController < ApplicationController
   end
 
   def create
-    @compliment = current_user.review_compliments.new(params[:compliment])
+    @compliment = ReviewCompliment.new(params[:compliment])
+    @compliment.user_id = current_user.id
     @review = Review.find(@compliment.review_id)
 
     if @compliment.save
-      redirect_to user_url(@review.user.id)
+      render json: @compliment
     else
       flash[:errors] = @compliment.errors.full_messages
       render :new

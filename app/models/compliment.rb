@@ -10,6 +10,6 @@ class Compliment < ActiveRecord::Base
     foreign_key: :compliment_id
   )
 
-  has_many :compliments, through: :review_compliments, source: :compliment
+  has_many :reviews, through: :review_compliments, source: :compliment
 
 end

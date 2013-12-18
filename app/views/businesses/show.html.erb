@@ -87,6 +87,9 @@
 <script>
 
 //display_name = (votes[vote.id] ? "#{vote.name} ( #{votes[vote.id]} )" : vote.name )
+  var complimentPopup = function(partialName) {
+    $("")
+  }
 
   $(document).ready( function(event) {
     //<%#= button_to display_name , review_vote_url(voted_id), method: "delete", class: "button-voted left" %>
@@ -101,5 +104,14 @@
 
         $button.toggleClass("voted")
     });
+
+    $(".compliment-form").on("ajax:success", function(event, data) {
+      closePopup();
+      console.log(event,data);
+
+    });
+
   });
 </script
+
+<%= render "review_compliments/jform", url: review_compliments_url, review: Review.find(1), compliment: ReviewCompliment.new, method: "post" %>

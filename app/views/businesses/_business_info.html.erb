@@ -10,7 +10,7 @@
     <%= render "widgets/price_range", price: business.price_range %>
 
     <% business.categories.map do |c| %>
-      <span class="med-link"><a href="<%= search_url(category_id: c.id) %>"><%= c.name %></a></span>
+      <span class="med-link"><a href="<%= category_url(c.id) %>"><%= c.name %></a></span>
     <% end.join(",") %>
   </div>
 </div>

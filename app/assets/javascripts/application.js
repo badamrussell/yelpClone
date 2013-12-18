@@ -13,3 +13,25 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+
+var closePopup = function() {
+  $pop = $(".popup-show");
+
+  if ($pop) { $pop.removeClass("popup-show") }
+  if ($pop) { $pop.addClass("popup-hide") }
+  console.log("CLOSE", $pop);
+}
+
+var showPopup = function(popupName, id) {
+  closePopup();
+
+  $pop = $("." + popupName);
+  console.log("OPEN", $pop, popupName, id);
+  if ($pop) {
+    $pop.addClass("popup-show");
+    $a = $pop.find(".main-id")
+    $a.attr("value", id)
+  }
+  console.log("OPEN", $pop, popupName);
+}

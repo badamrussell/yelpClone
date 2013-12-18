@@ -1,5 +1,7 @@
 ??????????????? incrementing messed up for review form
 
+overflow:hidden
+
 Javascript
   send compliments
   photos lower-third appears
@@ -10,9 +12,13 @@ Javascript
   various list sorting
   Photo like buttons
 
+make sure store-front avatar is working
+
 top-right icon menu
 
 Best of Yelp - Main Page
+
+MAKE SURE LINKS WORK
 
 Presenter Pattern (extrating display logic from models)
 

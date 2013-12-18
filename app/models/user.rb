@@ -59,14 +59,7 @@ class User < ActiveRecord::Base
 
   has_many :votes, through: :review_votes, source: :vote
 
-  has_many(
-    :review_compliments,
-    class_name: "ReviewCompliment",
-    primary_key: :id,
-    foreign_key: :user_id
-  )
-
-  has_many :compliments, through: :review_compliments, source: :compliment
+  has_many :compliments, through: :reviews, source: :compliments
 
 
   has_many(
@@ -184,12 +177,12 @@ class User < ActiveRecord::Base
       SELECT compliments.id AS id, compliments.name AS name, COUNT(compliments.id) AS count
       FROM compliments
       INNER JOIN review_compliments ON review_compliments.compliment_id = compliments.id
-      WHERE review_compliments.user_id = ?
+      INNER JOIN reviews ON reviews.id = review_compliments.review_id
+      WHERE reviews.user_id = ?
       GROUP BY compliments.id
     SQL
 
     result = Compliment.find_by_sql([sql, id])
-
     result.map { |r| r.attributes }
   end
 
