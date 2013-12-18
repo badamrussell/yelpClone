@@ -1,11 +1,14 @@
 ??????????????? incrementing messed up for review form
 
-overflow:hidden
+
+
+
+on search page, a google map
+  with pins for each location
+  the pins highlight
 
 Javascript
-  send compliments
-  photos lower-third appears
-  pop-ups over links (blue-link to business, shows a pop up)
+
   rating-star
   search page
   google maps
@@ -13,6 +16,12 @@ Javascript
   Photo like buttons
 
 make sure store-front avatar is working
+
+when adding a new business
+similar businesses show up on the right...
+
+  photos lower-third appears
+  pop-ups over links (blue-link to business, shows a pop up)
 
 top-right icon menu
 
@@ -145,6 +154,7 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+send compliments
 upvote buttons
 
 images have lower thirds

@@ -29,10 +29,15 @@ ProfileLocation.create(user_id: 2, address: neighborhood, name: "Home", primary:
 ProfileLocation.create(user_id: 3, address: neighborhood, name: "Home", primary: true)
 
 
-Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, gps: Area.random_ny_gps )
-Business.create(name: "Cheers", country_id: 1, neighborhood_id: 1, gps: Area.random_ny_gps)
-Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1, gps: Area.random_ny_gps)
-Business.create(name: "Jack Rabbit Slims", country_id: 1, neighborhood_id: 1, gps: Area.random_ny_gps)
+#<Business id: 113, country_id: 1, name: "Chipotle Restaurant", address1: "274 Madison Ave", address2: "New York, NY 10016", city: "New York", state: "NY", zip_code: 10003, phone_number: "", website: "", neighborhood_id: nil, gps: "", created_at: "2013-12-18 01:21:32", updated_at: "2013-12-18 01:21:32", store_front_id: nil, latitude: 40.751402, longitude: -73.980728>
+
+#<Business id: 107, country_id: 1, name: "Dos Toros", address1: "137 4th Ave", address2: "New York, NY 10003", city: "New York", state: "NY", zip_code: 10003, phone_number: nil, website: nil, neighborhood_id: nil, gps: nil, created_at: "2013-12-18 01:16:44", updated_at: "2013-12-18 01:16:44", store_front_id: nil, latitude: 40.7335433, longitude: -73.9898218>
+
+
+Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
+Business.create(name: "Cheers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
+Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
+Business.create(name: "Jack Rabbit Slims", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
 
 BusinessCategory.create([
   {business_id: 1, category_id: 1},
@@ -435,11 +440,10 @@ Neighborhood.create([
 100.times do
   b = Business.create( {  name: Faker::Company.name,
                       country_id: 1,
-                      address1: Faker::Address.street_address,
-                      address2: Faker::Address.secondary_address,
                       phone_number: Faker::PhoneNumber.phone_number,
                       neighborhood_id: rand(50)+1,
-                      gps: Area.random_ny_gps
+                      latitude: Area.rand_lat,
+                      longitude: Area.rand_long
                     } )
 
   BusinessCategory.create([

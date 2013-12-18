@@ -19,21 +19,25 @@
 }
 
 .image-w-third {
+  display: block;
   margin: 0;
   padding: 0;
   position: relative;
-
+  overflow: hidden;
 //  box-shadow: 2px 1px 3px #222;
-  .white-title {
-    font-size: 0.7em;
-  }
+//  .white-title {
+//    font-size: 0.7em;
+//  }
+//
+//  .like-btn a {
+//    font-size: 12px;
+//    padding: 5px;
+//    position: absolute;
+//    color: white;
+//  }
 
-  .like-btn a {
-    font-size: 12px;
-    padding: 5px;
-    position: absolute;
-    color: white;
-  }
+
+
 }
 
 
@@ -44,22 +48,25 @@
   //bottom: 4px;
   background-color: rgba(0, 0, 0, .7);
   width: 100%;
-
-  .main-image {
-
-
-  }
-
-  .icon-photo {
-    float: left;
-    display: block;
-    padding: 6px;
-  }
-
-  .white-title {
-
-  }
-
-  .tiny-font {
-  }
+  height: 50px;
+//  line-height: 14px;
+//
+//  .main-image {
+//
+//
+//  }
+//
+//  .icon-photo {
+//    width: 25px;
+//    float: left;
+//    display: block;
+//    padding: 6px;
+//  }
+//
+//  .white-title {
+//
+//  }
+//
+//  .tiny-font {
+//  }
 }

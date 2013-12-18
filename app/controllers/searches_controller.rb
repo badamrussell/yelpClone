@@ -44,4 +44,9 @@ class SearchesController < ApplicationController
     end
   end
 
+  def nearby
+
+
+  end
+
 end

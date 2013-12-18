@@ -1,4 +1,8 @@
 
+<section>
+  <button onclick="placeSearch()">Google Place Search</button>
+</section>
+
 <form action="<%= url %>" method="post">
   <input type="hidden" name="_method" value="<%= method %>">
 
@@ -19,7 +23,7 @@
   <%= render "dev/attributes", obj: business, is_form: true, prefix: "business" %>
 
   <fieldset class="business-categories">
-  <legend>Categories</legend>
+    <legend>Categories</legend>
     <% 3.times do %>
       <div>
         <select name>
@@ -41,8 +45,6 @@
       </div>
     <% end %>
     <a href="#" class="small-link">Add another category</a>
-
-
   </fieldset>
 
   <a href="#" class="small-link">See Full Category List</a>

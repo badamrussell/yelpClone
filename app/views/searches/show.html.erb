@@ -4,26 +4,33 @@
 
 <section class="group">
   <section class="main-side left">
-  <ul>
-    <% @results.each do |result| %>
-      <li><%= render "businesses/search_result", business: result %></li>
-    <% end %>
-  </ul>
-  <nav class="pagination-container group">
-    <div class="left">Page 1 of #</div>
-    <div class="right">
-      <ul>
-      <% 10.times do|p| %>
-        <li class="left"><a href="#"> <%= p %> </a></li>
+    <ul>
+      <% @results.each do |result| %>
+        <li><%= render "businesses/search_result", business: result %></li>
       <% end %>
     </ul>
-    </div>
-  </nav>
+    <nav class="pagination-container group">
+      <div class="left">Page 1 of #</div>
+      <div class="right">
+        <ul>
+        <% 10.times do|p| %>
+          <li class="left"><a href="#"> <%= p %> </a></li>
+        <% end %>
+      </ul>
+      </div>
+    </nav>
   </section>
 
   <section class="sidebar-map right">
     <div>
       <img src="/assets/temp/map_square.png">
+
+
+
+
+
+
+
     </div>
   </section>
 </section>
@@ -44,7 +51,7 @@
     <div>
       <h3>Not here? Tell us what we're missing.</h3>
       <p>If the business you're looking for isn't here, add it!</p>
-      <a href="#"><button>Add a Business</button></a>
+      <a href="<%= new_business_url %>"><button>Add a Business</button></a>
       <p>Got search feedback?<a href="#">Help us improve</a>
     </div>
   </section>

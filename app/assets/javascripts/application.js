@@ -35,3 +35,17 @@ var showPopup = function(popupName, id) {
   }
   console.log("OPEN", $pop, popupName);
 }
+
+var placeSearch = function(event) {
+  console.log(event);
+  $.ajax({
+    url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCtQ4rA385P05RHibxx6TdTP_m2_VwEo2Y&keyword=pizza&location=40.751402%2C-73.9898218&radius=2000&sensor=false&type=restaurant",
+    type: "GET",
+    success: function(e) {
+      alert("it worked?");
+      console.log(e);
+    }
+
+  });
+
+}

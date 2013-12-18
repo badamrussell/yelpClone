@@ -12,6 +12,8 @@ gem 'figaro'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'addressable', require: 'addressable/uri'
+gem 'geocoder'
+gem 'rest-client'
 
 group :development do
   gem 'pry-rails'

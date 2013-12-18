@@ -30,7 +30,7 @@ module ApplicationHelper
         scale: 1,
         center: center,
         language: "en",
-        zoom: "13",
+        zoom: "14",
         size: "286x135",
         markers: "scale:1|shadow:true|icon:#{icon_location}|#{center}",
         sensor: "false"
@@ -39,6 +39,34 @@ module ApplicationHelper
   end
 
   def random_ny_gps
-    "40.#{rand(100000)},-73.#{rand(100000)}"
+    "40.5#{rand(1000)},-73.4#{rand(1000)}"
   end
+
+  def find_nearby(latitude, longitude, keywords="")
+    Addressable::URI.new(
+      scheme: "https",
+      host: "maps.googleapis.com",
+      # path: "place/nearbysearch/json",
+      path: "maps/api/place/nearbysearch/json",
+      query_values: {
+        key: ENV["GOOGLE_API_KEY"],
+        location: "#{latitude},#{longitude}",
+        keyword: keywords,
+        type: "restaurant",
+        radius: 2000,
+        sensor: "false"
+      }
+    ).to_s
+
+    response = RestClient.get(address.to_s)
+
+    places = JSON.parse(response)["results"].map do |place|
+      { location: place["geometry"]["location"],
+        street_address: place["vicinity"],
+        name: place["name"]
+      }
+    end
+
+  end
+
 end
