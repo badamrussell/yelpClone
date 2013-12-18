@@ -6,6 +6,7 @@
 on search page, a google map
   with pins for each location
   the pins highlight
+  keep map on top
 
 Javascript
 

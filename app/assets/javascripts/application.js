@@ -15,6 +15,7 @@
 //= require_tree .
 
 
+
 var closePopup = function() {
   $pop = $(".popup-show");
 
@@ -48,4 +49,26 @@ var placeSearch = function(event) {
 
   });
 
+}
+
+var getLocation = function() {
+  var location_callback = function(geoPosition) {
+    console.log(geoPosition, geoPosition.coords)
+    loadGoogleMaps(geoPosition.coords.latitude, geoPosition.coords.longitude);
+  }
+  navigator.geolocation.getCurrentPosition(location_callback);
+}
+
+
+var loadGoogleMaps = function(latitude, longitude) {
+  var mapProp = {
+    center:new google.maps.LatLng(latitude, longitude),
+    zoom:16,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+
+  var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+
+  // google.maps.event.addDomListener(window, 'load', initialize);
 }

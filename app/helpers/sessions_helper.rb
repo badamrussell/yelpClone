@@ -28,6 +28,12 @@ module SessionsHelper
   def require_no_current_user!
     # redirect_to user_url(current_user) unless current_user.nil?
   end
+
+  def current_location
+    @location ||= [43.6031097, -116.1934067]
+  end
+
+
   #
   # def is_authorized?(user)
   #
