@@ -5,6 +5,7 @@ more buttons bring up forms
 hide filters
 page refreshes after clickign button
 
+match up with real neighborhoods...
 
 business avatar image set
 nav bar

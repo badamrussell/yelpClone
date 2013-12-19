@@ -152,7 +152,7 @@
         <section class="column left">
           <h3 class="filter-title red-title">Category</h3>
           <ul>
-            <% Category.limit(5).each do |c| %>
+            <% @top_categories.each do |c| %>
               <li>
                 <% c_choice = @search_params[:category_id] || [] %>
                 <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>" <%= "checked" if c_choice.include?(c.id.to_s) %>>

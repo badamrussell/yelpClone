@@ -16,12 +16,15 @@ class SearchesController < ApplicationController
     @category_id = params["category_id"]
     @saved_params = @find_loc ? {find_loc: @find_loc} : {}
     @saved_params[:find_desc] = @find_desc unless @find_desc == ""
+    @top_categories = Category.limit(5)
 
     if params["category_id"]
       crumb_category = Category.find(params["category_id"])
       main_name = MainCategory.find(crumb_category.id).name
       @breadcrumbs[main_name] = search_url(main_category_id: crumb_category.main_category_id)
       @breadcrumbs[crumb_category.name] = ""
+
+
     elsif params["main_category_id"]
       main_name = MainCategory.find(params["main_category_id"]).name
       @breadcrumbs[main_name] = ""
@@ -34,6 +37,17 @@ class SearchesController < ApplicationController
     end
 
     @results = if @search_params && @search_params.any?
+      #find categories to display (top 5)
+      params[:search][:category_id].each_with_index do |id,i|
+        newCat = Category.find(id)
+        next if @top_categories.include?(newCat)
+        break if i > 4
+        @top_categories.pop
+        @top_categories.unshift newCat
+      end
+
+
+
       make_query(params[:search], @find_desc, @find_loc ) if params[:search]
       # box = Geocoder::Calculations.bounding_box(current_location, 20)
       #
