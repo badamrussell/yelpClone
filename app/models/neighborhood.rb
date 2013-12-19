@@ -9,4 +9,11 @@ class Neighborhood < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :area_id
   )
+
+  has_many(
+    :businesses,
+    class_name: "Business",
+    primary_key: :id,
+    foreign_key: :neighborhood_id
+  )
 end

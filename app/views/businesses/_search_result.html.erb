@@ -1,6 +1,6 @@
 <div class="business-result group" data-lat="<%= business.latitude %>" data-lng="<%= business.longitude %>">
   <section class="business-info-container group">
-    <img width="100" src="<%= business.avatar %>">
+    <img class="avatar-90" width="100" src="<%= business.avatar %>">
 
     <div class="business-stats">
       <%= render "businesses/business_info", business: business %>
@@ -8,16 +8,18 @@
 
     <div class="business-address">
       <address>
-        <%= business.address1 %><br>
-        <%= business.address2 %><br>
-        <%= business.phone_number %>
+        <p class="biz-neighborhood"><%= business.neighborhood.name %></p>
+        <p><%= business.address1 if business.address1 %></p>
+        <p><%= business.address2 if business.address2 %></p>
+        <p><%= "#{business.city}, #{business.state} #{business.zip_code}" if business.city %></p>
+        <p><%= business.phone_number %></p>
       </address>
     </div>
   </section>
 
   <% if business.top_review %>
     <section class="review-container group">
-      <div class="user-avatar">
+      <div class="avatar-30">
         <img height="40" src="<%= business.top_review.user.avatar %>">
       </div>
       <div class="highlight-body">

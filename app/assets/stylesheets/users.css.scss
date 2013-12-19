@@ -15,17 +15,64 @@
   height: 20px;
   line-height: 20px;
   padding: 10px;
+  margin: 10px 10px 20px 0;
+
+  h3 {
+    float: left;
+  }
+
+  a {
+
+    float: right;
+  }
 }
 
 .user-main-body {
 
+  .user-avatar {
+    height: 120px;
+    width: 120px;
+    overflow: hidden;
+    border: 1px solid lightgrey;
+  }
 
+  .thumb-photos div {
+    width: 20px;
+    height: 20px;
+    float: left;
+  }
+
+  .thumb-photos div a {
+    display: block;
+  }
 
 
   .user-sidebar {
     float: left;
     width: 230px;
+    padding-right: 20px;
+    padding-left: 0;
 //    border: 1px solid green;
+
+    h3 {
+      margin-top: 20px;
+    }
+
+    .user-headline {
+      padding: 10px;
+      padding-left: 0;
+    }
+
+    .user_info {
+
+
+    }
+  }
+
+  .img-icon {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
   }
 
   .mid-content {
@@ -40,6 +87,31 @@
 //    border: 1px solid blue;
   }
 
+
+}
+.one-bio {
+  margin-bottom: 20px;
 }
 
+
+.user-achievements {
+  font-size: 12px;
+
+  img {
+    display: block;
+    float: left;
+    margin-right: 5px;
+  }
+
+  a {
+    display: block;
+  }
+  span {
+    line-height: 22px;
+  }
+
+  li {
+    padding: 1px 0;
+  }
+}
 

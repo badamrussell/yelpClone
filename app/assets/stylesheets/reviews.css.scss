@@ -3,51 +3,83 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .medium-review-container {
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-
+  margin-bottom: 10px;
+  font-size: 12px;
   border-bottom: 1px solid lightgray;
-  .review-user-side {
+
+  .biz-info-header {
+    margin-bottom: 10px;
+  }
+  .biz-info-side {
+    width: 320px;
     float: left;
-    width: 250px;
+    display: block;
   }
 
+  .biz-address-side {
+    float: right;
+    display: block;
+  }
+
+  .biz-title {
+    font-size: 14px;
+    padding-bottom: 6px;
+    font-weight: bold;
+  }
+
+  .rating-container {
+    margin-bottom: 10px;
+  }
+
+  .review-interest li {
+    float: left;
+    font-size: 10px;
+    padding: 6px 10px 6px 0;
+  }
+
+
+//  .review-user-side {
+//    float: left;
+//    width: 250px;
+//  }
+//
   .review-review-side {
-    float: left;
-    width: 380px;
-    padding: 5px;
-  }
-
-  .rating-header {
-
-  }
-
-  .review-upvote-container {
-    margin: 5px 5px 5px 0;
-
-    button {
-      margin: 5px;
+    em {
+      line-height: 30px;
+      padding-left: 5px;
     }
   }
-
-  .upvote-question {
-
-  }
-
-  .voted {
-    color: green;
-  }
-
-  .review-body {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-}
-
-.review-photos-container {
-  img {
-    max-width: 380px;
-  }
+//
+//  .rating-header {
+//
+//  }
+//
+//  .review-upvote-container {
+//    margin: 5px 5px 5px 0;
+//
+//    button {
+//      margin: 5px;
+//    }
+//  }
+//
+//  .upvote-question {
+//
+//  }
+//
+//  .voted {
+//    color: green;
+//  }
+//
+//  .review-body {
+//    margin-top: 20px;
+//    margin-bottom: 20px;
+//  }
+//}
+//
+//.review-photos-container {
+//  img {
+//    max-width: 380px;
+//  }
 }
 
 
@@ -55,4 +87,6 @@
   .review-content {
     width: 200px;
   }
+
+
 }

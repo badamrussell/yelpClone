@@ -15,7 +15,7 @@ module SearchesHelper
     words
   end
 
-  def make_query(search_params)
+  def make_query(search_params, search_string, search_location)
     #search elements
     # find, near
     # sort, distance
@@ -23,7 +23,7 @@ module SearchesHelper
 
     where_q = []
     where_v = []
-    order_q = ""
+    order_q = "relevence DESC"
     select_q = ""
 
     joins = []
@@ -34,7 +34,7 @@ module SearchesHelper
     }
 
 
-    if search_params[:find]
+    unless search_string.nil? || search_string == ""
       #words = split_words(search_params[:find])
       where_q << "LOWER(businesses.name) LIKE ?"
       where_v << "%#{search_params[:find].downcase}%"
@@ -91,8 +91,8 @@ module SearchesHelper
         joins << poss_joins[:reviews]
         poss_joins.delete(:reviews)
       end
-      select_q = ", AVG(business.rating) AS rating_count"
-      order_q = ", rating_count DESC"
+      select_q = ", AVG(reviews.rating) AS rating_avg"
+      order_q = "rating_avg DESC, " + order_q
     elsif search_params[:sort] == "reviewed"
       if poss_joins[:reviews]
         joins << poss_joins[:reviews]
@@ -108,21 +108,20 @@ module SearchesHelper
 
 
     s_join = joins.join(' ') if joins.any?
-    s_where = "WHERE #{where_q.join(' OR ')}" if where_q.any?
+    s_where = where_q.any? ? "WHERE #{where_q.join(' OR ')}" : ""
     #w = "JOIN business_features ON businesses.id = business_features.business_id WHERE business_features.id = ?"
     s_sort = ""
 
     sql = <<-SQL
-      SELECT businesses.*, COUNT(businesses.id) AS relevence
+      SELECT businesses.*, COUNT(businesses.id) AS relevence #{select_q}
       FROM businesses
       #{s_join}
       #{s_where}
       GROUP BY businesses.id
-      ORDER BY relevence DESC #{order_q}
+      ORDER BY #{order_q}
     SQL
 
     sql_param = [sql] + where_v
-
     Business.find_by_sql(sql_param)
   end
 

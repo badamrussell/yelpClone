@@ -7,15 +7,30 @@
 <section class="group">
   <section class="main-side left">
     <ul class="business-results">
-      <% @results.each do |result| %>
-        <li><%= render "businesses/search_result", business: result %></li>
+      <% if @results.length > 0 %>
+        <% @results.each do |result| %>
+          <li><%= render "businesses/search_result", business: result %></li>
+        <% end %>
+      <% else %>
+        <section class="new-business-container">
+          <div>
+            <h3 class="red-title">Not here? Tell us what we're missing.</h3>
+            <p>If the business you're looking for isn't here, add it!</p>
+            <div class="new-btn-container">
+              <a href="<%= new_business_url %>">
+                <button class="red-btn">Add a Business</button>
+              </a>
+            </div>
+            <!-- <p>Got search feedback?<a href="#">Help us improve</a></p> -->
+          </div>
+        </section>
       <% end %>
     </ul>
     <nav class="pagination-container group">
       <div class="left">Page 1 of #</div>
       <div class="right">
         <ul>
-        <% 10.times do|p| %>
+        <% 10.times do |p| %>
           <li class="left"><a href="#"> <%= p %> </a></li>
         <% end %>
       </ul>
@@ -42,74 +57,21 @@
 
   </section>
 
+  <% if @results.length > 0 %>
   <section class="new-business-container right">
     <div>
-      <h3>Not here? Tell us what we're missing.</h3>
+      <h3 class="red-title">Not here? Tell us what we're missing.</h3>
       <p>If the business you're looking for isn't here, add it!</p>
-      <a href="<%= new_business_url %>"><button>Add a Business</button></a>
-      <p>Got search feedback?<a href="#">Help us improve</a>
+      <div class="new-btn-container">
+        <a href="<%= new_business_url %>">
+          <button class="red-btn">Add a Business</button>
+        </a>
+      </div>
+      <!-- <p>Got search feedback?<a href="#">Help us improve</a></p> -->
     </div>
   </section>
-  <div class="clickable">CLICK HERE</div>
+  <% end %>
 </section>
 
 
-<script>
-  var locations = <%= @results.map { |r| {lat: r.latitude, lng: r.longitude } }.to_json.html_safe %>;
-
-  $( function() {
-    // loadGoogleMaps(latitude, longitude);
-    var mapIO;
-    var map;
-
-    var selectedMarker;
-    getLocation(locations, function(mapObj) {
-      mapIO = mapObj[0];
-      map = mapObj[1];
-    });
-
-    $(".business-result").mouseenter( function() {
-      pos = { lat: $(this).data("lat"), lng: $(this).data("lng") };
-      //var mapIO = mapFunc();
-      console.log(pos);
-      for (var i=0; i < mapIO.length; i++) {
-        //console.log(mapIO[i])
-        var coord = mapIO[i].position;
-          console.log(coord.nb,pos.lat,coord.ob,pos.lng)
-        var latDiff = Math.abs(coord.nb - pos.lat);
-        var lngDiff = Math.abs(coord.ob - pos.lng)
-        if (latDiff < 0.000000001 && lngDiff < 0.000000001) {
-          console.log("FOUND IT")
-          if (selectedMarker) {
-            selectedMarker.setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
-            $(this).toggleClass("selected");
-            selectedMarker = null;
-          }
-
-          $(this).toggleClass("selected");
-          mapIO[i].setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
-          // mapIO[i].setAnimation("BOUNCE");
-          selectedMarker = mapIO[i];
-          //sw?: ne?:
-          map.panToBounds(pos)
-          break;
-        }
-      }
-    });
-
-    $(".business-result").mouseleave( function() {
-      if (selectedMarker) {
-        selectedMarker.setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
-        $(this).toggleClass("selected");
-        selectedMarker = null;
-      }
-    });
-
-    // $(".business-result").click( function() {
-    //   console.log("CLICK");
-    //   alert("CLICK");
-    // });
-  })
-
-
-</script>
+<%= render "scripts/map", results: @results %>

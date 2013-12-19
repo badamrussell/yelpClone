@@ -1,6 +1,35 @@
 ??????????????? incrementing messed up for review form
 
+more buttons bring up forms
+  maybe even change the dom afterwards?
+hide filters
+page refreshes after clickign button
 
+
+business avatar image set
+nav bar
+
+
+
+
+User profile page
+Business page
+category page
+search page
+photo page
+forms
+popups
+  for filters
+
+hide-filters link
+
+filters ar ajax
+reviews on user page needs links to photos
+
+
+
+
+search by number of reviews...
 add new business page
 clicking either search submit button uses all active choices ...
 show search terms

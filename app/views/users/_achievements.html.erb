@@ -1,0 +1,52 @@
+
+<div class="user-achievements">
+  <ul>
+  <li>
+    <% if user.friends.length > 0 %>
+      <a href="#">
+        <img src="/assets/temp/star.jpg" height="20">
+        <span><strong><%= user.friends.length %></strong> friends</span>
+      </a>
+    <% end %>
+  </li>
+  <li>
+    <% if user.reviews.length > 0 %>
+      <a href="<%= profile_url %>">
+        <img src="/assets/temp/star.jpg" height="20">
+        <span><strong><%= user.reviews.length %></strong> reviews</span>
+      </a>
+    <% end %>
+  </li>
+  <li>
+    <% if user.fans.length > 0 %>
+      <img src="/assets/temp/star.jpg" height="20">
+      <span><strong><%= user.fans.length %></strong> fans</span>
+    <% end %>
+  </li>
+  <li>
+    <% if user.tips.length > 0 %>
+      <a href="#">
+        <img src="/assets/temp/star.jpg" height="20">
+        <span><strong><%= user.tips.length %></strong> tips</span>
+      </a>
+    <% end %>
+  </li>
+  <li>
+    <% if user.photos.length > 0 %>
+      <a href="#">
+        <img src="/assets/temp/star.jpg" height="20">
+        <span><strong><%= user.photos.length %></strong> photos</span>
+      </a>
+    <% end %>
+  </li>
+  <li>
+    <% if user.lists.length > 0 %>
+      <a href="#">
+        <img src="/assets/temp/star.jpg" height="20">
+        <span><strong><%= user.lists.length %></strong> lists</span>
+      </a>
+    <% end %>
+  </li>
+</ul>
+<div>
+

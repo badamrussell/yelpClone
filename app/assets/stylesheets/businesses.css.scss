@@ -103,17 +103,31 @@
 .business-result {
   width: 620px;
   padding: 20px;
-  border: 1px solid red;
+  border-bottom: 1px solid #eee;
+
   .business-info-container {
     img {
       float: left;
     }
+
     .business-stats {
       float: left;
     }
 
-    .business-address {
+    .business-address address{
+      font-size: 12px;
       float: right;
+      padding-top: 5px;
+    }
+
+    address p {
+      text-align: left;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .biz-neighborhood {
+      padding-bottom: 7px;
     }
   }
 
@@ -121,15 +135,55 @@
       float: left;
   }
 
+  .category-container > span {
+    padding-left: 5px;
+  }
+
+  .highlight-body {
+    padding: 10px;
+    line-height: 30px;
+  }
+
+//  .price-range-container {
+//    padding: 5px;
+//    padding-left: 0;
+//  }
 }
 
 .selected {
-  background: green;
+  background: lightyellow;
 }
 
 .business-info {
-  width: 400px;
+  margin-left: 5px;
+  .business-header {
+
+  }
+
 }
+
+.business-stats {
+  .business-header {
+
+  }
+
+  .business-header h2 {
+    display: block;
+    font-size: 16px;
+    padding: 5px;
+    padding-left: 0;
+  }
+
+  .rating-container {
+    em {
+      line-height: 30px;
+      padding-left: 10px;
+      color: #333;
+    }
+  }
+}
+
+
 .category-container {
 
 }

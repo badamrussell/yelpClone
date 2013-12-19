@@ -1,19 +1,21 @@
 
 <div>
-  <section class="popup-form popup-hide">
+  <section id="compliment-popup" class="popup-form popup-hide">
     <form class="compliment-form" action="<%= url %>" data-remote="true" method="post">
       <input type="hidden" name="_method" value="<%= method %>">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
       <input type="hidden" class="main-id" name="compliment[review_id]" value="<%= review.id %>">
 
       <header class="popup-title">
-        <h3 class="red-title">Choose Your Compliment Type:</h3>
+        <h3 class="red-title">Choose Your Compliment:</h3>
       </header>
 
       <fieldset class="compliment-container group">
         <% Compliment.all.each do |c| %>
+          <% c_name = c["name"].gsub(" ","-").gsub("'","").downcase %>
           <div class="compliment-choice left">
-            <input type="radio" name="compliment[compliment_id]" value="<%= c.id %>" id="compliment_<%= c.name %>" <%= "checked" if compliment.compliment_id == c.id %>>
+            <input class="left" type="radio" name="compliment[compliment_id]" value="<%= c.id %>" id="compliment_<%= c.name %>" <%= "checked" if compliment.compliment_id == c.id %>>
+            <img class="compliment-20 <%= c_name %> left">
             <label for="compliment_<%= c.name %>"><%= c.name %></label>
           </div>
         <% end %>
@@ -21,7 +23,7 @@
 
       <textarea class="popup-textarea" name="compliment[body]" rows="8" cols="50"><%= compliment.body %></textarea>
 
-      <footer class="popup-footer">
+      <footer class="popup-footer group">
         <button class="left" type="submit" name="submit" value="submit" id="submit">Send</button>
         <div class="right"><a onclick="closePopup()">Cancel</a></div>
       </footer>

@@ -13,6 +13,9 @@
   </nav>
   <section class="user-detail-title-container">
     <h3 class="red-title"><%= @user.name %>'s Profile</h3>
+    <% if @user == current_user %>
+    <a href="<%= edit_user_url(@user.id) %>">edit</a>
+    <% end %>
   </section>
 </header>
 
@@ -21,10 +24,10 @@
   <%= render "users/user_info", user: @user %>
 
   <section class="mid-content">
-    <div class="">
-      <h3>Recent Reviews</h3>
+    <header class="">
+      <h3 class="red-title">Recent Reviews</h3>
       <hr>
-    </div>
+    </header>
     <% @user.reviews.each do |review| %>
       <%= render "reviews/user_detail", review: review %>
     <% end %>
@@ -35,3 +38,11 @@
   </section>
 
 </section>
+
+
+<%= render "scripts/vote" %>
+<%= render "popups/compliments",
+          url: review_compliments_url,
+          review: Review.new,
+          compliment: ReviewCompliment.new,
+          method: "post" %>

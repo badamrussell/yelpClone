@@ -64,6 +64,13 @@ class Business < ActiveRecord::Base
     foreign_key: :store_front_id
   )
 
+  belongs_to(
+    :neighborhood,
+    class_name: "Neighborhood",
+    primary_key: :id,
+    foreign_key: :neighborhood_id
+  )
+
   has_many(
     :photos,
     class_name: "Photo",
@@ -171,11 +178,7 @@ class Business < ActiveRecord::Base
   end
 
   def category_list
-    ["food", "stuff"]
-  end
 
-  def neighborhood
-    "WRONG PLACE"
   end
 
   def top_review

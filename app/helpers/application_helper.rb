@@ -21,6 +21,7 @@ module ApplicationHelper
 
   def get_half_map(center)
     icon_location = "https://s3.amazonaws.com/kelp_dev/pin.png"
+    str_center = "#{center['lat']}, #{center['lng']}"
     marker = []
     Addressable::URI.new(
       scheme: "https",
@@ -28,7 +29,7 @@ module ApplicationHelper
       path: "maps/api/staticmap",
       query_values: {
         scale: 1,
-        center: center,
+        center: str_center,
         language: "en",
         zoom: "14",
         size: "286x135",

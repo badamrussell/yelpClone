@@ -9,9 +9,13 @@ class SearchesController < ApplicationController
     @breadcrumbs = { "Business" => search_url }
     @finer_filters = nil
     @finer_filter_name = nil
-
     @search_params = params[:search] || {}
-
+    @recommend_categories = Category.all[1..3]
+    @find_desc = params[:find_desc] || ""
+    @find_loc = params[:find_loc] || ""
+    @category_id = params["category_id"]
+    @saved_params = @find_loc ? {find_loc: @find_loc} : {}
+    @saved_params[:find_desc] = @find_desc unless @find_desc == ""
 
     if params["category_id"]
       crumb_category = Category.find(params["category_id"])
@@ -30,7 +34,7 @@ class SearchesController < ApplicationController
     end
 
     @results = if @search_params && @search_params.any?
-      make_query(params[:search]) if params[:search]
+      make_query(params[:search], @find_desc, @find_loc ) if params[:search]
       # box = Geocoder::Calculations.bounding_box(current_location, 20)
       #
       # biz_within_range = Business.within_bounding_box(box)
@@ -44,7 +48,6 @@ class SearchesController < ApplicationController
                       else
                         {}
                       end
-
       Business.search(search_terms)
     end
   end

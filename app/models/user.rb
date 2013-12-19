@@ -186,6 +186,11 @@ class User < ActiveRecord::Base
     result.map { |r| r.attributes }
   end
 
+  def achievements
+    list = []
+
+  end
+
   private
 
   def ensure_token

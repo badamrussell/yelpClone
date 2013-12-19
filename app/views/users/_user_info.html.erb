@@ -1,38 +1,48 @@
 <section class="user-sidebar">
-  <% if user == current_user %>
-  <a href="<%= edit_user_url(user.id) %>">edit</a>
-  <% end %>
+
 
 
   <section class="photos-container group">
     <div class="user-avatar left"><img width="120" src="<%= current_user.avatar %>"></div>
-    <div class="thumb-photos group">
-      <% user.top_photos(9).each do |photo| %>
-        <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img width="30px" src="<%= photo.url %>"></a>
+    <div class="thumb-photos">
+      <% if user.photos.length > 0 %>
+        <% user.top_photos(9).each do |photo| %>
+        <div class="left">
+          <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img class="img-icon" src="<%= photo.url %>"></a>
+        </div>
+        <% end %>
+      <% else %>
+        <a class="med-link left" href="#">Upload a Photo</a>
       <% end %>
     </div>
   </section>
+
   <% bio = user.bio %>
+
   <% if bio.headline %>
-  <section><strong><%= bio.headline %></strong></section>
+    <section class="user-headline"><strong>"<%= bio.headline %>"</strong></section>
   <% end %>
 
-  <span><strong><%= user.friends.length %></strong> friends</span>
-  <a href="<%= profile_url %>"><img src="/assets/temp/star.jpg" height="10"></a>
-  <span><strong><%= user.reviews.length %></strong> reviews</span>
-  <span><strong><%= user.fans.length %></strong> fans</span>
+  <%= render "users/achievements", user: user %>
 
-  <a href="#">Upload a Photo</a>
+
+  <section class="user-interact">
+
+  </section>
 
   <section class="group">
     <h3 class="red-title">Rating Distribution</h3>
-
+    <%  %>
   </section>
 
   <section class="group">
     <h3 class="red-title">Compliments</h3>
     <% user.compliment_count.each do |c| %>
-      <div class=""><%= c["name"] %> : <%= c["count"] %></div>
+      <% c_name = c["name"].gsub(" ","-").gsub("'","").downcase %>
+      <div class="compliment-container-20">
+        <img class="compliment-20 <%= c_name %>">
+        <div><%= c["count"] %></div>
+      </div>
     <% end %>
   </section>
 
@@ -42,7 +52,7 @@
     <ul>
       <% user.bio.attributes.each do |title, desc| %>
         <% next if desc.blank? || title.include?("id") || title == "created_at" || title == "updated_at"%>
-        <li>
+        <li class="one-bio">
           <div class="bio-title">
             <strong><%= title%></strong>
           </div>

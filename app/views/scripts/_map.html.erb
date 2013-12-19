@@ -1,0 +1,59 @@
+<script>
+  var locations = <%= results.map { |r| {lat: r.latitude, lng: r.longitude } }.to_json.html_safe %>;
+
+  $( function() {
+    // loadGoogleMaps(latitude, longitude);
+    var mapIO;
+    var map;
+
+    var selectedMarker;
+    getLocation(locations, function(mapObj) {
+      mapIO = mapObj[0];
+      map = mapObj[1];
+    });
+
+    $(".business-result").mouseenter( function() {
+      pos = { lat: $(this).data("lat"), lng: $(this).data("lng") };
+      //var mapIO = mapFunc();
+      //console.log(pos);
+      for (var i=0; i < mapIO.length; i++) {
+        //console.log(mapIO[i])
+        var coord = mapIO[i].position;
+        //console.log(coord.nb,pos.lat,coord.ob,pos.lng)
+        var latDiff = Math.abs(coord.nb - pos.lat);
+        var lngDiff = Math.abs(coord.ob - pos.lng)
+        if (latDiff < 0.000000001 && lngDiff < 0.000000001) {
+          //console.log("FOUND IT")
+          if (selectedMarker) {
+            selectedMarker.setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
+            $(this).toggleClass("selected");
+            selectedMarker = null;
+          }
+
+          $(this).toggleClass("selected");
+          mapIO[i].setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
+          // mapIO[i].setAnimation("BOUNCE");
+          selectedMarker = mapIO[i];
+          //sw?: ne?:
+          //map.panToBounds(pos)
+          break;
+        }
+      }
+    });
+
+    $(".business-result").mouseleave( function() {
+      if (selectedMarker) {
+        selectedMarker.setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
+        $(this).toggleClass("selected");
+        selectedMarker = null;
+      }
+    });
+
+    // $(".business-result").click( function() {
+    //   console.log("CLICK");
+    //   alert("CLICK");
+    // });
+  })
+
+
+</script>

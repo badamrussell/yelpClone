@@ -1,20 +1,23 @@
 <section class="medium-review-container group">
-  <section class="biz-info-header">
+  <section class="biz-info-header group">
     <div class="biz-info-side">
       <% business = review.business %>
       <div class="biz-title"><a href="<%= business_url(business.id) %>"><%= business.name %></a></div>
       <div>Categories:
-        <% business.category_list.each do |category| %>
-          <a href="#"><%= category %></a>
+        <% business.categories.each do |category| %>
+          <a href="category_url(<%= category.id %>)"><%= category.name %></a>
         <% end %>
       </div>
-      <div>Neighborhood: <%= business.neighborhood %>
+      <div>Neighborhood: <%= business.neighborhood.name %></div>
     </div>
 
     <div class="biz-address-side">
-      <%= business.address1 %>
-      <%= business.address2 %>
-      <%= business.phone_number %>
+      <address>
+        <p><%= business.address1 %></p>
+        <p><%= business.address2 %></p>
+        <p><%= business.city %>, <%= business.state %> <%= business.zip_code %></p>
+        <p><%= business.phone_number %></p>
+      </address>
     </div>
   </section>
 
@@ -24,6 +27,17 @@
     <div class="rating-header group">
       <%= render "widgets/rating", rating: review.rating %>
       <em><%= review.created_at.strftime("%m/%d/%Y") %></em>
+
+
+      <div class="review-extras">
+        <!-- <ul>
+          <% if business.photos.length > 0 %>
+            <li><a href="<%#= business_photos_url(business.id) %>"><%#= business.photos.length %> photos</a></li>
+          <% end %>
+          <li>
+        </ul> -->
+
+      </div>
     </div>
 
     <div>
@@ -35,7 +49,7 @@
     <div class="review-interest group">
       <ul>
         <li><a href="#">Bookmark</a></li>
-        <li><a href="#">Send Compliment</a></li>
+        <li><a class="ponter" onclick='showPopup("#compliment-popup", <%= review.id %>)'>Send Compliment</a></li>
         <li><a href="#">Send to a Friend</a></li>
         <li><a href="#">Link to Review</a></li>
         <li><a href="#">Flag</a></li>

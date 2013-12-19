@@ -1,5 +1,27 @@
 <nav class="search-filters-container">
   <section class="filter-header group">
+    <header class="result-header">
+      <div class="search-string group">
+        <h2><strong><%= "#{@find_desc} " unless @find_desc.blank? %></strong><%=City.find(@find_loc).name %></h2>
+        <% if @results.length > 0 %>
+          <em class="right">Showing 1 of <%= @results.length %></em>
+        <% else %>
+          <em class="right">No results</em>
+        <% end %>
+      </div>
+
+      <div class="category-browse">
+        <h2>Browse Category:</h2>
+        <ul class="group">
+          <% @recommend_categories.each do |category| %>
+            <li><a href="<%= category_url(category.id) %>" class="med-link"><%= category.name %></a></li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="filter-hide"><a class="med-link">Hide Filters</a></div>
+    </header>
+
     <div class="group">
       <nav class="breadcrumb-container">
         <% @breadcrumbs.each do |crumb, c_url| %>
@@ -13,137 +35,140 @@
         <% end %>
       </nav>
 
-      <% if @results.length > 0 %>
-        <em class="right">Showing 1 of <%= @results.length %></em>
-      <% else %>
-        <em class="right">No results</em>
-      <% end %>
+
     </div>
     <div class="finer-filter-container group">
       <% if @finer_filters %>
-
         <%#= render "widgets/columns", columns: 6, data: Neighborhood.where(area_id: 1), base_url: search_url(category_id: @category.id), param_name: "neighborhood_id" %>
-        <%= render "widgets/columns", columns: 6, data: @finer_filters, base_url: "/search?", param_name: @finer_filter_name, max_rows: 4 %>
-
-
-
+        <%= render  "widgets/columns",
+                    columns: 6,
+                    data: @finer_filters,
+                    # base_url: "/search?",
+                    base_url: search_url(@saved_params) + "&",
+                    param_name: @finer_filter_name,
+                    max_rows: 4 %>
       <% end %>
 
-      <div class="group">
-        <h4 class="left">Browse Category:</h4><a href="#">PLACE HOLDER</a>
-      </div>
-
-      <select class="">
-        <option value=1>Hide Filters</option>
-      </select>
     </div>
 
   </section>
 
-  <form action="<%= search_url %>" method="get">
-    <section class="column left">
-      <h3 class="filter-title red-title">Sort By</h3>
+  <form class="form-fine-filters" action="<%= search_url( @saved_params) %>" method="get">
+    <input type="hidden" name="find_desc" value="<%= @find_desc %>">
+    <input type="hidden" name="find_loc" value="<%= @find_loc %>">
+    <section class="search-filter-container group">
+      <section class="column left">
+        <h3 class="filter-title red-title">Sort By</h3>
 
-      <ul>
-        <li>
-          <input type="radio" name="search[sort]" id="search_sort" value="" <%= "checked" if @search_params[:sort] == "" %>>
-          <label for="search_sort">Best Match</label>
-        </li>
-        <li>
-          <input type="radio" name="search[sort]" id="search_sort" value="rated" <%= "checked" if @search_params[:sort] == "rated" %>>
-          <label for="search_sort">Highest Rated</label>
-        </li>
-        <li>
-          <input type="radio" name="search[sort]" id="search_sort" value="reviewed" <%= "checked" if @search_params[:sort] == "reviewed" %>>
-          <label for="search_sort">Most Reviewed</label>
-        </li>
-      </ul>
-      <a class="filter-more" href="#"></a>
-    </section>
-
-    <section class="column left">
-      <h3 class="filter-title red-title">Neighborhoods</h3>
-      <ul>
-        <% Neighborhood.where(area_id: 1).limit(5).each do |n| %>
+        <ul>
           <li>
-            <% n_choice = @search_params[:neighborhood_id] || [] %>
-            <input type="checkbox" id="n_<%= n.id %>" name="search[neighborhood_id][]" value="<%= n.id %>" <%= "checked" if n_choice.include?(n.id.to_s) %>>
-            <label for="n_<%= n.id %>"><%= n.name %>
+            <input type="radio" name="search[sort]" id="search_sort" value="" <%= "checked" if @search_params[:sort] == "" %>>
+            <label for="search_sort">Best Match</label>
           </li>
-        <% end %>
-      </ul>
-      <a class="filter-more" href="#">More Neighborhoods</a>
-    </section>
-
-    <section class="column left">
-      <h3 class="filter-title red-title">Distance</h3>
-      <ul>
-        <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="1" <%= "checked" if @search_params[:distance] == "1" %>>
-          <label for="search_distance">Bird's Eye View</label>
-        </li>
-        <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="2" <%= "checked" if @search_params[:distance] == "2" %>>
-          <label for="search_distance">Driving (5 mi.)</label>
-        </li>
-        <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="3" <%= "checked" if @search_params[:distance] == "3" %>>
-          <label for="search_distance">Biking (2 mi.)</label>
-        </li>
-        <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="4" <%= "checked" if @search_params[:distance] == "4" %>>
-          <label for="search_distance">Walking (1 mi.)</label>
-        </li>
-        <li>
-          <input type="radio" name="search[distance]" id="search_distance" value="5" <%= "checked" if @search_params[:distance] == "5" %>>
-          <label for="search_distance">Within 4 blocks</label>
-        </li>
-      </ul>
-      <a class="filter-more" href="#"></a>
-    </section>
-
-    <section class="column left">
-      <h3 class="filter-title red-title">Price</h3>
-      <ul>
-        <% PriceRange.all.each do |p| %>
           <li>
-            <% p_choice = @search_params[:price_range] || [] %>
-            <input type="checkbox" id="p_<%= p.id %>" name="search[price_range][]" value="<%= p.id %>" <%= "checked" if p_choice.include?(p.id.to_s) %>>
-            <label for="p_<%= p.id %>"><%= p.name %>
+            <input type="radio" name="search[sort]" id="search_sort" value="rated" <%= "checked" if @search_params[:sort] == "rated" %>>
+            <label for="search_sort">Highest Rated</label>
           </li>
-        <% end %>
-      </ul>
-
-      <a class="filter-more" href="#"></a>
-    </section>
-
-    <section class="column left">
-      <h3 class="filter-title red-title">Features</h3>
-      <ul>
-        <% Feature.limit(5).each do |f| %>
           <li>
-            <% f_choice = @search_params[:feature_id] || [] %>
-            <input type="checkbox" id="f_<%= f.id %>" name="search[feature_id][]" value="<%= f.id %>" <%= "checked" if f_choice.include?(f.id.to_s) %>>
-            <label for="n_<%= f.id %>"><%= f.name %>
+            <input type="radio" name="search[sort]" id="search_sort" value="reviewed" <%= "checked" if @search_params[:sort] == "reviewed" %>>
+            <label for="search_sort">Most Reviewed</label>
           </li>
-        <% end %>
-      </ul>
-      <a class="filter-more" href="#">More Features</a>
-    </section>
+        </ul>
+        <a class="filter-more" href="#"></a>
+      </section>
 
-    <section class="column left">
-      <h3 class="filter-title red-title">Category</h3>
-      <ul>
-        <% Category.limit(5).each do |c| %>
+      <section class="column left">
+        <h3 class="filter-title red-title">Neighborhoods</h3>
+        <ul>
+          <% Neighborhood.where(area_id: 1).limit(5).each do |n| %>
+            <li>
+              <% n_choice = @search_params[:neighborhood_id] || [] %>
+              <input type="checkbox" id="n_<%= n.id %>" name="search[neighborhood_id][]" value="<%= n.id %>" <%= "checked" if n_choice.include?(n.id.to_s) %>>
+              <label for="n_<%= n.id %>"><%= n.name %>
+            </li>
+          <% end %>
+        </ul>
+        <a class="filter-more" href="#">More Neighborhoods</a>
+      </section>
+
+      <section class="column left">
+        <h3 class="filter-title red-title">Distance</h3>
+        <ul>
           <li>
-            <% c_choice = @search_params[:category_id] || [] %>
-            <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>" <%= "checked" if c_choice.include?(c.id.to_s) %>>
-            <label for="c_<%= c.id %>"><%= c.name %>
+            <input type="radio" name="search[distance]" id="search_distance" value="1" <%= "checked" if @search_params[:distance] == "1" %>>
+            <label for="search_distance">Bird's Eye View</label>
           </li>
-        <% end %>
-      </ul>
-      <a class="filter-more" href="#">More Categories</a>
+          <li>
+            <input type="radio" name="search[distance]" id="search_distance" value="2" <%= "checked" if @search_params[:distance] == "2" %>>
+            <label for="search_distance">Driving (5 mi.)</label>
+          </li>
+          <li>
+            <input type="radio" name="search[distance]" id="search_distance" value="3" <%= "checked" if @search_params[:distance] == "3" %>>
+            <label for="search_distance">Biking (2 mi.)</label>
+          </li>
+          <li>
+            <input type="radio" name="search[distance]" id="search_distance" value="4" <%= "checked" if @search_params[:distance] == "4" %>>
+            <label for="search_distance">Walking (1 mi.)</label>
+          </li>
+          <li>
+            <input type="radio" name="search[distance]" id="search_distance" value="5" <%= "checked" if @search_params[:distance] == "5" %>>
+            <label for="search_distance">Within 4 blocks</label>
+          </li>
+        </ul>
+        <a class="filter-more" href="#"></a>
+      </section>
+
+      <section class="column left">
+        <h3 class="filter-title red-title">Price</h3>
+        <ul>
+          <% PriceRange.all.each do |p| %>
+            <li>
+              <% p_choice = @search_params[:price_range] || [] %>
+              <input type="checkbox" id="p_<%= p.id %>" name="search[price_range][]" value="<%= p.id %>" <%= "checked" if p_choice.include?(p.id.to_s) %>>
+              <label for="p_<%= p.id %>"><%= p.name %>
+            </li>
+          <% end %>
+        </ul>
+
+        <a class="filter-more" href="#"></a>
+      </section>
+
+      <section class="column left">
+        <h3 class="filter-title red-title">Features</h3>
+        <ul>
+          <% Feature.limit(5).each do |f| %>
+            <li>
+              <% f_choice = @search_params[:feature_id] || [] %>
+              <input type="checkbox" id="f_<%= f.id %>" name="search[feature_id][]" value="<%= f.id %>" <%= "checked" if f_choice.include?(f.id.to_s) %>>
+              <label for="n_<%= f.id %>"><%= f.name %>
+            </li>
+          <% end %>
+        </ul>
+        <a class="filter-more" href="#">More Features</a>
+      </section>
+
+      <% unless @category_id %>
+
+        <section class="column left">
+          <h3 class="filter-title red-title">Category</h3>
+          <ul>
+            <% Category.limit(5).each do |c| %>
+              <li>
+                <% c_choice = @search_params[:category_id] || [] %>
+                <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>" <%= "checked" if c_choice.include?(c.id.to_s) %>>
+                <label for="c_<%= c.id %>"><%= c.name %>
+              </li>
+            <% end %>
+          </ul>
+          <button class="btn-link" type="button" onclick='showPopup("#category-popup", <%= "1" %>)'>More Categories</button>
+        </section>
+      <% end %>
+      <input id="fine-search-submit" type="submit" name="Submit">
     </section>
-    <input type="submit" name="Submit">
   </form>
 </nav>
+
+<%= render "popups/categories",
+          url: review_compliments_url,
+          main_category_id: 1,
+          method: "post" %>

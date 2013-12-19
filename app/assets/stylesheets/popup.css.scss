@@ -1,0 +1,78 @@
+#category-popup {
+  width: 400px;
+  height: 500px;
+}
+
+.popup-form {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border: 10px solid rgba(0,0,0,0.7);
+  background: #eee;
+  border-radius: 10px;
+  font-size: 12px;
+
+  h3 {
+    background: #ccc;
+    padding: 15px 20px;
+    display: block;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 10px;
+  }
+
+}
+
+.choices-container {
+
+  height: 380px;
+  overflow: scroll;
+  padding: 0 12px;
+  .choice {
+    width: 118px;
+    padding-left: 5px 5px 0 0;
+  }
+}
+
+.popup-hide {
+  top: 600px;
+  display:none;
+  left: -300px;
+  opacity: 0.5;
+}
+
+.popup-show {
+  display: block;
+  left: 400px;
+  top: 600px;
+  opacity: 1;
+}
+
+.compliment-container {
+  margin-bottom: 20px;
+  padding-left: 20px;
+  img {
+    margin-right: 3px;
+  }
+}
+
+.compliment-choice {
+  width: 180px;
+  padding: 2px;
+}
+
+.popup-textarea {
+  display:block;
+  margin: auto;
+}
+
+.popup-footer {
+  display: block;
+  bottom: 0;
+  padding: 10px;
+  border-top: 1px solid lightgrey;
+
+  a {
+    display: block;
+    line-height: 30px;
+  }
+}

@@ -28,16 +28,34 @@ var closePopup = function() {
 var showPopup = function(popupName, id) {
   closePopup();
 
-  $pop = $("." + popupName);
+  $pop = $(popupName);
   console.log("OPEN", $pop, popupName, id);
   if ($pop) {
     $pop.addClass("popup-show");
     $a = $pop.find(".main-id")
     $a.attr("value", id)
+
+    //$pop.
   }
   console.log("OPEN", $pop, popupName);
 }
 
+var submitSearch = function(e) {
+  console.log("HERE")
+  var choices = $(".popup-form-container").serializeArray()
+
+  $main = $(".form-fine-filters")
+  for (var i=0; i < choices.length; i++) {
+    $("<input>").attr({
+      type: "hidden",
+      name: choices[i].name,
+      value: choices[i].value
+    }).appendTo($main);
+    console.log("APPENDED", choices[i].name);
+  }
+  closePopup();
+  $("#fine-search-submit").trigger("click")
+}
 
 // ----------- GOOGLE PLACES API
 
@@ -106,4 +124,11 @@ var placeMarker = function(pos, map) {
                                         } );
   marker.setMap(map);
   return marker;
+}
+
+// POPUP FORM
+
+var makeCategoryForm = function() {
+  $popWindow = $("<div></div>");
+  $popForm = $("<form></form>")
 }
