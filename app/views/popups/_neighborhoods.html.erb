@@ -1,19 +1,20 @@
 
 <div>
-  <section id="feature-popup" class="popup-form popup-hide">
+  <section id="neighborhood-popup" class="popup-form popup-hide">
     <form class="popup-form-container" action="" data-remote="true" method="post">
       <header class="popup-title">
-        <h3 class="red-title">More Features</h3>
+        <h3 class="red-title">More Neighborhoods</h3>
       </header>
 
       <fieldset class="choices-container group">
-        <% FeatureCategory.all.each do |fc| %>
+        <% Area.where(city_id: 1).each do |ac| %>
+          <h2 class="med-bold"><%= ac.name %></h2>
           <section class="choice-container group">
-            <% Feature.where(feature_category_id: fc).each do |c| %>
+            <% Neighborhood.where(area_id: ac).each do |c| %>
               <div class="choice left">
                 <input  class="left"
                         type="checkbox"
-                        name="search[feature_id][]"
+                        name="search[neighborhood_id][]"
                         value="<%= c.id %>"
                         id="category_<%= c.name %>">
                 <label for="category_<%= c.name %>"><%= c.name %></label>
@@ -24,7 +25,7 @@
       </fieldset>
 
       <footer class="popup-footer group">
-        <button class="red-btn left" onclick="submitPopupSearch('#feature-popup' ,'#feature-selections')" type="button">Search</button>
+        <button class="red-btn left" onclick="submitPopupSearch('#neighborhood-popup' ,'#neighborhood-selections')" type="button">Search</button>
         <div class="right"><a onclick="closePopup()">Cancel</a></div>
       </footer>
     </form>

@@ -65,36 +65,6 @@ var showCategoryPopup = function() {
   }
 }
 
-var submitCategorySearch = function(e) {
-  var choices = $(".popup-form-container").serializeArray();
-
-  var $main = $("#category-selections");
-  $("#category-selections li").remove();
-
-  for (var i=0; i < choices.length; i++) {
-    var $li = $("<li></li>");
-    $main.append($li);
-
-    if (i < 5) {
-      $("<input>").attr({
-        type: "checkbox",
-        name: choices[i].name,
-        value: choices[i].value,
-        checked: true
-      }).appendTo($li);
-    } else {
-      $("<input>").attr({
-        type: "hidden",
-        name: choices[i].name,
-        value: choices[i].value
-      }).appendTo($li);
-    }
-  }
-
-  closePopup();
-  $("#fine-search-submit").trigger("click")
-}
-
 var showFeaturePopup = function() {
   closePopup();
 
@@ -120,11 +90,37 @@ var showFeaturePopup = function() {
   }
 }
 
-var submitFeatureSearch = function(e) {
-  var choices = $(".popup-form-container").serializeArray()
+var showFilterPopup = function(mainEl, choiceCont) {
+  closePopup();
 
-  var $main = $("#feature-selections")
-  $("#feature-selections li").remove()
+  var $pop = $(mainEl);
+
+  if ($pop) {
+    $pop.addClass("popup-show");
+    var $a = $pop.find(".main-id")
+
+    //update visible fields
+    var ch = $(choiceCont + " input:checked");
+    for(var i=0; i < ch.length; i++) {
+
+      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+    }
+
+    //update hidden fields
+    ch = $(choiceCont + " :input[type='hidden']")
+    for(var i=0; i < ch.length; i++) {
+
+      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+    }
+    //$pop.
+  }
+}
+
+var submitPopupSearch = function(formEl, mainEl) {
+  var choices = $(formEl + " .popup-form-container").serializeArray()
+
+  var $main = $(mainEl);
+  $(mainEl + " li").remove();
 
   for (var i=0; i < choices.length; i++) {
     var $li = $("<li></li>");

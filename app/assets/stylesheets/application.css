@@ -91,9 +91,15 @@ h3.red-title {
   padding: 2px;
 }
 
+.med-bold {
+  font-weight: bold;
+  font-size: 14px;
+}
+
 button.btn-link {
   background: transparent;
   color: #00f;
+  cursor: hand;
 }
 
 .white-title {

@@ -18,6 +18,7 @@ class SearchesController < ApplicationController
     @saved_params[:find_desc] = @find_desc unless @find_desc == ""
     @select_categories = []
     @select_features = []
+    @select_neighborhoods = []
 
     if params["category_id"]
       crumb_category = Category.find(params["category_id"])
@@ -44,6 +45,10 @@ class SearchesController < ApplicationController
       end
       if params[:search][:feature_id]
         @select_features = params[:search][:feature_id].map { |num| Feature.find(num) }
+      end
+
+      if params[:search][:neighborhood_id]
+        @select_neighborhoods = params[:search][:neighborhood_id].map { |num| Neighborhood.find(num) }
       end
 
       make_query(params[:search], @find_desc, @find_loc ) if params[:search]
