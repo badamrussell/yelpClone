@@ -16,7 +16,7 @@ class SearchesController < ApplicationController
     @category_id = params["category_id"]
     @saved_params = @find_loc ? {find_loc: @find_loc} : {}
     @saved_params[:find_desc] = @find_desc unless @find_desc == ""
-    @top_categories = Category.limit(5)
+    @select_categories = []
 
     if params["category_id"]
       crumb_category = Category.find(params["category_id"])
@@ -38,13 +38,7 @@ class SearchesController < ApplicationController
 
     @results = if @search_params && @search_params.any?
       #find categories to display (top 5)
-      params[:search][:category_id].each_with_index do |id,i|
-        newCat = Category.find(id)
-        next if @top_categories.include?(newCat)
-        break if i > 4
-        @top_categories.pop
-        @top_categories.unshift newCat
-      end
+      @select_categories = params[:search][:category_id].map { |num| Category.find(num) }
 
 
 

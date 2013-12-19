@@ -151,16 +151,29 @@
 
         <section class="column left">
           <h3 class="filter-title red-title">Category</h3>
-          <ul>
-            <% @top_categories.each do |c| %>
+          <ul id="category-selections">
+            <% cnt = 0 %>
+            <% extra_categories = Category.limit(5) %>
+            <% @select_categories.each do |c| %>
               <li>
-                <% c_choice = @search_params[:category_id] || [] %>
-                <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>" <%= "checked" if c_choice.include?(c.id.to_s) %>>
-                <label for="c_<%= c.id %>"><%= c.name %>
+                <% if cnt > 4 %>
+                  <input type="hidden" name="search[category_id][]" value="<%= c.id %>">
+                <% else %>
+                  <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>" checked>
+                  <label for="c_<%= c.id %>"><%= c.name %>
+                <% end %>
               </li>
+              <% cnt += 1 %>
+            <% end %>
+
+            <% while cnt < 5 do  %>
+              <% c = extra_categories.shift %>
+              <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>">
+              <label for="c_<%= c.id %>"><%= c.name %>
+                <% cnt += 1 %>
             <% end %>
           </ul>
-          <button class="btn-link" type="button" onclick='showPopup("#category-popup", <%= "1" %>)'>More Categories</button>
+          <button class="btn-link" type="button" onclick='showCategoryPopup()'>More Categories</button>
         </section>
       <% end %>
       <input id="fine-search-submit" type="submit" name="Submit">

@@ -40,19 +40,63 @@ var showPopup = function(popupName, id) {
   console.log("OPEN", $pop, popupName);
 }
 
-var submitSearch = function(e) {
+var showCategoryPopup = function() {
+  closePopup();
+
+  $pop = $("#category-popup");
+
+  if ($pop) {
+    $pop.addClass("popup-show");
+    $a = $pop.find(".main-id")
+
+    //update visible fields
+    var ch = $("#category-selections input:checked");
+    for(var i=0; i < ch.length; i++) {
+
+      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+    }
+    //update hidden fields
+    var ch = $("#category-selections :input[type='hidden']")
+    for(var i=0; i < ch.length; i++) {
+
+      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+    }
+    //$pop.
+  }
+}
+
+var submitCategorySearch = function(e) {
   console.log("HERE")
   var choices = $(".popup-form-container").serializeArray()
 
-  $main = $(".form-fine-filters")
+  $main = $("#category-selections")
+  $("#category-selections li").remove()
+
+  var ch = $("#category-selections input:checked");
+  var hd = $("#category-selections :input[type='hidden']")
+
+
+
   for (var i=0; i < choices.length; i++) {
-    $("<input>").attr({
-      type: "hidden",
-      name: choices[i].name,
-      value: choices[i].value
-    }).appendTo($main);
-    console.log("APPENDED", choices[i].name);
+    if (i > 4) {
+      $li = $("<li></li>");
+      $main.append($li);
+
+      $("<input>").attr({
+        type: "checkbox",
+        name: choices[i].name,
+        value: choices[i].value,
+        checked: true
+      }).appendTo($li);
+    } else {
+      $("<input>").attr({
+        type: "hidden",
+        name: choices[i].name,
+        value: choices[i].value
+      }).appendTo($main);
+    }
   }
+
   closePopup();
   $("#fine-search-submit").trigger("click")
 }
