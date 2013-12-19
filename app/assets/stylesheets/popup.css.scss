@@ -3,6 +3,11 @@
   height: 500px;
 }
 
+#feature-popup {
+  width: 400px;
+  height: 500px;
+}
+
 .popup-form {
   position: absolute;
   width: 400px;
@@ -75,4 +80,9 @@
     display: block;
     line-height: 30px;
   }
+}
+
+.choice-container {
+  margin-bottom: 10px 0;
+  border-bottom: 1px solid #ccc;
 }

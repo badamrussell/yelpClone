@@ -18,7 +18,7 @@
 //----- POPUPS
 
 var closePopup = function() {
-  $pop = $(".popup-show");
+  var $pop = $(".popup-show");
 
   if ($pop) { $pop.removeClass("popup-show") }
   if ($pop) { $pop.addClass("popup-hide") }
@@ -28,11 +28,11 @@ var closePopup = function() {
 var showPopup = function(popupName, id) {
   closePopup();
 
-  $pop = $(popupName);
+  var $pop = $(popupName);
   console.log("OPEN", $pop, popupName, id);
   if ($pop) {
     $pop.addClass("popup-show");
-    $a = $pop.find(".main-id")
+    var $a = $pop.find(".main-id")
     $a.attr("value", id)
 
     //$pop.
@@ -43,11 +43,11 @@ var showPopup = function(popupName, id) {
 var showCategoryPopup = function() {
   closePopup();
 
-  $pop = $("#category-popup");
+  var $pop = $("#category-popup");
 
   if ($pop) {
     $pop.addClass("popup-show");
-    $a = $pop.find(".main-id")
+    var $a = $pop.find(".main-id")
 
     //update visible fields
     var ch = $("#category-selections input:checked");
@@ -66,22 +66,16 @@ var showCategoryPopup = function() {
 }
 
 var submitCategorySearch = function(e) {
-  console.log("HERE")
-  var choices = $(".popup-form-container").serializeArray()
+  var choices = $(".popup-form-container").serializeArray();
 
-  $main = $("#category-selections")
-  $("#category-selections li").remove()
-
-  var ch = $("#category-selections input:checked");
-  var hd = $("#category-selections :input[type='hidden']")
-
-
+  var $main = $("#category-selections");
+  $("#category-selections li").remove();
 
   for (var i=0; i < choices.length; i++) {
-    if (i > 4) {
-      $li = $("<li></li>");
-      $main.append($li);
+    var $li = $("<li></li>");
+    $main.append($li);
 
+    if (i < 5) {
       $("<input>").attr({
         type: "checkbox",
         name: choices[i].name,
@@ -93,7 +87,61 @@ var submitCategorySearch = function(e) {
         type: "hidden",
         name: choices[i].name,
         value: choices[i].value
-      }).appendTo($main);
+      }).appendTo($li);
+    }
+  }
+
+  closePopup();
+  $("#fine-search-submit").trigger("click")
+}
+
+var showFeaturePopup = function() {
+  closePopup();
+
+  var $pop = $("#feature-popup");
+
+  if ($pop) {
+    $pop.addClass("popup-show");
+    var $a = $pop.find(".main-id")
+
+    //update visible fields
+    var ch = $("#feature-selections input:checked");
+    for(var i=0; i < ch.length; i++) {
+
+      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+    }
+    //update hidden fields
+    var ch = $("#feature-selections :input[type='hidden']")
+    for(var i=0; i < ch.length; i++) {
+
+      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+    }
+    //$pop.
+  }
+}
+
+var submitFeatureSearch = function(e) {
+  var choices = $(".popup-form-container").serializeArray()
+
+  var $main = $("#feature-selections")
+  $("#feature-selections li").remove()
+
+  for (var i=0; i < choices.length; i++) {
+    var $li = $("<li></li>");
+    $main.append($li);
+    if (i < 5) {
+      $("<input>").attr({
+        type: "checkbox",
+        name: choices[i].name,
+        value: choices[i].value,
+        checked: true
+      }).appendTo($li);
+    } else {
+      $("<input>").attr({
+        type: "hidden",
+        name: choices[i].name,
+        value: choices[i].value
+      }).appendTo($li);
     }
   }
 
@@ -172,7 +220,3 @@ var placeMarker = function(pos, map) {
 
 // POPUP FORM
 
-var makeCategoryForm = function() {
-  $popWindow = $("<div></div>");
-  $popForm = $("<form></form>")
-}
