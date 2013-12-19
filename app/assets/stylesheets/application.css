@@ -99,6 +99,7 @@ h3.red-title {
 button.btn-link {
   background: transparent;
   color: #00f;
+  font-size: 12px;
   cursor: hand;
 }
 
