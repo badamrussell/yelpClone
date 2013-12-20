@@ -4,7 +4,7 @@
       <div class="search-string group">
         <h2><strong><%= "#{@find_desc} " unless @find_desc.blank? %></strong><%=City.find(@find_loc).name %></h2>
         <% if @results.length > 0 %>
-          <em class="right">Showing 1 of <%= @results.length %></em>
+          <em class="right"><%= page_entries_info @results %></em>
         <% else %>
           <em class="right">No results</em>
         <% end %>
@@ -94,13 +94,15 @@
             <% cnt += 1 %>
           <% end %>
 
-          <% while cnt < 5 do  %>
+          <% while cnt < 5 && extra_neighborhoods.any? do  %>
             <% c = extra_neighborhoods.shift %>
+            <% next if @select_neighborhoods.select { |en| en.id == c.id }.any? %>
             <li>
               <input type="checkbox" id="c_<%= c.id %>" name="search[neighborhood_id][]" value="<%= c.id %>">
               <label for="c_<%= c.id %>"><%= c.name %></label>
             </li>
             <% cnt += 1 %>
+
           <% end %>
 
 
@@ -173,8 +175,9 @@
             <% cnt += 1 %>
           <% end %>
 
-          <% while cnt < 5 do  %>
+          <% while cnt < 5 && extra_features.any? do  %>
             <% c = extra_features.shift %>
+            <% next if @select_features.select { |ef| ef.id == c.id }.any? %>
             <li>
               <input type="checkbox" id="c_<%= c.id %>" name="search[feature_id][]" value="<%= c.id %>">
               <label for="c_<%= c.id %>"><%= c.name %></label>
@@ -197,7 +200,6 @@
 
 
       <% unless @category_id %>
-
         <section class="column left">
           <h3 class="filter-title red-title">Category</h3>
           <ul id="category-selections">
@@ -215,8 +217,9 @@
               <% cnt += 1 %>
             <% end %>
 
-            <% while cnt < 5 do  %>
+            <% while cnt < 5 && extra_categories.any? do  %>
               <% c = extra_categories.shift %>
+              <% next if @select_categories.select { |ec| ec.id == c.id }.any? %>
               <li>
                 <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>">
                 <label for="c_<%= c.id %>"><%= c.name %></label>

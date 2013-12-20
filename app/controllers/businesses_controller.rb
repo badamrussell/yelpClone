@@ -14,14 +14,13 @@ class BusinessesController < ApplicationController
     @business = Business.new(params[:business])
     @review = current_user.reviews.new(params[:review])
 
-
-
     ActiveRecord::Base.transaction do
       @business.save
 
       @review.business_id = @business.id
 
-      @review.save
+      @review.save unless params[:review][:body].blank? && params[:review][:rating].blank?
+
 
       flash[:errors] += @business.errors.full_messages
       flash[:errors] += @review.errors.full_messages

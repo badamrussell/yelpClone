@@ -1,7 +1,6 @@
 ??????????????? incrementing messed up for review form
 
-more buttons bring up forms
-  maybe even change the dom afterwards?
+
 hide filters
 page refreshes after clickign button
 
@@ -190,6 +189,9 @@ RECOMMENDED FEATURES TO ADD
 
 
 ----------------------------------------------
+
+more buttons bring up forms
+  maybe even change the dom afterwards?
 
 send compliments
 upvote buttons

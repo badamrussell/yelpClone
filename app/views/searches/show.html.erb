@@ -8,6 +8,7 @@
   <section class="main-side left">
     <ul class="business-results">
       <% if @results.length > 0 %>
+
         <% @results.each do |result| %>
           <li><%= render "businesses/search_result", business: result %></li>
         <% end %>
@@ -27,14 +28,7 @@
       <% end %>
     </ul>
     <nav class="pagination-container group">
-      <div class="left">Page 1 of #</div>
-      <div class="right">
-        <ul>
-        <% 10.times do |p| %>
-          <li class="left"><a href="#"> <%= p %> </a></li>
-        <% end %>
-      </ul>
-      </div>
+      <%= paginate @results %>
     </nav>
   </section>
 

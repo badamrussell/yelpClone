@@ -183,7 +183,30 @@
   }
 }
 
+.business-categories {
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
 
 .category-container {
 
+}
+
+.new-biz {
+  form {
+    float: left;
+  }
+  .form-text-input {
+    margin: 20px 0;
+
+    input {
+      width: 250px;
+      display: block;
+      margin: 5px 0;
+    }
+  }
+
+  .sidebar-right {
+    float: right;
+  }
 }

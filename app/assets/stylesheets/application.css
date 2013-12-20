@@ -96,11 +96,18 @@ h3.red-title {
   font-size: 14px;
 }
 
+.med-title {
+  font-weight: bold;
+  display: block;
+
+}
+
 button.btn-link {
   background: transparent;
   color: #00f;
   font-size: 12px;
   cursor: hand;
+  display: block;
 }
 
 .white-title {

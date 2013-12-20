@@ -51,7 +51,8 @@ class SearchesController < ApplicationController
         @select_neighborhoods = params[:search][:neighborhood_id].map { |num| Neighborhood.find(num) }
       end
 
-      make_query(params[:search], @find_desc, @find_loc ) if params[:search]
+      q = make_query(params[:search], @find_desc, @find_loc ) if params[:search]
+      Kaminari.paginate_array(q).page(params[:page]).per(10)
       # box = Geocoder::Calculations.bounding_box(current_location, 20)
       #
       # biz_within_range = Business.within_bounding_box(box)
@@ -65,7 +66,10 @@ class SearchesController < ApplicationController
                       else
                         {}
                       end
-      Business.search(search_terms)
+
+      # Business.search(search_terms).page(params[:page])
+
+      Kaminari.paginate_array(Business.all).page(params[:page]).per(10)
     end
   end
 

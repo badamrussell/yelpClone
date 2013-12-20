@@ -1,14 +1,14 @@
 
-<section>
+<!-- <section>
   <button onclick="placeSearch()">Google Place Search</button>
-</section>
+</section> -->
 
-<form action="<%= url %>" method="post">
+<form class="new-biz" action="<%= url %>" method="post">
   <input type="hidden" name="_method" value="<%= method %>">
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-  <label for="business_country_id">Country</label>
+  <label class="med-title" for="business_country_id">Country</label>
   <select name="business[country_id]" id="business_country_code">
     <% Country.all.each do |country| %>
       <option value="<%= country.id %>"><%= country.name %></option>
@@ -17,50 +17,100 @@
 
   <br>
 
-
-
-
-  <%= render "dev/attributes", obj: business, is_form: true, prefix: "business" %>
+  <div class="form-text-input">
+    <label class="med-title" for="business_name">Name:</label>
+    <input type="text" name="business[name]" value="<%= @business.name %>" id="business_name">
+  </div>
+  <div class="form-text-input">
+    <label class="med-title" for="business_address1">Address:</label>
+    <input type="text" name="business[address1]" value="<%= @business.address1 %>" id="business_address1">
+    <input type="text" name="business[address2]" value="<%= @business.address2 %>" id="business_address2">
+  </div>
+  <div class="form-text-input">
+    <label class="med-title" for="business_state">State:</label>
+    <input type="text" name="business[state]" value="<%= @business.state %>" id="business_state">
+  </div>
+  <div class="form-text-input">
+    <label class="med-title" for="business_zip_code">Zip Code:</label>
+    <input type="text" name="business[zip_code]" value="<%= @business.zip_code %>" id="business_zip_code">
+  </div>
+  <div class="form-text-input">
+    <label class="med-title" for="business_phone_number">Phone Number:</label>
+    <input type="text" name="business[phone_number]" value="<%= @business.phone_number %>" id="business_phone_number">
+  </div>
 
   <fieldset class="business-categories">
-    <legend>Categories</legend>
-    <% 3.times do %>
-      <div>
-        <select name>
-          <% Category.all.each do|category| %>
-            <option value="<%= category.id %>">
-              <%= category.name %>
-            </option>
-          <% end %>
-        </select>
+    <legend class="med-title">Categories</legend>
+    <div class="category-selects">
+      <select class="select-maincategory">
+        <% MainCategory.all.each do|category| %>
+          <option value="<%= category.id %>">
+            <%= category.name %>
+          </option>
+        <% end %>
+      </select>
 
-        <select name="business[category_ids][]">
-          <% Category.all.each do|sub_category| %>
-            <option value="<%= sub_category.id %>">
-              <%= sub_category.name %>
-            </option>
-          <% end %>
-        </select>
-        <a href="#" class="small-link">Remove</a>
-      </div>
-    <% end %>
-    <a href="#" class="small-link">Add another category</a>
+      <select class="select-category" name="business[category_ids][]">
+        <% Category.where(main_category_id: 1).all.each do|sub_category| %>
+          <option value="<%= sub_category.id %>">
+            <%= sub_category.name %>
+          </option>
+        <% end %>
+      </select>
+      <button type="button" class="btn-link remove-category">Remove</button>
+    </div>
+    <button type="button" class="btn-link add-category">Add another category</button>
   </fieldset>
 
-  <a href="#" class="small-link">See Full Category List</a>
+  <!-- <a href="#" class="small-link">See Full Category List</a> -->
 
-  <br>
 
-  <input type="checkbox" name="business[is_opening]" value="true" id="business_is_opening"><label for="this_business_recently_opened_or_is_opening_soon">This business recently opened or is opening soon</label>
+  <!-- <input type="checkbox" name="business[is_opening]" value="true" id="business_is_opening"><label for="this_business_recently_opened_or_is_opening_soon">This business recently opened or is opening soon</label> -->
 
   <% if method == "post" %>
     <%= render "forms/quick_review", title: nil, body: "" %>
-    <input type="submit" name="submit" value="Add Business" id="Add Business">
+    <button class="red-btn" type="submit">Add Business</button>
   <% else %>
-    <input type="submit" name="submit" value="Update Business" id="Update Business">
+    <button class="red-btn" type="submit">Update Business</button>
   <% end %>
 </form>
 
-<section class="sidebar-right">
+<!-- <section class="sidebar-right">
   <img src="/assets/temp/map_square.png">
-</section>
+</section> -->
+
+<script id="script-category" type="application/json">
+  <%= Category.all.to_json.html_safe %>
+</script>
+
+<script>
+  var $categoryClone = $(".category-selects").clone();
+  $(".category-selects").remove();
+  $(function() {
+    var categories = JSON.parse($("#script-category").html());
+
+    $(".business-categories").on("change", ".select-maincategory", function() {
+      var $category = $(this).next();
+      var value = $(this).prop("value");
+      $category.find("option").remove();
+
+      for(var i=0; i < categories.length; i++) {
+        if (categories[i].main_category_id == value) {
+          $newCat = $('<option value="' + categories[i].id + '">' + categories[i].name + '</option>');
+          $newCat.appendTo($category);
+        }
+      }
+    });
+
+    $(".business-categories").on("click", ".remove-category", function() {
+      $(this).closest(".category-selects").remove();
+    });
+
+    $(".add-category").click( function() {
+      if ($(".business-categories").find(".category-selects").length < 3) {
+        $(".business-categories").append($categoryClone.clone());
+      }
+    });
+
+  });
+</script>
