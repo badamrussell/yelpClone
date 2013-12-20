@@ -7,10 +7,14 @@
 
     <div class="user-interact-container">
       <ul class="group">
+    <% if review.user != current_user %>
         <li><a href="#">Share Review</a></li>
         <li><button class="btn-link" onclick='showPopup("popup-form", <%= review.id %>)'>Compliment</button></li>
         <li><a href="#">Send Message</a></li>
         <li><a href="#">Follow <%= review.user.name %></a></li>
+    <% else %>
+      <li><a href="<%= edit_review_url(review.id) %>">Edit</a></li>
+    <% end %>
       </ul>
     </div>
   </div>

@@ -1,6 +1,6 @@
 ??????????????? incrementing messed up for review form
 
-edit a post?
+better write review form
 photos in post?
 pagination for photos
 
@@ -211,6 +211,7 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+edit a post?
 more buttons bring up forms
   maybe even change the dom afterwards?
 
