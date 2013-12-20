@@ -2,7 +2,7 @@
   <section class="filter-header group">
     <header class="result-header">
       <div class="search-string group">
-        <h2><strong><%= "#{@find_desc} " unless @find_desc.blank? %></strong><%=City.find(@find_loc).name %></h2>
+        <h2><strong><%= "#{@find_desc} " unless @find_desc.blank? %></strong><%= @find_loc.blank? ? City.find(1).name : City.find(@find_loc).name %></h2>
         <% if @results.length > 0 %>
           <em class="right"><%= page_entries_info @results %></em>
         <% else %>

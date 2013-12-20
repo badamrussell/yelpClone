@@ -51,4 +51,8 @@ class Photo < ActiveRecord::Base
   def title
     caption.blank? ? business.name : caption
   end
+
+  def title_snippet
+    title.length > 48 ? "#{title}..."[0..50] : title
+  end
 end

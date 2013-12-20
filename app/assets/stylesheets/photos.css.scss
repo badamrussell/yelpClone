@@ -62,10 +62,11 @@
   bottom: -50px;
   content: "";
   height: 100px;
-  width: 100%;
+  width: 300px;
   background: rgba(0,0,0,.8);
   transition: bottom 1s;
-
+  padding: 6px;
+    overflow: normal;
   .img_with_3rd:hover .lower_3rd{
     bottom: 0;
   }
@@ -77,16 +78,17 @@
 //
 //  }
 //
-//  .icon-photo {
-//    width: 25px;
-//    float: left;
-//    display: block;
-//    padding: 6px;
-//  }
+  .icon-photo {
+    width: 25px;
+    float: left;
+    display: block;
+    padding-right: 6px;
+  }
 //
-//  .white-title {
-//
-//  }
+  .white-title {
+    left: 10px;
+    width: 180px;
+  }
 //
 //  .tiny-font {
 //  }

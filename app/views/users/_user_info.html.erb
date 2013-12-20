@@ -3,7 +3,7 @@
 
 
   <section class="photos-container group">
-    <div class="user-avatar left"><img width="120" src="<%= current_user.avatar %>"></div>
+    <div class="user-avatar left"><img width="120" src="<%= user.avatar %>"></div>
     <div class="thumb-photos">
       <% if user.photos.length > 0 %>
         <% user.top_photos(9).each do |photo| %>

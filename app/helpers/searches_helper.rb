@@ -19,13 +19,7 @@ module SearchesHelper
     wheres = []
     joins = []
 
-    if search_params[:neighborhood_id]
 
-      set = search_params[:neighborhood_id].map do |n|
-        n.to_i
-      end
-      wheres << " neighborhood_id IN (#{set.join(',')})"
-    end
 
     if search_params[:feature_id]
       joins << :features
@@ -47,6 +41,22 @@ module SearchesHelper
       end
     end
 
+
+    if search_params[:neighborhood_id]
+
+      set = search_params[:neighborhood_id].map do |n|
+        n.to_i
+      end
+      if wheres.empty?
+        wheres << " neighborhood_id IN (#{set.join(',')})"
+      else
+        wheres << " neighborhood_id IN (#{set.join(',')}) AND (#{wheres.join(' OR ')})"
+      end
+
+    else
+      wheres = wheres.join(" OR ")
+    end
+
     # if search_params[:price_range]
     #   joins << :reviews unless joins.include?(:reviews)
     #   set = search_params[:price_range].map do |p|
@@ -55,7 +65,7 @@ module SearchesHelper
     #   wheres << " price_range.id IN (#{set.join(',')})"
     # end
 
-    original_set.joins(joins).where(wheres.join(" AND "))
+    original_set.joins(joins).where(wheres).uniq
 
   end
 

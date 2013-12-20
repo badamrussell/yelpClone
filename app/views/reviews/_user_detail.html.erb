@@ -51,9 +51,10 @@
       <% end %>
     </div>
 
+    <div class="review-interest group">
     <%= render "widgets/review_upvote", review: review  %>
 
-    <div class="review-interest group">
+
     <% if review.user == current_user %>
       <a href="<%= edit_review_url(review.id) %>">Edit</a>
     <% else %>

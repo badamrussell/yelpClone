@@ -38,15 +38,9 @@ class SearchesController < ApplicationController
       @finer_filter_name = :main_category_id
     end
 
-    @results = @find_desc.blank? ? Business : Business.search_by_name(@find_desc)
-    p_s = params[:search] || {}
+    tempData = @find_desc.blank? ? Business : Business.search_by_name(@find_desc)
 
-    unless params[:search].nil?
-
-    end
-
-    @results = rails_query(@results, p_s, @find_loc)
-    if @search_params && @search_params.any?
+    @results = if @search_params && @search_params.any?
       #find categories to display (top 5)
       if params[:search][:category_id]
         @select_categories = params[:search][:category_id].map { |num| Category.find(num) }
@@ -58,7 +52,23 @@ class SearchesController < ApplicationController
       if params[:search][:neighborhood_id]
         @select_neighborhoods = params[:search][:neighborhood_id].map { |num| Neighborhood.find(num) }
       end
+
+
+      p_s = params[:search] || {}
+
+      rails_query(tempData, p_s, @find_loc)
+    else
+      if params["category_id"]
+        tempData.joins(:business_categories).where("business_categories.category_id = #{params['category_id']}" ).uniq
+      elsif params["main_category_id"]
+        tempData.joins(:business_categories,"JOIN categories ON categories.id = business_categories.category_id").where("categories.main_category_id = #{params['main_category_id']}" ).uniq
+      else
+        tempData.all
+      end
+
     end
+    Business.joins(:business_categories, "JOIN categories ON categories.id = business_categories.category_id").where("categories.main_category_id = 1" ).uniq
+
 
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
 
