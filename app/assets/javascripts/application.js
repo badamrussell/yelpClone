@@ -40,55 +40,55 @@ var showPopup = function(popupName, id) {
   console.log("OPEN", $pop, popupName);
 }
 
-var showCategoryPopup = function() {
-  closePopup();
+// var showCategoryPopup = function() {
+//   closePopup();
+//
+//   var $pop = $("#category-popup");
+//
+//   if ($pop) {
+//     $pop.addClass("popup-show");
+//     var $a = $pop.find(".main-id")
+//
+//     //update visible fields
+//     var ch = $("#category-selections input:checked");
+//     for(var i=0; i < ch.length; i++) {
+//
+//       $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+//     }
+//     //update hidden fields
+//     var ch = $("#category-selections :input[type='hidden']")
+//     for(var i=0; i < ch.length; i++) {
+//
+//       $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+//     }
+//     //$pop.
+//   }
+// }
 
-  var $pop = $("#category-popup");
-
-  if ($pop) {
-    $pop.addClass("popup-show");
-    var $a = $pop.find(".main-id")
-
-    //update visible fields
-    var ch = $("#category-selections input:checked");
-    for(var i=0; i < ch.length; i++) {
-
-      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
-    }
-    //update hidden fields
-    var ch = $("#category-selections :input[type='hidden']")
-    for(var i=0; i < ch.length; i++) {
-
-      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
-    }
-    //$pop.
-  }
-}
-
-var showFeaturePopup = function() {
-  closePopup();
-
-  var $pop = $("#feature-popup");
-
-  if ($pop) {
-    $pop.addClass("popup-show");
-    var $a = $pop.find(".main-id")
-
-    //update visible fields
-    var ch = $("#feature-selections input:checked");
-    for(var i=0; i < ch.length; i++) {
-
-      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
-    }
-    //update hidden fields
-    var ch = $("#feature-selections :input[type='hidden']")
-    for(var i=0; i < ch.length; i++) {
-
-      $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
-    }
-    //$pop.
-  }
-}
+// var showFeaturePopup = function() {
+//   closePopup();
+//
+//   var $pop = $("#feature-popup");
+//
+//   if ($pop) {
+//     $pop.addClass("popup-show");
+//     var $a = $pop.find(".main-id")
+//
+//     //update visible fields
+//     var ch = $("#feature-selections input:checked");
+//     for(var i=0; i < ch.length; i++) {
+//
+//       $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+//     }
+//     //update hidden fields
+//     var ch = $("#feature-selections :input[type='hidden']")
+//     for(var i=0; i < ch.length; i++) {
+//
+//       $(".choice :input[value='" + $(ch[i]).attr("value") + "']").prop("checked",  true)
+//     }
+//     //$pop.
+//   }
+// }
 
 var showFilterPopup = function(mainEl, choiceCont) {
   closePopup();
@@ -180,6 +180,7 @@ var getLocation = function(locations, myCallback) {
     // }
     myCallback(mapArray);
   }
+
   navigator.geolocation.getCurrentPosition(location_callback);
 }
 

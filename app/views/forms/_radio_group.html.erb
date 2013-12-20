@@ -14,7 +14,6 @@
     <% end %>
 
   <% data.each do |d| %>
-  <%= attr_name %>,<%= d.id %>=<%= selected %> * <%= select_name %>, <%= selected_data[select_name] %>
     <input type="radio" name="<%= name %>" id="<%= id_name %>_<%= d.name %>" value="<%= d.id %>" <%= "checked" if d.id == selected %>>
     <label for="<%= id_name %>_<%= d.name %>"><%= d.name %></label>
   <% end %>

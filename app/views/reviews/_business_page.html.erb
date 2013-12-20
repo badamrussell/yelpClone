@@ -1,7 +1,7 @@
 
 
 
-<section class="medium-review-container group">
+<section class="business-review-container group">
   <div class="review-user-side left">
     <%= render "users/medium", user: review.user %>
 
@@ -15,17 +15,17 @@
     </div>
   </div>
 
-  <div class="review-review-side left">
+  <div class="business-review-side left">
     <div class="rating-header group">
       <%= render "widgets/rating", rating: review.rating %>
       <em><%= review.created_at.strftime("%m/%d/%Y") %></em>
     </div>
 
-    <div class="review-body">
+    <div class="business-review-body">
       <p><%= review.body %></p>
     </div>
 
-    <div class="review-photos-container group">
+    <div class="business-photos-container group">
       <% review.photos.each do |photo| %>
         <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url %>"></a>
       <% end %>

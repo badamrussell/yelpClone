@@ -74,7 +74,10 @@ class ReviewsController < ApplicationController
 
   def handle_transaction
     @review.transaction do
+      @review.save
       existing_features = @review.business_features.where(business_id: @business.id)
+
+
 
       existing_features.each do |f|
         if params[:feature_ids][f.feature_id].nil?
@@ -98,14 +101,13 @@ class ReviewsController < ApplicationController
 
         single_feature = @review.business_features.where(feature_id: key_id, business_id: @review.business_id).first_or_initialize
         single_feature.update_attribute(:value, bool_value)
-
+        #single_feature.review_id = 1
         # if params[:action] == "post"
         #     @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
         #   else
         #
         #     @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
         #   end
-
         puts ">  business_id: #{@business.id}, feature_id: #{key_id}, value: #{bool_value}, valid? #{single_feature.valid?}, #{single_feature.review_id}"
         #single_feature = @review.business_features.where(business_id: @business.id, feature_id: key_id).first_or_initialize
         #single_feature.update_attribute(:value, bool_value)

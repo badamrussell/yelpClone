@@ -4,7 +4,7 @@ class CreateBusinessFeatures < ActiveRecord::Migration
       t.integer :business_id, null: false
       t.integer :feature_id, null: false
       t.boolean :value, null: false
-      t.integer :review_id, null: false
+      t.integer :review_id
 
       t.timestamps
     end

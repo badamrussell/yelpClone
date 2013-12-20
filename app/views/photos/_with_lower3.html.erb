@@ -1,14 +1,11 @@
 
 <div class="image-w-third">
-  <div class="like-btn">
+  <!-- <div class="like-btn">
     <a href="#">Like</a>
-  </div>
-  <div class="main-image">
-    <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>">
-      <img width="<%= width %>px" src="<%= photo.url %>">
-    </a>
-  </div>
-
+  </div> -->
+  <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>">
+    <img width="360" src="<%= photo.url %>">
+  </a>
   <div class="lower-third">
     <!-- <a class="icon-photo left" href="<%= user_url(photo.user_id) %>"><img width="25" src="<%= photo.user.avatar %>"></a> -->
     <!-- <a class="white-title" href="<%= business_url(photo.business_id) %>"><%= photo.title %></a>

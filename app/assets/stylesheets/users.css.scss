@@ -40,6 +40,7 @@
     width: 20px;
     height: 20px;
     float: left;
+    padding: 2px;
   }
 
   .thumb-photos div a {
@@ -115,3 +116,18 @@
   }
 }
 
+.user-info {
+  img {
+    display: inline;
+  }
+  width: 400px;
+  .side-left {
+    float: left;
+  }
+
+  .side-right {
+    float: left;
+    padding-left: 20px;
+    width: 100px;
+  }
+}

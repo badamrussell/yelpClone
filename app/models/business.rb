@@ -1,19 +1,25 @@
 class Business < ActiveRecord::Base
   # attr_accessible :title, :body
-  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids
+  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids,:latitude, :longitude
 
   validates :name, :country_id, presence: true
 
   geocoded_by :full_street_address
-  after_validation :geocode
+  before_validation :geocode
 
   reverse_geocoded_by :latitude, :longitude
   before_validation :reverse_geocode
+  before_validation :set_neighborhood
 
   def full_street_address
     a1 = address1 || ""
     a2 = address2 || ""
     a1 + " " + a2
+
+  end
+
+  def set_neighborhood
+    self.neighborhood_id = rand(1..20) unless self.neighborhood_id
   end
 
   def address=(arg)
@@ -23,6 +29,7 @@ class Business < ActiveRecord::Base
     self.state = addr[2].split(" ")[0]
     self.zip_code = addr[2].split(" ")[1].to_i
     #puts "#{address1}, #{address2}, #{state}, #{zip_code}"
+
   end
 
   belongs_to(

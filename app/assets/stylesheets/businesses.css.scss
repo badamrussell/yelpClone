@@ -14,10 +14,15 @@
     height: 120px;
     float: left;
     padding: 0px 10px 10px 0;
+
+
   }
 
   .business-interact {
     float: right;
+    width: 400px;
+    margin-top: 20px;
+    margin-right: 20px;
   }
 
   .review-button {
@@ -66,10 +71,64 @@
   }
 }
 
+.business-review-container {
+  margin-bottom: 10px;
+  font-size: 12px;
+  border-bottom: 1px solid lightgray;
+  min-height: 260px;
+  position: relative;
+
+  h1 {
+    font-size: 16px;
+  }
+
+  .review-user-side {
+    float: left;
+    width: 250px;
+
+    .user-interact-container {
+
+    }
+  }
+
+  .business-review-side {
+    width: 400px;
+
+    em {
+      line-height: 30px;
+      padding-left: 5px;
+    }
+
+    .rating-header {
+
+    }
+
+    .business-review-body {
+
+    }
+
+    .business-photos-container {
+
+    }
+  }
+
+  .review-upvote-container {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+  }
+
+}
+
 .content-left {
   width: 680px;
   float: left;
   border: 1px solid orange;
+
+  .reviews-list {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
 }
 
 
@@ -102,19 +161,32 @@
 
 .business-result {
   width: 620px;
-  padding: 20px;
+  padding: 10px;
   border-bottom: 1px solid #eee;
 
+  .business-info {
+    margin-left: 5px;
+    width: 700px;
+
+
+  }
+
+
+
   .business-info-container {
-    img {
+    position: relative;
+    img.avatar-90 {
       float: left;
     }
 
     .business-stats {
       float: left;
+      width: 300px;
     }
 
     .business-address address{
+      position: absolute;
+      left: 500px;
       font-size: 12px;
       float: right;
       padding-top: 5px;
@@ -156,15 +228,19 @@
 
 .business-info {
   margin-left: 5px;
-  .business-header {
+  width: 700px;
 
+  .page-title {
+    font-weight: bold;
+    display: block;
+    font-size: 16px;
+    padding-bottom: 5px;
   }
 
 }
 
 .business-stats {
   .business-header {
-
   }
 
   .business-header h2 {

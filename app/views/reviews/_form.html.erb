@@ -22,13 +22,13 @@
 
     </fieldset>
 
-    <label for="photo_file"></label>
-    <input type="file" name="photo[file]" value="<%= @photo.file %>" id="">
+<!--     <label for="photo_file"></label>
+    <input type="file" name="photo[file]" value="<%#= @photo.file %>" id="">
 
     <label for="photo_caption">Caption:</label>
-    <textarea name="photo[caption]" id="photo_caption"><%= @photo.caption %></textarea>
+    <textarea name="photo[caption]" id="photo_caption"><%#= @photo.caption %></textarea>
 
-    <br>
+    <br> -->
     <hr>
 
 
@@ -88,7 +88,7 @@
       <%= fc_count %>
     <% end %>
 
-    <input type="submit" name="submit" value="Post Review" id="Review">
+    <button id="Review" type="submit" class="red-btn">Post Review</button>
 
     <h5>* You can always edit or remove reviews later.</h5>
 </form>

@@ -1,10 +1,29 @@
 
-<div>
-  <a href="<%= profile_url %>"><img src="<%= user.avatar %>" height="50"></a>
-  <a href="<%= user_url(user.id) %>"><%= user.name %></a>
-  <div><%= user.display_location %></div>
-  <a href="<%= profile_url %>"><img src="<%= user.avatar %>" height="10"></a>
-  <span><strong><%= user.friends.length %></strong> friends</span>
-  <a href="<%= profile_url %>"><img src="/assets/temp/star.jpg" height="10"></a>
-  <span><strong><%= user.reviews.length %></strong> reviews</span>
+<div class="user-info group">
+  <div class="side-left">
+    <a href="<%= profile_url %>"><img class="img-avatar" src="<%= user.avatar %>" height="50"></a>
+  </div>
+  <div class="side-right">
+    <ul class="group">
+      <li><a class="med-font bold" href="<%= user_url(user.id) %>"><%= user.name %></a></li>
+      <li><div class="med-font bold"><%= user.display_location %></div></li>
+      <li>
+        <a href="<%= profile_url %>"><img src="<%= user.avatar %>" height="10"></a>
+        <span><strong><%= user.friends.length %></strong> friends</span>
+      </li>
+      <li>
+        <a href="<%= profile_url %>"><img src="/assets/temp/star.jpg" height="10"></a>
+        <span><strong><%= user.reviews.length %></strong> reviews</span>
+      </li>
+
+
+
+    </ul>
+
+
+
+
+
+
+  </div>
 </div>

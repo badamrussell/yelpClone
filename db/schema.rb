@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20131218004050) do
     t.integer  "business_id", :null => false
     t.integer  "feature_id",  :null => false
     t.boolean  "value",       :null => false
-    t.integer  "review_id",   :null => false
+    t.integer  "review_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

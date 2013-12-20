@@ -41,24 +41,47 @@
 
   <fieldset class="business-categories">
     <legend class="med-title">Categories</legend>
+      <% if method == "put" %>
+        <% @business.categories.each do |bc| %>
     <div class="category-selects">
-      <select class="select-maincategory">
-        <% MainCategory.all.each do|category| %>
-          <option value="<%= category.id %>">
-            <%= category.name %>
-          </option>
-        <% end %>
-      </select>
-
-      <select class="select-category" name="business[category_ids][]">
-        <% Category.where(main_category_id: 1).all.each do|sub_category| %>
-          <option value="<%= sub_category.id %>">
-            <%= sub_category.name %>
-          </option>
-        <% end %>
-      </select>
-      <button type="button" class="btn-link remove-category">Remove</button>
+          <select class="select-maincategory">
+            <% MainCategory.all.each do|category| %>
+              <option value="<%= category.id %>" <%= "selected" if category.id == bc.main_category_id %>>
+                <%= category.name %>
+              </option>
+            <% end %>
+          </select>
+          <select class="select-category" name="business[category_ids][]">
+            <% Category.where(main_category_id: bc.main_category_id).all.each do|sub_category| %>
+              <option value="<%= sub_category.id %>" <%= "selected" if sub_category.id == bc.id %>>
+                <%= sub_category.name %>
+              </option>
+            <% end %>
+          </select>
+          <button type="button" class="btn-link remove-category">Remove</button>
     </div>
+        <% end %>
+      <% else %>
+      <div class="category-selects">
+            <select class="select-maincategory">
+              <% MainCategory.all.each do|category| %>
+                <option value="<%= category.id %>">
+                  <%= category.name %>
+                </option>
+              <% end %>
+            </select>
+
+            <select class="select-category" name="business[category_ids][]">
+              <% Category.where(main_category_id: 1).all.each do|sub_category| %>
+                <option value="<%= sub_category.id %>">
+                  <%= sub_category.name %>
+                </option>
+              <% end %>
+            </select>
+            <button type="button" class="btn-link remove-category">Remove</button>
+      </div>
+      <% end %>
+
     <button type="button" class="btn-link add-category">Add another category</button>
   </fieldset>
 
@@ -71,7 +94,7 @@
     <%= render "forms/quick_review", title: nil, body: "" %>
     <button class="red-btn" type="submit">Add Business</button>
   <% else %>
-    <button class="red-btn" type="submit">Update Business</button>
+    <button class="red-btn" type="submit">Update</button>
   <% end %>
 </form>
 
@@ -84,9 +107,8 @@
 </script>
 
 <script>
-  var $categoryClone = $(".category-selects").clone();
-  $(".category-selects").remove();
   $(function() {
+  var $categoryClone = $(".category-selects").first().clone();
     var categories = JSON.parse($("#script-category").html());
 
     $(".business-categories").on("change", ".select-maincategory", function() {

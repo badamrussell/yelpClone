@@ -1,13 +1,34 @@
 ??????????????? incrementing messed up for review form
 
+edit a post?
+photos in post?
+pagination for photos
+
+business avatar image set
+nav bar
+
+match up with real neighborhoods...
+
+add search gem
+
+category page
+
+other search filters work
+
+
+
+
+
+
+
+still don't quite understand transaction and inverse_of
+
+
 
 hide filters
 page refreshes after clickign button
 
-match up with real neighborhoods...
 
-business avatar image set
-nav bar
 
 
 

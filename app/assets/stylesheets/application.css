@@ -132,6 +132,14 @@ button {
   width: 110px;
 }
 
+.med-font {
+  font-size: 12px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .inactive-link {
   color: orange;
 }
@@ -163,6 +171,19 @@ img.avatar-30 {
   width: 150px;
   height: 40px;
 }
+
+.gray-btn {
+  font-size: 12px;
+  font-weight: bold;
+  background: #ccc;
+  border-radius: 4px;
+  color: #333;
+  border: 1px solid #333;
+  width: 80px;
+  height: 30px;
+}
+
+
 
 .star-container {
  padding: 10px;

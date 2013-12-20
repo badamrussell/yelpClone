@@ -41,14 +41,35 @@
 }
 
 
+.image-w-third {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+
+  img {
+    display: block;
+  }
+
+
+}
+
+
 
 .lower-third {
+  display: block;
   position: absolute;
-  bottom: 0;
-  //bottom: 4px;
-  background-color: rgba(0, 0, 0, .7);
+  bottom: -50px;
+  content: "";
+  height: 100px;
   width: 100%;
-  height: 50px;
+  background: rgba(0,0,0,.8);
+  transition: bottom 1s;
+
+  .img_with_3rd:hover .lower_3rd{
+    bottom: 0;
+  }
+
 //  line-height: 14px;
 //
 //  .main-image {

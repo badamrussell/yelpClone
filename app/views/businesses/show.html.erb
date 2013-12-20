@@ -6,11 +6,11 @@
   <div class="business-header group">
     <%= render "businesses/business_info", business: @business %>
     <div class="business-interact">
-      <%= button_to "Write a Review", business_writeareview_url(@business.id), method: :get %>
+      <%= button_to "Write a Review", business_writeareview_url(@business.id), method: :get, class: "red-btn left" %>
 
-      <%= button_to "Add Photo", business_add_photo_url(@business.id), method: :get %>
-      <button class="add-button share-button">Share</button>
-      <button class="add-button bookmark-button">Bookmark</button>
+      <%= button_to "Add Photo", business_add_photo_url(@business.id), method: :get, class: "gray-btn left" %>
+      <button class="add-button gray-btn share-button left">Share</button>
+      <button class="add-button gray-btn bookmark-button left">Bookmark</button>
     </div>
   </div>
 
@@ -39,30 +39,30 @@
       <%= render "reviews/highlight", review: review %>
     <% end %>
   </section>
-  <a href="#">Show more review highlights</a>
+  <!-- <a href="#">Show more review highlights</a> -->
 
 
 
   <div class="reviews-list">
-    <h2>Recommended Reviews</h2>
-    <label for="search_reviews">Search reviews</label>
+    <h3 class="red-title">Recommended Reviews</h3>
+    <!-- <label for="search_reviews">Search reviews</label>
     <input type="text" name="search_reviews" value="" id="search_reviews">
-    <button>Search</button>
+    <button>Search</button> -->
   </div>
 
 
-  Yelp Sort
+  <!-- Yelp Sort
 
   <a href="#">Date</a>
 
   <a href="#">Rating</a>
 
-  <a href="#">Elites</a>
+  <a href="#">Elites</a> -->
 
 
 
   <% @business.reviews.each do |review| %>
-    <%= render "reviews/medium", review: review %>
+    <%= render "reviews/business_page", review: review %>
   <% end %>
 
 </section>
