@@ -48,6 +48,7 @@ body {
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
+  padding-bottom: 150px;
 }
 
 a {
@@ -100,6 +101,28 @@ h3.red-title {
   font-weight: bold;
   display: block;
 
+}
+
+.large-title {
+  font-size: 30px;
+  font-weight: bold;
+  display: block;
+
+}
+
+.radio-set {
+  padding:10px;
+
+
+}
+
+.checkbox-set {
+  padding:10px;
+}
+
+.cancel-btn {
+  float: left;
+  padding: 10px 40px;
 }
 
 button.btn-link {
@@ -183,7 +206,21 @@ img.avatar-30 {
   height: 30px;
 }
 
+.form-text-input {
+  margin: 20px 0;
 
+  input {
+    width: 250px;
+    display: block;
+    margin: 5px 0;
+  }
+
+  textarea {
+    width: 250px;
+    display: block;
+    margin: 5px 0;
+  }
+}
 
 .star-container {
  padding: 10px;

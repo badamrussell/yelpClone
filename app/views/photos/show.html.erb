@@ -2,6 +2,7 @@
 <h3><a href="<%= @back_link %>"><%= @owner.name %>:</a> Photos</h3>
 
 <nav class="photo-nav">
+    <%= paginate @photos %>
   <button>Prev</button>
   <span><strong><%= @select_id+1 %></strong> of <strong><%= @photos.length %></strong></span>
   <button>Next</button>

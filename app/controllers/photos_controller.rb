@@ -31,6 +31,8 @@ class PhotosController < ApplicationController
     @photo = @photos[@select_id] || Photo.new
     @url = photo_details_url(@photo.id, business_id: @owner.id) if @photos.any?
     @back_link = business_url(@owner.id)
+
+    @photos = Kaminari.paginate_array(@photos).page(params[:page]).per(1)
     render :show
   end
 
@@ -41,6 +43,7 @@ class PhotosController < ApplicationController
     @photo = @photos[@select_id] || Photo.new
     @url = photo_details_url(@photo.id, user_id: @owner.id) if @photos.any?
     @back_link = user_url(@owner.id)
+    @photos = Kaminari.paginate_array(@photos).page(params[:page]).per(1)
     render :show
   end
 

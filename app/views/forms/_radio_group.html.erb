@@ -1,5 +1,5 @@
-<fieldset>
-  <h3><%= title %></h3>
+<fieldset class="radio-set">
+  <h3 class="med-title"><%= title %></h3>
   <% if name.nil? %>
     <% name = "#{prefix}[#{attr_name}]" %>
     <% name << "[#{nested_name}]" if nested_name %>
@@ -13,6 +13,7 @@
       <% 0 %>
     <% end %>
 
+    <div>
   <% data.each do |d| %>
     <input type="radio" name="<%= name %>" id="<%= id_name %>_<%= d.name %>" value="<%= d.id %>" <%= "checked" if d.id == selected %>>
     <label for="<%= id_name %>_<%= d.name %>"><%= d.name %></label>
@@ -20,5 +21,5 @@
 
   <input type="radio" name="<%= name %>" id="<%= id_name %>_nil" value="">
   <label for="<%= id_name %>_nil">Not Sure</label>
-
+</div>
 </fieldset>

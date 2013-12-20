@@ -208,8 +208,8 @@
   }
 
   .category-container > span {
-    padding-left: 5px;
   }
+    padding-left: 5px;
 
   .highlight-body {
     padding: 10px;
@@ -259,6 +259,13 @@
   }
 }
 
+.business-review-body {
+  display: block;
+  width: 320px;
+  font-size: 16px;
+  padding: 30px 0 20px 0;
+}
+
 .business-categories {
   padding: 10px 0;
   margin-bottom: 20px;
@@ -272,17 +279,10 @@
   form {
     float: left;
   }
-  .form-text-input {
-    margin: 20px 0;
 
-    input {
-      width: 250px;
-      display: block;
-      margin: 5px 0;
-    }
-  }
 
   .sidebar-right {
     float: right;
   }
 }
+

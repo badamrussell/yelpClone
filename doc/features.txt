@@ -1,7 +1,6 @@
 ??????????????? incrementing messed up for review form
 
-better write review form
-photos in post?
+
 pagination for photos
 
 business avatar image set
@@ -211,6 +210,8 @@ RECOMMENDED FEATURES TO ADD
 
 ----------------------------------------------
 
+better write review form
+photos in post?
 edit a post?
 more buttons bring up forms
   maybe even change the dom afterwards?

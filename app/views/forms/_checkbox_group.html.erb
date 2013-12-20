@@ -1,5 +1,6 @@
-<fieldset>
-  <h3><%= title %></h3>
+<fieldset class="checkbox-set">
+  <h3 class="med-title"><%= title %></h3>
+  <div class="checkboxes">
   <% data.each_with_index do |d,i| %>
     <% name = "#{prefix}[#{d.id}]" %>
     <% name << "[#{nested_name}]" if nested_name %>
@@ -18,6 +19,7 @@
             <%= "checked" if selected == 1 %>>
     <label for="<%= id_name %>_<%= d.name %>"><%= d.name %></label>
   <% end %>
+</div>
 </fieldset>
 
 

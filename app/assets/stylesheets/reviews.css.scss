@@ -60,7 +60,11 @@
 
 //
   .rating-header {
+    min-width: 360px;
+    float: left;
+  }
 
+  .review-extras {
   }
 
 //  .review-upvote-container {
@@ -100,6 +104,7 @@
   padding: 10px;
 
   width: 560px;
+
   .review-content {
   }
 
@@ -128,6 +133,7 @@
   ul {
     padding-top: 20px;
     width: 200px;
+
     button {
       padding: 0;
       margin: 0;
@@ -147,3 +153,17 @@
     }
   }
 }
+
+.review-set {
+  .review-area {
+    margin-right: 40px;
+  }
+
+  .photo-area {
+    margin-top: 20px;
+  }
+  .caption-area {
+    margin-top: 34px;
+  }
+}
+

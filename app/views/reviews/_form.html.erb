@@ -1,45 +1,50 @@
 
 
-<h2 class="business-name"><%= business.name %></h2>
+<h3 class="business-name large-title"><%= business.name %></h3>
 
-  <form action="<%= url %>" method="post">
+  <form action="<%= url %>" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="_method" value="<%= method %>">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
     <input type="hidden" name="review[business_id]" value="<%= business.id %>">
 
-    <fieldset>
-      <div class="rating-container">
-        <label for="review_rating">Rating</label>
-        <input type="text" name="review[rating]" value="<%= review.rating %>" id="review_rating">
+    <fieldset class="review-set group">
+      <div class="review-area left">
+        <div class="rating-container form-text-input">
+          <label class="med-title" for="review_rating">Rating</label>
+          <input type="text" name="review[rating]" value="<%= review.rating %>" id="review_rating">
+        </div>
 
-
+        <div class="form-text-input">
+          <label class="med-title" for="review_body">Your review</label>
+          <textarea name="review[body]" id="review_body"rows="8" cols="50"><%= review.body %></textarea>
+        </div>
       </div>
-      <label for="review_body">Your review</label>
-      <textarea name="review[body]" id="review_body"rows="8" cols="40"><%= review.body %></textarea>
+      <div class="photo-area left">
+        <label class="med-title" for="photo_file">Add Photo</label>
+        <input type="file" name="photo[file]">
 
-
+        <div class="caption-area">
+          <label class="med-title" for="photo_caption">Caption:</label>
+          <textarea cols="50" rows="3" name="photo[caption]" id="photo_caption"><%#= @photo.caption %></textarea>
+        </div>
+      </div>
     </fieldset>
 
-<!--     <label for="photo_file"></label>
-    <input type="file" name="photo[file]" value="<%#= @photo.file %>" id="">
 
-    <label for="photo_caption">Caption:</label>
-    <textarea name="photo[caption]" id="photo_caption"><%#= @photo.caption %></textarea>
 
-    <br> -->
     <hr>
 
 
-    <h2>Have additional tips on this business? <em>(Optional)</em><h2>
-      <h3>We're surveying Yelpers for more handy information on this business. If the majority says it's so, then that's what we'll show.</h3>
+    <h3 class="red-title">Have additional tips on this business? <em>(Optional)</em><h3>
+    <h3>We're surveying Yelpers for more handy information on this business. If the majority says it's so, then that's what we'll show.</h3>
 
-    <fieldset>
+    <!-- <fieldset>
       <%= render "forms/photo_helpful" %>
       <%= render "forms/photo_helpful" %>
       <%= render "forms/photo_helpful" %>
-    </fieldset>
+    </fieldset> -->
 
     <% fc_count = 0 %>
 
@@ -59,7 +64,6 @@
       <% fc_count += 1 %>
     <% end %>
     <% fc_count += 1 %>
-    <%= business_features %>
     <% FeatureCategory.all.each do |feature_category| %>
       <% next if feature_category.id == 1 %>
       <% p_form = feature_category.input_type == 1 ? "forms/radio_group" : "forms/checkbox_group" %>
@@ -85,17 +89,17 @@
         <% fc_count += 1 %>
       <% end %>
 
-      <%= fc_count %>
     <% end %>
 
-    <button id="Review" type="submit" class="red-btn">Post Review</button>
+    <button id="Review" type="submit" class="red-btn left">Post Review</button>
 
-    <h5>* You can always edit or remove reviews later.</h5>
+    <% if method == "put" %>
+      <a href="<%= business_url(@business.id) %>">Cancel</a>
+      <%= button_to "Delete", review_url(@review.id), method: :delete %>
+    <% else %>
+      <a class="cancel-btn med-title" href="<%= business_url(@business.id) %>">Cancel</a>
+    <% end %>
+
+    <!-- <h5>* You can always edit or remove reviews later.</h5> -->
 </form>
 
-<% if method == "put" %>
-  <a href="<%= business_url(@business.id) %>">Cancel</a>
-  <%= button_to "Delete", review_url(@review.id), method: :delete %>
-<% else %>
-  <a href="<%= business_url(@business.id) %>">Cancel</a>
-<% end %>

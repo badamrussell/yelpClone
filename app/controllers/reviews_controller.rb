@@ -88,39 +88,41 @@ class ReviewsController < ApplicationController
         end
       end
 
-      params[:feature_ids].each do |key,value|
-        key_id = key
-        bool_value = if value == "1"
-              true
-            elsif key.to_i == 0
-              key_id = value.to_i
-              true
-            else
-              false
-            end
+      if params[:feature_ids]
+        params[:feature_ids].each do |key,value|
+          key_id = key
+          bool_value = if value == "1"
+                true
+              elsif key.to_i == 0
+                key_id = value.to_i
+                true
+              else
+                false
+              end
 
-        single_feature = @review.business_features.where(feature_id: key_id, business_id: @review.business_id).first_or_initialize
-        single_feature.update_attribute(:value, bool_value)
-        #single_feature.review_id = 1
-        # if params[:action] == "post"
-        #     @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
-        #   else
-        #
-        #     @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
-        #   end
-        puts ">  business_id: #{@business.id}, feature_id: #{key_id}, value: #{bool_value}, valid? #{single_feature.valid?}, #{single_feature.review_id}"
-        #single_feature = @review.business_features.where(business_id: @business.id, feature_id: key_id).first_or_initialize
-        #single_feature.update_attribute(:value, bool_value)
+          single_feature = @review.business_features.where(feature_id: key_id, business_id: @review.business_id).first_or_initialize
+          single_feature.update_attribute(:value, bool_value)
+          #single_feature.review_id = 1
+          # if params[:action] == "post"
+          #     @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
+          #   else
+          #
+          #     @review.business_features.new(business_id: @business.id, feature_id: key_id, value: bool_value)
+          #   end
+          puts ">  business_id: #{@business.id}, feature_id: #{key_id}, value: #{bool_value}, valid? #{single_feature.valid?}, #{single_feature.review_id}"
+          #single_feature = @review.business_features.where(business_id: @business.id, feature_id: key_id).first_or_initialize
+          #single_feature.update_attribute(:value, bool_value)
 
-        flash[:errors] += single_feature.errors.full_messages
+          flash[:errors] += single_feature.errors.full_messages
+        end
       end
-
       #save photo
-      if params[:photo] && !params[:photo][:url].blank?
-        params[:photo][:business_id] = newReview.business_id
-        params[:photo][:review_id] = newReview.id
+      if params[:photo] && !params[:photo][:file].blank?
+        params[:photo][:business_id] = @review.business_id
+        params[:photo][:review_id] = @review.id
 
         newPhoto = current_user.photos.new(params[:photo])
+
         newPhoto.save
         flash[:errors] += newPhoto.errors.full_messages
       end

@@ -1,7 +1,7 @@
 <h4>Add a picture for <strong><%= @business.name %></strong></h4>
 
 
-<form action="<%= photos_url(business_id: @business.id) %>" method="post" enctype="multipart/form-data">
+<form class="new-photo" action="<%= photos_url(business_id: @business.id) %>" method="post" enctype="multipart/form-data">
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
@@ -9,13 +9,20 @@
     <input type="hidden" name="photo[business_id]" value="<%= @business.id %>">
   <% end %>
 
-  <label for="photo_file"></label>
-  <input type="file" name="photo[file]" value="<%= @photo.file %>" id="">
+  <div class="form-text-input">
+    <label class="med-title" for="photo_file"></label>
+    <input type="file" name="photo[file]" value="<%= @photo.file %>" id="">
+  </div>
 
-  <label for="photo_caption">Caption:</label>
-  <textarea name="photo[caption]" id="photo_caption"><%= @photo.caption %></textarea>
+  <div class="photo-area">
 
+  </div>
 
-  <input type="submit" name="submit" value="Add Photo" id="submit">
+  <div class="form-text-input">
+    <label class="med-title" for="photo_caption">Caption:</label>
+    <textarea name="photo[caption]" rows="3" cols="60" id="photo_caption"><%= @photo.caption %></textarea>
+  </div>
+
+  <button class="red-btn" type="submit">Add Photo</button>
 
 </form>
