@@ -38,7 +38,15 @@ class SearchesController < ApplicationController
       @finer_filter_name = :main_category_id
     end
 
-    @results = if @search_params && @search_params.any?
+    @results = @find_desc.blank? ? Business : Business.search_by_name(@find_desc)
+    p_s = params[:search] || {}
+
+    unless params[:search].nil?
+
+    end
+
+    @results = rails_query(@results, p_s, @find_loc)
+    if @search_params && @search_params.any?
       #find categories to display (top 5)
       if params[:search][:category_id]
         @select_categories = params[:search][:category_id].map { |num| Category.find(num) }
@@ -50,27 +58,43 @@ class SearchesController < ApplicationController
       if params[:search][:neighborhood_id]
         @select_neighborhoods = params[:search][:neighborhood_id].map { |num| Neighborhood.find(num) }
       end
+    end
 
-      q = make_query(params[:search], @find_desc, @find_loc ) if params[:search]
-      Kaminari.paginate_array(q).page(params[:page]).per(10)
+    @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
+
+    # @results = if @search_params && @search_params.any?
+    #   #find categories to display (top 5)
+    #   if params[:search][:category_id]
+    #     @select_categories = params[:search][:category_id].map { |num| Category.find(num) }
+    #   end
+    #   if params[:search][:feature_id]
+    #     @select_features = params[:search][:feature_id].map { |num| Feature.find(num) }
+    #   end
+    #
+    #   if params[:search][:neighborhood_id]
+    #     @select_neighborhoods = params[:search][:neighborhood_id].map { |num| Neighborhood.find(num) }
+    #   end
+    #
+    #   q = make_query(params[:search], @find_desc, @find_loc ) if params[:search]
+    #   Kaminari.paginate_array(q).page(params[:page]).per(10)
       # box = Geocoder::Calculations.bounding_box(current_location, 20)
       #
       # biz_within_range = Business.within_bounding_box(box)
       # fail
 
-    else
-      search_terms =  if params["category_id"]
-                        { "category_id" => params["category_id"] }
-                      elsif params["main_category_id"]
-                        { "main_category_id" => params["main_category_id"] }
-                      else
-                        {}
-                      end
-
-      # Business.search(search_terms).page(params[:page])
-
-      Kaminari.paginate_array(Business.all).page(params[:page]).per(10)
-    end
+    # else
+    #   search_terms =  if params["category_id"]
+    #                     { "category_id" => params["category_id"] }
+    #                   elsif params["main_category_id"]
+    #                     { "main_category_id" => params["main_category_id"] }
+    #                   else
+    #                     {}
+    #                   end
+    #
+    #   # Business.search(search_terms).page(params[:page])
+    #
+    #   Kaminari.paginate_array(Business.all).page(params[:page]).per(10)
+    # end
   end
 
   def nearby

@@ -1,26 +1,30 @@
 #category-popup {
   width: 400px;
   height: 500px;
+  z-index: 100;
 }
 
 #feature-popup {
   width: 400px;
   height: 500px;
+  z-index: 100;
 }
 
 #neighborhood-popup {
   width: 400px;
   height: 500px;
+  z-index: 100;
 }
 
 .popup-form {
   position: absolute;
   width: 400px;
-  height: 400px;
+  height: 100px;
   border: 10px solid rgba(0,0,0,0.7);
   background: #eee;
   border-radius: 10px;
   font-size: 12px;
+  z-index: 100;
 
   h3 {
     background: #ccc;

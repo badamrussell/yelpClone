@@ -15,6 +15,50 @@ module SearchesHelper
     words
   end
 
+  def rails_query(original_set, search_params, search_location)
+    wheres = []
+    joins = []
+
+    if search_params[:neighborhood_id]
+
+      set = search_params[:neighborhood_id].map do |n|
+        n.to_i
+      end
+      wheres << " neighborhood_id IN (#{set.join(',')})"
+    end
+
+    if search_params[:feature_id]
+      joins << :features
+      set = search_params[:feature_id].map do |f|
+        f.to_i
+      end
+      wheres << " feature_id IN (#{set.join(',')})"
+    end
+
+    if search_params[:category_id]
+      joins << "JOIN business_categories ON businesses.id = business_categories.business_id"
+      if search_params[:category_id].length == 1
+        wheres << " business_categories.category_id = #{search_params[:category_id][0].to_i}"
+      else
+        set = search_params[:category_id].map do |c|
+          c.to_i
+        end
+        wheres << " business_categories.id IN (#{set.join(',')})"
+      end
+    end
+
+    # if search_params[:price_range]
+    #   joins << :reviews unless joins.include?(:reviews)
+    #   set = search_params[:price_range].map do |p|
+    #     search_params[:price_range]
+    #   end
+    #   wheres << " price_range.id IN (#{set.join(',')})"
+    # end
+
+    original_set.joins(joins).where(wheres.join(" AND "))
+
+  end
+
   def make_query(search_params, search_string, search_location)
     #search elements
     # find, near
