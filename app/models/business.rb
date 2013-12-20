@@ -6,7 +6,7 @@ class Business < ActiveRecord::Base
 
   validates :name, :country_id, presence: true
 
-  #pg_search_scope :search_by_name, against: :name
+  pg_search_scope :search_by_name, against: :name
 
   geocoded_by :full_street_address
   after_validation :geocode
