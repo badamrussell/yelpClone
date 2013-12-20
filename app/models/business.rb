@@ -4,17 +4,23 @@ class Business < ActiveRecord::Base
 
   validates :name, :country_id, presence: true
 
+
+
   geocoded_by :full_street_address
-  before_validation :geocode
+  after_validation :geocode
 
   reverse_geocoded_by :latitude, :longitude
-  before_validation :reverse_geocode
+  after_validation :reverse_geocode
   before_validation :set_neighborhood
 
   def full_street_address
     a1 = address1 || ""
     a2 = address2 || ""
-    a1 + " " + a2
+    c1 = city || ""
+    s1 = state || ""
+    z1 = zip_code || ""
+
+    "#{a1} #{a2} #{c1}, #{s1} #{z1}"
 
   end
 
