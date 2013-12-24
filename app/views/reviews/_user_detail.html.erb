@@ -60,7 +60,7 @@
     <% else %>
 
         <ul>
-          <li><a href="#">Bookmark</a></li>
+          <li><%= render "bookmarks/form", business_id: review.business_id %></li>
           <li><a class="ponter" onclick='showPopup("#compliment-popup", <%= review.id %>)'>Send Compliment</a></li>
           <li><a href="#">Send to a Friend</a></li>
           <li><a href="#">Link to Review</a></li>

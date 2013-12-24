@@ -37,6 +37,8 @@ ul li {
 body {
   display: block;
   background: #eee;
+  font-size: 12px;
+  color: #333;
 /*  padding: 20px;*/
 }
 
@@ -125,12 +127,24 @@ h3.red-title {
   padding: 10px 40px;
 }
 
-button.btn-link {
+/*button.btn-link {
   background: transparent;
   color: #00f;
   font-size: 12px;
   cursor: hand;
   display: block;
+}*/
+
+button.btn-link {
+  background: transparent;
+  color: #00f;
+  font-size: 10px;
+  cursor: pointer;
+  display: inline;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  height: auto;
 }
 
 .white-title {
@@ -177,7 +191,17 @@ img.avatar-90 {
 
 img.avatar-30 {
   width: 30px;
-  height: 30px;
+  height: auto;
+  overflow: hidden;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  border-radius: 4px;
+}
+
+img.avatar-40 {
+  width: 40px;
+  height: auto;
+  overflow: hidden;
   margin-right: 2px;
   margin-bottom: 2px;
   border-radius: 4px;

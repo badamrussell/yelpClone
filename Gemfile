@@ -25,10 +25,12 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'faker'
+  gem 'meta_request'
 end
 
 group :production do
   gem 'faker'
+  gem 'rmagick'
 end
 
 # Gems used only for assets and not required

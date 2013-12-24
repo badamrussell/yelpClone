@@ -1,0 +1,16 @@
+<!-- -->
+
+<section class="friends-container">
+  
+	
+	<h3 class="red-title"><%= friends.length %> Friends</h3>
+
+	<% friends.each_with_index do |f,i| %>
+		<% break if i > 3 %>
+		<div class="left">
+			<%= render "users/avatar", user: f %>
+		</div>
+	<% end %>
+
+
+</section>

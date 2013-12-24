@@ -19,4 +19,8 @@ class List < ActiveRecord::Base
 
   has_many :reviews, through: :list_reviews, source: :review
 
+
+  def avatar
+    reviews.first.avatar
+  end
 end

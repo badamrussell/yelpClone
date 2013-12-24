@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131218004050) do
+ActiveRecord::Schema.define(:version => 20131224012045) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -53,6 +53,17 @@ ActiveRecord::Schema.define(:version => 20131218004050) do
   add_index "business_features", ["business_id"], :name => "index_business_features_on_business_id"
   add_index "business_features", ["feature_id"], :name => "index_business_features_on_feature_id"
   add_index "business_features", ["review_id"], :name => "index_business_features_on_review_id"
+
+  create_table "business_hours", :force => true do |t|
+    t.integer  "business_id", :null => false
+    t.integer  "day_id",      :null => false
+    t.integer  "time_close",  :null => false
+    t.integer  "time_open",   :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "business_hours", ["business_id"], :name => "index_business_hours_on_business_id"
 
   create_table "businesses", :force => true do |t|
     t.integer  "country_id",      :null => false
@@ -203,8 +214,9 @@ ActiveRecord::Schema.define(:version => 20131218004050) do
   create_table "price_ranges", :force => true do |t|
     t.string   "name"
     t.string   "color"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "description"
   end
 
   create_table "profile_locations", :force => true do |t|

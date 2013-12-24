@@ -1,3 +1,24 @@
 // Place all the styles related to the Lists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.lists-container {
+
+	.list-quick {
+		margin-bottom: 28px;
+  	text-align: 30px;
+
+	}
+
+	.list-items {
+
+			margin-left: 32px;
+
+			li {
+				a {
+					display: block;
+				}
+				margin-bottom: 4px;
+			}
+		}
+}

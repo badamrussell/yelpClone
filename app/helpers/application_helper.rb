@@ -1,5 +1,14 @@
 module ApplicationHelper
 
+  def text_snippet(text, length)
+    if text.length > length
+      "#{text[0..length]}..."
+    else
+      text
+    end
+
+  end
+
   def get_static_map(center)
     icon_location = "https://s3.amazonaws.com/kelp_dev/pin.png"
     marker = []

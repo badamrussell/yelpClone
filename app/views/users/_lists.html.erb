@@ -1,0 +1,43 @@
+<!-- -->
+
+<section class="lists-container">
+  
+
+<% if lists.empty? %>
+	<h3 class="red-title">No Lists</h3>
+
+<% else %>
+	<h3 class="red-title"><%= lists.length %> Lists</h3>
+
+	<ul>
+		<% lists.each_with_index do |list,i| %>
+
+			<% break if i > 1 %>
+			<li class="list-quick group">
+				<header class="group">
+					<div class="side-left left">
+				    <a href="<%= list_url(list.id) %>"><img class="avatar-30" src="<%= list.reviews.first.business.avatar %>"></a>
+				  </div>
+
+				  <div class="side-right">
+				  	<a class="med-title" href="#"><%= list.name %></a>
+				  	<p><%= text_snippet(list.desc, 40) if list.desc %></p>
+
+					</div>
+				</header>
+
+				<ul class="list-items group">
+					<% list.reviews.each_with_index do |review, i| %>
+						<% break if i > 2 %>
+						<li>
+							<a><%= "#{i+1}. #{review.business.name}" %></a>
+							<em><%= text_snippet(review.body,20) %></em>
+						</li>
+					<% end %>
+				</ul>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
+
+</section>

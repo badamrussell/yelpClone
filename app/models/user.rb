@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
   has_many :votes, through: :review_votes, source: :vote
 
   has_many :compliments, through: :reviews, source: :compliments
-
+  has_many :review_compliments, through: :reviews, source: :review_compliments
 
   has_many(
     :lists,
@@ -103,6 +103,10 @@ class User < ActiveRecord::Base
     icon: "90x90#"
   }
 
+
+  def full_compliments
+    
+  end
 
   #--temporary placeholders until associations can be made
   def friends

@@ -1,23 +1,4 @@
-<header>
-  <nav class="user-detail-container">
-    <ul class="user-detail-nav group">
-      <li><div><a href="#">Profile Home</a></div></li>
-      <li><div><a href="#">Lists</a></div></li>
-      <li><div><a href="#">Reviews</a></div></li>
-      <li><div><a href="#">Tips</a></div></li>
-      <li><div><a href="#">Compliments</a></div></li>
-      <li><div><a href="#">Friends</a></div></li>
-      <li><div><a href="#">Bookmarks</a></div></li>
-      <li><div><a href="#">Events</a></div></li>
-    </ul>
-  </nav>
-  <section class="user-detail-title-container">
-    <h3 class="red-title"><%= @user.name %>'s Profile</h3>
-    <% if @user == current_user %>
-    <a href="<%= edit_user_url(@user.id) %>">edit</a>
-    <% end %>
-  </section>
-</header>
+<%= render "users/header_nav", user: @user %>
 
 
 <section class="user-main-body group">
@@ -34,7 +15,12 @@
   </section>
 
   <section class="sidebar-right">
-    RIGHT-SIDE CONTENT
+    <%= render "users/friends", friends: @user.friends %>
+
+    <%= render "users/compliments", compliments: @user.review_compliments %>
+
+    <%= render "users/lists", lists: @user.lists %>
+
   </section>
 
 </section>

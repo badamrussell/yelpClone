@@ -1,0 +1,5 @@
+<form class="bookmark-form" action="<%= bookmarks_url %>" method="post" data-remote="true">
+	<input type="hidden" name="bookmark[business_id]" value="<%= business_id %>">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<button class="btn-link" type="submit">Bookmark</button>
+</form>

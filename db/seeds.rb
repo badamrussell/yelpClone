@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create( [
-  {email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell"},
-  {email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white"},
-  {email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants"}
+  {email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell", profile_photo: File.new("app/assets/images/temp/user_0.jpg")},
+  {email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_16.jpg")},
+  {email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_9.jpg")}
 ])
 new_bio = UserBio.new()
 new_bio.user_id = 1
@@ -34,9 +34,13 @@ ProfileLocation.create(user_id: 3, address: neighborhood, name: "Home", primary:
 #<Business id: 107, country_id: 1, name: "Dos Toros", address1: "137 4th Ave", address2: "New York, NY 10003", city: "New York", state: "NY", zip_code: 10003, phone_number: nil, website: nil, neighborhood_id: nil, gps: nil, created_at: "2013-12-18 01:16:44", updated_at: "2013-12-18 01:16:44", store_front_id: nil, latitude: 40.7335433, longitude: -73.9898218>
 
 
-Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
-Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
-Business.create(name: "Jack Rabbit Slims", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long )
+Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
+Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
+Business.create(name: "Dos Toros", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
+
+Photo.create(user_id: rand(1..20), business_id: 1, file: File.new("app/assets/images/temp/user_14.jpg") )
+Photo.create(user_id: rand(1..20), business_id: 2, file: File.new("app/assets/images/temp/store_11.jpg") )
+Photo.create(user_id: rand(1..20), business_id: 3, file: File.new("app/assets/images/temp/store_10.jpg") )
 
 BusinessCategory.create([
   {business_id: 1, category_id: 1},
@@ -435,28 +439,52 @@ Neighborhood.create([
   {name: "Woodrow", area_id: 5}
 ])
 
+open_times = [6.hours, 7.5.hours.to_i, 8.hours, 9.hours]
+close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 
-100.times do
+(1..3).each do |i|
+  avail_days = [1,2,3,4,5,6,7]
+
+  5.times do
+    d = avail_days.shuffle!.pop
+    BusinessHour.create( business_id: i, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
+  end
+
+end
+
+100.times do |i|
   b = Business.create( {  name: Faker::Company.name,
-                      country_id: 1,
-                      phone_number: Faker::PhoneNumber.phone_number,
-                      neighborhood_id: rand(50)+1,
-                      latitude: Area.rand_lat,
-                      longitude: Area.rand_long
-                    } )
+                          country_id: 1,
+                          phone_number: Faker::PhoneNumber.phone_number,
+                          neighborhood_id: rand(50)+1,
+                          latitude: Area.rand_lat,
+                          longitude: Area.rand_long
+                        } )
 
   BusinessCategory.create([
     {business_id: b.id, category_id: rand(1..30)},
     {business_id: b.id, category_id: rand(31..60)},
     {business_id: b.id, category_id: rand(61..100)}
   ])
+
+  avail_days = [1,2,3,4,5,6,7]
+  
+
+  5.times do
+    d = avail_days.shuffle!.pop
+    BusinessHour.create( business_id: b.id, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
+  end
+
+  
+  Photo.create(user_id: rand(1..20), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..12)}.jpg"))
 end
 
 20.times do
   user = User.create( email: Faker::Internet.email,
                       password: "123456",
                       first_name: Faker::Name.first_name,
-                      last_name: Faker::Name.last_name
+                      last_name: Faker::Name.last_name,
+                      profile_photo: File.new("app/assets/images/temp/user_#{rand(1..15)}.jpg")
                     )
   new_bio = UserBio.new({
     headline: Faker::Lorem.sentence,
@@ -472,19 +500,7 @@ end
   ProfileLocation.create(user_id: user.id, address: neighborhood, name: "Home", primary: true)
 end
 
-200.times do
-  Review.create(  rating: rand(5)+1,
-                  user_id: rand(20)+1,
-                  business_id: rand(100)+1,
-                  body: Faker::Lorem.paragraph
-                )
 
-  ReviewCompliment.create(  compliment_id: rand(1..11),
-                            review_id: rand(1..200),
-                            user_id: rand(1..100),
-                            body: Faker::Lorem.sentence
-                          )
-end
 
 Category.create([
 
@@ -513,7 +529,7 @@ Category.create([
   {name: "Burmese", main_category_id: 1},
   {name: "Cafes", main_category_id: 1},
   {name: "Cafeteria", main_category_id: 1},
-  {name: "Cajun/Creole", main_category_id: 1},
+  {name: 'Cajun/Creole', main_category_id: 1},
   {name: "Cambodian", main_category_id: 1},
   {name: "Caribbean", main_category_id: 1},
   {name: "Dominican", main_category_id: 1},
@@ -548,7 +564,7 @@ Category.create([
   {name: "Greek", main_category_id: 1},
   {name: "Halal", main_category_id: 1},
   {name: "Hawaiian", main_category_id: 1},
-  {name: "Himalayan/Nepalese", main_category_id: 1},
+  {name: 'Himalayan/Nepalese', main_category_id: 1},
   {name: "Hot Dogs", main_category_id: 1},
   {name: "Hot Pot", main_category_id: 1},
   {name: "Hungarian", main_category_id: 1},
@@ -565,7 +581,7 @@ Category.create([
   {name: "Colombian", main_category_id: 1},
   {name: "Salvadoran", main_category_id: 1},
   {name: "Venezuelan", main_category_id: 1},
-  {name: "Live/Raw Food", main_category_id: 1},
+  {name: 'Live/Raw Food', main_category_id: 1},
   {name: "Malaysian", main_category_id: 1},
   {name: "Mediterranean", main_category_id: 1},
   {name: "Falafel", main_category_id: 1},
@@ -577,7 +593,7 @@ Category.create([
   {name: "Mongolian", main_category_id: 1},
   {name: "Moroccan", main_category_id: 1},
   {name: "Pakistani", main_category_id: 1},
-  {name: "Persian/Iranian", main_category_id: 1},
+  {name: 'Persian/Iranian', main_category_id: 1},
   {name: "Peruvian", main_category_id: 1},
   {name: "Pizza", main_category_id: 1},
   {name: "Polish", main_category_id: 1},
@@ -598,7 +614,7 @@ Category.create([
   {name: "Sushi Bars", main_category_id: 1},
   {name: "Taiwanese", main_category_id: 1},
   {name: "Tapas Bars", main_category_id: 1},
-  {name: "Tapas/Small Plates", main_category_id: 1},
+  {name: 'Tapas/Small Plates', main_category_id: 1},
   {name: "Tex-Mex", main_category_id: 1},
   {name: "Thai", main_category_id: 1},
   {name: "Turkish", main_category_id: 1},
@@ -723,10 +739,10 @@ PhotoDetail.create([
 ])
 
 PriceRange.create([
-  {name: "$", color: "green"},
-  {name: "$$", color: "green"},
-  {name: "$$$", color: "green"},
-  {name: "$$$$", color: "green"}
+  {name: "$", color: "green", description: "$5-10"},
+  {name: "$$", color: "green", description: "$11-30"},
+  {name: "$$$", color: "green", description: "$31-60"},
+  {name: "$$$$", color: "green", description: "$61+"}
 ])
 
 FeatureCategory.create([
@@ -900,3 +916,41 @@ ReviewCompliment.create([
   {compliment_id: 2, review_id: 1, user_id: 10, body: "You suck"},
   {compliment_id: 3, review_id: 2, user_id: 20, body: "thanks!"}
 ])
+
+200.times do |i|
+  business_id = rand(1..103)
+  review_id = i + 1
+  Review.create(  rating: rand(5)+1,
+                  user_id: rand(20)+1,
+                  business_id: business_id,
+                  body: Faker::Lorem.paragraph
+                )
+
+  ReviewCompliment.create(  compliment_id: rand(1..11),
+                            review_id: review_id,
+                            user_id: rand(1..20),
+                            body: Faker::Lorem.sentence
+                          )
+  f_categories = FeatureCategory.all
+  category_cnt = rand(5)
+
+  while category_cnt > 0
+    category = f_categories.shuffle!.pop
+    features = Feature.where(feature_category_id: category.id)
+    feat_cnt = rand(features.length / 2)
+
+    while feat_cnt > 0
+      feat = features.shuffle.pop
+
+      val = if category.input_type == 1
+        (rand(2) == 1 ? true : false) 
+      else
+        true
+      end
+      
+      BusinessFeature.create(business_id: business_id, feature_id: feat.id, value: true, review_id: review_id)
+      feat_cnt -= 1
+    end
+    category_cnt -= 1
+  end
+end

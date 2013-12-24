@@ -22,7 +22,7 @@
 }
 
 .compliment-container-10 {
-  width: 10px;
+  width: 18px;
   text-align: center;
   color: #aaa;
   float: left;
@@ -30,49 +30,63 @@
 }
 
 .compliment-10 {
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
+}
 
-  .thank-you {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.thank-you-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .good-writer {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.good-writer-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .just-a-note {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.just-a-note-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .write-more {
-  }
+.write-more-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .great-photo {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.great-photo-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .youre-funny {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.youre-funny-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .cute-pic {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.cute-pic-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .hot-stuff {
-  }
+.hot-stuff-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .like-your-profile {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.like-your-profile-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .youre-cool {
-  }
+.youre-cool-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
+}
 
-  .freat-lists {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.great-lists-10 {
+  @extend .compliment-10;
+  background:url("/assets/real/compliments.png") -3px -3px;
 }
 
 .compliment-container-20 {
@@ -83,99 +97,143 @@
   padding: 5px;
 }
 
+.compliment-quick {
+  text-align: 30px;
+  padding: 0 4px 4px 4px;
+  margin-bottom: 8px;
+  width: 250px;
+
+  .compliment-name {
+    line-height: 20px;
+    padding-left: 32px;
+    color: green;
+  }
+
+  .compliment-body {
+    margin-top: 4px;
+    padding-left: 32px;
+    line-height: 14px;
+  }
+}
+
 .compliment-20 {
   width: 20px;
   height: 20px;
-  display: block;
+}
 
-  .thank-you {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.thank-you-20 {
+  @extend .compliment-20;
+  background: url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .good-writer {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.good-writer-20 {
+  @extend .compliment-20;
+  background: url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .just-a-note {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.just-a-note-20 {
+  @extend .compliment-20;
+  background:url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .write-more {
-  }
+.write-more-20 {
+  @extend .compliment-20;
+  background:url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .great-photo {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.great-photo-20 {
+  @extend .compliment-20;
+  background:url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .youre-funny {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.youre-funny-20 {
+  @extend .compliment-20;
+  background:url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .cute-pic {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.cute-pic-20 {
+  @extend .compliment-20;
+  background:url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .hot-stuff {
-  }
+.hot-stuff-20 {
+  @extend .compliment-20;
+  background:url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .like-your-profile {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.like-your-profile-20 {
+  @extend .compliment-20;
+  background:url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .youre-cool {
-  }
+.youre-cool-20 {
+  @extend .compliment-20;
+  background:url("/assets/real/compliments.png") -3px -22px;
+}
 
-  .freat-lists {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.great-lists-20 {
+  @extend .compliment-20;
+  background:url("/assets/real/compliments.png") -3px -22px;
 }
 
 
 
 .compliment-30 {
-  width: 30px;
-  height: 30px;
-  display: block;
-  margin-bottom: 5px;
+  width: 24px;
+  height: 24px;
+}
 
-  .thank-you {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.thank-you-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .good-writer {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.good-writer-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .just-a-note {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.just-a-note-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .write-more {
-  }
+.write-more-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .great-photo {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.great-photo-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .youre-funny {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.youre-funny-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .cute-pic {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.cute-pic-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .hot-stuff {
-  }
+.hot-stuff-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .like-your-profile {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.like-your-profile-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .youre-cool {
-  }
+.youre-cool-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
+}
 
-  .freat-lists {
-    background:url("/assets/real/compliments.png") 0 0;
-  }
+.great-lists-30 {
+  @extend .compliment-30;
+  background:url("/assets/real/compliments.png") -3px -45px;
 }

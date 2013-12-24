@@ -1,0 +1,20 @@
+<header>
+  <nav class="user-detail-container">
+    <ul class="user-detail-nav group">
+      <li><div><a href="#">Profile Home</a></div></li>
+      <li><div><a href="#">Lists</a></div></li>
+      <li><div><a href="#">Reviews</a></div></li>
+      <li><div><a href="#">Tips</a></div></li>
+      <li><div><a href="<%= compliments_user_url(user.id) %>">Compliments</a></div></li>
+      <li><div><a href="#">Friends</a></div></li>
+      <li><div><a href="<%= bookmarks_user_url(user.id) %>">Bookmarks</a></div></li>
+      <li><div><a href="#">Events</a></div></li>
+    </ul>
+  </nav>
+  <section class="user-detail-title-container">
+    <h3 class="red-title"><%= user.name %>'s Profile</h3>
+    <% if user == current_user %>
+      <a href="<%= edit_user_url(user.id) %>">edit</a>
+    <% end %>
+  </section>
+</header>

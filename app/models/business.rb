@@ -112,6 +112,13 @@ class Business < ActiveRecord::Base
 
   has_many :bookmarkers, through: :bookmarks, source: :user
 
+  has_many(
+    :business_hours,
+    class_name: "BusinessHour",
+    primary_key: :id,
+    foreign_key: :business_id
+  )
+  
   def <=>(otherBiz)
     return 1 if otherBiz.rating < rating
     return -1 if otherBiz.rating > rating
@@ -236,6 +243,21 @@ class Business < ActiveRecord::Base
     size = 30 if size_name == "icon"
 
     "<a href='#{link}'><img width='#{size}' src='#{avatar}'></a>"
+  end
+
+  def now_hours
+    d = business_hours.where(day_id: Time.now.wday)[0]
+
+    d ? d.open_hours : ""
+  end
+
+  def is_open?
+    d = business_hours.where(day_id: Time.now.wday)[0]
+
+    time_now = Time.now.hour.hours + Time.now.min.minutes
+    return true if d && (d.time_open..d.time_close) === time_now
+      
+    false
   end
 
   private

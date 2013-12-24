@@ -9,8 +9,14 @@ YelpClone::Application.routes.draw do
     get "photos" => "photos#user_show"
     get "new_list" => "lists#new"
     get "lists" => "lists#index"
+
+    member do
+      get "compliments" => "review_compliments#show"
+      get "bookmarks" => "bookmarks#show"
+    end
   end
 
+  resources :bookmarks, only: [:create, :destroy]
   resource :session, only: [:new, :create, :destroy]
 
   resources :businesses do

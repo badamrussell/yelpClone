@@ -44,7 +44,6 @@ popups
 hide-filters link
 
 filters ar ajax
-reviews on user page needs links to photos
 
 
 
@@ -173,9 +172,6 @@ new businesses
 
 
 
-links should add to searches
-
-
 
 SECURITY
 
@@ -199,17 +195,14 @@ list all photos on photo show
 drag drop photos in
 
 
-RECOMMENDED FEATURES TO ADD
--------------------------------
-
-
-
-
-
 
 
 ----------------------------------------------
 
+links should add to searches
+
+
+reviews on user page needs links to photos
 better write review form
 photos in post?
 edit a post?

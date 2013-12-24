@@ -156,7 +156,7 @@ class ReviewsController < ApplicationController
     flash[:errors] = existingVote.errors.full_messages
 
     if request.xhr?
-      render json: { id: vote.id, name: display_name, actino: action }
+      render json: { id: vote.id, name: display_name, action: action }
     else
       redirect_to review_url(params[:id])
     end
