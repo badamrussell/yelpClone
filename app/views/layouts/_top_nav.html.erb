@@ -1,45 +1,49 @@
 <header class="top-header-wrapper group">
-  <div class="top-header">
-    <h3 class="header-logo left">yelp*</h3>
+  <div class="top-header group">
+    <a class="header-logo left"></a>
 
 
 
-    <nav class="top-nav">
-      <section class="search-nav">
-        <form class="form-top-search" action="<%= search_url %>" method="get">
-          <div class="nav-find">
-            <label for="find_desc">Find</label>
-            <input type="text" name="find_desc" value="" id="find">
-          </div>
-
-          <div class="nav-near">
-            <label for="near">Near</label>
-            <select id="near" name="find_loc">
-              <% City.all.each do |c| %>
-                <option value="<%= c.id %>"><%= c.name %></option>
-              <% end %>
-            </select>
-          </div>
-
-          <button class="nav-search" type="submit">?</button>
-        </form>
-
-        <div id="header-account-box">
-          <% if signed_in? %>
-          <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>" height="40"></a>
-            <%= button_to "sign out", session_url, method: :delete %>
-            <!-- <button class="auth-button">log out</button> -->
-          <% else %>
-            <!-- <button class="auth-button">log in</button>
-            <button class="auth-button">sign up</button> -->
-
-            <%= link_to "log_in", new_session_url %>
-            <%= link_to "sign up", new_user_url %>
-
-          <% end %>
+    <section class="search-nav">
+      <form class="form-top-search left" action="<%= search_url %>" method="get">
+        <div class="nav-find">
+          <label for="find_desc">Find</label>
+          <input type="text" name="find_desc" value="" id="find">
         </div>
 
-      </section>
+        <div class="nav-near">
+          <label for="near">Near</label>
+          <select id="near" name="find_loc">
+            <% City.all.each do |c| %>
+              <option value="<%= c.id %>"><%= c.name %></option>
+            <% end %>
+          </select>
+        </div>
+
+        <button class="nav-search" type="submit">?</button>
+      </form>
+
+      <div id="header-account-box" class="right">
+        <% if signed_in? %>
+          <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>" height="40"></a>
+          <select name="">
+            <option value=""></option>
+            <option value="">About Me</option>
+            <option value="">Account Settings</option>
+            <option value="">Log Out</option>
+          </select>
+          <!-- <button class="auth-button">log out</button> -->
+        <% else %>
+          <!-- <button class="auth-button">log in</button>
+          <button class="auth-button">sign up</button> -->
+
+          <%= link_to "log_in", new_session_url %>
+          <%= link_to "sign up", new_user_url %>
+
+        <% end %>
+      </div>
+
+    </section>
 
       <div class="nav-links">
         <ul class="group">
@@ -52,7 +56,6 @@
           <li><a href="#" class="inactive-link">Events</a></li>
         </ul>
       </div>
-    </nav>
   </div>
 
 </header>
