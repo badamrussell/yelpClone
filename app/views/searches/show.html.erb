@@ -1,5 +1,8 @@
-<script src="http://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>&sensor=false">
-</script>
+
+<section class="main-content group">
+
+<script src="http://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>&sensor=false"></script>
+
 <div class="group">
   <%= render "searches/filters" %>
 </div>
@@ -69,3 +72,5 @@
 
 
 <%= render "scripts/map", results: @results %>
+
+</section>

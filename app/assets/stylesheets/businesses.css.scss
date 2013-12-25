@@ -4,17 +4,37 @@
 
 .top-shelf {
   position: relative;
-  background-color: #ddd;
-  height: 400px;
-  border-bottom: 1px solid darkgray;
-  margin-bottom: 50px;
+  width: 1000px;
+  margin: auto;
 
   .business-info {
     width: 300px;
     height: 120px;
     float: left;
     padding: 0px 10px 10px 0;
+    font-size: 14px;
 
+    h1.page-title a {
+      font-size: 32px;
+      color: #333;
+    }
+    .med-link a {
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    .rating-container {
+      em {
+        margin-left: 10px;
+        line-height: 20px;
+      }
+    }
+    .price-range-container {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .business-header {
 
   }
 
@@ -22,7 +42,6 @@
     float: right;
     width: 400px;
     margin-top: 20px;
-    margin-right: 20px;
   }
 
   .review-button {
@@ -33,6 +52,10 @@
   .mosaic {
   }
 
+  .m li:first-child {
+    margin-left: 304px;
+  }
+
   .m li{
     float: left;
     margin-left: 4px;
@@ -40,27 +63,34 @@
   }
 
   .more-photos {
-    float: right;
+    position: absolute;
+    bottom: -20px;
+    right: 20px;
   }
 
   .edit-biz {
   }
 
   .biz-map {
+    width: 290px;
+    height: 280px;
+    z-index: 100;
+    position: absolute;
+    bottom: -40px;
     background-color: white;
-    padding: 6px;
+    padding: 5px;
     box-shadow: 1px 1px 10px #888;
-  }
 
-  .biz-map img {
-    border: 1px solid #bbb;
-    padding:0;
-    margin: 0;
+    img {
+      border: 1px solid #bbb;
+      padding:0;
+      margin: 0;
+    }
   }
 
   .address-back {
-    width: 280px;
-    height: 145px;
+    width: 276px;
+    height: 130px;
     background-color: #ddd;
     border: 1px solid #bbb;
     padding: 5px;
@@ -218,10 +248,6 @@
     line-height: 30px;
   }
 
-//  .price-range-container {
-//    padding: 5px;
-//    padding-left: 0;
-//  }
 }
 
 .selected {

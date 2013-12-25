@@ -42,13 +42,27 @@ body {
 
 .main-content {
   margin: auto;
-  padding: 20px;
   width: 1000px;
   background: #fff;
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
   padding-bottom: 150px;
+}
+
+.main-shelf {
+  width: 1000px;
+  margin: auto;
+}
+
+.top-shelf-back {
+  background-color: #eee;
+  border-bottom: 1px solid darkgray;
+  margin-bottom: 70px;
+}
+
+.shelf-main-content {
+  background: #fff;
 }
 
 a {
@@ -242,12 +256,12 @@ img.avatar-40 {
 }
 
 .gray-btn {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
-  background: #ccc;
+  background: #ddd;
   border-radius: 4px;
   color: #333;
-  border: 1px solid #333;
+  border: 1px solid #ccc;
   width: 80px;
   height: 30px;
 }

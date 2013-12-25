@@ -1,8 +1,9 @@
+<% size ||= "med" %>
 <div class="rating-container group left">
   <ul class="stars-select-boxes">
     <% 5.times do |star| %>
       <li><a href="#" class="anc"></a></li>
     <% end %>
   </ul>
-  <div class="star-med-<%= rating %>"></div>
+  <div class="star-<%= size %>-<%= rating %>"></div>
 </div>

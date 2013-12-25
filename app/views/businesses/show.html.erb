@@ -1,89 +1,101 @@
 
 
+<section class="shelf-main-content">
 
 
-<div class="top-shelf group">
-  <div class="business-header group">
-    <%= render "businesses/business_info", business: @business %>
-    <div class="business-interact">
-      <%= button_to "Write a Review", business_writeareview_url(@business.id), method: :get, class: "red-btn left" %>
+    <div class="top-shelf-back group">
+      <div class="top-shelf group">
+        <div class="business-header group">
+          <%= render "businesses/business_info", business: @business, size: "large" %>
 
-      <%= button_to "Add Photo", business_add_photo_url(@business.id), method: :get, class: "gray-btn left" %>
-      <button class="add-button gray-btn share-button left">Share</button>
-      <button class="add-button gray-btn bookmark-button left">Bookmark</button>
+
+
+
+
+          <div class="business-interact">
+            <%= button_to "Write a Review", business_writeareview_url(@business.id), method: :get, class: "red-btn left" %>
+
+            <%= button_to "Add Photo", business_add_photo_url(@business.id), method: :get, class: "gray-btn left" %>
+            <button class="add-button gray-btn share-button left">Share</button>
+            <button class="add-button gray-btn bookmark-button left">Bookmark</button>
+          </div>
+        </div>
+
+        <div class"mosaic">
+          <%= render "widgets/half_map", business: @business %>
+
+          <ul class="m group">
+            <% @business.main_photos.each_with_index do |photo,i| %>
+            <li>
+              <%= render "photos/with_lower3",  icon_url: business_photos_url(@business.id, photo_id: photo.id),
+                                                width: i==1 ? 250 : 220,
+                                                photo: photo
+                                              %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <a class="more-photos" href="<%= business_photos_url(@business.id) %>">See all <%= @business.photos.length %> photos</a>
+      </div>
     </div>
-  </div>
 
-  <div class"mosaic">
-    <%= render "widgets/half_map", business: @business %>
 
-    <ul class="m group">
-      <% @business.main_photos.each_with_index do |photo,i| %>
-      <li>
-        <%= render "photos/with_lower3",  icon_url: business_photos_url(@business.id, photo_id: photo.id),
-                                          width: i==1 ? 250 : 220,
-                                          photo: photo
-                                        %>
-      </li>
+  <section class="main-shelf">
+    <section class="content-left">
+      <section class="review-highlights">
+        <% @business.get_highlight_reviews(3).each do |review| %>
+          <%= render "reviews/highlight", review: review %>
+        <% end %>
+      </section>
+      <!-- <a href="#">Show more review highlights</a> -->
+
+
+
+      <div class="reviews-list">
+        <h3 class="red-title">Recommended Reviews</h3>
+        <!-- <label for="search_reviews">Search reviews</label>
+        <input type="text" name="search_reviews" value="" id="search_reviews">
+        <button>Search</button> -->
+      </div>
+
+
+      <!-- Yelp Sort
+
+      <a href="#">Date</a>
+
+      <a href="#">Rating</a>
+
+      <a href="#">Elites</a> -->
+
+
+
+      <% @business.reviews.each do |review| %>
+        <%= render "reviews/business_page", review: review %>
       <% end %>
-    </ul>
-  </div>
 
-  <a class="more-photos" href="<%= business_photos_url(@business.id) %>">See all <%= @business.photos.length %> photos</a>
-</div>
+    </section>
+
+    <section class="right-sidebar group">
+
+      <%= render "businesses/info", business: @business %>
+    </section>
+
+    <section class="best-yelp-category group">
+      <h3><strong>Best of Yelp</strong></h3>
+      <ul class="photos-container group">
+
+        <% Business.best(@business.categories).each do |rest| %>
+        <li><%= render "businesses/store_front_photo", business: rest %></li>
+        <% end %>
+      </ul>
+      <a href="#">See More</a>
+    </section>
 
 
-<section class="content-left">
-  <section class="review-highlights">
-    <% @business.get_highlight_reviews(3).each do |review| %>
-      <%= render "reviews/highlight", review: review %>
-    <% end %>
+    <%= render "scripts/vote" %>
+
+    <%= render "popups/compliments", url: review_compliments_url, review: Review.find(1), compliment: ReviewCompliment.new, method: "post" %>
+
   </section>
-  <!-- <a href="#">Show more review highlights</a> -->
-
-
-
-  <div class="reviews-list">
-    <h3 class="red-title">Recommended Reviews</h3>
-    <!-- <label for="search_reviews">Search reviews</label>
-    <input type="text" name="search_reviews" value="" id="search_reviews">
-    <button>Search</button> -->
-  </div>
-
-
-  <!-- Yelp Sort
-
-  <a href="#">Date</a>
-
-  <a href="#">Rating</a>
-
-  <a href="#">Elites</a> -->
-
-
-
-  <% @business.reviews.each do |review| %>
-    <%= render "reviews/business_page", review: review %>
-  <% end %>
-
 </section>
-
-<section class="right-sidebar group">
-
-  <%= render "businesses/info", business: @business %>
-</section>
-
-<section class="best-yelp-category group">
-  <h3><strong>Best of Yelp</strong></h3>
-  <ul class="photos-container group">
-
-    <% Business.best(@business.categories).each do |rest| %>
-    <li><%= render "businesses/store_front_photo", business: rest %></li>
-    <% end %>
-  </ul>
-  <a href="#">See More</a>
-</section>
-
-
-<%= render "scripts/vote" %>
-
-<%= render "popups/compliments", url: review_compliments_url, review: Review.find(1), compliment: ReviewCompliment.new, method: "post" %>
