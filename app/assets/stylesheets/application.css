@@ -15,13 +15,10 @@
 body, header, ul, li, nav, h1, h2, h3, h4, h5, a, p, button, fieldset {
   margin: 0;
   padding: 0;
-  font: inherit;
   border: 0;
-  font-family: sans-serif;
+  font: inherit;
   vertical-align: baseline;
-  text-decoration: none;
   letter-spacing: 0;
-  color: #333;
 }
 
 ul li {
@@ -38,6 +35,7 @@ body {
   display: block;
   background: #eee;
   font-size: 12px;
+  font-family: sans-serif;
   color: #333;
 /*  padding: 20px;*/
 }
@@ -59,9 +57,14 @@ a {
   cursor: pointer;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 img {
   max-width: 600px;
   display: block;
+  border-radius: 2px;
 }
 
 .left {
@@ -89,6 +92,16 @@ h3.red-title {
   padding-left: 0;
 }
 
+h1.red-title {
+  color: #c00;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  padding: 2px;
+  padding-left: 0;
+}
+
 .med-link {
   font-size: .8em;
   padding: 2px;
@@ -103,6 +116,15 @@ h3.red-title {
   font-weight: bold;
   display: block;
 
+}
+
+.section-container {
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.section-container:last-child {
+  border-bottom: 0;
 }
 
 .large-title {
@@ -160,14 +182,14 @@ button.btn-link {
   letter-spacing: 1;
 }
 
-button {
+/*button {
   font-size: 14px;
   background-color: lightgrey;
   height: 30px;
   padding-left: 10px;
   padding-right: 10px;
   width: 110px;
-}
+}*/
 
 .med-font {
   font-size: 12px;
@@ -233,7 +255,7 @@ img.avatar-40 {
 .form-text-input {
   margin: 20px 0;
 
-  input {
+/*  input {
     width: 250px;
     display: block;
     margin: 5px 0;
@@ -243,7 +265,7 @@ img.avatar-40 {
     width: 250px;
     display: block;
     margin: 5px 0;
-  }
+  }*/
 }
 
 .star-container {

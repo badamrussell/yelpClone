@@ -5,24 +5,18 @@
   <%= render "users/user_info", user: @user %>
 
   <section class="mid-content">
-    <header class="">
-      <h3 class="red-title"><%= @user.name %>'s Compliments</h3>
-      <hr>
-    </header>
+    <h1 class="red-title"><%= @user.name %>'s Compliments</h1>
 
     <ul>
       <% @user.review_compliments.each do |c| %>
-        <li class="compliment-quick group">
-          <header>
-            <span>
-              <img class="compliment-20 <%= Compliment.find(c.compliment_id).name %> left">
-              <p class="compliment-name"><%= Compliment.find(c.compliment_id).name %></p>
-            </span>
+        <li class="compliment-normal group">
+          <header class="group">
+            <div class="<%= Compliment.find(c.compliment_id).image_name %>-30 left"></div>
+            <p class="compliment-name left"><%= Compliment.find(c.compliment_id).name %></p>
           </header>
 
           <div class="side-left left">
             <%= render "users/avatar", user: c.user %>
-
           </div>
 
           <div class="side-right">

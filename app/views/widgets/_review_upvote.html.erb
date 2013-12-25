@@ -1,6 +1,6 @@
 <% if current_user && review.user_id != current_user.id %>
 <div class="review-upvote-container group">
-  <div class="upvote-question"><em>Was this review ...?</em></div>
+  <div class="upvote-question"><p>Was this review ...?</p></div>
   <% votes = review.vote_count %>
   <form
     class="review-vote"

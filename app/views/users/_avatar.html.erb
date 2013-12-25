@@ -1,20 +1,27 @@
 
 <div class="avatar group">
-  <div class="side-left">
-    <a href="<%= profile_url %>"><img class="img-avatar" src="<%= user.avatar %>" height="50"></a>
+  <div class="group">
+    <div class="side-left left">
+      <a href="<%= profile_url %>"><img class="img-avatar" src="<%= user.avatar %>"></a>
+
+    </div>
+
+    <div class="side-stats left">
+      <img class="left" src="<%= user.avatar %>" height="10">
+      <span><%= user.friends.length %></span>
+    </div>
+
+    <div class="side-stats left">
+      <img class="left" src="/assets/temp/star.jpg" height="10">
+      <span><%= user.reviews.length %></span>
+    </div>
   </div>
   <div class="side-right">
     <ul class="group">
-      <li><a class="med-font bold" href="<%= user_url(user.id) %>"><%= user.name %></a></li>
-      <li><div class="med-font bold"><%= user.display_location %></div></li>
-      <li>
-        <a href="<%= profile_url %>"><img src="<%= user.avatar %>" height="10"></a>
-        <span><strong><%= user.friends.length %></strong> friends</span>
-      </li>
-      <li>
-        <a href="<%= profile_url %>"><img src="/assets/temp/star.jpg" height="10"></a>
-        <span><strong><%= user.reviews.length %></strong> reviews</span>
-      </li>
+      
+      <li><a href="<%= user_url(user.id) %>"><%= user.name %></a></li>
+      <li><div><%= user.display_location %></div></li>
+      
     </ul>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <header>
   <nav class="user-detail-container">
-    <ul class="user-detail-nav group">
-      <li><div><a href="#">Profile Home</a></div></li>
+    <ul class="user-profile-nav group">
+      <li><div><a href="<%= user_url(@user.id) %>">Profile Home</a></div></li>
       <li><div><a href="#">Lists</a></div></li>
       <li><div><a href="#">Reviews</a></div></li>
       <li><div><a href="#">Tips</a></div></li>
@@ -11,8 +11,8 @@
       <li><div><a href="#">Events</a></div></li>
     </ul>
   </nav>
-  <section class="user-detail-title-container">
-    <h3 class="red-title"><%= user.name %>'s Profile</h3>
+  <section class="user-profile-title">
+    <h1 class="red-title left"><%= user.name %>'s Profile</h1>
     <% if user == current_user %>
       <a href="<%= edit_user_url(user.id) %>">edit</a>
     <% end %>

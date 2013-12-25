@@ -7,7 +7,6 @@
   <section class="mid-content">
     <header class="">
       <h3 class="red-title">Recent Reviews</h3>
-      <hr>
     </header>
     <% @user.reviews.each do |review| %>
       <%= render "reviews/user_detail", review: review %>
@@ -22,7 +21,6 @@
     <%= render "users/lists", lists: @user.lists %>
 
   </section>
-
 </section>
 
 

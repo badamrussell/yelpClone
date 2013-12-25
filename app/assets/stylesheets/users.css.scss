@@ -2,73 +2,142 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.user-detail-nav {
-  li div{
-    float: left;
-    margin: 4px;
+.avatar {
+  width: 135px;
+  font-size: 10px;
+
+  .side-left {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 2px;
+
+    .img-avatar {
+      width: 40px;
+      display: inline;
+    }
+  }
+
+  .side-stats {
+    display: block;
+    width: 60px;
+
+    img {
+      margin: 0 4px;
+    }
+  }
+
+  .side-right {
+    font-size: 10px;
+    font-weight: none;
   }
 }
 
-.user-detail-title-container {
-  background-color: lightyellow;
-  border: 1px solid lightgrey;
-  height: 20px;
-  line-height: 20px;
-  padding: 10px;
-  margin: 10px 10px 20px 0;
+.user-profile-nav {
 
-  h3 {
-    float: left;
+  ul {
+
   }
 
-  a {
+  li div{
+    float: left;
+    margin-right: 2px;
+    background: #ff944d;
+    border-radius: 5px 5px 0 0;
+    padding: 5px 10px;
 
+    a {
+      color: #fff;
+      font-size: 10px;
+    }
+  }
+}
+
+.user-profile-title {
+  background-color: lightyellow;
+  border: 1px solid lightgrey;
+  padding: 6px 12px;
+  height: 20px;
+  line-height: 20px;
+  margin: 0 10px 20px 0;
+
+
+  a {
     float: right;
   }
 }
 
-.user-main-body {
+.profile-sidebar {
+  float: left;
+  width: 210px;
+  padding-right: 20px;
+  padding-left: 0;
 
   .user-avatar {
     height: 120px;
     width: 120px;
     overflow: hidden;
     border: 1px solid lightgrey;
+    border-radius: 6px;
+    margin-bottom: 10px;
   }
 
   .thumb-photos div {
     width: 20px;
     height: 20px;
     float: left;
-    padding: 2px;
+    padding: 0 0 6px 8px;
   }
 
   .thumb-photos div a {
     display: block;
   }
 
+  
+  h3 {
+    margin-top: 16px;
+    margin-bottom: 2px;
+  }
 
-  .user-sidebar {
-    float: left;
-    width: 230px;
-    padding-right: 20px;
+  .user-headline {
+    padding: 10px;
     padding-left: 0;
-//    border: 1px solid green;
+  }
 
-    h3 {
-      margin-top: 20px;
+  .user-achievements {
+    font-size: 10px;
+
+    img {
+      width: 10px;
+      height: 10px;
+      display: block;
+      float: left;
+      margin-right: 5px;
     }
 
-    .user-headline {
-      padding: 10px;
-      padding-left: 0;
+    span {
+      line-height: 12px;
     }
 
-    .user_info {
-
-
+    li {
+      padding: 1px 0;
     }
   }
+
+
+
+  .user-bio {
+    font-size: 12px;
+
+    .one-bio {
+      margin-bottom: 20px;
+    }
+  }
+
+}
+
+
+.user-main-body {
 
   .img-icon {
     width: 20px;
@@ -77,52 +146,40 @@
   }
 
   .mid-content {
-    width: 500px;
+
+    padding: 0 15px 0 15px;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    width: 470px;
     float: left;
 //    border: 1px solid red;
   }
 
   .sidebar-right {
     float: left;
-    width: 230px;
+    width: 215px;
+    padding-left: 15px;
+
 //    border: 1px solid blue;
   }
 
 
 }
-.one-bio {
-  margin-bottom: 20px;
-}
 
 
-.user-achievements {
-  font-size: 12px;
 
-  img {
-    display: block;
-    float: left;
-    margin-right: 5px;
-  }
 
-  a {
-    display: block;
-  }
-  span {
-    line-height: 22px;
-  }
-
-  li {
-    padding: 1px 0;
-  }
-}
 
 .user-info {
   img {
     display: inline;
   }
   width: 400px;
-  .side-left {
+  .avatar-container {
     float: left;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
   }
 
   .side-right {
