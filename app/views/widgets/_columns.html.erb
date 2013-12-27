@@ -3,7 +3,7 @@
 <% max_rows ||= rows %>
 <% rows = max_rows if rows > max_rows %>
 <%  %>
-<% cnt = 1 %>
+<% cnt = 0 %>
 <% col_count = 1 %>
 
 <ul class="column left">
@@ -12,10 +12,11 @@
   <% cnt += 1 %>
   <% break if cnt >= rows and col_count == columns %>
   <% if cnt >= rows %>
-    <% cnt = 1 %>
+    <% cnt = 0 %>
     <% col_count += 1 %>
     </ul><ul class="column left">
   <% end %>
 
 <% end %>
 </ul>
+

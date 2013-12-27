@@ -1,4 +1,7 @@
-<h1>Best <%= @category.name %> in New York</h1>
+
+<section class="main-content">
+
+<h1 class="red-title">Best <%= @category.name %> in New York</h1>
 
 <section class="category-mosaic group">
   <% sizes = [[500,300], [140,300], [300,140], [140,140], [140,140]] %>
@@ -14,25 +17,29 @@
     <% end %>
   </div>
 
-  <a href="#">More <%= @category.name %></a>
+  <a href="<%= search_url(category_id: @category.id) %>">More <%= @category.name %></a>
 </section>
 
 <section class="category-search-filters group">
   <div class="side-neighborhoods left">
-    <h3 class="filter-title">Neighborhoods</h3>
+    <h1 class="filter-title red-title">Neighborhoods</h1>
 
-    <%= render "widgets/columns", columns: 2, data: Neighborhood.where(area_id: 1), base_url: "#{search_url(category_id: @category.id)}&", param_name: "neighborhood_id" %>
+    <%= render "widgets/columns", columns: 2,
+                                  data: Neighborhood.where(area_id: 1),
+                                  max_rows: 8,
+                                  base_url: "#{search_url(category_id: @category.id)}&",
+                                  param_name: "neighborhood_id" %>
   </div>
 
   <div class="side-features left">
     <div class="filter-prices group">
-      <h3 class="filter-title">Prices</h3>
+      <h1 class="filter-title red-title">Prices</h1>
       <%= render "widgets/columns", columns: 2, data: PriceRange.all, base_url: "#{search_url}", param_name: "" %>
     </div>
 
     <div class="filter-features">
-      <h3 class="filter-title">Features</h3>
-      <%= render "widgets/columns", columns: 2, data: Feature.all, base_url: "#{search_url}", param_name: ""  %>
+      <h1 class="filter-title red-title">Features</h1>
+      <%= render "widgets/columns", columns: 2, data: Feature.all, max_rows: 4, base_url: "#{search_url}", param_name: ""  %>
     </div>
 
   </div>
@@ -41,7 +48,7 @@
 
 <section class="group">
   <section class="category-reviews left">
-    <h3 class="filter-title">Fresh <%= @category.name %> Reviews</h3>
+    <h1 class="filter-title red-title">Fresh <%= @category.name %> Reviews</h1>
 
     <% reviews = @category.new_reviews(4) %>
     <ul class="review-block left">
@@ -57,7 +64,7 @@
   </section>
 
   <section class="category-photos left">
-    <h3 class="filter-title">Recent Photos</h3>
+    <h1 class="filter-title red-title">Recent Photos</h1>
 
     <ul class="photo-block group">
     <% @category.new_photos(8).each do |photo| %>
@@ -80,4 +87,5 @@
   <div>
     <a href="#">More New Business Openings</a>
   </div>
+</section>
 </section>
