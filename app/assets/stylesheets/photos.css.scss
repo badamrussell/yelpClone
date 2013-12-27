@@ -46,6 +46,7 @@
   width: 220px;
   height: 220px;
   overflow: hidden;
+  border-radius: 4px;
 
   img {
     display: block;
@@ -54,7 +55,43 @@
 
 }
 
+.image-w-third-biz {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 4px;
 
+  img {
+    display: block;
+  }
+
+  .lower-third {
+    display: block;
+    position: absolute;
+    bottom: -50px;
+    content: "";
+    height: 100px;
+    width: 180px;
+    background: rgba(0,0,0,.8);
+    transition: bottom 1s;
+    padding: 6px;
+    overflow: normal;
+    color: #fff;
+
+    .img_with_3rd:hover .lower_3rd{
+      bottom: 0;
+    }
+
+    ul li {
+      font-size: 14px;
+      float: none;
+      display: block;
+      padding: 4px 0;
+    }
+  }
+
+}
 
 .lower-third {
   display: block;
@@ -62,11 +99,13 @@
   bottom: -50px;
   content: "";
   height: 100px;
-  width: 300px;
+  width: 100%;
   background: rgba(0,0,0,.8);
   transition: bottom 1s;
   padding: 6px;
-    overflow: normal;
+  overflow: normal;
+  color: #fff;
+  font-size: 14px;
   .img_with_3rd:hover .lower_3rd{
     bottom: 0;
   }

@@ -3,42 +3,38 @@
 <section class="shelf-main-content">
 
 
-    <div class="top-shelf-back group">
-      <div class="top-shelf group">
-        <div class="business-header group">
-          <%= render "businesses/business_info", business: @business, size: "large" %>
+  <div class="top-shelf-back group">
+    <div class="top-shelf group">
+      <div class="business-header group">
+        <%= render "businesses/business_info", business: @business, size: "large" %>
 
+        <div class="business-interact">
+          <%= button_to "Write a Review", business_writeareview_url(@business.id), method: :get, class: "red-btn left" %>
 
-
-
-
-          <div class="business-interact">
-            <%= button_to "Write a Review", business_writeareview_url(@business.id), method: :get, class: "red-btn left" %>
-
-            <%= button_to "Add Photo", business_add_photo_url(@business.id), method: :get, class: "gray-btn left" %>
-            <button class="add-button gray-btn share-button left">Share</button>
-            <button class="add-button gray-btn bookmark-button left">Bookmark</button>
-          </div>
+          <%= button_to "Add Photo", business_add_photo_url(@business.id), method: :get, class: "gray-btn left" %>
+          <button class="add-button gray-btn share-button left">Share</button>
+          <button class="add-button gray-btn bookmark-button left">Bookmark</button>
         </div>
-
-        <div class"mosaic">
-          <%= render "widgets/half_map", business: @business %>
-
-          <ul class="m group">
-            <% @business.main_photos.each_with_index do |photo,i| %>
-            <li>
-              <%= render "photos/with_lower3",  icon_url: business_photos_url(@business.id, photo_id: photo.id),
-                                                width: i==1 ? 250 : 220,
-                                                photo: photo
-                                              %>
-            </li>
-            <% end %>
-          </ul>
-        </div>
-
-        <a class="more-photos" href="<%= business_photos_url(@business.id) %>">See all <%= @business.photos.length %> photos</a>
       </div>
+
+      <div class"mosaic">
+        <%= render "widgets/half_map", business: @business %>
+
+        <ul class="m group">
+          <% @business.main_photos.each_with_index do |photo,i| %>
+          <li>
+            <%= render "photos/with_lower3",  icon_url: business_photos_url(@business.id, photo_id: photo.id),
+                                              width: i==1 ? 250 : 220,
+                                              photo: photo
+                                            %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <a class="more-photos" href="<%= business_photos_url(@business.id) %>">See all <%= @business.photos.length %> photos</a>
     </div>
+  </div>
 
 
   <section class="main-shelf">
@@ -53,7 +49,7 @@
 
 
       <div class="reviews-list">
-        <h3 class="red-title">Recommended Reviews</h3>
+        <h1 class="red-title">Recommended Reviews</h1>
         <!-- <label for="search_reviews">Search reviews</label>
         <input type="text" name="search_reviews" value="" id="search_reviews">
         <button>Search</button> -->
@@ -82,14 +78,20 @@
     </section>
 
     <section class="best-yelp-category group">
-      <h3><strong>Best of Yelp</strong></h3>
+      <h1 class="red-title"><strong>Best of Yelp</strong></h1>
       <ul class="photos-container group">
 
         <% Business.best(@business.categories).each do |rest| %>
-        <li><%= render "businesses/store_front_photo", business: rest %></li>
+          <li>
+            <%= render "photos/with_lower3_biz",  icon_url: business_url(rest.id),
+                                                  width: 180,
+                                                  business: rest,
+                                                  photo: rest.avatar
+                                            %>
+          </li>
         <% end %>
       </ul>
-      <a href="#">See More</a>
+      <!-- <a href="#">See More</a> -->
     </section>
 
 

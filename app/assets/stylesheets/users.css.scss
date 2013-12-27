@@ -33,6 +33,41 @@
   }
 }
 
+.avatar-large {
+  font-size: 12px;
+
+  .side-left {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-right: 4px;
+    border: 1px solid black;
+    .img-avatar {
+      width: 60px;
+      display: inline;
+    }
+  }
+
+  li {
+    padding-bottom: 4px;
+  }
+  .side-stats {
+    display: block;
+    width: 60px;
+
+    img {
+      margin: 0 4px;
+    }
+  }
+
+  .side-right {
+    font-size: 10px;
+    font-weight: none;
+  }
+}
+
+
 .user-profile-nav {
 
   ul {
@@ -69,8 +104,8 @@
 
 .profile-sidebar {
   float: left;
-  width: 210px;
-  padding-right: 20px;
+  width: 215px;
+  padding-right: 15px;
   padding-left: 0;
 
   .user-avatar {
@@ -93,7 +128,7 @@
     display: block;
   }
 
-  
+
   h3 {
     margin-top: 16px;
     margin-bottom: 2px;
@@ -137,6 +172,18 @@
 }
 
 
+.avatar-med {
+  height: 60px;
+  width: 60px;
+  overflow: hidden;
+  border: 1px solid lightgrey;
+  border-radius: 6px;
+
+  img {
+    height: 60px;
+  }
+}
+
 .user-main-body {
 
   .img-icon {
@@ -150,14 +197,14 @@
     padding: 0 15px 0 15px;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
-    width: 470px;
+    width: 465px;
     float: left;
 //    border: 1px solid red;
   }
 
   .sidebar-right {
     float: left;
-    width: 215px;
+    width: 210px;
     padding-left: 15px;
 
 //    border: 1px solid blue;
@@ -168,7 +215,8 @@
 
 
 
-
+.avatar-large {
+}
 
 .user-info {
   img {

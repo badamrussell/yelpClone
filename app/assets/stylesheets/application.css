@@ -42,16 +42,16 @@ body {
 
 .main-content {
   margin: auto;
-  width: 1000px;
+  width: 960px;
   background: #fff;
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
-  padding-bottom: 150px;
+  padding: 10px 30px 100px 30px;
 }
 
 .main-shelf {
-  width: 1000px;
+  width: 960px;
   margin: auto;
 }
 
@@ -63,6 +63,7 @@ body {
 
 .shelf-main-content {
   background: #fff;
+  padding-bottom: 60px;
 }
 
 a {

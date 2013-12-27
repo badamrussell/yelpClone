@@ -1,49 +1,62 @@
 
-<section>
+<section class="business-sidebar">
 
-	<section>
+	<section class="now-info-container">
 		<div>
-			<ul>
-				<li>Today <strong><%= business.now_hours %></strong> <%= business.is_open? ? "Open" : "Closed"%></li>
-				<li></li>
-				<li>
-					<%= render "widgets/price_range" %> Price Range 
-					<strong><%= PriceRange.find(business.price_range).description %></strong>
-				</li>
-			</ul>
+			<table>
+				<tr>
+					<td></td>
+					<td>Today <strong><%= business.now_hours %></strong> 
+						<% if business.is_open? %>
+							<strong class="green">Open</strong>
+						<% else %>
+							 <strong class="red">Closed</strong>
+						<% end %>
+					</td>
+				</tr>
+				<!-- <tr><td></td><td></td></tr> -->
+				<tr>
+					<td><%= render "widgets/price_range" %></td>
+					<td> Price Range 
+						<strong><%= PriceRange.find(business.price_range).description %></strong>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</section>
 
-	<section>
+	<section class="biz-info hours-container">
 		<h3 class="red-title">Hours</h3>
-		<ul>
+		<table>
 			<% business.business_hours.each do |hour| %>
-				<li>
-					<strong><%= hour.day %></strong>
-					<%= hour.open_hours %>
-					<%= "Open" if (hour.time_open..hour.time_close) === Time.now %>
-				</li>
+				<tr>
+					<td><strong><%= hour.day %></strong></td>
+					<td><%= hour.open_hours %></td>
+					<td>
+						<% if hour.day == Time.now.wday %>
+						<%= "Open" if (hour.time_open..hour.time_close) === Time.now %>
+						<% end %>
+					</td>
+				</tr>
 			<% end %>
-		</ul>
+		</table>
 	</section>
 
-	<section class="general-info">
+	<section class="biz-info general-info">
 		<h3 class="red-title">More business info</h3>
 
 		<ul>
-			<li>
-				<%= render "widgets/price_range" %> Price Range <strong><%= PriceRange.find(business.price_range).description %></strong>
-			</li>
 			<% business.features.each do |feature| %>
 			<li>
-				<%= FeatureCategory.find(feature.feature_category_id).name %>
-				<strong>
+				
 				<% if feature.feature_category_id == 1 %>
-					<%= "Yes" %>
-				<% else %>
 					<%= feature.name %>
+					<strong><%= "Yes" %></strong>
+				<% else %>
+					<%= FeatureCategory.find(feature.feature_category_id).name %>
+					<strong><%= feature.name %></strong>
 				<% end %>
-				</strong>
+				
 			</li>
 		<% end %>
 		</ul>

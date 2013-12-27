@@ -760,7 +760,7 @@ FeatureCategory.create([
 ])
 
 Feature.create([
-  { name: "Offering a Deal", feature_category_id: 1 },  #1
+  # { name: "Offering a Deal", feature_category_id: 1 },  #1
   # { name: "Open At:", feature_category_id: 1 },
   # { name: "Open Now:", feature_category_id: 1 },
   { name: "Accepts Credit Cards", feature_category_id: 1 },

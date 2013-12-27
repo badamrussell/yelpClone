@@ -4,7 +4,7 @@
 
 .top-shelf {
   position: relative;
-  width: 1000px;
+  width: 960px;
   margin: auto;
 
   .business-info {
@@ -53,33 +53,33 @@
   }
 
   .m li:first-child {
-    margin-left: 304px;
+    margin-left: 300px;
   }
 
   .m li{
     float: left;
-    margin-left: 4px;
-    border: 1px solid #ccc;
+//    margin-left: 4px;
+//    border: 1px solid #ccc;
   }
 
   .more-photos {
     position: absolute;
     bottom: -20px;
-    right: 20px;
+    right: 0px;
   }
 
   .edit-biz {
   }
 
   .biz-map {
-    width: 290px;
-    height: 280px;
+    width: 289px;
+    height: 274px;
     z-index: 100;
     position: absolute;
-    bottom: -40px;
+    bottom: -30px;
     background-color: white;
-    padding: 5px;
-    box-shadow: 1px 1px 10px #888;
+    padding: 5px 5px 0 5px;
+//    box-shadow: 1px 1px 10px #888;
 
     img {
       border: 1px solid #bbb;
@@ -89,11 +89,11 @@
   }
 
   .address-back {
-    width: 276px;
+    width: 286px;
     height: 130px;
     background-color: #ddd;
     border: 1px solid #bbb;
-    padding: 5px;
+//    padding: 5px;
     margin: 0;
   }
 
@@ -103,11 +103,70 @@
   }
 }
 
+.business-sidebar {
+  font-size: 14px;
+
+  .now-info-container {
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding:4px 0;
+
+    table {
+      tr {
+
+      }
+
+      td {
+        padding: 5px;
+      }
+
+
+    }
+  }
+
+  .hours-container {
+
+  }
+
+  .red {
+    color: #b00;
+    font-size: 12px;
+  }
+
+  .green {
+    color: #0b0;
+    font-size: 12px;
+  }
+
+  section.biz-info {
+    padding: 20px;
+
+
+    table {
+      text-align: left;
+      td:first-child {
+        width: 46px;
+      }
+    }
+
+  }
+
+  .general-info {
+    li {
+      padding: 5px 0;
+    }
+  }
+
+}
+
+
 .business-review-container {
+  padding: 15px 15px 15px 0;
   margin-bottom: 10px;
   font-size: 12px;
   border-bottom: 1px solid lightgray;
-  min-height: 260px;
+//  min-height: 260px;
   position: relative;
 
   h1 {
@@ -116,7 +175,8 @@
 
   .review-user-side {
     float: left;
-    width: 250px;
+    width: 220px;
+    padding-right: 15px;
 
     .user-interact-container {
 
@@ -124,19 +184,24 @@
   }
 
   .business-review-side {
-    // width: 400px;
-
+    padding-left: 15px;
+    width: 360px;
+    font-size: 14px;
     // em {
     //   line-height: 30px;
     //   padding-left: 5px;
     // }
 
     .rating-header {
-
+      line-height: 20px;
+      span {
+        margin-left: 10px;
+      }
     }
 
     .business-review-body {
-
+      padding: 15px 0;
+      line-height: 18px;
     }
 
     .business-photos-container {
@@ -153,9 +218,9 @@
 }
 
 .content-left {
-  width: 680px;
+  width: 630px;
   float: left;
-  border: 1px solid orange;
+//  border: 1px solid orange;
 
   .reviews-list {
     border-bottom: 1px solid #ccc;
@@ -167,18 +232,17 @@
 .right-sidebar {
   float: right;
   width: 300px;
-  border: 1px solid red;
 }
 
 .best-yelp-category {
-  border: 1px solid green;
+//  border: 1px solid green;
   clear: left;
   .photos-container {
-     width: 1000px;
+//     width: 1000px;
 
      li {
        float: left;
-       margin-right: 20px;
+       margin-right: 10px;
      }
 
      li:last {

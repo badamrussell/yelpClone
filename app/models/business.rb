@@ -118,7 +118,7 @@ class Business < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :business_id
   )
-  
+
   def <=>(otherBiz)
     return 1 if otherBiz.rating < rating
     return -1 if otherBiz.rating > rating
@@ -200,6 +200,16 @@ class Business < ActiveRecord::Base
     fronts[0]
   end
 
+  def avatar_photo
+    # store_front_id ? self.store_front : "/assets/temp/photo_med_square.jpg"
+    fronts = store_front_search.map { |pd| pd.photo }
+    if fronts.empty?
+      Photo.new
+    else
+      fronts[0]
+    end
+  end
+
   def category_list
 
   end
@@ -256,7 +266,7 @@ class Business < ActiveRecord::Base
 
     time_now = Time.now.hour.hours + Time.now.min.minutes
     return true if d && (d.time_open..d.time_close) === time_now
-      
+
     false
   end
 

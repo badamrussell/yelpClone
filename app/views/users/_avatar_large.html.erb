@@ -1,0 +1,24 @@
+
+<div class="avatar-large group">
+  <div class="side-left left">
+    <a href="<%= profile_url %>"><img class="img-avatar" src="<%= user.avatar %>"></a>
+  </div>
+
+  <div class="left">
+    <ul class="group">
+      <strong>
+      <li><a href="<%= user_url(user.id) %>"><%= user.name %></a></li>
+      <li><div><%= user.display_location %></div></li>
+    </strong>
+      <li>
+        <img class="left" src="<%= user.avatar %>" height="10">
+        <span><%= user.friends.length %></span>
+      </li>
+
+      <li>
+        <img class="left" src="/assets/temp/star.jpg" height="10">
+        <span><%= user.reviews.length %></span>
+      </li>
+    </ul>
+  </div>
+</div>
