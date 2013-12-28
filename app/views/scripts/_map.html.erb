@@ -1,23 +1,5 @@
 <script>
   var locations = <%= results.map { |r| {lat: r.latitude, lng: r.longitude } }.to_json.html_safe %>;
-  var bounds = {n: locations[0].lat, e: locations[0].lng, s: locations[0].lat, w: locations[0].lng };
-
-  for (var i=0; i < locations.length; i++) {
-    if (bounds.n < locations[i].lat) {
-      bounds.n = locations[i].lat;
-    }
-    if (bounds.s > locations[i].lat) {
-      bounds.s = locations[i].lat;
-    }
-    if (bounds.e < locations[i].lng) {
-      bounds.e = locations[i].lng;
-    }
-    if (bounds.w > locations[i].lng) {
-      bounds.w = locations[i].lng;
-    }
-    console.log(locations[i].lat, locations[i].lng)
-  }
-  console.log(bounds)
 
   $( function() {
     // loadGoogleMaps(latitude, longitude);
@@ -29,24 +11,31 @@
       mapIO = mapObj[0];
       map = mapObj[1];
 
+      var newBounds = boundsForLocations(locations)
+      console.log(newBounds);
+      console.log("NE",newBounds.getNorthEast())
+      console.log("SW",newBounds.getSouthWest())
+      map.fitBounds(newBounds);
+
       google.maps.event.addListener(map, "bounds_changed", function() {
+        console.log("----------------------")
         var tempLatLngBnd = map.getBounds();
         console.log(tempLatLngBnd)
         console.log("NE",tempLatLngBnd.getNorthEast())
         console.log("SW",tempLatLngBnd.getSouthWest())
       });
 
-      window.setTimeout(function() {
-        console.log("ExTEND");
-        var temp = map.getBounds();
-        var p = new google.maps.LatLng(40.76699,-73.97858)
-        console.log(p);
-        temp.extend(p);
-        // map.panTo(temp.getCenter());
-        map.fitBounds(temp);
-        console.log(temp);
-  // console.log(temp.getNorthEast())
-      }, 2000);
+  //     window.setTimeout(function() {
+  //       console.log("ExTEND");
+  //       var temp = map.getBounds();
+  //       var p = new google.maps.LatLng(40.76699,-73.97858)
+  //       console.log(p);
+  //       temp.extend(p);
+  //       // map.panTo(temp.getCenter());
+  //
+  //       console.log(temp);
+  // // console.log(temp.getNorthEast())
+  //     }, 2000);
     });
 
     $(".business-result").mouseenter( function() {
