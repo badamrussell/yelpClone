@@ -9,6 +9,7 @@ YelpClone::Application.routes.draw do
     get "photos" => "photos#user_show"
     get "new_list" => "lists#new"
     get "lists" => "lists#index"
+    get "home" => "users#home"
 
     member do
       get "compliments" => "review_compliments#show"
@@ -60,6 +61,6 @@ YelpClone::Application.routes.draw do
   # match "profile_bio" => "user#profile_bio", via: :put
 
 
-  root to: "profiles#show"
+  root to: "users#home"
 
 end

@@ -1,0 +1,145 @@
+
+
+<section class="home-page main-content group">
+<section class="main-side left">
+  <div class="reviews">
+    <ul>
+      <% @reviews.each do |review| %>
+        <li><%= render "reviews/review_2", review: review %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="new-biz">
+    <h1 class="red-title"><strong>New Businesses</strong></h1>
+    <ul class="photos-container group">
+
+      <% Business.recent(3).each do |rest| %>
+        <li>
+          <%= render "photos/with_lower3_biz",  icon_url: business_url(rest.id),
+                                                width: 180,
+                                                business: rest,
+                                                photo: rest.avatar
+                                          %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="best-yelp">
+
+  </div>
+
+</section>
+
+<section class="sidebar-right left">
+  <% if current_user %>
+    <div class="user-stats">
+      <div class="general-info">
+        <div class="group">
+          <div class="avatar left">
+            <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>"></a>
+          </div>
+
+          <ul class="icons left">
+            <li>
+              <img class="left" src="<%= current_user.avatar %>" height="10">
+              <span><%= current_user.friends.length %></span>
+            </li>
+
+            <li>
+              <img class="left" src="/assets/temp/star.jpg" height="10">
+              <span><%= current_user.reviews.length %></span>
+            </li>
+          </ul>
+
+          <ul class="names left">
+            <li><a href="<%= user_url(current_user.id) %>"><%= current_user.name %></a></li>
+            <li><div><%= current_user.display_location %></div></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="review-stats">
+        <ul class="group">
+          <li><div class="icon-useful left"></div><strong></strong> useful votes</li>
+          <li><div class="icon-cool left"></div><strong></strong> cool votes</li>
+          <li><div class="icon-funny left"></div><strong></strong> funny votes</li>
+          <li><div class="icon-compliment left"></div><strong></strong> compliments</li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</section>
+</section>
+
+<script >
+$(document).ready( function() {
+  $(document).click( function(event) {
+    if (event.target != $(".compliment-dropdown") && $(".compliment-dropdown").is(":visible")) {
+      event.stopPropagation();
+      $(".compliment-dropdown").hide();
+    }
+  });
+
+  $(".compliment-controls").on("click", ".drop-menu", function(event){
+    event.preventDefault();
+    event.stopPropagation();
+
+    var $drop_window = $($(this).parent()).find(".compliment-dropdown");
+    $drop_window.show();
+  });
+
+  $(".compliment-dropdown").on("click", ".compliment-choice", function(event) {
+    var $drop_window = $($(this).parents(".compliment-dropdown"));
+    var $parent = $($(this).parents(".compliment-controls")[0]);
+    var $compliment_form = $parent.parent();
+
+    var id = $(this).data("id");
+    $($compliment_form.find("#compliment_compliment_id")).attr("value", id)
+
+    var text = $(this).find("label").text();
+    var c_class = $($(this).find(".choice-set")).find("div").clone();
+    var $newChoice = $parent.find(".dropdown-choice");
+    $newChoice.empty();
+    $newChoice.append(c_class);
+    $newChoice.append('<p>' + text + '</p>');
+
+    $compliment_form.find(".new-compliment div").replaceWith(c_class.clone());
+    console.log(">",$compliment_form.find("#compliment_compliment_id"))
+
+    $drop_window.hide();
+  });
+
+  $("form.quick-compliment").on("ajax:success", function(event, data) {
+    var $parent = $(this);
+
+    $($parent.find(".compliment-text")[0]).val("")
+
+    if ($parent.hasClass("inactive") == false) {
+      $parent.addClass("inactive");
+    }
+
+  });
+
+  $(".btn-cancel").click( function(event) {
+    var $parent = $(this).parent().parent();
+
+    if ($parent.hasClass("inactive") == false) {
+      $parent.addClass("inactive");
+    }
+    $($parent.find(".compliment-text")[0]).val("")
+  });
+
+  $(".compliment-text").focus( function(event) {
+    var $parent = $(this).parent().parent();
+
+    if ($parent.hasClass("inactive")) {
+      $parent.removeClass("inactive");
+    }
+  });
+
+});
+
+
+</script

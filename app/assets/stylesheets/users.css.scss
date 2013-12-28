@@ -236,3 +236,60 @@
     width: 100px;
   }
 }
+
+.home-page {
+
+  .sidebar-right {
+    width: 300px;
+    padding-left: 15px;
+
+    .user-stats {
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+
+      .general-info {
+        padding: 10px;
+        font-weight: bold;
+        background: #eee;
+        border-bottom: 1px solid #ccc;
+
+        .avatar {
+          width: 60px;
+          height: 60px;
+          overflow: hidden;
+          margin-right: 5px;
+        }
+
+        ul {
+          padding: 0 5px;
+
+          li {
+            padding: 2px 0;
+          }
+        }
+
+        .icons {
+          width: 60px;
+        }
+
+        .names {
+        }
+      }
+
+      .review-stats {
+        padding: 10px;
+
+        li {
+          width: 135px;
+          padding: 5px 0;
+          float: left;
+          font-size: 12px;
+        }
+        strong {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -73,7 +73,7 @@
     content: "";
     height: 100px;
     width: 180px;
-    background: rgba(0,0,0,.8);
+    background: rgba(0,0,0,0.9);
     transition: bottom 1s;
     padding: 6px;
     overflow: normal;
@@ -88,6 +88,10 @@
       float: none;
       display: block;
       padding: 4px 0;
+
+      span {
+        margin-left: 4px;
+      }
     }
   }
 
@@ -131,4 +135,15 @@
 //
 //  .tiny-font {
 //  }
+}
+
+.photo-icons {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 6px;
+
+  img {
+
+  }
 }

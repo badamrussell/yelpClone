@@ -109,6 +109,10 @@ class Review < ActiveRecord::Base
     feat_hash
   end
 
+  def self.recent(num)
+    Review.limit(num)
+  end
+
   has_many(
     :vote_count,
     through: :review_votes,

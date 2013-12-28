@@ -3,7 +3,7 @@
     <img class="avatar-90" width="100" src="<%= business.avatar %>">
 
     <div class="business-stats">
-      <%= render "businesses/business_info", business: business, size: "med" %>
+      <%= render "businesses/business_info", business: business, size: "large" %>
     </div>
 
     <div class="business-address">
@@ -19,11 +19,11 @@
 
   <% if business.top_review %>
     <section class="review-container group">
-      <div class="avatar-30">
+      <div class="avatar-30 left">
         <img height="40" src="<%= business.top_review.user.avatar %>">
       </div>
       <div class="highlight-body">
-        <%= business.top_review.body[0..50] %>
+        <%= business.top_review.body[0..190] %>
       </div>
     </section>
   <% end %>

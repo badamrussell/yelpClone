@@ -10,16 +10,15 @@
         <% end %>
       </div>
 
-      <div class="category-browse">
+      <!-- <div class="category-browse">
         <h2>Browse Category:</h2>
         <ul class="group">
           <% @recommend_categories.each do |category| %>
-            <li><a href="<%= category_url(category.id) %>" class="med-link"><%= category.name %></a></li>
+            <li><a href="<%#= category_url(category.id) %>" class="med-link"><%#= category.name %></a></li>
           <% end %>
         </ul>
-      </div>
+      </div> -->
 
-      <div class="filter-hide"><a class="med-link">Hide Filters</a></div>
     </header>
 
     <div class="group">
@@ -46,11 +45,12 @@
                     # base_url: "/search?",
                     base_url: search_url(@saved_params) + "&",
                     param_name: @finer_filter_name,
-                    max_rows: 4 %>
+                    max_rows: 3 %>
       <% end %>
 
     </div>
 
+    <div class="filter-hide"><a class="med-link">Hide Filters</a></div>
   </section>
 
   <form class="form-fine-filters" action="<%= search_url( @saved_params) %>" method="get">
@@ -63,15 +63,15 @@
         <ul>
           <li>
             <input type="radio" name="search[sort]" id="search_sort" value="" <%= "checked" if @search_params[:sort] == "" %>>
-            <label for="search_sort">Best Match</label>
+            <a href="#"><label for="search_sort">Best Match</label></a>
           </li>
           <li>
             <input type="radio" name="search[sort]" id="search_sort" value="rated" <%= "checked" if @search_params[:sort] == "rated" %>>
-            <label for="search_sort">Highest Rated</label>
+            <a href="#"><label for="search_sort">Highest Rated</label></a>
           </li>
           <li>
             <input type="radio" name="search[sort]" id="search_sort" value="reviewed" <%= "checked" if @search_params[:sort] == "reviewed" %>>
-            <label for="search_sort">Most Reviewed</label>
+            <a href="#"><label for="search_sort">Most Reviewed</label></a>
           </li>
         </ul>
         <a class="filter-more" href="#"></a>

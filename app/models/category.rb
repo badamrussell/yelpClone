@@ -23,7 +23,7 @@ class Category < ActiveRecord::Base
 
   def businesses
     sql = <<-SQL
-      SELECT *
+      SELECT businesses.*
       FROM businesses
       JOIN business_categories ON businesses.id = business_categories.business_id
       WHERE business_categories.category_id = ?
@@ -34,7 +34,7 @@ class Category < ActiveRecord::Base
 
   def best_businesses(size)
     sql = <<-SQL
-      SELECT *
+      SELECT businesses.*
       FROM businesses
       JOIN business_categories ON businesses.id = business_categories.business_id
       WHERE business_categories.category_id = ?
@@ -45,7 +45,7 @@ class Category < ActiveRecord::Base
 
   def new_businesses(size)
     sql = <<-SQL
-      SELECT *
+      SELECT businesses.*
       FROM businesses
       JOIN business_categories ON businesses.id = business_categories.business_id
       WHERE business_categories.category_id = ?
@@ -58,7 +58,7 @@ class Category < ActiveRecord::Base
 
   def new_photos(size)
     sql = <<-SQL
-      SELECT *
+      SELECT photos.*
       FROM photos
       INNER JOIN businesses ON businesses.id = photos.business_id
       JOIN business_categories ON businesses.id = business_categories.business_id
@@ -72,7 +72,7 @@ class Category < ActiveRecord::Base
 
   def new_reviews(size)
     sql = <<-SQL
-      SELECT *
+      SELECT reviews.*
       FROM reviews
       INNER JOIN businesses ON businesses.id = reviews.business_id
       JOIN business_categories ON businesses.id = business_categories.business_id

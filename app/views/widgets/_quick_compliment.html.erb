@@ -1,0 +1,29 @@
+<form class="quick-compliment inactive group" action="<%= review_compliments_url %>" method="post" data-remote="true">
+
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="compliment[compliment_id]" value="1" id="compliment_compliment_id">
+  <input type="hidden" name="compliment[review_id]" value="<%= review.id %>" id="compliment_compliment_id">
+
+  <div class="group">
+    <div class="new-compliment left">
+      <div class="icon-compliment"></div>
+    </div>
+
+    <textarea name="compliment[body]" class="compliment-text left"></textarea>
+  </div>
+
+  <ul class="compliment-controls">
+
+    <button class="drop-menu">
+      <div class="dropdown-choice left">
+        <div class="thank-you-20 left"></div>
+        <p>Thank you</p>
+      </div>
+      <img class="droparrow" src="/assets/real/sort_arrow_down.gif">
+    </button>
+    <button class="btn-link right btn-cancel" type="">Cancel</button>
+    <button class="small-red right" type="submit" name="submit" value="submit" id="submit">Send</button>
+
+    <%= render "widgets/compliments_dropdown" %>
+  </ul>
+</form>

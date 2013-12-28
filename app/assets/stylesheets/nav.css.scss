@@ -1,7 +1,7 @@
 .top-header-wrapper {
   background: #c00;
   box-shadow: 0 0 2px 1px #333;
-  
+
 }
 
 .top-header {
@@ -109,10 +109,13 @@ button.nav-search {
 }
 
 #header-account-box {
+  position: relative;
   width: 50px;
   height: 30px;
   border: 1px solid black;
   border-radius: 3px;
+
+
 
   img {
     float: left;
@@ -121,7 +124,12 @@ button.nav-search {
     overflow: hidden;
   }
 
- 
+  .droparrow {
+    width: 10px;
+    height: 10px;
+    padding: 10px 4px;
+  }
+
   select {
     height: 100%;
     float: left;
@@ -134,9 +142,42 @@ button.nav-search {
     outline: none;
     -webkit-appearance: none;
   }
+
+
+
 }
 
+#header-login-box {
+  margin-left: 10px;
+  width: 80px;
+}
 
+.sign-in-container {
+  position: relative;
+  color: #00a;
+  .sign-in-actions {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: #fff;
+    width: 120px;
+    box-shadow: 0 1px 3px #ccc;
+    li {
+      border-bottom: 1px solid #eee;
+      padding: 8px 8px;
+    }
+
+    button {
+      background: transparent;
+      color: #00a;
+      cursor: pointer;
+    }
+
+    button:hover {
+      text-decoration: underline;
+    }
+  }
+}
 
 
 .footer {

@@ -183,6 +183,10 @@ class Business < ActiveRecord::Base
     Business.find_by_sql(values)
   end
 
+  def self.recent(num)
+    Business.limit(num)
+  end
+
   def gps
     {lat: latitude, lng: longitude}
   end

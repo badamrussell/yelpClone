@@ -1,0 +1,15 @@
+
+<section class="compliment-dropdown">
+    <fieldset class="group">
+      <% Compliment.all.each do |c| %>
+        <% c_name = c["name"].gsub(" ","-").gsub("'","").downcase %>
+        <div class="compliment-choice left" data-id="<%= c.id %>">
+          <input class="left" type="radio" name="compliment[compliment_id]" value="<%= c.id %>" id="compliment_<%= c.name %>">
+          <div class="choice-set">
+            <div class="<%= c_name %>-20 left"></div>
+            <label for="compliment_<%= c.name %>"><%= c.name %></label>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+</section>

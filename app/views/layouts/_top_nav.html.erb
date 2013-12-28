@@ -23,31 +23,41 @@
         <button class="nav-search" type="submit">?</button>
       </form>
 
-      <div id="header-account-box" class="right">
         <% if signed_in? %>
-          <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>" height="40"></a>
-          <select name="">
-            <option value=""></option>
-            <option value="">About Me</option>
-            <option value="">Account Settings</option>
-            <option value="">Log Out</option>
-          </select>
-          <!-- <button class="auth-button">log out</button> -->
+
+        <div id="header-account-box" class="right">
+            <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>" height="40"></a>
+            <img class="droparrow left" src="/assets/real/sort_arrow_down.gif">
+            <div class="sign-in-container">
+              <ul class="sign-in-actions isHidden">
+                <li><a href="<%= user_url(current_user.id) %>">About Me</a></li>
+                <li><a href="<%= profile_url %>">Account Settings</a></li>
+                <li>
+                  <form action="<%= session_url %>" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <input type="hidden" name="_method" value="delete">
+                    <button type="submit">Log Out</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+        </div>
         <% else %>
           <!-- <button class="auth-button">log in</button>
           <button class="auth-button">sign up</button> -->
 
-          <%= link_to "log_in", new_session_url %>
-          <%= link_to "sign up", new_user_url %>
+          <div id="header-login-box"class="right">
+            <a href="<%= new_session_url %>" class="small-red left">Log In</a>
+            <a href="<%= new_user_url %>" class="small-red left">Sign Up</a>
 
+          </div>
         <% end %>
-      </div>
 
     </section>
 
       <div class="nav-links">
         <ul class="group">
-          <li><a href="#">Home</a></li>
+          <li><a href="<%= root_url %>">Home</a></li>
           <li><a href="<%= current_user ? user_url(current_user.id) : new_user_url %>">About Me</a></li>
           <li><a href="#">Write a Review</a></li>
           <li><a href="#" class="inactive-link">Find Friends</a></li>
@@ -59,5 +69,18 @@
   </div>
 
 </header>
-<hr>
 
+<script>
+  $(document).ready( function() {
+    $("#header-account-box").click( function(event) {
+      event.stopPropagation();
+      $(".sign-in-actions").removeClass("isHidden");
+    });
+
+    $(document).click( function(event) {
+      if (event.target != $(".sign-in-actions") && $(".sign-in-actions").is(":visible")) {
+        $(".sign-in-actions").addClass("isHidden");
+      }
+    });
+  });
+</script>

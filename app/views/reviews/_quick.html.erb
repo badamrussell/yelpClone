@@ -1,5 +1,5 @@
 <section class="quick-review-container group">
-  <div class="review-avatar left">
+  <div class="avatar-60 left">
     <a href="<%= profile_url %>"><img src="<%= review.user.avatar %>" height="100"></a>
   </div>
 
@@ -9,10 +9,10 @@
 
     <div class="rating-header group">
       <%= render "widgets/rating", rating: review.rating %>
-   </div>
+    </div>
 
     <div>
-      <p><%= review.snippet(60) %></p>
+      <p class="review-body"><%= review.snippet(60) %></p>
     </div>
   </div>
 </section>

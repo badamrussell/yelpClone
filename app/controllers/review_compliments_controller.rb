@@ -10,10 +10,13 @@ class ReviewComplimentsController < ApplicationController
     @compliment.user_id = current_user.id
     @review = Review.find(@compliment.review_id)
 
-    if @compliment.save
+    @compliment.save
+    flash[:errors] = @compliment.errors.full_messages
+
+    if request.xhr?
       render json: @compliment
     else
-      flash[:errors] = @compliment.errors.full_messages
+
       render :new
     end
   end

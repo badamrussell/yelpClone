@@ -55,4 +55,8 @@ class UsersController < ApplicationController
       render :edit
     end
   end
+
+  def home
+    @reviews = Review.recent(10)
+  end
 end

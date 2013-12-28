@@ -1,9 +1,10 @@
-<ul>
-  <% if flash[:errors] %>
-    <% flash[:errors].each do |err| %>
-      <li><%= err %></li>
-    <% end %>
+
+<% if flash[:errors] %>
+<ul class="flash red">
+  <% flash[:errors].each do |err| %>
+    <li><%= err %></li>
   <% end %>
 </ul>
-
 <hr>
+<% end %>
+

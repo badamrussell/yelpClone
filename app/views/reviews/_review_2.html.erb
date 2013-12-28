@@ -1,0 +1,33 @@
+<section class="review-container group">
+  <div class="avatar-60 left">
+    <img src="<%= review.user.avatar %>">
+  </div>
+
+  <div class="review-main left">
+    <div class="headline">
+      <p>
+        <a href="<%= user_url(review.user_id) %>"><strong><%= review.user.name %></strong></a> wrote a review for
+        <a href="<%= business_url(review.business_id) %>"><%= review.business.name %></a>
+      </p>
+    </div>
+
+    <div class="rating-header group">
+      <%= render "widgets/rating", rating: review.rating, size: "large" %>
+      <time><%= review.created_at.strftime("%m/%d/%Y") %></time>
+    </div>
+
+    <div class="business-review-body">
+      <p><%= review.body %></p>
+    </div>
+
+    <div class="business-photos-container group">
+      <% review.photos.each do |photo| %>
+        <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url %>"></a>
+      <% end %>
+    </div>
+
+    <%= render "widgets/review_upvote", review: review %>
+    <div class="widget">
+    <%= render "widgets/quick_compliment", review: review %>
+  </div>
+</section>

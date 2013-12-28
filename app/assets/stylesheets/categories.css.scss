@@ -10,14 +10,60 @@
 
 .category-mosaic {
 
+  div {
+  }
+
+  div:first-child {
+    padding-left: 0;
+  }
+
+  .mosaic-1 {
+    height: 300px;
+    width: 460px;
+    overflow: hidden;
+    float: left;
+    margin-right: 10px;
+    border-radius: 4px;
+    border:1px solid red;
+  }
+
+  .mosaic-2 {
+    height: 300px;
+    width: 140px;
+    overflow: hidden;
+    float: left;
+    margin: 0 10px;
+    border-radius: 4px;
+      border:1px solid red;
+  }
+
+  .mosaic-3 {
+    height: 140px;
+    width: 300px;
+    overflow: hidden;
+    float: left;
+    margin: 0 0 10px 10px;
+    border-radius: 4px;
+    border: 1px solid red;
+  }
+
+
+
+  .mosaic-4 {
+    height: 140px;
+    width: 140px;
+    overflow: hidden;
+    float: left;
+    margin: 10px;
+    border-radius: 4px;
+    border: 1px solid red;
+  }
 
   .mosaic-photo {
 
 
     img {
       float: left;
-      margin: 6px;
-      border:1px solid red;
     }
   }
 
@@ -25,60 +71,82 @@
 }
 
 .category-reviews {
-  border: 1px solid red;
-  width: 630px;
-  font-size: 0.8em;
+  font-size: 12px;
   padding: 5px 15px 0 0;
-  .review-block {
-    width: 300px;
-    margin: 2px;
+  margin-bottom: 20px;
 
-    li {
-      border: 1px solid green;
+  .review-block {
+    width: 310px;
+
+    .avatar-60 {
+      margin-right: 10px;
+    }
+    .quick-review-container {
+
+      .review-content {
+        width: 220px;
+
+        .rating-header {
+          margin: 2px 0;
+        }
+      }
+    }
+
+
+  }
+
+  .review-block > li {
+    padding: 5px 15px 5px 0;
+
+    .review-body {
+      color: #aaa;
     }
   }
 }
 
 .category-photos {
-
+  padding: 5px 0 0 15px;
   .photo-block {
     width: 300px;
   }
 
   li {
-    padding: 2px;
+    padding: 4px;
+  }
+
+  img {
+    border-radius: 0;
   }
 }
 
 .category-new-business {
 
   .biz-storefronts {
-    margin: 10px;
+    margin-right: 15px;
+  }
+
+  .biz-storefronts:last-child {
+    margin-right: 0;
   }
 }
 
 .category-search-filters {
   font-size: 12px;
-//  padding: 5px;
+
   .column {
     width: 150px;
   }
 
-
-
   .side-neighborhoods {
     width: 300px;
-    border: 1px solid purple;
     padding: 5px 15px 0 0;
   }
 
   .side-features {
     width: 300px;
-    border: 1px solid pink;
   }
   li {
-//    margin: 5px;
-padding: 2px 0;
+    padding: 2px 0;
   }
 }
 
