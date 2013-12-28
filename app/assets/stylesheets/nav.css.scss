@@ -7,12 +7,13 @@
 }
 
 .top-header {
-  width: 1000px;
+  width: 960px;
+  padding: 10px 20px 0 20px;
   margin: auto;
   text-align: 80px;
 
   .search-nav {
-    padding-top: 10px;
+//    padding-top: 10px;
   }
 
   .nav-submit {
@@ -47,7 +48,7 @@
     input {
       background: transparent;
       font-size: 14px;
-      width: 300px;
+      width: 250px;
       border: 0;
       outline: none;
     }
@@ -72,7 +73,7 @@
     select {
       background: transparent;
       font-size: 14px;
-      width: 300px;
+      width: 250px;
       border: 0;
       outline: none;
       -webkit-appearance: none;
@@ -85,7 +86,7 @@
 .nav-links {
 //  border: 1px solid green;
   float: left;
-
+  margin-top: 3px;
   li {
     float: left;
     padding: 8px 24px 8px 0;
