@@ -1,12 +1,8 @@
 class Business < ActiveRecord::Base
   # attr_accessible :title, :body
-  include PgSearch
-
-  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids,:latitude, :longitude
+  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids, :latitude, :longitude
 
   validates :name, :country_id, presence: true
-
-  pg_search_scope :search_by_name, against: :name
 
   geocoded_by :full_street_address
   after_validation :geocode

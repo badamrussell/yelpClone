@@ -15,46 +15,80 @@ module SearchesHelper
     words
   end
 
-  def rails_query(original_set, search_params, search_location)
+  def q_set(size)
+    size.times.map { "?" }.join(",")
+  end
+
+  def text_query(search_terms)
+    search_terms ||= ["bob"]
+    search_string = search_terms.join(" || ")
+
+    sql = <<-SQL
+      SELECT businesses.*,
+             ts_rank(
+               to_tsvector('simple', coalesce(businesses.name::text, '')),
+               to_tsquery('simple', ?),
+               0) AS search_rank
+      FROM businesses
+      WHERE to_tsvector('simple', coalesce(businesses.name::text, '')) @@
+            to_tsquery('simple', ?)
+      ORDER BY search_rank DESC
+    SQL
+
+    Business.find_by_sql([sql, search_string, search_string])
+  end
+
+  def rails_query(search_string, search_params, search_location)
     wheres = []
     joins = []
+    values = []
+    rank_string = ""
+    where_string = ""
 
+    if search_string.blank?
+      rank_string ="('0')"
+    else
+      rank_string = "ts_rank(to_tsvector('simple', coalesce(businesses.name::text, '')), to_tsquery('simple', ?), 0)"
+      where_string << "to_tsvector('simple', coalesce(businesses.name::text, '')) @@ to_tsquery('simple', ?)"
+      values << search_string
+      values << search_string
+    end
 
+    if search_params[:neighborhood_id]
+      set = search_params[:neighborhood_id].map { |n| n.to_i }
+      values += set
+
+      where_string << " AND " unless where_string.blank?
+      where_string << "neighborhood_id IN (#{q_set(set.length)})"
+    end
 
     if search_params[:feature_id]
-      joins << :features
-      set = search_params[:feature_id].map do |f|
-        f.to_i
-      end
-      wheres << " feature_id IN (#{set.join(',')})"
+      joins << "JOIN business_features ON businesses.id = business_features.business_id"
+      set = search_params[:feature_id].map { |f| f.to_i }
+      wheres << "business_features.feature_id IN (#{q_set(set.length)})"
+      values += set
     end
 
     if search_params[:category_id]
       joins << "JOIN business_categories ON businesses.id = business_categories.business_id"
       if search_params[:category_id].length == 1
-        wheres << " business_categories.category_id = #{search_params[:category_id][0].to_i}"
+        wheres << "business_categories.category_id = ?"
+        values << search_params[:category_id][0].to_i
       else
-        set = search_params[:category_id].map do |c|
-          c.to_i
-        end
-        wheres << " business_categories.id IN (#{set.join(',')})"
+        set = search_params[:category_id].map { |c| c.to_i }
+        wheres << "business_categories.id IN (#{q_set(set.length)})"
+        values += set
       end
     end
 
-
-    if search_params[:neighborhood_id]
-
-      set = search_params[:neighborhood_id].map do |n|
-        n.to_i
+    if search_params[:main_category_id]
+      unless search_params[:category_id]
+        joins << "JOIN business_categories ON businesses.id = business_categories.business_id"
       end
-      if wheres.empty?
-        wheres << " neighborhood_id IN (#{set.join(',')})"
-      else
-        wheres << " neighborhood_id IN (#{set.join(',')}) AND (#{wheres.join(' OR ')})"
-      end
+      joins << "JOIN categories ON categories.id = business_categories.category_id"
 
-    else
-      wheres = wheres.join(" OR ")
+      wheres << "categories.main_category_id = ?"
+      values << search_params[:main_category_id]
     end
 
     # if search_params[:price_range]
@@ -65,8 +99,26 @@ module SearchesHelper
     #   wheres << " price_range.id IN (#{set.join(',')})"
     # end
 
-    original_set.joins(joins).where(wheres).uniq
+    if wheres.length > 0
+      where_string << " AND " unless where_string.blank?
+      where_string << "(#{wheres.join(" OR ")})"
+    end
+    where_string = "WHERE " + where_string unless where_string.blank?
+    join_string = joins.join(" ")
 
+
+
+    sql = <<-SQL
+      SELECT DISTINCT businesses.*, #{rank_string} AS search_rank
+      FROM businesses
+      #{join_string}
+      #{where_string}
+      ORDER BY search_rank DESC
+    SQL
+
+    values.unshift(sql)
+
+    Business.find_by_sql(values)
   end
 
   def make_query(search_params, search_string, search_location)
