@@ -163,12 +163,19 @@ var placeSearch = function(event) {
 
 // ----------- GOOGLE MAPS API
 
-var getLocation = function(locations, myCallback) {
+var getLocation = function(locations, myCallback, fitToBounds) {
   var location_callback = function(geoPosition) {
     //console.log(geoPosition, geoPosition.coords)
     var coords = geoPosition.coords;
     var lat = locations[0].lat || coords.latitude;
     var lng = locations[0].lng || coords.longitude;
+
+    var newBounds;
+
+    if (fitToBounds) {
+      var ne =
+      var sw =
+    }
 
     var mapArray = loadGoogleMaps(lat, lng, locations);
 

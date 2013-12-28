@@ -26,11 +26,11 @@ class Area < ActiveRecord::Base
   end
 
   def self.rand_lat
-    "40.76#{rand(1000)}".to_f
+    "40.#{rand(7285554707745, 806561637529256)}".to_f
   end
 
   def self.rand_long
-    "-73.97#{rand(1000)}".to_f
+    -73.92829158691404 - ".#{rand(40000000000000)}".to_f
   end
 
 end

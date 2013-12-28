@@ -34,10 +34,11 @@
     padding: 2px;
     margin-right: 10px;
     background: #fff;
-    border-radius: 3px;
-    border: 1px solid #eee;
+    border-radius: 2px;
+//    border: 1px solid #eee;
     font-size: 14px;
-    // box-shadow: inset 0 0 1px 4px rgba(0,0,0,.2);
+    box-shadow: inset 0 0 8px 0 #000;
+
     label {
       background: transparent;
       font-weight: bold;
