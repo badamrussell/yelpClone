@@ -16,7 +16,6 @@ gem 'addressable', require: 'addressable/uri'
 gem 'geocoder'
 gem 'rest-client'
 gem 'kaminari'
-gem 'pg_search'
 
 group :development do
   gem 'pry-rails'

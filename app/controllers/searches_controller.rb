@@ -1,9 +1,11 @@
 class SearchesController < ApplicationController
+
+  extend SearchesHelper
+
   def show
     #search elements
     # find, near
     # sort, distance, neighborhoods, price, features, categories
-    extend SearchesHelper
 
 
     @breadcrumbs = { "Business" => search_url }
@@ -25,8 +27,6 @@ class SearchesController < ApplicationController
       main_name = MainCategory.find(crumb_category.id).name
       @breadcrumbs[main_name] = search_url(main_category_id: crumb_category.main_category_id)
       @breadcrumbs[crumb_category.name] = ""
-
-
     elsif params["main_category_id"]
       main_name = MainCategory.find(params["main_category_id"]).name
       @breadcrumbs[main_name] = ""
@@ -38,8 +38,26 @@ class SearchesController < ApplicationController
       @finer_filter_name = :main_category_id
     end
 
+    # use pg_search for text search?
     tempData = @find_desc.blank? ? Business : Business.search_by_name(@find_desc)
 
+    search_terms = ["bob"]
+    search_string = search_terms.join(" || ")
+
+    sql = <<-SQL
+      SELECT businesses.*,
+             ts_rank(
+               to_tsvector('simple', coalesce(businesses.name::text, '')),
+               to_tsquery('simple', ?),
+               0) AS search_rank
+      FROM businesses
+      WHERE to_tsvector('simple', coalesce(businesses.name::text, '')) @@
+            to_tsquery('simple', ?)
+      ORDER BY search_rank DESC
+    SQL
+
+    Business.find_by_sql([sql, search_string, search_string])
+    fail
     @results = if @search_params && @search_params.any?
       #find categories to display (top 5)
       if params[:search][:category_id]

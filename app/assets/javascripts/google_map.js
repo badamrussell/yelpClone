@@ -19,7 +19,7 @@ var boundsForLocations = function(locations){
     if (bounds.w < locations[i].lng) {
       bounds.w = locations[i].lng;
     }
-    console.log(locations[i].lat, locations[i].lng)
+    // console.log(locations[i].lat, locations[i].lng)
   }
 
   var ne = new google.maps.LatLng(bounds.n, bounds.e);
@@ -69,7 +69,7 @@ var getLocation = function(locations, myCallback) {
 
 
 var loadGoogleMaps = function(latitude, longitude, locations) {
-  console.log(latitude, longitude)
+  // console.log(latitude, longitude)
   var mapProp = {
     center: new google.maps.LatLng(latitude, longitude),
     zoom: 16,
