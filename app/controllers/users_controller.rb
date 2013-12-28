@@ -33,6 +33,7 @@ class UsersController < ApplicationController
       newLocation = @user.profile_locations.create(address: neighborhood, name: "Home", primary: true)
 
       sign_in(@user)
+      flash[:success] = ["Welcome to Yelp Clone!"]
       redirect_to user_url(@user.id)
     else
       flash[:errors] = ["invalid email and/or password"]

@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
     if @user
       sign_in(@user)
 
+      flash[:success] = ["Welcome back to Yelp Clone!"]
       redirect_to user_url(@user)
     else
       flash[:errors] = ["invalid credentials"]
@@ -20,6 +21,7 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
 
+    flash[:success] = ["Thanks for using Yelp Clone! See you again!"]
     redirect_to new_session_url
 
   end

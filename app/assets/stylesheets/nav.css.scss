@@ -1,4 +1,6 @@
 .top-header-wrapper {
+  position: relative;
+  z-index: 500;
   background: #c00;
   box-shadow: 0 0 2px 1px #333;
 
@@ -179,6 +181,31 @@ button.nav-search {
   }
 }
 
+.flash {
+//  width: 960px;
+//  margin: auto;
+//  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 14px;
+//  text-align: center;
+  color: #fff;
+//  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 2px 2px #aaa;
+  border-radius: 8px;
+}
+
+.flash-red {
+  @extend .flash;
+  background: #a00;
+  border: 2px solid #600;
+}
+
+.flash-green {
+  @extend .flash;
+  background: #0a0;
+  border: 2px solid #090;
+}
 
 .footer {
   margin: auto;

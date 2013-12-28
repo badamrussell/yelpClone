@@ -1,7 +1,10 @@
+
+<section class="main-content">
 <h3 class="red-title">Add a Business</h3>
-<hr>
+<%= render "layouts/errors" %>
 
 
 
 <%= render "businesses/form", method: "post", url: businesses_url, business: @business %>
 
+</section>

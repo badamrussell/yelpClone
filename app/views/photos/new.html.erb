@@ -1,5 +1,8 @@
+
+<section class="main-content">
 <h4>Add a picture for <strong><%= @business.name %></strong></h4>
 
+<%= render "layouts/errors" %>
 
 <form class="new-photo" action="<%= photos_url(business_id: @business.id) %>" method="post" enctype="multipart/form-data">
 
@@ -26,3 +29,4 @@
   <button class="red-btn" type="submit">Add Photo</button>
 
 </form>
+</section>

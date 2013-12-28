@@ -1,8 +1,12 @@
+
+<section class="main-content">
 <h3>New Compliment</h3>
 
+<%= render "layouts/errors" %>
 <%= render "review_compliments/form", {
       compliment: @compliment,
       review: @review,
       url: review_compliments_url,
       method: "post"
     } %>
+</section>
