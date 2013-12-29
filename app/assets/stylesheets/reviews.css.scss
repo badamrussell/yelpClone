@@ -99,10 +99,42 @@
 }
 
 .review-highlight {
-  p {
-    margin-left: 10px;
+  margin: 10px;
+  .avatar-med {
+
+    img {
+    }
   }
+
+
+
+  blockquote {
+    padding: 5px;
+    margin-left: 10px;
+    width: 86%;
+    float: left;
+    font-size: 18px;
+    line-height: 20px;
+
+
+
+  }
+
+//  p:before {
+//    position: absolute;
+//    left: 5px;
+//    content: '"';
+//    font-size: 20px;
+//  }
+//
+//  p:after {
+//    position: absolute;
+//    right: -5px;
+//    content: '"';
+//    font-size: 20px;
+//  }
 }
+
 
 
 .voted {
