@@ -25,4 +25,5 @@ class BusinessFeature < ActiveRecord::Base
     inverse_of: :business_features
   )
 
+
 end

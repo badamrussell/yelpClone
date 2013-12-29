@@ -756,8 +756,7 @@ FeatureCategory.create([
 
   {name: "Ambience", input_type: 2},
   {name: "Attire", input_type: 1},
-  {name: "Noise Level", input_type: 1},
-  {name: "Price Range", input_type: 3}
+  {name: "Noise Level", input_type: 1}
 ])
 
 Feature.create([
@@ -770,34 +769,34 @@ Feature.create([
   { name: "Good for Groups", feature_category_id: 1 },
   { name: "Good for Kids", feature_category_id: 1 },
   { name: "Take-out", feature_category_id: 1 },
-  { name: "Wheelchair Accessible", feature_category_id: 1 }, #10
+  { name: "Wheelchair Accessible", feature_category_id: 1 },
   { name: "Has TV", feature_category_id: 1 },
   { name: "Liked by 20-somethings:", feature_category_id: 1 },
 
-  { name: "Caters", feature_category_id: 1 },
+  { name: "Caters", feature_category_id: 1 }, #10
   { name: "Dogs Allowed", feature_category_id: 1 },
   { name: "Open 24 Hours", feature_category_id: 1 },
   { name: "Order at Counter", feature_category_id: 1 },
   { name: "Takes Reservations", feature_category_id: 1 },
   { name: "Waiter Service", feature_category_id: 1 },
 
-  { name: "Full Bar", feature_category_id: 2 }, #20
+  { name: "Full Bar", feature_category_id: 2 },
   { name: "Happy Hour", feature_category_id: 2 },
   { name: "Beer & Wine Only", feature_category_id: 2 },
   { name: "BYOB", feature_category_id: 2 },
-  { name: "Corkage", feature_category_id: 2 },
+  { name: "Corkage", feature_category_id: 2 }, #20
 
   { name: "Breakfast", feature_category_id: 3 },
   { name: "Brunch", feature_category_id: 3 },
   { name: "Lunch", feature_category_id: 3 },
   { name: "Dinner", feature_category_id: 3 },
   { name: "Dessert", feature_category_id: 3 },
-  { name: "Late Night", feature_category_id: 3 }, #30
+  { name: "Late Night", feature_category_id: 3 },
 
   { name: "DJ", feature_category_id: 4 },
   { name: "Jukebox", feature_category_id: 4 },
   { name: "Karaoke", feature_category_id: 4 },
-  { name: "Live", feature_category_id: 4 },
+  { name: "Live", feature_category_id: 4 }, #30
 
   { name: "Street", feature_category_id: 5 },
   { name: "Garage", feature_category_id: 5 },
@@ -805,13 +804,13 @@ Feature.create([
   { name: "Private-Lot", feature_category_id: 5 },
   { name: "Validated", feature_category_id: 5 },
 
-  { name: "Free", feature_category_id: 6 }, #40
+  { name: "Free", feature_category_id: 6 },
   { name: "Paid", feature_category_id: 6 },
 
   { name: "Outdoor Area / Patio Only", feature_category_id: 7 },
 
   { name: "Divey", feature_category_id: 8 },
-  { name: "Hipster", feature_category_id: 8 },
+  { name: "Hipster", feature_category_id: 8 }, #40
   { name: "Casual", feature_category_id: 8 },
   { name: "Touristy", feature_category_id: 8 },
   { name: "Trendy", feature_category_id: 8 },
@@ -827,12 +826,7 @@ Feature.create([
   { name: "Quiet", feature_category_id: 10 },
   { name: "Average", feature_category_id: 10 },
   { name: "Loud", feature_category_id: 10 },
-  { name: "Very Loud", feature_category_id: 10 },
-
-  {name: "$", feature_category_id: 11 },
-  {name: "$$", feature_category_id: 11 },
-  {name: "$$$", feature_category_id: 11 },
-  {name: "$$$$", feature_category_id: 11 }
+  { name: "Very Loud", feature_category_id: 10 }
 ])
 
 
@@ -929,7 +923,8 @@ ReviewCompliment.create([
   Review.create(  rating: rand(5)+1,
                   user_id: rand(20)+1,
                   business_id: business_id,
-                  body: Faker::Lorem.paragraph
+                  body: Faker::Lorem.paragraph,
+                  price_range: rand(5)
                 )
 
   ReviewCompliment.create(  compliment_id: rand(1..11),

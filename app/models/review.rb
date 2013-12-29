@@ -4,9 +4,9 @@ class Review < ActiveRecord::Base
   validates :rating, :user_id, :business_id, :body, presence: true
 
   before_destroy :destroy_features
-  after_create { update_rating(1) }
-  after_destroy { update_rating(-1) }
-  after_update { update_rating(0) }
+  after_create { update_data(1) }
+  after_destroy { update_data(-1) }
+  after_update { update_data(0) }
 
   belongs_to(
     :user,
@@ -84,15 +84,33 @@ class Review < ActiveRecord::Base
 
   has_many :lists, through: :list_review, source: :list
 
-  def update_rating(increment)
-    total = self.business.reviews.inject(0) { |sum, rev| sum + rev.rating }
-    count = self.business.reviews_count + increment
+  def update_data(increment)
+    rating_total = 0
+    rating_count = self.business.reviews_count + increment
+    price_range_total = 0
+    price_range_count = increment
 
-    self.business.rating_avg = if count > 0
-        total / ((increment + self.business.reviews_count).to_f)
-      else
-        0
+    self.business.reviews.each do |rev|
+      rating_total += rev.rating
+
+      if rev.price_range > 0
+        price_range_total += rev.price_range
+        price_range_count += 1
       end
+    end
+
+    self.business.rating_avg = if rating_count > 0
+      rating_total / (rating_count.to_f)
+    else
+      0
+    end
+
+    self.business.price_range_avg = if price_range_count > 0
+      new_price = (price_range_total / price_range_count).round
+      new_price == 0 ? 1 : new_price
+    else
+      0
+    end
 
     self.business.save
   end

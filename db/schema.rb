@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20131229014633) do
     t.string   "phone_number"
     t.string   "website"
     t.float    "rating_avg",      :default => 0.0
+    t.integer  "price_range_avg", :default => 0
     t.integer  "store_front_id"
     t.integer  "reviews_count",   :default => 0
     t.integer  "photos_count",    :default => 0
@@ -208,29 +209,21 @@ ActiveRecord::Schema.define(:version => 20131229014633) do
   add_index "photo_details", ["user_id"], :name => "index_photo_details_on_user_id"
 
   create_table "photos", :force => true do |t|
-    t.integer  "user_id",           :null => false
+    t.integer  "user_id",                          :null => false
     t.integer  "business_id"
     t.string   "caption"
-    t.integer  "store_front_count"
+    t.integer  "store_front_count", :default => 0
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "review_id"
   end
 
   add_index "photos", ["business_id"], :name => "index_photos_on_business_id"
   add_index "photos", ["user_id"], :name => "index_photos_on_user_id"
-
-  create_table "price_ranges", :force => true do |t|
-    t.string   "name"
-    t.string   "color"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.string   "description"
-  end
 
   create_table "profile_locations", :force => true do |t|
     t.integer  "user_id",                       :null => false
@@ -273,9 +266,9 @@ ActiveRecord::Schema.define(:version => 20131229014633) do
     t.integer  "user_id"
     t.integer  "business_id"
     t.text     "body"
-    t.integer  "price_range"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "price_range", :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "reviews", ["business_id"], :name => "index_reviews_on_business_id"
