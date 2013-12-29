@@ -13,9 +13,14 @@
 <script>
   $(function() {
     $(".star-rating-container").click(".star-box", function(event){
-      $("#star-rated").removeClass();
-      $("#star-rated").addClass("star-xlarge-"+$(event.target).data("id"))
-      $("#review_rating").attr("value", $(event.target).data("id"))
+      var $target = $(event.target);
+
+      if ($target.data("id")) {
+        $("#star-rated").removeClass();
+        $("#star-rated").addClass("star-xlarge-"+$target.data("id"))
+        $("#review_rating").attr("value", $target.data("id"))
+      }
+
     });
   });
 
