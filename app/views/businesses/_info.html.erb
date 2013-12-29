@@ -6,7 +6,7 @@
 			<table>
 				<tr>
 					<td></td>
-					<td>Today <strong><%= business.now_hours %></strong> 
+					<td>Today <strong><%= business.now_hours %></strong>
 						<% if business.is_open? %>
 							<strong class="green">Open</strong>
 						<% else %>
@@ -17,8 +17,8 @@
 				<!-- <tr><td></td><td></td></tr> -->
 				<tr>
 					<td><%= render "widgets/price_range" %></td>
-					<td> Price Range 
-						<strong><%= PriceRange.find(business.price_range).description %></strong>
+					<td> Price Range
+						<strong><%= business.price_range > 0 ? PriceRange.find(business.price_range).description : "?" %></strong>
 					</td>
 				</tr>
 			</table>
@@ -48,7 +48,7 @@
 		<ul>
 			<% business.features.each do |feature| %>
 			<li>
-				
+
 				<% if feature.feature_category_id == 1 %>
 					<%= feature.name %>
 					<strong><%= "Yes" %></strong>
@@ -56,7 +56,7 @@
 					<%= FeatureCategory.find(feature.feature_category_id).name %>
 					<strong><%= feature.name %></strong>
 				<% end %>
-				
+
 			</li>
 		<% end %>
 		</ul>

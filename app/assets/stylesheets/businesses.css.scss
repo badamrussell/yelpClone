@@ -4,6 +4,7 @@
 
 .top-shelf {
   position: relative;
+  padding-top: 20px;
   width: 960px;
   margin: auto;
 
@@ -15,7 +16,7 @@
     font-size: 14px;
 
     h1.page-title a {
-      font-size: 32px;
+      font-size: 30px;
       color: #333;
     }
     .med-link a {
@@ -34,8 +35,11 @@
     }
   }
 
-  .business-header {
+  .business-page-header {
 
+    .business-header {
+      width: 500px;
+    }
   }
 
   .business-interact {

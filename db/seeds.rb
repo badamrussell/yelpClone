@@ -738,12 +738,12 @@ PhotoDetail.create([
   {helpful_id:2, photo_id:4, store_front: false, user_id:3}
 ])
 
-# PriceRange.create([
-#   {name: "$", color: "green", description: "$5-10"},
-#   {name: "$$", color: "green", description: "$11-30"},
-#   {name: "$$$", color: "green", description: "$31-60"},
-#   {name: "$$$$", color: "green", description: "$61+"}
-# ])
+PriceRange.create([
+  {name: "$", description: "$5-10"},
+  {name: "$$", description: "$11-30"},
+  {name: "$$$", description: "$31-60"},
+  {name: "$$$$", description: "$61+"}
+])
 
 FeatureCategory.create([
   {name: "General Features", input_type: 1},

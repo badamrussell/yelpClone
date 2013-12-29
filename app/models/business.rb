@@ -236,9 +236,7 @@ class Business < ActiveRecord::Base
   end
 
   def price_range
-    business_features
-
-    3
+    price_range_avg
   end
 
   def avatar_tag(size_name="icon", link = "")
