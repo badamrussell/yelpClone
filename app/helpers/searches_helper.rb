@@ -47,7 +47,7 @@ module SearchesHelper
     rank_string = ""
     where_string = ""
     order_string = ""
-
+    # fail
     if search_string.blank?
       rank_string ="('0')"
     else
