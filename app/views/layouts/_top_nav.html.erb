@@ -8,14 +8,14 @@
       <form class="form-top-search left" action="<%= search_url %>" method="get">
         <div class="nav-find">
           <label for="find_desc">Find</label>
-          <input type="text" name="find_desc" value="" id="find">
+          <input type="text" name="find_desc" value="<%= @find_desc %>" id="find">
         </div>
 
         <div class="nav-near">
           <label for="near">Near</label>
           <select id="near" name="find_loc">
             <% City.all.each do |c| %>
-              <option value="<%= c.id %>"><%= c.name %></option>
+              <option value="<%= c.id %>" <%= "checked" if c.id == @find_loc %>><%= c.name %></option>
             <% end %>
           </select>
         </div>

@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(:version => 20131224012045) do
   add_index "business_hours", ["business_id"], :name => "index_business_hours_on_business_id"
 
   create_table "businesses", :force => true do |t|
-    t.integer  "country_id",      :null => false
-    t.string   "name",            :null => false
+    t.integer  "country_id",                       :null => false
+    t.string   "name",                             :null => false
     t.string   "address1"
     t.string   "address2"
     t.string   "city"
@@ -75,10 +75,13 @@ ActiveRecord::Schema.define(:version => 20131224012045) do
     t.integer  "zip_code"
     t.string   "phone_number"
     t.string   "website"
+    t.float    "rating_avg",      :default => 0.0
+    t.integer  "avatar_id"
+    t.integer  "reviews_count",   :default => 0
+    t.integer  "photos_count",    :default => 0
     t.integer  "neighborhood_id"
-    t.string   "gps"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "store_front_id"
     t.float    "latitude"
     t.float    "longitude"
@@ -318,6 +321,9 @@ ActiveRecord::Schema.define(:version => 20131224012045) do
     t.string   "profile_photo_content_type"
     t.integer  "profile_photo_file_size"
     t.datetime "profile_photo_updated_at"
+    t.integer  "reviews_count"
+    t.integer  "photos_count"
+    t.integer  "review_compliments_count"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
     t.string   "img_url"

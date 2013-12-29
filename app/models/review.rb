@@ -4,19 +4,24 @@ class Review < ActiveRecord::Base
   validates :rating, :user_id, :business_id, :body, presence: true
 
   before_destroy :destroy_features
+  after_create { update_rating(1) }
+  after_destroy { update_rating(-1) }
+  after_update { update_rating(0) }
 
   belongs_to(
     :user,
     class_name: "User",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    counter_cache: true
   )
 
   belongs_to(
     :business,
     class_name: "Business",
     primary_key: :id,
-    foreign_key: :business_id
+    foreign_key: :business_id,
+    counter_cache: true
   )
 
   has_many(
@@ -78,6 +83,24 @@ class Review < ActiveRecord::Base
   )
 
   has_many :lists, through: :list_review, source: :list
+
+  def update_rating(increment)
+    total = self.business.reviews.inject(0) { |sum, rev| sum + rev.rating }
+    count = self.business.reviews_count + increment
+    puts "TOTAL #{total}"
+    puts "COUNT #{count} >> #{increment}"
+    puts "-------------------------"
+
+    self.business.rating_avg = if count > 0
+        total / ((increment + self.business.reviews_count).to_f)
+      else
+        0
+      end
+
+    self.business.save
+  end
+
+
 
   def snippet(size = 60)
 

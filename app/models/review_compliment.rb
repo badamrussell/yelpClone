@@ -21,6 +21,7 @@ class ReviewCompliment < ActiveRecord::Base
     :user,
     class_name: "User",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    counter_cache: true
   )
 end

@@ -14,7 +14,6 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'addressable', require: 'addressable/uri'
 gem 'geocoder'
-gem 'rest-client'
 gem 'kaminari'
 
 group :development do

@@ -2,7 +2,8 @@
   <section class="filter-header group">
     <header class="result-header">
       <div class="search-string group">
-        <h2><strong><%= "#{@find_desc} " unless @find_desc.blank? %></strong><%= @find_loc.blank? ? City.find(1).name : City.find(@find_loc).name %></h2>
+        <h2><strong><%= "#{@find_desc} " unless @find_desc.blank? %></strong>
+          <%= @find_loc.blank? ? City.find(1).name : City.find(@find_loc).name %></h2>
         <% if @results.length > 0 %>
           <em class="right"><%= page_entries_info @results %></em>
         <% else %>
@@ -53,7 +54,7 @@
     <div class="filter-hide"><a class="med-link">Hide Filters</a></div>
   </section>
 
-  <form class="form-fine-filters" action="<%= search_url( @saved_params) %>" method="get">
+  <form id="form-fine-filters" action="<%= search_url( @saved_params) %>" method="get" data-remote="true">
     <input type="hidden" name="find_desc" value="<%= @find_desc %>">
     <input type="hidden" name="find_loc" value="<%= @find_loc %>">
     <section class="search-filter-container group">
@@ -231,7 +232,7 @@
           <button class="btn-link" type="button" onclick='showFilterPopup("#category-popup", "#category-selections")'>More Categories</button>
         </section>
       <% end %>
-      <input id="fine-search-submit" type="submit" name="Submit">
+
     </section>
   </form>
 </nav>

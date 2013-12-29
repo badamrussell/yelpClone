@@ -7,14 +7,16 @@ class Photo < ActiveRecord::Base
     :user,
     class_name: "User",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    counter_cache: true
   )
 
   belongs_to(
     :business,
     class_name: "Business",
     primary_key: :id,
-    foreign_key: :business_id
+    foreign_key: :business_id,
+    counter_cache: true
   )
 
   has_many(

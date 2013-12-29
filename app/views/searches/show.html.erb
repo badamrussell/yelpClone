@@ -75,3 +75,16 @@
 <script src="http://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>&sensor=false"></script>
 
 </section>
+
+<script>
+  $(function() {
+    $("#form-fine-filters").change( function(event) {
+      document.getElementById("form-fine-filters").submit();
+    });
+
+    $("#form-fine-filters").on("ajax:success", function(event, data) {
+      console.log(data)
+
+    });
+  });
+</script>
