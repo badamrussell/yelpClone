@@ -47,7 +47,7 @@ module SearchesHelper
     rank_string = ""
     where_string = ""
     order_string = ""
-    # fail
+
     if search_string.blank?
       rank_string ="('0')"
     else
@@ -97,13 +97,12 @@ module SearchesHelper
       values << search_params[:main_category_id]
     end
 
-    # if search_params[:price_range]
-    #   joins << :reviews unless joins.include?(:reviews)
-    #   set = search_params[:price_range].map do |p|
-    #     search_params[:price_range]
-    #   end
-    #   wheres << " price_range.id IN (#{set.join(',')})"
-    # end
+    if search_params[:price_range]
+      set = search_params[:price_range].map { |p| p.to_i }
+
+      wheres << " businesses.price_range_avg IN (#{q_set(set.length)})"
+      values += set
+    end
 
     if search_params[:sort]
       if search_params[:sort] == "rated"
