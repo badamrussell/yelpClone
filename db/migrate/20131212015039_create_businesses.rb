@@ -11,6 +11,7 @@ class CreateBusinesses < ActiveRecord::Migration
       t.string :phone_number
       t.string :website
       t.float :rating_avg, default: 0
+      t.integer :price_range_avg, default: 0
       t.integer :store_front_id
       t.integer :reviews_count, default: 0
       t.integer :photos_count, default: 0

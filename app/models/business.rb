@@ -248,6 +248,7 @@ class Business < ActiveRecord::Base
   end
 
   def now_hours
+    # Sunday is 0
     d = business_hours.where(day_id: Time.now.wday)[0]
 
     d ? d.open_hours : ""

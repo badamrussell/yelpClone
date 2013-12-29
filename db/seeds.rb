@@ -443,7 +443,7 @@ open_times = [6.hours, 7.5.hours.to_i, 8.hours, 9.hours]
 close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 
 (1..3).each do |i|
-  avail_days = [1,2,3,4,5,6,7]
+  avail_days = [0,1,2,3,4,5,6]
 
   5.times do
     d = avail_days.shuffle!.pop
@@ -467,15 +467,15 @@ end
     {business_id: b.id, category_id: rand(61..100)}
   ])
 
-  avail_days = [1,2,3,4,5,6,7]
-  
+  avail_days = [0,1,2,3,4,5,6]
+
 
   5.times do
     d = avail_days.shuffle!.pop
     BusinessHour.create( business_id: b.id, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
   end
 
-  
+
   Photo.create(user_id: rand(1..20), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..12)}.jpg"))
 end
 
@@ -738,12 +738,12 @@ PhotoDetail.create([
   {helpful_id:2, photo_id:4, store_front: false, user_id:3}
 ])
 
-PriceRange.create([
-  {name: "$", color: "green", description: "$5-10"},
-  {name: "$$", color: "green", description: "$11-30"},
-  {name: "$$$", color: "green", description: "$31-60"},
-  {name: "$$$$", color: "green", description: "$61+"}
-])
+# PriceRange.create([
+#   {name: "$", color: "green", description: "$5-10"},
+#   {name: "$$", color: "green", description: "$11-30"},
+#   {name: "$$$", color: "green", description: "$31-60"},
+#   {name: "$$$$", color: "green", description: "$61+"}
+# ])
 
 FeatureCategory.create([
   {name: "General Features", input_type: 1},
@@ -756,7 +756,8 @@ FeatureCategory.create([
 
   {name: "Ambience", input_type: 2},
   {name: "Attire", input_type: 1},
-  {name: "Noise Level", input_type: 1}
+  {name: "Noise Level", input_type: 1},
+  {name: "Price Range", input_type: 3}
 ])
 
 Feature.create([
@@ -826,7 +827,12 @@ Feature.create([
   { name: "Quiet", feature_category_id: 10 },
   { name: "Average", feature_category_id: 10 },
   { name: "Loud", feature_category_id: 10 },
-  { name: "Very Loud", feature_category_id: 10 }
+  { name: "Very Loud", feature_category_id: 10 },
+
+  {name: "$", feature_category_id: 11 },
+  {name: "$$", feature_category_id: 11 },
+  {name: "$$$", feature_category_id: 11 },
+  {name: "$$$$", feature_category_id: 11 }
 ])
 
 
@@ -943,11 +949,11 @@ ReviewCompliment.create([
       feat = features.shuffle.pop
 
       val = if category.input_type == 1
-        (rand(2) == 1 ? true : false) 
+        (rand(2) == 1 ? true : false)
       else
         true
       end
-      
+
       BusinessFeature.create(business_id: business_id, feature_id: feat.id, value: true, review_id: review_id)
       feat_cnt -= 1
     end
