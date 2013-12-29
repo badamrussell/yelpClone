@@ -11,8 +11,8 @@ class PhotosController < ApplicationController
 
     if @photo.save
       if params[:business_id]
-        business = Business.find(params[:business_id])
-        business.update_attribute(:store_front_id, @photo.id) if business.missing_store_front?
+        # business = Business.find(params[:business_id])
+        # business.update_attribute(:avatar_id, @photo.id) if business.missing_store_front?
         redirect_to business_url(params[:business_id])
       else
         redirect_to user_url(current_user.id)

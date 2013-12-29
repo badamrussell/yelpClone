@@ -1,7 +1,7 @@
 class Business < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids, :latitude, :longitude
-  attr_accessible :rating_avg, :avatar_id, :reviews_count, :photos_count
+  attr_accessible :rating_avg, :store_front_id, :reviews_count, :photos_count
 
   validates :name, :country_id, presence: true
 
@@ -193,22 +193,7 @@ class Business < ActiveRecord::Base
   end
 
   def avatar
-    # store_front_id ? self.store_front : "/assets/temp/photo_med_square.jpg"
-    fronts = store_front_search.map { |pd| pd.photo.url }
-
-    fronts << "/assets/temp/default_house.jpg" if fronts.empty?
-
-    fronts[0]
-  end
-
-  def avatar_photo
-    # store_front_id ? self.store_front : "/assets/temp/photo_med_square.jpg"
-    fronts = store_front_search.map { |pd| pd.photo }
-    if fronts.empty?
-      Photo.new
-    else
-      fronts[0]
-    end
+    store_front_id ? Photo.find(store_front_id).url : "/assets/temp/default_house.jpg"
   end
 
   def category_list
@@ -224,15 +209,15 @@ class Business < ActiveRecord::Base
   end
 
   def main_photos
-   fronts = store_front_search.map { |pd| pd.photo }
+   # fronts = store_front_search.map { |pd| pd.photo }
+   #
+   #  photos.each do |p|
+   #    break if fronts.length > 2
+   #    next if fronts.include?(p)
+   #    fronts << p
+   #  end
 
-    photos.each do |p|
-      break if fronts.length > 2
-      next if fronts.include?(p)
-      fronts << p
-    end
-
-    fronts
+    photos
   end
 
   def missing_store_front?
@@ -273,7 +258,4 @@ class Business < ActiveRecord::Base
 
   private
 
-  def store_front_search
-    photo_details.where(store_front: true)
-  end
 end

@@ -1,7 +1,11 @@
 class Photo < ActiveRecord::Base
   attr_accessible :business_id, :user_id, :review_id, :file, :caption
+  attr_accessible :store_front_count
 
   validates :user_id, presence: true
+  after_create { update_details(1) }
+  after_destroy { update_details(-1) }
+  after_update { update_details(0) }
 
   belongs_to(
     :user,
@@ -34,9 +38,32 @@ class Photo < ActiveRecord::Base
   )
 
   has_attached_file :file, styles: {
-    thumbnail: "40x40#",
-    icon: "90x90#"
+    icon_s: "30x30#",
+    icon_m: "60x60#",
+    icon_l: "90x90#"
   }
+
+  def update_details(increment)
+    if self.business_id
+      biz = self.business
+
+      if biz.missing_store_front?
+        biz.update_attribute(:store_front_id, self.id)
+      elsif biz.store_front_id == self.id
+
+      else
+        details = photo_details.where(store_front: true).order(:store_front_count)
+
+        if details.empty?
+          biz.update_attribute(:store_front_id, self.id)
+        elsif details[0].id == biz.store_front_id
+
+        else
+          biz.update_attribute(:store_front_id, details[0].id)
+        end
+      end
+    end
+  end
 
   def is_store_front?
     business.store_front_id == self.id

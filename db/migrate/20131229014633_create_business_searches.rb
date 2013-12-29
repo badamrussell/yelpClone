@@ -8,5 +8,13 @@ class CreateBusinessSearches < ActiveRecord::Migration
     end
 
     add_index :business_searches, :business_id
+
+    execute <<-SQL
+      CREATE INDEX word_search_idx
+      ON business_searches
+      USING gin(words);
+    SQL
+
+
   end
 end

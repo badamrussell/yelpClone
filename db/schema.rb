@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20131229014633) do
   end
 
   add_index "business_searches", ["business_id"], :name => "index_business_searches_on_business_id"
+  add_index "business_searches", ["words"], :name => "word_search_idx"
 
   create_table "businesses", :force => true do |t|
     t.integer  "country_id",                       :null => false
@@ -85,13 +86,12 @@ ActiveRecord::Schema.define(:version => 20131229014633) do
     t.string   "phone_number"
     t.string   "website"
     t.float    "rating_avg",      :default => 0.0
-    t.integer  "avatar_id"
+    t.integer  "store_front_id"
     t.integer  "reviews_count",   :default => 0
     t.integer  "photos_count",    :default => 0
     t.integer  "neighborhood_id"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-    t.integer  "store_front_id"
     t.float    "latitude"
     t.float    "longitude"
   end
@@ -211,6 +211,7 @@ ActiveRecord::Schema.define(:version => 20131229014633) do
     t.integer  "user_id",           :null => false
     t.integer  "business_id"
     t.string   "caption"
+    t.integer  "store_front_count"
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"

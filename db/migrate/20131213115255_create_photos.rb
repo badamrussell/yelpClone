@@ -4,6 +4,7 @@ class CreatePhotos < ActiveRecord::Migration
       t.integer :user_id, null: false
       t.integer :business_id
       t.string :caption
+      t.integer :store_front_count, default: 0
       t.attachment :file
 
       t.timestamps
