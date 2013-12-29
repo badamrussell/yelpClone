@@ -11,10 +11,8 @@
 
     <fieldset class="review-set group">
       <div class="review-area left">
-        <div class="rating-container form-text-input">
-          <label class="med-title" for="review_rating">Rating</label>
-          <input type="text" name="review[rating]" value="<%= review.rating %>" id="review_rating">
-        </div>
+
+        <%= render "widgets/choose_rating", rating: review.rating || 0 %>
 
         <div class="form-text-input">
           <label class="med-title" for="review_body">Your review</label>

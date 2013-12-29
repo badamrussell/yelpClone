@@ -87,9 +87,6 @@ class Review < ActiveRecord::Base
   def update_rating(increment)
     total = self.business.reviews.inject(0) { |sum, rev| sum + rev.rating }
     count = self.business.reviews_count + increment
-    puts "TOTAL #{total}"
-    puts "COUNT #{count} >> #{increment}"
-    puts "-------------------------"
 
     self.business.rating_avg = if count > 0
         total / ((increment + self.business.reviews_count).to_f)

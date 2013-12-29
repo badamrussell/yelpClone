@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131224012045) do
+ActiveRecord::Schema.define(:version => 20131229014633) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -64,6 +64,15 @@ ActiveRecord::Schema.define(:version => 20131224012045) do
   end
 
   add_index "business_hours", ["business_id"], :name => "index_business_hours_on_business_id"
+
+  create_table "business_searches", :force => true do |t|
+    t.integer  "business_id", :null => false
+    t.tsvector "words"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "business_searches", ["business_id"], :name => "index_business_searches_on_business_id"
 
   create_table "businesses", :force => true do |t|
     t.integer  "country_id",                       :null => false

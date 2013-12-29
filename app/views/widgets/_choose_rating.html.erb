@@ -1,0 +1,22 @@
+<% scaled_rating = rating.to_i %>
+
+<div class="star-rating-container group">
+  <a href="#" class="star-box choice-1" data-id="1"></a>
+  <a href="#" class="star-box choice-2" data-id="2"></a>
+  <a href="#" class="star-box choice-3" data-id="3"></a>
+  <a href="#" class="star-box choice-4" data-id="4"></a>
+  <a href="#" class="star-box choice-5" data-id="5"></a>
+  <div id="star-rated" class="star-xlarge-<%= scaled_rating %>"></div>
+  <input type="hidden" name="review[rating]" value="0" id="review_rating">
+</div>
+
+<script>
+  $(function() {
+    $(".star-rating-container").click(".star-box", function(event){
+      $("#star-rated").removeClass();
+      $("#star-rated").addClass("star-xlarge-"+$(event.target).data("id"))
+      $("#review_rating").attr("value", $(event.target).data("id"))
+    });
+  });
+
+</script>

@@ -299,3 +299,61 @@
   width: 108px;
   background:url("/assets/real/stars_map.png") -2px -407px;
 }
+
+.star-rating-container {
+  margin: 10px 0;
+
+  .star-box {
+    float: left;
+    padding: 14px 16px;
+    background: transparent;
+  }
+
+  .choice-1:hover ~ #star-rated {
+    background:url("/assets/real/stars_large_map.png") 0px 174px;
+  }
+  .choice-2:hover ~ #star-rated {
+    background:url("/assets/real/stars_large_map.png") 0px 138px;
+  }
+  .choice-3:hover ~ #star-rated {
+    background:url("/assets/real/stars_large_map.png") 0px 102px;
+  }
+  .choice-4:hover ~ #star-rated {
+    background:url("/assets/real/stars_large_map.png") 0px 66px;
+  }
+  .choice-5:hover ~ #star-rated {
+    background:url("/assets/real/stars_large_map.png") 0px 30px;
+  }
+}
+
+.star-xlarge-0 {
+  height: 30px;
+  width: 163px;
+  background:url("/assets/real/stars_large_map.png") 0px 0px;
+}
+.star-xlarge-1 {
+  height: 30px;
+  width: 163px;
+  background:url("/assets/real/stars_large_map.png") 0px 174px;
+}
+.star-xlarge-2 {
+  height: 30px;
+  width: 163px;
+  background:url("/assets/real/stars_large_map.png") 0px 138px;
+}
+.star-xlarge-3 {
+  height: 30px;
+  width: 163px;
+  background:url("/assets/real/stars_large_map.png") 0px 102px;
+}
+.star-xlarge-4 {
+  height: 30px;
+  width: 163px;
+  background:url("/assets/real/stars_large_map.png") 0px 66px;
+}
+.star-xlarge-5 {
+  height: 30px;
+  width: 163px;
+  background:url("/assets/real/stars_large_map.png") 0px 30px;
+}
+
