@@ -1,10 +1,4 @@
 <% size ||= "med" %>
-<% scaled_rating = (rating * 2).to_i %>
 <div class="rating-container group left">
-  <!-- <ul class="stars-select-boxes">
-    <%# 5.times do |star| %>
-      <li><a href="#" class="anc"></a></li>
-    <%# end %>
-  </ul> -->
-  <div class="star-<%= size %>-<%= scaled_rating %>"></div>
+  <div class="star-<%= size %>-<%= s_rating %>"></div>
 </div>

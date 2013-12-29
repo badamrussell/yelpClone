@@ -63,7 +63,7 @@
 
         <ul>
           <li>
-            <input type="radio" name="search[sort]" id="search_sort" value="" <%= "checked" if @search_params[:sort] == "" %>>
+            <input type="radio" name="search[sort]" id="search_sort" value="" <%= "checked" if @search_params[:sort].blank? %>>
             <a href="#"><label for="search_sort">Best Match</label></a>
           </li>
           <li>

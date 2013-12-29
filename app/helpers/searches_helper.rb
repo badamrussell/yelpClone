@@ -42,8 +42,11 @@ module SearchesHelper
     wheres = []
     joins = []
     values = []
+    orders = []
+
     rank_string = ""
     where_string = ""
+    order_string = ""
 
     if search_string.blank?
       rank_string ="('0')"
@@ -52,7 +55,10 @@ module SearchesHelper
       where_string << "to_tsvector('simple', coalesce(businesses.name::text, '')) @@ to_tsquery('simple', ?)"
       values << search_string
       values << search_string
+      orders << "search_rank DESC"
     end
+
+
 
     if search_params[:neighborhood_id]
       set = search_params[:neighborhood_id].map { |n| n.to_i }
@@ -99,13 +105,21 @@ module SearchesHelper
     #   wheres << " price_range.id IN (#{set.join(',')})"
     # end
 
+    if search_params[:sort]
+      if search_params[:sort] == "rated"
+        orders.unshift("businesses.rating_avg DESC")
+      elsif search_params[:sort] == "reviewed"
+        orders.unshift("businesses.reviews_count DESC")
+      end
+    end
+
     if wheres.length > 0
       where_string << " AND " unless where_string.blank?
       where_string << "(#{wheres.join(" OR ")})"
     end
     where_string = "WHERE " + where_string unless where_string.blank?
     join_string = joins.join(" ")
-
+    order_string = "ORDER BY #{orders.join(',')}" if orders.any?
 
 
     sql = <<-SQL
@@ -113,7 +127,7 @@ module SearchesHelper
       FROM businesses
       #{join_string}
       #{where_string}
-      ORDER BY search_rank DESC
+      #{order_string}
     SQL
 
     values.unshift(sql)

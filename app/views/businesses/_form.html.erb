@@ -95,7 +95,7 @@
   <!-- <input type="checkbox" name="business[is_opening]" value="true" id="business_is_opening"><label for="this_business_recently_opened_or_is_opening_soon">This business recently opened or is opening soon</label> -->
 
   <% if method == "post" %>
-    <%= render "forms/quick_review", title: nil, body: "" %>
+    <%= render "forms/quick_review", business: @business, title: nil, body: "" %>
     <button class="red-btn" type="submit">Add Business</button>
   <% else %>
     <button class="red-btn" type="submit">Update</button>

@@ -8,7 +8,7 @@
     <a href="<%= user_url(review.user.id) %>"><%= review.user.name %></a> reviewed <a href="<%= business_url(review.business.id) %>"><%= review.business.name %></a>
 
     <div class="rating-header group">
-      <%= render "widgets/rating", rating: review.rating %>
+      <%= render "widgets/rating", s_rating: review.rating_string %>
     </div>
 
     <div>

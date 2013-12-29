@@ -12,7 +12,7 @@
     </div>
 
     <div class="rating-header group">
-      <%= render "widgets/rating", rating: review.rating, size: "large" %>
+      <%= render "widgets/rating", s_rating: review.rating_string, size: "large" %>
       <time><%= review.created_at.strftime("%m/%d/%Y") %></time>
     </div>
 

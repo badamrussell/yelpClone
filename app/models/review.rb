@@ -157,4 +157,8 @@ class Review < ActiveRecord::Base
 
     tallies
   end
+
+  def rating_string
+    "#{self.rating}0"
+  end
 end

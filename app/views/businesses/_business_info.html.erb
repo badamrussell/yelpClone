@@ -4,7 +4,7 @@
   </div>
 
   <div class="rating-container group">
-    <%= render "widgets/rating", rating: business.rating, size: size || "med" %>
+    <%= render "widgets/rating", s_rating: business.rating_string, size: size || "med" %>
     <em class=""><%= business.reviews.length %> reviews</em>
   </div>
 

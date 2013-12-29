@@ -21,7 +21,7 @@
 
   <div class="business-review-side left">
     <div class="rating-header group">
-      <%= render "widgets/rating", rating: review.rating, size: "large" %>
+      <%= render "widgets/rating", s_rating: review.rating_string, size: "large" %>
       <span><%= review.created_at.strftime("%m/%d/%Y") %></span>
     </div>
 

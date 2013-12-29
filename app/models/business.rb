@@ -225,8 +225,14 @@ class Business < ActiveRecord::Base
   end
 
   def rating
-    return 0 if reviews.empty?
-    reviews.inject(0) { |sum, r| sum + r.rating}/reviews.length
+    self.rating_avg
+  end
+
+  def rating_string
+    l,r = self.rating.round(1).to_s.split(".")
+    r = r.to_i < 5 ? "0" : "5"
+
+    l + r
   end
 
   def price_range

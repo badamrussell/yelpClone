@@ -5,7 +5,7 @@
     <a href="#"><%= title %></a>
   <% end %>
 
-  <%= render "widgets/rating" %>
+  <%= render "widgets/rating", s_rating: business.rating_string %>
 
   <div class="form-text-input">
     <label class="med-title" for="review_rating">Rating</label>

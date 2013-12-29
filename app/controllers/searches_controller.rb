@@ -24,7 +24,8 @@ class SearchesController < ApplicationController
 
     search_params = params[:search] || {}
     search_params[:category_id] ||= params["category_id"]
-    search_params[:main_category_id] ||= params["main_category_id"]
+    search_params[:main_category_id] ||= params["main_category_id"] if search_params[:category_id].nil?
+    search_params[:sort] ||= params[:search]
 
     if params["category_id"]
       crumb_category = Category.find(params["category_id"])

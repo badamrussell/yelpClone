@@ -25,7 +25,7 @@
 
   <div class="review-review-side">
     <div class="rating-header group">
-      <%= render "widgets/rating", rating: review.rating %>
+      <%= render "widgets/rating", s_rating: review.rating_string %>
       <p><%= review.created_at.strftime("%m/%d/%Y") %></p>
 
       <ul class="review-extras">
@@ -48,7 +48,7 @@
 
     <div class="review-interest group">
       <%= render "widgets/review_upvote", review: review  %>
-      
+
       <% if review.user == current_user %>
         <a href="<%= edit_review_url(review.id) %>">Edit</a>
       <% else %>
