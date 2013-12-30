@@ -21,7 +21,6 @@ class Business < ActiveRecord::Base
     z1 = zip_code || ""
 
     "#{a1} #{a2} #{c1}, #{s1} #{z1}"
-
   end
 
   def set_neighborhood
@@ -34,7 +33,8 @@ class Business < ActiveRecord::Base
     self.city = addr[1].split(" ")[0]
     self.state = addr[2].split(" ")[0]
     self.zip_code = addr[2].split(" ")[1].to_i
-    #puts "#{address1}, #{address2}, #{state}, #{zip_code}"
+    puts "ADDRESS IS:"
+    puts "#{address1}, #{address2}, #{state}, #{zip_code}"
 
   end
 
@@ -264,3 +264,5 @@ class Business < ActiveRecord::Base
   private
 
 end
+
+#Business.create(country_id:1, name: "dos toros real", address1: "11 Carmine St", city: "New York", state: "NY", zip_code: 10014, neighborhood_id: 1)
