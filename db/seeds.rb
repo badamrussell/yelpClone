@@ -6,27 +6,26 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create( [
-  {email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell", profile_photo: File.new("app/assets/images/temp/user_0.jpg")},
-  {email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_16.jpg")},
-  {email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_9.jpg")}
-])
+user1 = User.create( email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
+user2 = User.create( email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_16.jpg") )
+user3 = User.create( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_9.jpg") )
+
 new_bio = UserBio.new()
-new_bio.user_id = 1
+new_bio.user_id = user1.id
 new_bio.save
 
 new_bio = UserBio.new()
-new_bio.user_id = 2
+new_bio.user_id = user2.id
 new_bio.save
 
 new_bio = UserBio.new()
-new_bio.user_id = 3
+new_bio.user_id = user3.id
 new_bio.save
 
 neighborhood = Area.determine_neighborhood()
-ProfileLocation.create(user_id: 1, address: neighborhood, name: "Home", primary: true)
-ProfileLocation.create(user_id: 2, address: neighborhood, name: "Home", primary: true)
-ProfileLocation.create(user_id: 3, address: neighborhood, name: "Home", primary: true)
+ProfileLocation.create(user_id: user1.id, address: neighborhood, name: "Home", primary: true)
+ProfileLocation.create(user_id: user2.id, address: neighborhood, name: "Home", primary: true)
+ProfileLocation.create(user_id: user3.id, address: neighborhood, name: "Home", primary: true)
 
 
 #<Business id: 113, country_id: 1, name: "Chipotle Restaurant", address1: "274 Madison Ave", address2: "New York, NY 10016", city: "New York", state: "NY", zip_code: 10003, phone_number: "", website: "", neighborhood_id: nil, gps: "", created_at: "2013-12-18 01:21:32", updated_at: "2013-12-18 01:21:32", store_front_id: nil, latitude: 40.751402, longitude: -73.980728>
@@ -38,9 +37,9 @@ Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitu
 Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
 Business.create(name: "Dos Toros", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
 
-Photo.create(user_id: rand(1..20), business_id: 1, file: File.new("app/assets/images/temp/user_14.jpg") )
-Photo.create(user_id: rand(1..20), business_id: 2, file: File.new("app/assets/images/temp/store_11.jpg") )
-Photo.create(user_id: rand(1..20), business_id: 3, file: File.new("app/assets/images/temp/store_10.jpg") )
+Photo.create(user_id: user1.id, business_id: 1, file: File.new("app/assets/images/temp/user_14.jpg") )
+Photo.create(user_id: user2.id, business_id: 2, file: File.new("app/assets/images/temp/store_11.jpg") )
+Photo.create(user_id: user3.id, business_id: 3, file: File.new("app/assets/images/temp/store_10.jpg") )
 
 BusinessCategory.create([
   {business_id: 1, category_id: 1},
@@ -476,7 +475,7 @@ end
   end
 
 
-  Photo.create(user_id: rand(1..20), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..12)}.jpg"))
+  Photo.create(user_id: rand(user1.id..(user1.id+20)), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..12)}.jpg"))
 end
 
 20.times do
@@ -703,22 +702,22 @@ Country.create([
 
 
 Review.create([
-  {rating: 3, user_id: 1, business_id: 1, body: "Food was amazing!"},
-  {rating: 1, user_id: 2, business_id: 1, body: "Meh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis euismod velit sit amet iaculis. Nullam lacinia vel felis at tincidunt. Fusce non euismod sem, non mollis lectus. Nunc sed enim et dolor tempus mattis vel ut felis. Sed condimentum eget turpis sed tempor. Aenean varius quis nunc ac convallis. Maecenas feugiat in massa sit amet tincidunt. Fusce dapibus dui nisi, et consequat nisi aliquet at. Aenean mi purus, venenatis eget diam pellentesque, ultrices dictum nisi. Nullam quam lorem, lacinia ac justo nec, varius ullamcorper ligula. Pellentes"},
-  {rating: 2, user_id: 3, business_id: 2, body: "Whatever. Iate ther .Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis euismod velit sit amet iaculis. Nullam lacinia vel felis at tincidunt. Fusce non euismod sem, non mollis lectus. Nunc sed enim et dolor tempus mattis vel ut felis. Sed condimentum eget turpis sed tempor. Aenean varius quis nunc ac convallis. Maecenas feugiat in massa sit amet tincidunt. Fusce dapibus dui nisi, et consequat nisi aliquet at. Aenean mi purus, venenatis eget diam pellentesque, entes"},
-  {rating: 5, user_id: 1, business_id: 2, body: "el, tempus felis. Nulla pharetra orci sit amet metus volutpat, ut hendrerit metus ornare. Curabitur aliquam vitae augue at feugiat. Maecenas gravida scelerisque tortor sed eleifend. Sed at lorem laoreet velit consectetur dapibus. Vestibulum semper pretium scelerisque. Etiam tempus elit at nisl porttitor egestas. Nunc id tincidunt magna. Interdum et malesuada fames ac ante ipsum primis in"},
-  {rating: 4, user_id: 3, business_id: 3, body: " Fusce eu mauris vel nulla posuere mattis sed ac felis. Etiam rhoncus venenatis augue, non posuere enim sollicitudin in. Aliquam sollicitudin nisl ut magna dapibus scelerisque. Pellentesque adipiscing pharetra est ac luctus. Phasellus auctor ac erat in varius.
+  {rating: 3, user_id: user1.id, business_id: 1, body: "Food was amazing!"},
+  {rating: 1, user_id: user2.id, business_id: 1, body: "Meh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis euismod velit sit amet iaculis. Nullam lacinia vel felis at tincidunt. Fusce non euismod sem, non mollis lectus. Nunc sed enim et dolor tempus mattis vel ut felis. Sed condimentum eget turpis sed tempor. Aenean varius quis nunc ac convallis. Maecenas feugiat in massa sit amet tincidunt. Fusce dapibus dui nisi, et consequat nisi aliquet at. Aenean mi purus, venenatis eget diam pellentesque, ultrices dictum nisi. Nullam quam lorem, lacinia ac justo nec, varius ullamcorper ligula. Pellentes"},
+  {rating: 2, user_id: user3.id, business_id: 2, body: "Whatever. Iate ther .Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis euismod velit sit amet iaculis. Nullam lacinia vel felis at tincidunt. Fusce non euismod sem, non mollis lectus. Nunc sed enim et dolor tempus mattis vel ut felis. Sed condimentum eget turpis sed tempor. Aenean varius quis nunc ac convallis. Maecenas feugiat in massa sit amet tincidunt. Fusce dapibus dui nisi, et consequat nisi aliquet at. Aenean mi purus, venenatis eget diam pellentesque, entes"},
+  {rating: 5, user_id: user1.id, business_id: 2, body: "el, tempus felis. Nulla pharetra orci sit amet metus volutpat, ut hendrerit metus ornare. Curabitur aliquam vitae augue at feugiat. Maecenas gravida scelerisque tortor sed eleifend. Sed at lorem laoreet velit consectetur dapibus. Vestibulum semper pretium scelerisque. Etiam tempus elit at nisl porttitor egestas. Nunc id tincidunt magna. Interdum et malesuada fames ac ante ipsum primis in"},
+  {rating: 4, user_id: user3.id, business_id: 3, body: " Fusce eu mauris vel nulla posuere mattis sed ac felis. Etiam rhoncus venenatis augue, non posuere enim sollicitudin in. Aliquam sollicitudin nisl ut magna dapibus scelerisque. Pellentesque adipiscing pharetra est ac luctus. Phasellus auctor ac erat in varius.
 
 Quisque id nisl dapibus, consequat nibh vel, tempus"},
-  {rating: 5, user_id: 2, business_id: 3, body: "imenaeos. Proin laoreet rutrum justo ac vehicula. Vivamus eros elit, sagittis ultricies auctor et, ultrices sed leo. Vestibulum ligula leo, pharetra in ante nec, faucibus pretium sapien. Duis feugiat bibendum dui, in mattis nisl ultrices ac. Quisque tincidunt eleifend mauris sed volutpat. Donec tincidunt sollicitudin velit, sit amet malesuada lacus semper vestibulum. Sed laci"},
-  {rating: 3, user_id: 1, business_id: 3, body: "ontent of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."}
+  {rating: 5, user_id: user2.id, business_id: 3, body: "imenaeos. Proin laoreet rutrum justo ac vehicula. Vivamus eros elit, sagittis ultricies auctor et, ultrices sed leo. Vestibulum ligula leo, pharetra in ante nec, faucibus pretium sapien. Duis feugiat bibendum dui, in mattis nisl ultrices ac. Quisque tincidunt eleifend mauris sed volutpat. Donec tincidunt sollicitudin velit, sit amet malesuada lacus semper vestibulum. Sed laci"},
+  {rating: 3, user_id: user1.id, business_id: 3, body: "ontent of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."}
 ]
 )
 
 
 
 ProfileLocation.create([
-  {user_id: 1, name: "Home", address: "Manhattan, NY", primary: true}
+  {user_id: user1.id, name: "Home", address: "Manhattan, NY", primary: true}
 ])
 
 
@@ -732,10 +731,10 @@ ProfileLocation.create([
 # ])
 
 PhotoDetail.create([
-  {helpful_id:1, photo_id:1, store_front: false, user_id:1},
-  {helpful_id:2, photo_id:2, store_front: true, user_id:2},
-  {helpful_id:3, photo_id:3, store_front: false, user_id:3},
-  {helpful_id:2, photo_id:4, store_front: false, user_id:3}
+  {helpful_id:1, photo_id:1, store_front: false, user_id: user1.id},
+  {helpful_id:2, photo_id:2, store_front: true, user_id: user2.id},
+  {helpful_id:3, photo_id:3, store_front: false, user_id: user3.id},
+  {helpful_id:2, photo_id:4, store_front: false, user_id: user3.id}
 ])
 
 PriceRange.create([
@@ -859,48 +858,48 @@ Compliment.create([
 ])
 
 Bookmark.create([
-  {business_id: 1, user_id: 1},
-  {business_id: 2, user_id: 1},
-  {business_id: 10, user_id: 1},
-  {business_id: 4, user_id: 1},
-  {business_id: 45, user_id: 1}
+  {business_id: 1, user_id: user1.id},
+  {business_id: 2, user_id: user1.id},
+  {business_id: 10, user_id: user1.id},
+  {business_id: 4, user_id: user1.id},
+  {business_id: 45, user_id: user1.id}
 ])
 
 Follow.create([
-  {fan_id: 2, leader_id: 1},
-  {fan_id: 3, leader_id: 1},
-  {fan_id: 4, leader_id: 1},
-  {fan_id: 5, leader_id: 1},
-  {fan_id: 1, leader_id: 2},
-  {fan_id: 1, leader_id: 6},
-  {fan_id: 1, leader_id: 10},
-  {fan_id: 1, leader_id: 20}
+  {fan_id: 2, leader_id: user1.id},
+  {fan_id: 3, leader_id: user1.id},
+  {fan_id: 4, leader_id: user1.id},
+  {fan_id: 5, leader_id: user1.id},
+  {fan_id: user1.id, leader_id: user2.id},
+  {fan_id: user1.id, leader_id: 6},
+  {fan_id: user1.id, leader_id: 10},
+  {fan_id: user1.id, leader_id: 20}
 ])
 
 Tip.create([
-  {body: "beware of rats", user_id: 1, business_id: 1},
-  {body: "try the cheese", user_id: 1, business_id: 1},
-  {body: "beware of cat", user_id: 1, business_id: 2},
-  {body: "stay away from the bathrooms", user_id: 2, business_id: 3},
-  {body: "tip well", user_id: 3, business_id: 4}
+  {body: "beware of rats", user_id: user1.id, business_id: 1},
+  {body: "try the cheese", user_id: user1.id, business_id: 1},
+  {body: "beware of cat", user_id: user1.id, business_id: 2},
+  {body: "stay away from the bathrooms", user_id: user2.id, business_id: 3},
+  {body: "tip well", user_id: user3.id, business_id: 4}
 ])
 
 ReviewVote.create([
-  {review_id: 1, vote_id: 1, user_id: 2},
-  {review_id: 1, vote_id: 2, user_id: 10},
-  {review_id: 1, vote_id: 3, user_id: 32},
-  {review_id: 1, vote_id: 1, user_id: 15},
-  {review_id: 202, vote_id: 1, user_id: 1},
-  {review_id: 202, vote_id: 2, user_id: 20},
-  {review_id: 202, vote_id: 3, user_id: 30},
-  {review_id: 202, vote_id: 2, user_id: 60},
-  {review_id: 202, vote_id: 3, user_id: 1},
-  {review_id: 202, vote_id: 3, user_id: 50}
+  {review_id: 1, vote_id: 1, user_id: user2.id},
+  {review_id: 1, vote_id: 2, user_id: User.limit(10).last.id},
+  {review_id: 1, vote_id: 3, user_id: User.limit(32).last.id},
+  {review_id: 1, vote_id: 1, user_id: User.limit(15).last.id},
+  {review_id: 202, vote_id: 1, user_id: user1.id},
+  {review_id: 202, vote_id: 2, user_id: User.limit(20).last.id},
+  {review_id: 202, vote_id: 3, user_id: User.limit(30).last.id},
+  {review_id: 202, vote_id: 2, user_id: User.limit(60).last.id},
+  {review_id: 202, vote_id: 3, user_id: user1.id},
+  {review_id: 202, vote_id: 3, user_id: User.limit(10).last.id}
 ])
 
 List.create([
-  {name: "favorite places", user_id: 1 },
-  {name: "exciting locations", user_id: 1 }
+  {name: "favorite places", user_id: user1.id },
+  {name: "exciting locations", user_id: user1.id }
 ])
 
 ListReview.create([
@@ -912,16 +911,16 @@ ListReview.create([
 ])
 
 ReviewCompliment.create([
-  {compliment_id: 1, review_id: 1, user_id: 5, body: "Amazing"},
-  {compliment_id: 2, review_id: 1, user_id: 10, body: "You suck"},
-  {compliment_id: 3, review_id: 2, user_id: 20, body: "thanks!"}
+  {compliment_id: 1, review_id: 1, user_id: User.limit(5).last.id, body: "Amazing"},
+  {compliment_id: 2, review_id: 1, user_id: User.limit(10).last.id, body: "You suck"},
+  {compliment_id: 3, review_id: 2, user_id: User.limit(20).last.id, body: "thanks!"}
 ])
 
 200.times do |i|
   business_id = rand(1..103)
   review_id = i + 1
   Review.create(  rating: rand(5)+1,
-                  user_id: rand(20)+1,
+                  user_id: User.limit(20).shuffle.last.id,
                   business_id: business_id,
                   body: Faker::Lorem.paragraph,
                   price_range: rand(5)

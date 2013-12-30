@@ -101,9 +101,11 @@ class User < ActiveRecord::Base
 
 
   has_attached_file :profile_photo, styles: {
-    thumbnail: "40x40#",
-    icon: "90x90#"
+    icon_s: "30x30#",
+    icon_m: "60x60#",
+    icon_l: "90x90#"
   }
+
 
 
   def full_compliments
