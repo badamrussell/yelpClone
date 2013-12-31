@@ -40,7 +40,7 @@ class Photo < ActiveRecord::Base
   has_attached_file :file, styles: {
     icon_s: "30x30#",
     small: "150x150>",
-    showcase: "200x200#"
+    showcase: "300x300#"
   }
 
   def update_details(increment)
