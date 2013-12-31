@@ -29,9 +29,9 @@
       <p><%= review.body %></p>
     </div>
 
-    <div class="business-photos-container group">
+    <div class="review-photos-container group">
       <% review.photos.each do |photo| %>
-        <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url %>"></a>
+        <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url(:small) %>"></a>
       <% end %>
     </div>
 

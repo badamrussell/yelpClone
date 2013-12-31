@@ -208,7 +208,8 @@
       line-height: 18px;
     }
 
-    .business-photos-container {
+    .review-photos-container {
+      max-width: 100px;
 
     }
   }
@@ -238,10 +239,10 @@
   width: 300px;
 }
 
-.best-yelp-category {
-//  border: 1px solid green;
+.biz-recommendations-category {
+  width: 960px;
+  margin: auto;
   clear: left;
-
 
   h3 {
     display: block;

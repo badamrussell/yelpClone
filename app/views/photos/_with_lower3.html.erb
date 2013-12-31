@@ -4,7 +4,7 @@
     <a href="#">Like</a>
   </div> -->
   <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>">
-    <img width="360" src="<%= photo.url %>">
+    <img src="<%= photo.url(:showcase) %>">
   </a>
   <div class="lower-third">
     <a class="icon-photo left" href="<%= user_url(photo.user_id) %>"><img width="25" src="<%= photo.business.avatar %>"></a>

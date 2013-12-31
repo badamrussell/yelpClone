@@ -192,8 +192,8 @@ class Business < ActiveRecord::Base
 
   end
 
-  def avatar
-    store_front_id ? Photo.find(store_front_id).url : "/assets/temp/default_house.jpg"
+  def avatar(size = nil)
+    store_front_id ? Photo.find(store_front_id).url(size) : "/assets/temp/default_house.jpg"
   end
 
   def category_list

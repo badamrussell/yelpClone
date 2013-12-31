@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
   has_attached_file :profile_photo, styles: {
     icon_s: "30x30#",
     icon_m: "60x60#",
-    icon_l: "90x90#"
+    profile: "100x100#"
   }
 
 
@@ -154,8 +154,8 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name[0]}."
   end
 
-  def avatar
-    profile_photo_file_name ? self.profile_photo.url : "/assets/temp/default_user.jpg"
+  def avatar(size = nil)
+    profile_photo_file_name ? self.profile_photo.url(size) : "/assets/temp/default_user.jpg"
   end
 
   def display_location

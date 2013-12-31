@@ -39,8 +39,8 @@ class Photo < ActiveRecord::Base
 
   has_attached_file :file, styles: {
     icon_s: "30x30#",
-    icon_m: "60x60#",
-    icon_l: "90x90#"
+    small: "150x150>",
+    showcase: "200x200#"
   }
 
   def update_details(increment)
@@ -69,8 +69,8 @@ class Photo < ActiveRecord::Base
     business.store_front_id == self.id
   end
 
-  def url
-    file.url
+  def url(size = nil)
+    file.url(size)
   end
 
   def avatar

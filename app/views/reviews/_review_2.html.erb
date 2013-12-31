@@ -1,6 +1,6 @@
 <section class="review-container group">
   <div class="avatar-60 left">
-    <img src="<%= review.user.avatar %>">
+    <img src="<%= review.user.avatar(:icon_m) %>">
   </div>
 
   <div class="review-main left">
@@ -22,7 +22,7 @@
 
     <div class="business-photos-container group">
       <% review.photos.each do |photo| %>
-        <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url %>"></a>
+        <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url(:small) %>"></a>
       <% end %>
     </div>
 

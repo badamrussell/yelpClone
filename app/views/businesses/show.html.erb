@@ -1,6 +1,6 @@
 
 
-<section class="shelf-main-content">
+<section class="shelf-main-content group">
 
 <%= render "layouts/errors" %>
 
@@ -39,7 +39,7 @@
   </div>
 
 
-  <section class="main-shelf">
+  <section class="main-shelf group">
     <section class="content-left">
       <section class="review-highlights">
         <% @business.get_highlight_reviews(3).each do |review| %>
@@ -79,22 +79,7 @@
       <%= render "businesses/info", business: @business %>
     </section>
 
-    <section class="best-yelp-category group">
-      <h1 class="red-title"><strong>Best of Yelp</strong></h1>
-      <ul class="photos-container group">
 
-        <% Business.best(@business.categories).each do |rest| %>
-          <li>
-            <%= render "photos/with_lower3_biz",  icon_url: business_url(rest.id),
-                                                  width: 180,
-                                                  business: rest,
-                                                  photo: rest.avatar
-                                            %>
-          </li>
-        <% end %>
-      </ul>
-      <!-- <a href="#">See More</a> -->
-    </section>
 
 
     <%= render "scripts/vote" %>
@@ -102,4 +87,22 @@
     <%= render "popups/compliments", url: review_compliments_url, review: Review.find(1), compliment: ReviewCompliment.new, method: "post" %>
 
   </section>
+
+  <section class="biz-recommendations-category group">
+    <h1 class="red-title"><strong>Best of Yelp</strong></h1>
+    <ul class="photos-container group">
+
+      <% Business.best(@business.categories).each do |rest| %>
+        <li>
+          <%= render "photos/with_lower3_biz",  icon_url: business_url(rest.id),
+                                                width: 180,
+                                                business: rest,
+                                                photo: rest.avatar
+                                          %>
+        </li>
+      <% end %>
+    </ul>
+    <!-- <a href="#">See More</a> -->
+  </section>
+
 </section>

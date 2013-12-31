@@ -8,7 +8,7 @@
       <% if user.photos.length > 0 %>
         <% user.top_photos(9).each do |photo| %>
         <div class="left">
-          <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img class="img-icon" src="<%= photo.url %>"></a>
+          <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img class="img-icon" src="<%= photo.url(:icon) %>"></a>
         </div>
         <% end %>
       <% else %>
@@ -31,7 +31,6 @@
 
   <section class="group">
     <h3 class="red-title">Rating Distribution</h3>
-    <%  %>
   </section>
 
   <section class="group">
