@@ -30,11 +30,11 @@ class Business < ActiveRecord::Base
   def address=(arg)
     addr = arg.split(",").map { |a| a.strip }
     self.address1 = addr[0]
-    self.city = addr[1].split(" ")[0]
+    self.city = addr[1]
     self.state = addr[2].split(" ")[0]
     self.zip_code = addr[2].split(" ")[1].to_i
-    # puts "ADDRESS IS:"
-    # puts "#{address1}, #{address2}, #{state}, #{zip_code}"
+    # puts "ADDRESS IS: #{arg} >>> #{addr}"
+    # puts "#{address1}, #{address2}, #{city}, #{state}, #{zip_code}"
 
   end
 
