@@ -180,8 +180,13 @@ class Review < ActiveRecord::Base
     "#{self.rating}0"
   end
 
+  def avatar
+    self.user.avatar
+  end
+
   def as_json(options={})
-    super(include: [:user])
+    puts "--------------------- TOP REVIEW AS JSON"
+    super(methods: [:avatar], include: [:user])
   end
 
 end

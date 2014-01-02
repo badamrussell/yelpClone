@@ -202,7 +202,8 @@ class User < ActiveRecord::Base
 
 
   def as_json(options={})
-    super( methods: [:avatar], include: [] )
+    puts "--------------------- USER AS JSON"
+    super( methods: [:avatar, :name] )
   end
 
   private

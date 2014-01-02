@@ -266,7 +266,7 @@ class Business < ActiveRecord::Base
   end
 
   def as_json(options={})
-    super(methods: [:avatar, :rating_string], include: [:categories, :neighborhood])
+    super(methods: [:avatar, :rating_string, :top_review], include: [:categories, :neighborhood])
   end
 
   private

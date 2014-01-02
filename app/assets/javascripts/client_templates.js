@@ -14,6 +14,7 @@ var makeReviewElement = function(business, size, biz_url, cat_url) {
   var biz_stats = "";
   var biz_address = "";
   var content = "";
+  var top_review = "";
 
   for (var i=0; i < business.categories.length; i++) {
     var category = business.categories[i];
@@ -26,7 +27,7 @@ var makeReviewElement = function(business, size, biz_url, cat_url) {
       </div> \
       <div class="rating-container group"> \
         <div class="rating-container group left">' + biz_rating + '</div> \
-        <em class="">' + business.reviews_count + 'reviews</em> \
+        <em class="">' + business.reviews_count + ' reviews</em> \
       </div> \
       <div class="category-container"><div class="price-range-container left">' + biz_price + '</div>' + biz_categories + '</div></div>';
 
@@ -47,13 +48,23 @@ var makeReviewElement = function(business, size, biz_url, cat_url) {
   }
 
 
+  if (business.top_review) {
+    top_review = '<section class="review-container group"> \
+      <div class="avatar-30 left"> \
+        <img height="40" src="' + business.top_review.avatar + '"> \
+      </div> \
+      <div class="highlight-body">' + business.top_review.body.substring(0,190) + '</div> \
+    </section>';
+  }
+
   content = '<section class="business-info-container group"> \
     <img class="avatar-90" width="100" src="' + business.avatar + '"> \
     <div class="business-stats">' + biz_stats + '</div> \
     <div class="business-address"> \
       <address>' + biz_address + '</address> \
     </div> \
-  </section>';
+  </section>' + top_review;
+
 
 
   $mainEl.html(content);
