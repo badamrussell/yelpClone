@@ -1,10 +1,8 @@
 
 <div>
 
-
   <section id="category-popup" class="popup-form popup-hide">
 
-    <div class="back-overlay"></div>
     <form class="popup-form-container" action="<%= url %>" data-remote="true" method="post">
       <header class="popup-title">
         <h3 class="red-title">More Categories</h3>
@@ -12,13 +10,14 @@
 
       <fieldset class="choices-container group">
         <% Category.where(main_category_id: main_category_id).each do |c| %>
+          <% id_name = c.name.downcase.gsub(" ","_") %>
           <div class="choice left">
             <input  class="left"
                     type="checkbox"
                     name="search[category_id][]"
                     value="<%= c.id %>"
-                    id="category_<%= c.name %>">
-            <label for="category_<%= c.name %>"><%= c.name %></label>
+                    id="category_<%= id_name %>">
+            <label for="category_<%= id_name %>"><%= c.name %></label>
           </div>
         <% end %>
       </fieldset>
@@ -29,4 +28,5 @@
       </footer>
     </form>
   </section>
+
 </div>

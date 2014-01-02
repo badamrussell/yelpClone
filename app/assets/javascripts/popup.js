@@ -5,20 +5,26 @@ var closePopup = function() {
 
   if ($pop) { $pop.removeClass("popup-show") }
   if ($pop) { $pop.addClass("popup-hide") }
+
+  $("#overlay").addClass("hidden");
+  $("body").removeClass();
+
   console.log("CLOSE", $pop);
 }
 
 var showPopup = function(popupName, id) {
   closePopup();
 
+
   var $pop = $(popupName);
   console.log("OPEN", $pop, popupName, id);
   if ($pop) {
+    $("#overlay").removeClass();
+    $("body").addClass("no-scroll");
     $pop.addClass("popup-show");
+
     var $a = $pop.find(".main-id")
     $a.attr("value", id)
-
-    //$pop.
   }
   console.log("OPEN", $pop, popupName);
 }
@@ -79,6 +85,10 @@ var showFilterPopup = function(mainEl, choiceCont) {
   var $pop = $(mainEl);
 
   if ($pop) {
+
+    $("#overlay").removeClass();
+    $("body").addClass("no-scroll");
+
     $pop.addClass("popup-show");
     var $a = $pop.find(".main-id")
 
@@ -99,31 +109,51 @@ var showFilterPopup = function(mainEl, choiceCont) {
   }
 }
 
-var submitPopupSearch = function(formEl, mainEl) {
-  var choices = $(formEl + " .popup-form-container").serializeArray()
+var makeEl_li = function($divEl) {
+  var $li = $("<li></li>");
 
+  var $input = $divEl.find("input").clone();
+  var $label = $divEl.find("label").clone();
+  $input.removeClass();
+
+  $li.append($input);
+  $li.append($label);
+
+  return $li;
+}
+
+var submitPopupSearch = function(formEl, mainEl) {
   var $main = $(mainEl);
+  var $choices = $(formEl).find(".choices-container");
+  var checked = $choices.find("input:checked").parent();
+  var first5 = Array.prototype.slice.call($choices.find("input:not(:checked)").parent().slice(0,5));
+
   $(mainEl + " li").remove();
 
-  for (var i=0; i < choices.length; i++) {
-    var $li = $("<li></li>");
-    $main.append($li);
+  for (var i=0; i < checked.length; i++) {
     if (i < 5) {
-      $("<input>").attr({
-        type: "checkbox",
-        name: choices[i].name,
-        value: choices[i].value,
-        checked: true
-      }).appendTo($li);
+      var $li = makeEl_li($(checked[i]));
+      // $li.find("input").prop("checked",true);
+      $main.append($li);
+
+      first5.pop();
     } else {
+      var $li = $("<li></li>");
+      var $input = $(checked[i]).find("input");
+
       $("<input>").attr({
         type: "hidden",
-        name: choices[i].name,
-        value: choices[i].value
+        name: $input.attr("name"),
+        value: $input.attr("value")
       }).appendTo($li);
     }
   }
 
+  for (var i=0; i < first5.length; i++) {
+    var $li = makeEl_li($(first5[i]));
+    $main.append($li);
+  }
+
   closePopup();
-  $("#fine-search-submit").trigger("click")
+  document.getElementById("form-fine-filters").submit();
 }

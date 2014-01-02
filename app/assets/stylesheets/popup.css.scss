@@ -1,24 +1,24 @@
 #category-popup {
   width: 400px;
   height: 500px;
-  z-index: 100;
+  z-index: 20;
 }
 
 #feature-popup {
   width: 400px;
   height: 500px;
-  z-index: 100;
+  z-index: 20;
 }
 
 #neighborhood-popup {
   width: 400px;
   height: 500px;
-  z-index: 100;
+  z-index: 20;
 }
 
 .popup-form {
   top: 100px;
-  left: 32%;
+  left: 30%;
   position: fixed;
 
   .back-overlay {
