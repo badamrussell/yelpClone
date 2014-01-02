@@ -261,6 +261,14 @@ class Business < ActiveRecord::Base
     false
   end
 
+  def to_json
+    puts "----------------to JSON"
+  end
+
+  def as_json(options={})
+    super(methods: [:avatar, :rating_string], include: [:categories, :neighborhood])
+  end
+
   private
 
 end

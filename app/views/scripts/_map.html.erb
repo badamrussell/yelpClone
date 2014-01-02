@@ -15,11 +15,11 @@
       map.fitBounds(newBounds);
 
       google.maps.event.addListener(map, "bounds_changed", function() {
-        console.log("----- MAP BOUNDS CHANGED --------")
+        //console.log("----- MAP BOUNDS CHANGED --------")
         var tempLatLngBnd = map.getBounds();
-        console.log(tempLatLngBnd)
-        console.log("NE",tempLatLngBnd.getNorthEast())
-        console.log("SW",tempLatLngBnd.getSouthWest())
+        //console.log(tempLatLngBnd)
+        //console.log("NE",tempLatLngBnd.getNorthEast())
+        //console.log("SW",tempLatLngBnd.getSouthWest())
       });
     });
 

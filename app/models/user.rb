@@ -200,6 +200,11 @@ class User < ActiveRecord::Base
 
   end
 
+
+  def as_json(options={})
+    super( methods: [:avatar], include: [] )
+  end
+
   private
 
   def ensure_token

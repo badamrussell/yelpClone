@@ -68,4 +68,5 @@ class SearchesController < ApplicationController
 
   end
 
+
 end

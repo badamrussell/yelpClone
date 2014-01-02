@@ -78,13 +78,30 @@
 
 <script>
   $(function() {
+    var $newBiz = $(".new-business-container").clone();
+
     $("#form-fine-filters").change( function(event) {
-      document.getElementById("form-fine-filters").submit();
+      console.log(document.getElementById("form-fine-filters"))
+
+
+      // document.getElementById("form-fine-filters").submit();
+      $(this).submit();
     });
 
     $("#form-fine-filters").on("ajax:success", function(event, data) {
-      console.log(data)
+      console.log("SUCCESS",data)
 
+      if (data.length > 0) {
+        $(".business-results").empty();
+
+        for (var i=0; i < data.length; i++) {
+          var $review = makeReviewElement(data[i], "large", "", "");
+          console.log("R",$review)
+          $(".business-results").append($review);
+        }
+      } else {
+        $(".business-results").append($newBiz.clone());
+      }
     });
   });
 </script>

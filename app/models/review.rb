@@ -179,4 +179,9 @@ class Review < ActiveRecord::Base
   def rating_string
     "#{self.rating}0"
   end
+
+  def as_json(options={})
+    super(include: [:user])
+  end
+
 end
