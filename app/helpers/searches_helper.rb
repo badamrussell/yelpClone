@@ -114,8 +114,9 @@ module SearchesHelper
 
     if wheres.length > 0
       where_string << " AND " unless where_string.blank?
-      where_string << "(#{wheres.join(" OR ")})"
+      where_string << "(#{wheres.join(" AND ")})"
     end
+
     where_string = "WHERE " + where_string unless where_string.blank?
     join_string = joins.join(" ")
     order_string = "ORDER BY #{orders.join(',')}" if orders.any?
