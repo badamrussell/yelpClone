@@ -82,7 +82,7 @@ module SearchesHelper
         values << search_params[:category_id][0].to_i
       else
         set = search_params[:category_id].map { |c| c.to_i }
-        wheres << "business_categories.id IN (#{q_set(set.length)})"
+        wheres << "business_categories.category_id IN (#{q_set(set.length)})"
         values += set
       end
     end
@@ -124,10 +124,7 @@ module SearchesHelper
 
     sql = <<-SQL
       SELECT DISTINCT businesses.*, #{rank_string} AS search_rank
-      FROM businesses
-      #{join_string}
-      #{where_string}
-      #{order_string}
+      FROM businesses #{join_string} #{where_string} #{order_string}
     SQL
 
     values.unshift(sql)
