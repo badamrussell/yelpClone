@@ -100,9 +100,9 @@ var loadGoogleMaps = function(latitude, longitude, locations, mainLocation) {
   //         { lat: 40.7308370, lng: -73.9934135 },
   //         { lat: 40.7328370, lng: -73.9914135 }]
 
-  mapMarkers[mapMarkers.length] = placeMarker(mainLocation, map, "red");
+  mapMarkers[mapMarkers.length] = placeMarker(mainLocation, map, "yellow");
   for (var i=0; i < locations.length; i++) {
-    mapMarkers[mapMarkers.length] = placeMarker(locations[i], map, "yellow");
+    mapMarkers[mapMarkers.length] = placeMarker(locations[i], map, "red");
   }
 
 

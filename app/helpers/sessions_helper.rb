@@ -30,6 +30,11 @@ module SessionsHelper
     # redirect_to user_url(current_user) unless current_user.nil?
   end
 
+  def current_location_array
+    return [] unless session[:location]
+    [session[:location][:lat], session[:location][:lng]]
+  end
+
   def current_location
     return nil unless session[:location]
     @location ||= session[:location]

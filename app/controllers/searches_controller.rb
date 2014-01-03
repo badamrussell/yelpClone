@@ -12,6 +12,7 @@ class SearchesController < ApplicationController
     @finer_filters = nil
     @finer_filter_name = nil
     @search_params = params[:search] || {}
+    @search_params[:distance] ||= 0
     @recommend_categories = Category.all[1..3]
     @find_desc = params[:find_desc] || ""
     @find_loc = params[:find_loc] || ""
@@ -22,10 +23,19 @@ class SearchesController < ApplicationController
     @select_features = []
     @select_neighborhoods = []
 
-    search_params = params[:search] || {}
-    search_params[:category_id] ||= params["category_id"]
-    search_params[:main_category_id] ||= params["main_category_id"] if search_params[:category_id].nil?
-    search_params[:sort] ||= params[:search]
+    query_params = {}
+    params[:search].each { |key,value| query_params[key] = value }
+
+    query_params[:category_id] ||= params["category_id"]
+    query_params[:main_category_id] ||= params["main_category_id"] if query_params[:category_id].nil?
+    query_params[:sort] ||= params[:search]
+
+    if @search_params[:distance] && @search_params[:distance].to_f > 0
+      query_params[:distance] = determine_bounds(current_location, @search_params[:distance].to_f)
+    else
+      query_params[:distance] = nil
+    end
+
 
     if params["category_id"]
       crumb_category = Category.find(params["category_id"])
@@ -57,7 +67,7 @@ class SearchesController < ApplicationController
       end
     end
 
-    @results = rails_query(@find_desc, search_params, @find_loc)
+    @results = rails_query(@find_desc, query_params, @find_loc)
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
 
     render json: @results if request.xhr?

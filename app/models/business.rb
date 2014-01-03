@@ -6,7 +6,7 @@ class Business < ActiveRecord::Base
   validates :name, :country_id, presence: true
 
   geocoded_by :full_street_address
-  after_validation :geocode
+  after_validation :geocode #, if :address1
 
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode

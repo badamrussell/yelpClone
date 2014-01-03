@@ -1,5 +1,21 @@
 module SearchesHelper
 
+  def determine_bounds(center, miles_offset)
+    # calculates ne and sw corner
+    # SW-74.069, 40.710
+    # NE -73.86, 40.866
+    #
+    lng_offset = miles_offset / 69.0
+    lat_offset = miles_offset / 53.0
+    bounds = []
+    bounds << center[:lat] - lat_offset
+    bounds << center[:lng] + lng_offset
+    bounds << center[:lat] + lat_offset
+    bounds << center[:lng] - lng_offset
+
+    bounds
+  end
+
   def split_string
     word_spaced = search_params[:find].split(" ")
 
@@ -103,6 +119,17 @@ module SearchesHelper
       wheres << " businesses.price_range_avg IN (#{q_set(set.length)})"
       values += set
     end
+
+    if search_params[:distance]
+      wheres << "businesses.latitude BETWEEN ? AND ?"
+      wheres << "businesses.longitude BETWEEN ? AND ?"
+
+      values << search_params[:distance][0]
+      values << search_params[:distance][2]
+      values << search_params[:distance][3]
+      values << search_params[:distance][1]
+    end
+
 
     if search_params[:sort]
       if search_params[:sort] == "rated"
