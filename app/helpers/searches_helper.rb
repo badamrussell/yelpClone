@@ -155,7 +155,6 @@ module SearchesHelper
     SQL
 
     values.unshift(sql)
-
     Business.find_by_sql(values)
   end
 

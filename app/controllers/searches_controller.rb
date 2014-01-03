@@ -24,7 +24,7 @@ class SearchesController < ApplicationController
     @select_neighborhoods = []
 
     query_params = {}
-    params[:search].each { |key,value| query_params[key] = value }
+    params[:search].each { |key,value| query_params[key.to_sym] = value }
 
     query_params[:category_id] ||= params["category_id"]
     query_params[:main_category_id] ||= params["main_category_id"] if query_params[:category_id].nil?
