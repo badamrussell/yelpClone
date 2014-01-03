@@ -5,15 +5,17 @@
 <h1 class="red-title">Best <%= @category.name %> in New York</h1>
 
 <section class="category-mosaic group">
-  <% sizes = [[500,300], [140,300], [300,140], [140,140], [140,140]] %>
+  <% sizes = ['width=500', 'height=300', 'width=300', 'height=140', 'height=140'] %>
 
   <div class="mosaic-photo group">
     <% best_biz = @category.best_businesses(5) %>
-    <a href="<%= business_url(best_biz[0].id) %>"><div class="mosaic-1"><img height="500" src="<%= best_biz[0].avatar %>"></div></a>
-    <a href="<%= business_url(best_biz[1].id) %>"><div class="mosaic-2"><img height="300" src="<%= best_biz[1].avatar %>"></div></a>
-    <a href="<%= business_url(best_biz[2].id) %>"><div class="mosaic-3"><img width="300" src="<%= best_biz[2].avatar %>"></div></a>
-    <a href="<%= business_url(best_biz[3].id) %>"><div class="mosaic-4"><img height="140" src="<%= best_biz[3].avatar %>"></div></a>
-    <a href="<%= business_url(best_biz[4].id) %>"><div class="mosaic-4"><img height="140" src="<%= best_biz[4].avatar %>"></div></a>
+    <% best_biz.each_with_index do |biz, i| %>
+      <a href="<%= business_url(best_biz[i].id) %>">
+        <div class="mosaic-<%= i+1 %>">
+          <img <%= sizes[i] %> src="<%= best_biz[i].avatar %>">
+        </div>
+      </a>
+    <% end %>
   </div>
 
   <a href="<%= search_url(category_id: @category.id) %>">More <%= @category.name %></a>

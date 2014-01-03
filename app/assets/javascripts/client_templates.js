@@ -18,12 +18,12 @@ var makeReviewElement = function(business, size, biz_url, cat_url) {
 
   for (var i=0; i < business.categories.length; i++) {
     var category = business.categories[i];
-    biz_categories += '<span class="med-link"><a href="' + cat_url + category.id + '">' + category.name + '</a></span>';
+    biz_categories += '<span class="med-link"><a href=categories/' + cat_url + category.id + '>' + category.name + '</a></span>';
   }
 
   biz_stats = '<div class="business-info"> \
       <div class="business-header"> \
-          <h1 class="page-title"><a href="' + biz_url + business.id + '">' + business.name + '</a></h1> \
+          <h1 class="page-title"><a href=businesses/' + biz_url + business.id + '>' + business.name + '</a></h1> \
       </div> \
       <div class="rating-container group"> \
         <div class="rating-container group left">' + biz_rating + '</div> \
