@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>YelpClone</title>
+  <title>Yolp</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
 
 <div id="overlay" class="hidden"></div>
 <%= render "layouts/top_nav"%>
@@ -17,3 +18,7 @@
 
 </body>
 </html>
+
+<% unless (@location || set_location) %>
+  <script> getCurrentLocation() </script>
+<% end %>

@@ -1,5 +1,6 @@
 <script>
   var locations = <%= results.map { |r| {lat: r.latitude, lng: r.longitude } }.to_json.html_safe %>;
+  var mainLocation = <%= main.nil? ? nil : main.to_json.html_safe %>;
 
   $( function() {
     // loadGoogleMaps(latitude, longitude);
@@ -7,7 +8,7 @@
     var map;
 
     var selectedMarker;
-    getLocation(locations, function(mapObj) {
+    getLocation(locations, mainLocation, function(mapObj) {
       mapIO = mapObj[0];
       map = mapObj[1];
 

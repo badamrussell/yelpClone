@@ -46,14 +46,28 @@ var placeSearch = function(event) {
 
 // ----------- GOOGLE MAPS API
 
-var getLocation = function(locations, myCallback) {
+var getCurrentLocation = function() {
+  var setGeoCookie = function(geoPosition) {
+    //console.log(geoPosition, geoPosition.coords)
+    var coords = geoPosition.coords;
+    var cookie = coords.latitude + "|" + coords.longitude;
+    console.log("GOT POSITION / SETTING COOKIE...")
+
+    document.cookie = "location=" + escape(cookie);
+  }
+
+  console.log("GETTING POSITION...")
+  navigator.geolocation.getCurrentPosition(setGeoCookie);
+}
+
+var getLocation = function(locations, mainLocation, myCallback) {
   var location_callback = function(geoPosition) {
     //console.log(geoPosition, geoPosition.coords)
     var coords = geoPosition.coords;
     var lat = locations[0].lat || coords.latitude;
     var lng = locations[0].lng || coords.longitude;
 
-    var mapArray = loadGoogleMaps(lat, lng, locations);
+    var mapArray = loadGoogleMaps(lat, lng, locations, mainLocation);
 
     //loc = { lat: 40.7308361, lng: -73.9922004 }
     //locLit = "" + 40.7308361 + "," + -73.9922004;
@@ -61,6 +75,8 @@ var getLocation = function(locations, myCallback) {
     // for (var i=0; i < loc.length; i++) {
     //   placeMarker(loc[i], map);
     // }
+
+
     myCallback(mapArray);
   }
 
@@ -68,7 +84,7 @@ var getLocation = function(locations, myCallback) {
 }
 
 
-var loadGoogleMaps = function(latitude, longitude, locations) {
+var loadGoogleMaps = function(latitude, longitude, locations, mainLocation) {
   // console.log(latitude, longitude)
   var mapProp = {
     center: new google.maps.LatLng(latitude, longitude),
@@ -83,8 +99,10 @@ var loadGoogleMaps = function(latitude, longitude, locations) {
   // loc = [ { lat: 40.7308361, lng: -73.9922004 },
   //         { lat: 40.7308370, lng: -73.9934135 },
   //         { lat: 40.7328370, lng: -73.9914135 }]
+
+  mapMarkers[mapMarkers.length] = placeMarker(mainLocation, map, "red");
   for (var i=0; i < locations.length; i++) {
-    mapMarkers[mapMarkers.length] = placeMarker(locations[i], map);
+    mapMarkers[mapMarkers.length] = placeMarker(locations[i], map, "yellow");
   }
 
 
@@ -92,9 +110,9 @@ var loadGoogleMaps = function(latitude, longitude, locations) {
   // google.maps.event.addDomListener(window, 'load', initialize);
 }
 
-var placeMarker = function(pos, map) {
+var placeMarker = function(pos, map, color) {
   var marker = new google.maps.Marker( {  position: pos,
-                                          icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                                          icon: "http://maps.google.com/mapfiles/ms/icons/" + color + "-dot.png"
                                         } );
   marker.setMap(map);
   return marker;

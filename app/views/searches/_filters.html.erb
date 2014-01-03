@@ -121,23 +121,23 @@
         <h3 class="filter-title red-title">Distance</h3>
         <ul>
           <li>
-            <input type="radio" name="search[distance]" id="search_distance" value="1" <%= "checked" if @search_params[:distance] == "1" %>>
+            <input type="radio" name="search[distance]" id="search_distance" value="0" <%= "checked" if @search_params[:distance] == "1" %>>
             <label for="search_distance">Bird's Eye View</label>
           </li>
           <li>
-            <input type="radio" name="search[distance]" id="search_distance" value="2" <%= "checked" if @search_params[:distance] == "2" %>>
+            <input type="radio" name="search[distance]" id="search_distance" value="1" <%= "checked" if @search_params[:distance] == "2" %>>
             <label for="search_distance">Driving (5 mi.)</label>
           </li>
           <li>
-            <input type="radio" name="search[distance]" id="search_distance" value="3" <%= "checked" if @search_params[:distance] == "3" %>>
+            <input type="radio" name="search[distance]" id="search_distance" value="2" <%= "checked" if @search_params[:distance] == "3" %>>
             <label for="search_distance">Biking (2 mi.)</label>
           </li>
           <li>
-            <input type="radio" name="search[distance]" id="search_distance" value="4" <%= "checked" if @search_params[:distance] == "4" %>>
+            <input type="radio" name="search[distance]" id="search_distance" value="3" <%= "checked" if @search_params[:distance] == "4" %>>
             <label for="search_distance">Walking (1 mi.)</label>
           </li>
           <li>
-            <input type="radio" name="search[distance]" id="search_distance" value="5" <%= "checked" if @search_params[:distance] == "5" %>>
+            <input type="radio" name="search[distance]" id="search_distance" value="4" <%= "checked" if @search_params[:distance] == "5" %>>
             <label for="search_distance">Within 4 blocks</label>
           </li>
         </ul>

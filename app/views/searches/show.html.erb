@@ -71,7 +71,7 @@
 </section>
 
 
-<%= render "scripts/map", results: @results %>
+<%= render "scripts/map", results: @results, main: current_location %>
 <script src="http://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>&sensor=false"></script>
 
 </section>
@@ -84,8 +84,8 @@
       console.log(document.getElementById("form-fine-filters"))
 
 
-      // document.getElementById("form-fine-filters").submit();
-      $(this).submit();
+      document.getElementById("form-fine-filters").submit();
+      //$(this).submit();
     });
 
     $("#form-fine-filters").on("ajax:success", function(event, data) {

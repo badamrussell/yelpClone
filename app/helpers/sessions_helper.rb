@@ -1,6 +1,7 @@
 module SessionsHelper
 
   def current_user
+    puts "LOCATION COOKIE: #{cookies[:location]}"
     @current_user ||= User.find_by_session_token(session[:session_token])
   end
 
@@ -30,11 +31,16 @@ module SessionsHelper
   end
 
   def current_location
-
-    @location ||= [40.7641548, -73.9731302]
+    return nil unless session[:location]
+    @location ||= session[:location]
   end
 
-
+  def set_location
+    return false unless cookies[:location]
+    coords = cookies[:location].split("|").map { |i| i.to_f }
+    @location = {lat: coords[0], lng: coords[1] }
+    session[:location] = @location
+  end
   #
   # def is_authorized?(user)
   #
