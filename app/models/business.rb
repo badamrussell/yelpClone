@@ -181,7 +181,7 @@ class Business < ActiveRecord::Base
   end
 
   def self.recent(num)
-    Business.limit(num)
+    Business.limit(num).includes(:neighborhood, :photos)
   end
 
   def gps
@@ -193,7 +193,13 @@ class Business < ActiveRecord::Base
   end
 
   def avatar(size = nil)
-    store_front_id ? Photo.find(store_front_id).url(size) : "/assets/temp/default_house.jpg"
+    return "/assets/temp/default_house.jpg" unless store_front_id
+
+    if photos.loaded?
+      photos.select { |p| p.id == store_front_id }[0].url(size)
+    else
+      Photo.find(store_front_id).url(size)
+    end
   end
 
   def category_list

@@ -148,7 +148,7 @@ class Review < ActiveRecord::Base
   end
 
   def self.recent(num)
-    Review.limit(num)
+    Review.limit(num).includes(:user, :business, :photos)
   end
 
   has_many(

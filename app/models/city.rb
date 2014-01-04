@@ -12,4 +12,9 @@ class City < ActiveRecord::Base
 
   has_many :neighborhoods, through: :areas, source: :neighborhoods
 
+  @@Cities = City.all
+
+  def self.preloaded
+    @@Cities
+  end
 end

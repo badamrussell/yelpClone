@@ -14,7 +14,7 @@
         <div class="nav-near">
           <label for="near">Near</label>
           <select id="near" name="find_loc">
-            <% City.all.each do |c| %>
+            <% City.preloaded.each do |c| %>
               <option value="<%= c.id %>" <%= "checked" if c.id == @find_loc %>><%= c.name %></option>
             <% end %>
           </select>

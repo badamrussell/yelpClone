@@ -5,8 +5,8 @@
   <a href="<%= user_url(user.id) %>"><%= user.name %></a>
   <div><%= user.display_location %></div>
   <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>" height="10"></a>
-  <span><strong><%= user.friends.length %></strong> friends</span>
+  <span><strong><%= user.friends_count %></strong> friends</span>
   <a href="<%= profile_url %>"><img src="/assets/temp/star.jpg" height="10"></a>
-  <span><strong><%= user.reviews.length %></strong> reviews</span>
+  <span><strong><%= user.reviews_count %></strong> reviews</span>
 
 </div>

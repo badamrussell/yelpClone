@@ -1,11 +1,11 @@
 
 <div class="user-achievements">
   <ul>
-    <% if user.friends.length > 0 %>
+    <% if user.friends_count > 0 %>
       <li>
       <a href="#">
         <img src="/assets/temp/star.jpg" height="20">
-        <span><strong><%= user.friends.length %></strong> friends</span>
+        <span><strong><%= user.friends_count %></strong> friends</span>
       </a>
       </li>
     <% end %>
