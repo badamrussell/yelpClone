@@ -29,8 +29,8 @@
       <p><%= review.created_at.strftime("%m/%d/%Y") %></p>
 
       <ul class="review-extras">
-        <% if business.photos.length > 0 %>
-          <li><a class="left" href="<%= business_photos_url(business.id) %>"><%= business.photos.length %> photos</a></li>
+        <% if business.photos_count > 0 %>
+          <li><a class="left" href="<%= business_photos_url(business.id) %>"><%= business.photos_count %> photos</a></li>
         <% end %>
         <li>
       </ul>
@@ -39,7 +39,6 @@
     <div class="business-review-body group">
       <p><%= review.body %></p>
     </div>
-
     <div class="business-photos-container group">
       <% review.photos.each do |photo| %>
         <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url(:small) %>"></a>
@@ -49,7 +48,7 @@
     <div class="review-interest group">
       <%= render "widgets/review_upvote", review: review  %>
 
-      <% if review.user == current_user %>
+      <% if current_user && review.user_id == current_user.id %>
         <a href="<%= edit_review_url(review.id) %>">Edit</a>
       <% else %>
           <ul>

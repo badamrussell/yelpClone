@@ -9,41 +9,34 @@
       </a>
       </li>
     <% end %>
-    <% if user.reviews.length > 0 %>
+    <% if user.reviews_count > 0 %>
     <li>
       <a href="<%= profile_url %>">
         <img src="/assets/temp/star.jpg" height="20">
-        <span><strong><%= user.reviews.length %></strong> reviews</span>
+        <span><strong><%= user.reviews_count %></strong> reviews</span>
       </a>
     </li>
     <% end %>
-    <% if user.fans.length > 0 %>
+    <% if user.fans_count > 0 %>
     <li>
       <img src="/assets/temp/star.jpg" height="20">
-      <span><strong><%= user.fans.length %></strong> fans</span>
+      <span><strong><%= user.fans_count %></strong> fans</span>
     </li>
     <% end %>
-    <% if user.tips.length > 0 %>
+
+    <% if user.photos_count > 0 %>
     <li>
       <a href="#">
         <img src="/assets/temp/star.jpg" height="20">
-        <span><strong><%= user.tips.length %></strong> tips</span>
+        <span><strong><%= user.photos_count %></strong> photos</span>
       </a>
     </li>
     <% end %>
-    <% if user.photos.length > 0 %>
+    <% if user.lists_count > 0 %>
     <li>
       <a href="#">
         <img src="/assets/temp/star.jpg" height="20">
-        <span><strong><%= user.photos.length %></strong> photos</span>
-      </a>
-    </li>
-    <% end %>
-    <% if user.lists.length > 0 %>
-    <li>
-      <a href="#">
-        <img src="/assets/temp/star.jpg" height="20">
-        <span><strong><%= user.lists.length %></strong> lists</span>
+        <span><strong><%= user.lists_count %></strong> lists</span>
       </a>
     </li>
     <% end %>

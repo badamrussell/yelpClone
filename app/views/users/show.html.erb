@@ -11,7 +11,7 @@
     <header class="">
       <h3 class="red-title">Recent Reviews</h3>
     </header>
-    <% @user.reviews.each do |review| %>
+    <% @reviews.each do |review| %>
       <%= render "reviews/user_detail", review: review %>
     <% end %>
   </section>

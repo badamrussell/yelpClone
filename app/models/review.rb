@@ -21,8 +21,11 @@ class Review < ActiveRecord::Base
     class_name: "Business",
     primary_key: :id,
     foreign_key: :business_id,
-    counter_cache: true
+    counter_cache: true,
+    include: :neighborhood
   )
+
+  has_many :categories, through: :business, source: :categories
 
   has_many(
     :business_features,

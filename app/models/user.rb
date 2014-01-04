@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
     :reviews,
     class_name: "Review",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    include: [:categories, :photos, :business]
   )
 
   has_many(
@@ -125,6 +126,14 @@ class User < ActiveRecord::Base
     [1,2,3,4]
   end
 
+  def fans_count
+    4
+  end
+
+  def lists_count
+    4
+  end
+
   def self.random_token
     SecureRandom::urlsafe_base64(16)
   end
@@ -172,7 +181,12 @@ class User < ActiveRecord::Base
   end
 
   def top_photos(qty)
-    photos.limit(qty)
+
+    if photos.loaded?
+      photos[0...qty]
+    else
+      photos.limit(qty)
+    end
   end
 
   def voted?(review, vote_id)

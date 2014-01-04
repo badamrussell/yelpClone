@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.includes(:photos, :bio).find(params[:id])
+    @reviews = @user.reviews
 
     unless @user
       flash[:errors] = @user.errors.messages
