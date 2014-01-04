@@ -8,9 +8,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    if @user
-
-    else
+    unless @user
       flash[:errors] = @user.errors.messages
       # render @user
       redirect_to users_url

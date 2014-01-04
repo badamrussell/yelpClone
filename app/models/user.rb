@@ -113,8 +113,12 @@ class User < ActiveRecord::Base
   end
 
   #--temporary placeholders until associations can be made
-  def friends_count
+  def friends
     []
+  end
+
+  def friends_count
+    0
   end
 
   def fans
