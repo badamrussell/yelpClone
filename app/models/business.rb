@@ -241,12 +241,15 @@ class Business < ActiveRecord::Base
     self.store_front_id.nil?
   end
 
+
   def rating
     self.rating_avg
   end
 
   def rating_string
+    return "0" if self.rating < 1
     l,r = self.rating.round(1).to_s.split(".")
+
     r = r.to_i < 5 ? "0" : "5"
 
     l + r

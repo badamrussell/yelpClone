@@ -76,7 +76,7 @@ class ReviewsController < ApplicationController
 
   def handle_transaction
     @review.transaction do
-      @review.save
+      # @review.save
       existing_features = @review.business_features.where(business_id: @business.id)
 
 
