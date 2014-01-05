@@ -27,9 +27,9 @@
     </div>
 
     <% if current_user %>
-    <%= render "widgets/review_upvote", review: review %>
+    <%= render "widgets/review_upvote", review: review, all_vote: all_vote, user_votes: user_votes, vote_counts: vote_counts %>
     <div class="widget">
-    <%= render "widgets/quick_compliment", review: review %>
+    <%= render "widgets/quick_compliment", review: review, all_compliments: all_compliments %>
     <% end %>
   </div>
 </section>

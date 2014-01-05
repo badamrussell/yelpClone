@@ -1,18 +1,21 @@
 <% if current_user && review.user_id != current_user.id %>
 <div class="review-upvote-container group">
   <div class="upvote-question"><p>Was this review ...?</p></div>
-  <% votes = review.vote_count %>
   <form
     class="review-vote"
     action="<%= toggle_vote_review_url(review.id) %>"
     method="post"
     data-remote="true">
 
-    <% Vote.all.each do |vote| %>
-      <% voted_id = current_user.get_vote(review, vote.id) %>
-      <% display_name = (votes[vote.id] ? "#{vote.name} ( #{votes[vote.id]} )" : vote.name ) %>
+    <% review_votes = user_votes.select { |v| v.review_id == review.id } %>
+    <% all_vote.each do |vote| %>
+      <% voted_id = review_votes.select { |v| v.id == vote.id }[0] %>
+      <% display_name = (vote_counts[vote.id] ? "#{vote.name} ( #{vote_counts[vote.id].count} )" : vote.name ) %>
 
-      <button type="submit" class="vote_<%= vote.id %> <%= 'voted' if voted_id %>" name="vote_id" value="<%= vote.id %>"><%= display_name %></button>
+      <button   type="submit"
+                class="vote_<%= vote.id %> <%= 'voted' if voted_id %>"
+                name="vote_id"
+                value="<%= vote.id %>"><%= display_name %></button>
     <% end %>
   </form>
 

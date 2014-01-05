@@ -2,7 +2,8 @@ class BusinessesController < ApplicationController
   before_filter :require_current_user!, except: [:show]
 
   def show
-    @business = Business.find(params[:id])
+    @business = Business.includes(:business_hours, :business_features).find(params[:id])
+    @best_businesses = Business.includes(:neighborhood, :store_front_photo).best(@business.categories)
   end
 
   def new

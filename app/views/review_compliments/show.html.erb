@@ -15,16 +15,15 @@
       <% @user.review_compliments.each do |c| %>
         <li class="compliment-normal group">
           <header class="group">
-            <div class="<%= Compliment.find(c.compliment_id).image_name %>-30 left"></div>
-            <p class="compliment-name left"><%= Compliment.find(c.compliment_id).name %></p>
+            <div class="<%= c.compliment.image_name %>-30 left"></div>
+            <p class="compliment-name left"><%= c.compliment.name %></p>
           </header>
 
           <div class="side-left left">
             <%= render "users/avatar", user: c.user %>
           </div>
-
           <div class="side-right">
-            <p>For <%= c.review.user.name %>'s review of: <a href="<%= business_url(c.review.business.id) %>"><%= c.review.business.name %></a></p>
+            <p>For <%= @user.name %>'s review of: <a href="<%= business_url(c.review.business.id) %>"><%= c.review.business.name %></a></p>
 
             <p class="compliment-body"><%= text_snippet(c.body, 40) %></p>
           </div>

@@ -13,7 +13,8 @@ class Review < ActiveRecord::Base
     class_name: "User",
     primary_key: :id,
     foreign_key: :user_id,
-    counter_cache: true
+    counter_cache: true,
+    include: :profile_locations
   )
 
   belongs_to(
@@ -22,7 +23,7 @@ class Review < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :business_id,
     counter_cache: true,
-    include: :neighborhood
+    include: [:neighborhood, :photos]
   )
 
   has_many :categories, through: :business, source: :categories
@@ -58,14 +59,6 @@ class Review < ActiveRecord::Base
   has_many :votes, through: :review_votes, source: :vote
 
 
-  has_many(
-    :vote_countA,
-    class_name: "ReviewVote",
-    primary_key: :id,
-    foreign_key: :review_id,
-    group: "review_votes.vote_id",
-    select: "review_votes.vote_id AS id, COUNT(review_votes.id) AS count",
-  )
 
 
 
@@ -73,10 +66,15 @@ class Review < ActiveRecord::Base
     :review_compliments,
     class_name: "ReviewCompliment",
     primary_key: :id,
-    foreign_key: :review_id
+    foreign_key: :review_id,
+    include: [:user, :compliment]
   )
 
-  has_many :compliments, through: :review_compliments, source: :compliment
+  has_many(
+    :compliments,
+    through: :review_compliments,
+    source: :compliment
+  )
 
   has_many(
     :list_reviews,
@@ -154,31 +152,6 @@ class Review < ActiveRecord::Base
     Review.limit(num).includes(:user, :business, :photos)
   end
 
-  has_many(
-    :vote_count,
-    through: :review_votes,
-    source: :vote,
-    group: "review_votes.vote_id",
-    select: "review_votes.vote_id AS id, vote.name AS name, COUNT(review_votes.id) AS count",
-  )
-
-  def vote_count
-    sql = <<-SQL
-      SELECT votes.id AS id, votes.name AS name, COUNT(review_votes.vote_id) AS count
-      FROM votes
-      INNER JOIN review_votes ON votes.id = review_votes.vote_id
-      WHERE review_votes.review_id = ?
-      GROUP BY votes.id
-    SQL
-
-    result = Business.find_by_sql([sql, id])
-
-    tallies = {}
-    result.each { |r| tallies[r.id] = r.count }
-
-    tallies
-  end
-
   def rating_string
     "#{self.rating}0"
   end
@@ -188,7 +161,6 @@ class Review < ActiveRecord::Base
   end
 
   def as_json(options={})
-    puts "--------------------- TOP REVIEW AS JSON"
     super(methods: [:avatar], include: [:user])
   end
 

@@ -20,7 +20,7 @@
     <ul class="group">
 
       <li><a href="<%= user_url(user.id) %>"><%= user.name %></a></li>
-      <li><div><%= user.display_location %></div></li>
+      <li><div><%= user.profile_locations[0].address %></div></li>
 
     </ul>
   </div>

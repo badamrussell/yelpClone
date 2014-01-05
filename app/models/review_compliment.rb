@@ -14,7 +14,8 @@ class ReviewCompliment < ActiveRecord::Base
     :review,
     class_name: "Review",
     primary_key: :id,
-    foreign_key: :review_id
+    foreign_key: :review_id,
+    include: [:user, :business]
   )
 
   belongs_to(
@@ -22,6 +23,7 @@ class ReviewCompliment < ActiveRecord::Base
     class_name: "User",
     primary_key: :id,
     foreign_key: :user_id,
-    counter_cache: true
+    counter_cache: true,
+    include: [:photos, :profile_locations]
   )
 end

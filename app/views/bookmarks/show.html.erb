@@ -4,7 +4,6 @@
 
   <%= render "users/header_nav", user: @user %>
 
-
   <section class="user-main-body group">
     <%= render "users/user_info", user: @user %>
 
@@ -14,14 +13,12 @@
         <hr>
       </header>
 
-      <% @user.bookmarked_businesses.each do |business| %>
+      <% @bookmarked_businesses.each do |business| %>
         <%= render "businesses/search_result", business: business %>
       <% end %>
     </section>
 
     <section class="sidebar-right">
-
-
     </section>
 
   </section>

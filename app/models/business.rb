@@ -52,6 +52,15 @@ class Business < ActiveRecord::Base
     foreign_key: :business_id
   )
 
+  has_one(
+    :top_review,
+    class_name: "Review",
+    primary_key: :id,
+    foreign_key: :business_id,
+    order: "rating DESC",
+    include: :user
+  )
+
   has_many(
     :business_categories,
     class_name: "BusinessCategory",
@@ -70,8 +79,8 @@ class Business < ActiveRecord::Base
 
   has_many :features, through: :business_features, source: :feature
 
-  has_one(
-    :store_front,
+  belongs_to(
+    :store_front_photo,
     class_name: "Photo",
     primary_key: :id,
     foreign_key: :store_front_id
@@ -197,6 +206,8 @@ class Business < ActiveRecord::Base
 
     if photos.loaded?
       photos.select { |p| p.id == store_front_id }[0].url(size)
+    elsif store_front_photo
+      store_front_photo.url(size)
     else
       Photo.find(store_front_id).url(size)
     end
@@ -206,9 +217,7 @@ class Business < ActiveRecord::Base
 
   end
 
-  def top_review
-    reviews.order("rating DESC").first
-  end
+
 
   def get_highlight_reviews(amount)
     self.reviews[0..3]
@@ -253,7 +262,11 @@ class Business < ActiveRecord::Base
 
   def now_hours
     # Sunday is 0
-    d = business_hours.where(day_id: Time.now.wday)[0]
+    d = if business_hours.loaded?
+        business_hours.select { |d| d.day_id = Time.now.wday}[0]
+      else
+        business_hours.where(day_id: Time.now.wday)[0]
+      end
 
     d ? d.open_hours : ""
   end

@@ -1,18 +1,16 @@
 class BookmarksController < ApplicationController
-  before_filter :require_current_user!
+  before_filter :require_current_user!, except: :show
 
 
 	def create
-		
+
 		if Bookmark.where(user_id: current_user.id, business_id: params[:bookmark][:business_id]).empty?
 			@bookmark = current_user.bookmarks.new(params[:bookmark])
-			
 
-
-			@bookmark.save
+      @bookmark.save
 
 			flash[:errors] = @bookmark.errors.full_messages
-			
+
 			if request.xhr?
 				render json: { id: @bookmark.id }
 			else
@@ -30,7 +28,7 @@ class BookmarksController < ApplicationController
 		@bookmark.destroy
 
 		flash[:errors] = @bookmark.errors.full_messages
-		
+
 		if request.xhr?
 			render json: { business_id: @bookmark.business_id }
 		else
@@ -40,6 +38,7 @@ class BookmarksController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+    @bookmarked_businesses = @user.bookmarked_businesses
 	end
 
 end

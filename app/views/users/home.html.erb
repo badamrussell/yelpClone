@@ -4,8 +4,16 @@
 <section class="main-side left">
   <div class="reviews">
     <ul>
+      <% user_votes = current_user ? current_user.review_votes : [] %>
+      <% all_votes = Vote.all %>
+      <% vote_counts = ReviewVote.vote_count %>
+      <% all_compliments = Compliment.all %>
       <% @reviews.each do |review| %>
-        <li><%= render "reviews/review_2", review: review %></li>
+        <li><%= render "reviews/review_2",  review: review,
+                                            all_vote: all_votes,
+                                            user_votes: user_votes,
+                                            vote_counts: vote_counts[review.id] || {},
+                                            all_compliments: all_compliments %></li>
       <% end %>
     </ul>
   </div>
@@ -54,7 +62,7 @@
 
           <ul class="names left">
             <li><a href="<%= user_url(current_user.id) %>"><%= current_user.name %></a></li>
-            <li><div><%= current_user.display_location %></div></li>
+            <li><div><%= current_user.profile_locations[0].address %></div></li>
           </ul>
         </div>
 

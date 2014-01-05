@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131229192813) do
+ActiveRecord::Schema.define(:version => 20140105025640) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -172,11 +172,12 @@ ActiveRecord::Schema.define(:version => 20131229192813) do
   add_index "list_reviews", ["review_id"], :name => "index_list_reviews_on_review_id"
 
   create_table "lists", :force => true do |t|
-    t.string   "name",       :null => false
-    t.integer  "user_id",    :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",                              :null => false
+    t.integer  "user_id",                           :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "desc"
+    t.integer  "list_reviews_count", :default => 0
   end
 
   add_index "lists", ["user_id"], :name => "index_lists_on_user_id"

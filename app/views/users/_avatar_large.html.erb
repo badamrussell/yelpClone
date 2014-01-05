@@ -8,7 +8,7 @@
     <ul class="group">
       <strong>
       <li><a href="<%= user_url(user.id) %>"><%= user.name %></a></li>
-      <li><div><%= user.display_location %></div></li>
+      <li><div><%= user.profile_locations[0].address %></div></li>
     </strong>
       <li>
         <img class="left" src="<%= user.avatar %>" height="10">

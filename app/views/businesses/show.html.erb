@@ -67,9 +67,17 @@
       <a href="#">Elites</a> -->
 
 
+      <% user_votes = current_user ? current_user.review_votes : [] %>
+      <% all_votes = Vote.all %>
+      <% vote_counts = ReviewVote.vote_count %>
+      <% all_compliments = Compliment.all %>
 
       <% @business.reviews.each do |review| %>
-        <%= render "reviews/business_page", review: review %>
+        <%= render "reviews/business_page", review: review,
+                                            all_vote: all_votes,
+                                            user_votes: user_votes,
+                                            vote_counts: vote_counts[review.id] || {},
+                                            all_compliments: all_compliments %>
       <% end %>
 
     </section>
@@ -92,7 +100,7 @@
     <h1 class="red-title"><strong>Best of Yelp</strong></h1>
     <ul class="photos-container group">
 
-      <% Business.best(@business.categories).each do |rest| %>
+      <% @best_businesses.each do |rest| %>
         <li>
           <%= render "photos/with_lower3_biz",  icon_url: business_url(rest.id),
                                                 width: 180,

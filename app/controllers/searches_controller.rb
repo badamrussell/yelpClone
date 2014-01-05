@@ -12,7 +12,6 @@ class SearchesController < ApplicationController
     @finer_filters = nil
     @finer_filter_name = nil
     @search_params = params[:search] || {}
-    @search_params[:distance] ||= 0
     @recommend_categories = Category.all[1..3]
     @find_desc = params[:find_desc] || ""
     @find_loc = params[:find_loc] || ""
@@ -24,7 +23,9 @@ class SearchesController < ApplicationController
     @select_neighborhoods = []
 
     query_params = {}
-    params[:search].each { |key,value| query_params[key.to_sym] = value }
+    if params[:search]
+      params[:search].each { |key,value| query_params[key.to_sym] = value }
+    end
 
     query_params[:category_id] ||= params["category_id"]
     query_params[:main_category_id] ||= params["main_category_id"] if query_params[:category_id].nil?
@@ -66,6 +67,9 @@ class SearchesController < ApplicationController
         @select_neighborhoods = params[:search][:neighborhood_id].map { |num| Neighborhood.find(num) }
       end
     end
+
+
+    @search_params[:distance] ||= 0
 
     @results = rails_query(@find_desc, query_params, @find_loc)
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)

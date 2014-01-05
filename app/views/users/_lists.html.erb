@@ -1,8 +1,8 @@
 <!-- -->
 <section class="section-container">
-  
 
-<% if lists.empty? %>
+
+<% if lists.length == 0 %>
 	<h3 class="red-title">No Lists</h3>
 
 <% else %>
@@ -15,14 +15,13 @@
 			<li class="list-quick group">
 				<header class="group">
 					<div class="side-left left">
-				    <a href="<%= list_url(list.id) %>"><img class="avatar-30" src="<%= list.reviews.first.business.avatar %>"></a>
+				    <a href="<%= list_url(list.id) %>"><img class="avatar-30" src="<%= list.reviews[0].business.avatar %>"></a>
 				  </div>
 
 				  <div class="side-right">
 				  	<a class="med-title" href="#"><%= list.name %></a>
 				  	<p><%= text_snippet(list.desc, 40) if list.desc %></p>
-
-					</div>
+          </div>
 				</header>
 
 				<ul class="list-items group">

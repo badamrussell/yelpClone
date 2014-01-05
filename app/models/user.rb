@@ -64,7 +64,12 @@ class User < ActiveRecord::Base
   has_many :votes, through: :review_votes, source: :vote
 
   has_many :compliments, through: :reviews, source: :compliments
-  has_many :review_compliments, through: :reviews, source: :review_compliments
+  has_many(
+    :review_compliments,
+    through: :reviews,
+    source: :review_compliments,
+    include: [:review, :user, :compliment]
+  )
 
   has_many(
     :lists,
@@ -95,7 +100,8 @@ class User < ActiveRecord::Base
     :bookmarks,
     class_name: "Bookmark",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    include: :business
   )
 
   has_many :bookmarked_businesses, through: :bookmarks, source: :business
@@ -106,8 +112,6 @@ class User < ActiveRecord::Base
     icon_m: "60x60#",
     profile: "100x100#"
   }
-
-
 
   def full_compliments
 
@@ -171,10 +175,6 @@ class User < ActiveRecord::Base
     profile_photo_file_name ? self.profile_photo.url(size) : "/assets/temp/default_user.jpg"
   end
 
-  def display_location
-    #needs to be better and choose primary
-    self.profile_locations.first.address
-  end
 
   def photo_details_for(photo)
     self.photo_details.where(photo_id: photo.id)[0]

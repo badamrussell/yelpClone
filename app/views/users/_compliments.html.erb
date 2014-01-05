@@ -1,29 +1,27 @@
 <!-- -->
 
 <section class="section-container">
-  
+
 
 <% if compliments.empty? %>
 	<h3 class="red-title">No Compliments</h3>
 
 <% else %>
+
 	<h3 class="red-title"><%= compliments.length %> Compliments</h3>
 
 	<ul>
 		<% compliments.each_with_index do |c,i| %>
-
 			<% break if i > 3 %>
 			<li class="compliment-quick group">
 				<div class="avatar-container left">
-			    <a href="<%= user_url(c.user_id) %>"><img class="avatar-30" src="<%= User.find(c.user_id).avatar %>"></a>
+			    <a href="<%= user_url(c.user_id) %>"><img class="avatar-30" src="<%= c.user.avatar %>"></a>
 			  </div>
 
 			  <div class="side-right">
 					<span>
-						<% comp = Compliment.find(c.compliment_id) %>
-			      <% comp_name = comp.image_name %>
-					  <div class="<%= comp_name %>-20 left"></div>
-					  <p class="compliment-name"><%= comp.name %></p>
+						<div class="<%= c.compliment.image_name %>-20 left"></div>
+					  <p class="compliment-name"><%= c.compliment.name %></p>
 					</span>
 
 					<p class="compliment-body"><%= text_snippet(c.body, 40) %></p>
