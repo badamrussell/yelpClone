@@ -1,6 +1,25 @@
 class SearchesController < ApplicationController
 
+  def gather_filter_settings(set, list, visible_limit)
 
+    if set
+      set = set.map { |a| a.to_i }
+
+      list.each do |item|
+        if set.include?(item[:id])
+          item[:checked] = true
+
+          if @categories.count { |c| c[:checked] } <= visible_limit
+            item[:visible] = true
+          end
+        end
+      end
+    end
+
+    while list.count { |item| item[:visible] } < visible_limit
+      list.select { |invis_item| !invis_item[:visible] }[0][:visible] = true
+    end
+  end
 
   def show
     #search elements
@@ -18,9 +37,10 @@ class SearchesController < ApplicationController
     @category_id = params["category_id"]
     @saved_params = @find_loc ? {find_loc: @find_loc} : {}
     @saved_params[:find_desc] = @find_desc unless @find_desc == ""
-    @select_categories = []
-    @select_features = []
-    @select_neighborhoods = []
+
+    @categories = Category.all.map { |cat| {name: cat.name, id: cat.id, checked: false, visible: false } }
+    @features = Feature.all.map { |feat| {name: feat.name, id: feat.id, checked: false, visible: false } }
+    @neighborhoods = Neighborhood.all.map { |neigh| {name: neigh.name, id: neigh.id, checked: false, visible: false } }
 
     query_params = {}
     if params[:search]
@@ -54,20 +74,14 @@ class SearchesController < ApplicationController
       @finer_filter_name = :main_category_id
     end
 
-    if @search_params && @search_params.any?
-      #find categories to display (top 5)
-      if params[:search][:category_id]
-        @select_categories = params[:search][:category_id].map { |num| Category.find(num) }
-      end
-      if params[:search][:feature_id]
-        @select_features = params[:search][:feature_id].map { |num| Feature.find(num) }
-      end
+    set = params[:search] ? params[:search][:category_id] : []
+    gather_filter_settings(set, @categories, 5)
 
-      if params[:search][:neighborhood_id]
-        @select_neighborhoods = params[:search][:neighborhood_id].map { |num| Neighborhood.find(num) }
-      end
-    end
+    set = params[:search] ? params[:search][:feature_id] : []
+    gather_filter_settings(set, @features, 5)
 
+    set = params[:search] ? params[:search][:neighborhood_id] : []
+    gather_filter_settings(set, @neighborhoods, 5)
 
     @search_params[:distance] ||= 0
 

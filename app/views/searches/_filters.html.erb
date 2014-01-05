@@ -81,38 +81,16 @@
       <section class="column left">
         <h3 class="filter-title red-title">Neighborhoods</h3>
         <ul id="neighborhood-selections">
-          <% cnt = 0 %>
-          <% extra_neighborhoods = Neighborhood.limit(5) %>
-          <% @select_neighborhoods.each do |c| %>
-            <li>
-              <% if cnt > 4 %>
-                <input type="hidden" name="search[neighborhood_id][]" value="<%= c.id %>">
-              <% else %>
-                <input type="checkbox" id="c_<%= c.id %>" name="search[neighborhood_id][]" value="<%= c.id %>" checked>
-                <label for="c_<%= c.id %>"><%= c.name %></label>
-              <% end %>
-            </li>
-            <% cnt += 1 %>
+          <% @neighborhoods.sort { |a| a[:checked] ? 0 : 1 }.each do |n| %>
+            <% if n[:visible] %>
+              <li>
+                <input type="checkbox" id="n_<%= n[:id] %>" name="search[neighborhood_id][]" value="<%= n[:id] %>" <%= "checked" if n[:checked] %>>
+                <label for="n_<%= n[:id] %>"><%= n[:name] %></label>
+              </li>
+            <% elsif n[:checked] %>
+              <li><input type="hidden" name="search[neighborhood_id][]" value="<%= n[:id] %>"></li>
+            <% end %>
           <% end %>
-
-          <% while cnt < 5 && extra_neighborhoods.any? do  %>
-            <% c = extra_neighborhoods.shift %>
-            <% next if @select_neighborhoods.select { |en| en.id == c.id }.any? %>
-            <li>
-              <input type="checkbox" id="c_<%= c.id %>" name="search[neighborhood_id][]" value="<%= c.id %>">
-              <label for="c_<%= c.id %>"><%= c.name %></label>
-            </li>
-            <% cnt += 1 %>
-
-          <% end %>
-
-
-
-
-
-
-
-
         </ul>
         <button class="btn-link" type="button" onclick='showFilterPopup("#neighborhood-popup", "#neighborhood-selections")'>More Neighborhoods</button>
       </section>
@@ -163,31 +141,16 @@
       <section class="column left">
         <h3 class="filter-title red-title">Features</h3>
         <ul id="feature-selections">
-          <% cnt = 0 %>
-          <% extra_features = Feature.limit(5) %>
-          <% @select_features.each do |c| %>
-            <li>
-              <% if cnt > 4 %>
-                <input type="hidden" name="search[feature_id][]" value="<%= c.id %>">
-              <% else %>
-                <input type="checkbox" id="c_<%= c.id %>" name="search[feature_id][]" value="<%= c.id %>" checked>
-                <label for="c_<%= c.id %>"><%= c.name %></label>
-              <% end %>
-            </li>
-            <% cnt += 1 %>
+          <% @features.sort { |a| a[:checked] ? 0 : 1 }.each do |f| %>
+            <% if f[:visible] %>
+              <li>
+                <input type="checkbox" id="f_<%= f[:id] %>" name="search[feature_id][]" value="<%= f[:id] %>" <%= "checked" if f[:checked] %>>
+                <label for="f_<%= f[:id] %>"><%= f[:name] %></label>
+              </li>
+            <% elsif f[:checked] %>
+              <li><input type="hidden" name="search[feature_id][]" value="<%= f[:id] %>"></li>
+            <% end %>
           <% end %>
-
-          <% while cnt < 5 && extra_features.any? do  %>
-            <% c = extra_features.shift %>
-            <% next if @select_features.select { |ef| ef.id == c.id }.any? %>
-            <li>
-              <input type="checkbox" id="c_<%= c.id %>" name="search[feature_id][]" value="<%= c.id %>">
-              <label for="c_<%= c.id %>"><%= c.name %></label>
-            </li>
-            <% cnt += 1 %>
-          <% end %>
-
-
         </ul>
         <button class="btn-link" type="button" onclick='showFilterPopup("#feature-popup", "#feature-selections")'>More Features</button>
       </section>
@@ -205,28 +168,15 @@
         <section class="column left">
           <h3 class="filter-title red-title">Category</h3>
           <ul id="category-selections">
-            <% cnt = 0 %>
-            <% extra_categories = Category.limit(5) %>
-            <% @select_categories.each do |c| %>
-              <li>
-                <% if cnt > 4 %>
-                  <input type="hidden" name="search[category_id][]" value="<%= c.id %>">
-                <% else %>
-                  <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>" checked>
-                  <label for="c_<%= c.id %>"><%= c.name %></label>
-                <% end %>
-              </li>
-              <% cnt += 1 %>
-            <% end %>
-
-            <% while cnt < 5 && extra_categories.any? do  %>
-              <% c = extra_categories.shift %>
-              <% next if @select_categories.select { |ec| ec.id == c.id }.any? %>
-              <li>
-                <input type="checkbox" id="c_<%= c.id %>" name="search[category_id][]" value="<%= c.id %>">
-                <label for="c_<%= c.id %>"><%= c.name %></label>
-              </li>
-              <% cnt += 1 %>
+            <% @categories.sort { |a,b| a[:checked] ? a[:name] <=> b[:name] : 1 }.each do |c| %>
+              <% if c[:visible] %>
+                <li>
+                  <input type="checkbox" id="c_<%= c[:id] %>" name="search[category_id][]" value="<%= c[:id] %>" <%= "checked" if c[:checked] %>>
+                  <label for="c_<%= c[:id] %>"><%= c[:name] %></label>
+                </li>
+              <% elsif c[:checked] %>
+                <li><input type="hidden" name="search[category_id][]" value="<%= c[:id] %>"></li>
+              <% end %>
             <% end %>
           </ul>
           <!-- <button class="btn-link" type="button" onclick='showFilterPopup("#category-popup", "#category-selections")'>More Categories</button> -->
