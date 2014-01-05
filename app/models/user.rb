@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
     :bio,
     class_name: "UserBio",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    dependent: :destroy
   )
 
   has_many(
@@ -23,21 +24,24 @@ class User < ActiveRecord::Base
     class_name: "Review",
     primary_key: :id,
     foreign_key: :user_id,
-    include: [:categories, :photos, :business]
+    include: [:categories, :photos, :business],
+    dependent: :destroy
   )
 
   has_many(
     :profile_locations,
     class_name: "ProfileLocation",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    dependent: :destroy
   )
 
   has_many(
     :photos,
     class_name: "Photo",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    dependent: :destroy
   )
 
   has_many(
@@ -51,7 +55,8 @@ class User < ActiveRecord::Base
     :tips ,
     class_name: "Tip",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    dependent: :destroy
   )
 
   has_many(
@@ -75,7 +80,8 @@ class User < ActiveRecord::Base
     :lists,
     class_name: "List",
     primary_key: :id,
-    foreign_key: :user_id
+    foreign_key: :user_id,
+    dependent: :destroy
   )
 
   has_many(
@@ -101,7 +107,8 @@ class User < ActiveRecord::Base
     class_name: "Bookmark",
     primary_key: :id,
     foreign_key: :user_id,
-    include: :business
+    include: :business,
+    dependent: :destroy
   )
 
   has_many :bookmarked_businesses, through: :bookmarks, source: :business

@@ -29,16 +29,11 @@ class Review < ActiveRecord::Base
   has_many :categories, through: :business, source: :categories
 
   has_many(
-    :business_features,
-    through: :business,
-    source: :business_features
-  )
-
-  has_many(
     :photos,
     class_name: "Photo",
     primary_key: :id,
-    foreign_key: :review_id
+    foreign_key: :review_id,
+    dependent: :destroy
   )
 
   has_many(
@@ -46,28 +41,27 @@ class Review < ActiveRecord::Base
     class_name: "BusinessFeature",
     primary_key: :id,
     foreign_key: :review_id,
-    inverse_of: :review
+    inverse_of: :review,
+    dependent: :destroy
   )
 
   has_many(
     :review_votes,
     class_name: "ReviewVote",
     primary_key: :id,
-    foreign_key: :review_id
+    foreign_key: :review_id,
+    dependent: :destroy
   )
 
   has_many :votes, through: :review_votes, source: :vote
-
-
-
-
 
   has_many(
     :review_compliments,
     class_name: "ReviewCompliment",
     primary_key: :id,
     foreign_key: :review_id,
-    include: [:user, :compliment]
+    include: [:user, :compliment],
+    dependent: :destroy
   )
 
   has_many(
@@ -80,7 +74,8 @@ class Review < ActiveRecord::Base
     :list_reviews,
     class_name: "ListReview",
     primary_key: :id,
-    foreign_key: :review_id
+    foreign_key: :review_id,
+    dependent: :destroy
   )
 
   has_many :lists, through: :list_review, source: :list
@@ -112,7 +107,6 @@ class Review < ActiveRecord::Base
     else
       0
     end
-
     self.business.save
   end
 

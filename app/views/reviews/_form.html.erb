@@ -93,7 +93,7 @@
 
     <% if method == "put" %>
       <a href="<%= business_url(@business.id) %>">Cancel</a>
-      <!-- <%#= button_to "Delete", review_url(@review.id), method: :delete %> -->
+      <%= button_to "Delete", review_url(@review.id), method: :delete, class: "gray-btn" %>
     <% else %>
       <a class="cancel-btn med-title" href="<%= business_url(@business.id) %>">Cancel</a>
     <% end %>

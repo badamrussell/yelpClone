@@ -27,7 +27,8 @@ class Photo < ActiveRecord::Base
     :photo_details,
     class_name: "PhotoDetail",
     primary_key: :id,
-    foreign_key: :photo_id
+    foreign_key: :photo_id,
+    dependent: :destroy
   )
 
   belongs_to(
@@ -47,18 +48,31 @@ class Photo < ActiveRecord::Base
     if self.business_id
       biz = self.business
 
-      if biz.missing_store_front?
+      details = biz.photos
+                .select("photos.id, COUNT(photo_details.store_front) AS photo_count")
+                .joins("LEFT JOIN photo_details ON photo_details.photo_id = photos.id")
+                .group("photos.id")
+                .order("photo_count DESC, photos.id DESC")
+                .limit(2).all
+
+      if increment == -1
+        if biz.store_front_id == self.id
+          biz.store_front_id = nil
+
+          details.each do |d|
+            next if d.id == self.id
+            biz.store_front_id = d.id
+            break
+          end
+
+          biz.save
+        end
+      elsif biz.missing_store_front?
         biz.update_attribute(:store_front_id, self.id)
-      elsif biz.store_front_id == self.id
-
       else
-        details = photo_details.where(store_front: true).order(:store_front_count)
-
         if details.empty?
           biz.update_attribute(:store_front_id, self.id)
-        elsif details[0].id == biz.store_front_id
-
-        else
+        elsif details[0].id != biz.store_front_id
           biz.update_attribute(:store_front_id, details[0].id)
         end
       end

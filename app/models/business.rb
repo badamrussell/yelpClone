@@ -33,9 +33,6 @@ class Business < ActiveRecord::Base
     self.city = addr[1]
     self.state = addr[2].split(" ")[0]
     self.zip_code = addr[2].split(" ")[1].to_i
-    # puts "ADDRESS IS: #{arg} >>> #{addr}"
-    # puts "#{address1}, #{address2}, #{city}, #{state}, #{zip_code}"
-
   end
 
   belongs_to(
@@ -49,7 +46,8 @@ class Business < ActiveRecord::Base
     :reviews,
     class_name: "Review",
     primary_key: :id,
-    foreign_key: :business_id
+    foreign_key: :business_id,
+    dependent: :destroy
   )
 
   has_one(
@@ -65,7 +63,8 @@ class Business < ActiveRecord::Base
     :business_categories,
     class_name: "BusinessCategory",
     primary_key: :id,
-    foreign_key: :business_id
+    foreign_key: :business_id,
+    dependent: :destroy
   )
 
   has_many :categories, through: :business_categories, source: :category
@@ -106,14 +105,16 @@ class Business < ActiveRecord::Base
     :tips,
     class_name: "Tip",
     primary_key: :id,
-    foreign_key: :business_id
+    foreign_key: :business_id,
+    dependent: :destroy
   )
 
   has_many(
     :bookmarks,
     class_name: "Bookmark",
     primary_key: :id,
-    foreign_key: :business_id
+    foreign_key: :business_id,
+    dependent: :destroy
   )
 
   has_many :bookmarkers, through: :bookmarks, source: :user
@@ -122,7 +123,8 @@ class Business < ActiveRecord::Base
     :business_hours,
     class_name: "BusinessHour",
     primary_key: :id,
-    foreign_key: :business_id
+    foreign_key: :business_id,
+    dependent: :destroy
   )
 
   def <=>(otherBiz)
