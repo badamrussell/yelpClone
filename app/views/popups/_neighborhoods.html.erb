@@ -7,10 +7,10 @@
       </header>
 
       <fieldset class="choices-container group">
-        <% Area.where(city_id: 1).each do |ac| %>
+        <% Area.includes(:neighborhoods).where(city_id: 1).each do |ac| %>
           <h2 class="med-bold"><%= ac.name %></h2>
           <section class="choice-container group">
-            <% Neighborhood.where(area_id: ac).each do |c| %>
+            <% ac.neighborhoods.each do |c| %>
               <div class="choice left">
                 <input  class="left"
                         type="checkbox"

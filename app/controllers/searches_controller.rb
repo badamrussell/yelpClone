@@ -88,6 +88,7 @@ class SearchesController < ApplicationController
     @results = rails_query(@find_desc, query_params, @find_loc)
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
 
+
     render json: @results if request.xhr?
   end
 

@@ -8,7 +8,7 @@
   <% sizes = ['width=500', 'height=300', 'width=300', 'height=140', 'height=140'] %>
 
   <div class="mosaic-photo group">
-    <% best_biz = @category.best_businesses(5) %>
+    <% best_biz = @category.top_five_businesses %>
     <% best_biz.each_with_index do |biz, i| %>
       <a href="<%= business_url(best_biz[i].id) %>">
         <div class="mosaic-<%= i+1 %>">

@@ -7,9 +7,9 @@
       </header>
 
       <fieldset class="choices-container group">
-        <% FeatureCategory.all.each do |fc| %>
+        <% FeatureCategory.includes(:features).all.each do |fc| %>
           <section class="choice-container group">
-            <% Feature.where(feature_category_id: fc).each do |c| %>
+            <% fc.features.each do |c| %>
               <div class="choice left">
                 <input  class="left"
                         type="checkbox"

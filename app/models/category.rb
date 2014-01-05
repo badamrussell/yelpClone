@@ -32,15 +32,11 @@ class Category < ActiveRecord::Base
     Business.find_by_sql([sql,id])
   end
 
-  def best_businesses(size)
-    sql = <<-SQL
-      SELECT businesses.*
-      FROM businesses
-      JOIN business_categories ON businesses.id = business_categories.business_id
-      WHERE business_categories.category_id = ?
-    SQL
-
-    Business.find_by_sql([sql,id]).sort[0...size]
+  def top_five_businesses
+    Business.includes(:photos)
+      .joins("JOIN business_categories ON businesses.id = business_categories.business_id")
+      .where("business_categories.category_id = #{id}")
+      .limit(5)
   end
 
   def new_businesses(size)
@@ -53,7 +49,13 @@ class Category < ActiveRecord::Base
       LIMIT ?
     SQL
 
-    Business.find_by_sql([sql, id, size])
+    # Business.find_by_sql([sql, id, size])
+    Business.includes(:store_front_photo, :neighborhood)
+      .joins("JOIN business_categories ON businesses.id = business_categories.business_id")
+      .where("business_categories.category_id = #{id}")
+      .order("businesses.created_at DESC")
+      .limit(size)
+
   end
 
   def new_photos(size)
@@ -68,19 +70,16 @@ class Category < ActiveRecord::Base
     SQL
 
     Photo.find_by_sql([sql, id, size])
+
+
+
   end
 
   def new_reviews(size)
-    sql = <<-SQL
-      SELECT reviews.*
-      FROM reviews
-      INNER JOIN businesses ON businesses.id = reviews.business_id
-      JOIN business_categories ON businesses.id = business_categories.business_id
-      WHERE business_categories.category_id = ?
-      ORDER BY businesses.created_at DESC
-      LIMIT ?
-    SQL
-
-    Review.find_by_sql([sql, id, size])
+    Review.includes(:user, :business)
+      .joins("INNER JOIN businesses ON businesses.id = reviews.business_id JOIN business_categories ON businesses.id = business_categories.business_id")
+      .where("business_categories.category_id = #{id}")
+      .order("businesses.created_at DESC")
+      .limit(size)
   end
 end
