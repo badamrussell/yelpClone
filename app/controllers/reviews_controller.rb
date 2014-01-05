@@ -5,17 +5,19 @@ class ReviewsController < ApplicationController
     @review = Review.new
     @business = Business.find(params[:business_id])
     @business_features = []
+    @photo = Photo.new
   end
 
   def create
-    flash[:errors] = []
     @review = current_user.reviews.new(params[:review])
     @business = Business.find(@review.business_id)
 
 
-    puts params
-    puts "---------------------------------"
-    handle_transaction
+    # puts params
+    # puts "---------------------------------"
+    # handle_transaction
+
+    flash[:errors] = @review.handle_update(nil, params[:feature_ids], params[:photo], current_user)
 
     if flash[:errors].empty?
       redirect_to business_url(params[:review][:business_id])
@@ -42,21 +44,23 @@ class ReviewsController < ApplicationController
     @business = Business.find(@review.business_id)
     @business_features = @review.completed_biz_features
 
+    @photo = @review.photos.first || Photo.new
     puts @business_features
     puts "---------------------------------"
   end
 
   def update
-    flash[:errors] = []
     @review = Review.find(params[:id])
     @business = Business.find(@review[:business_id])
     @business_features = @review.business_features
 
-    puts params[:feature_ids]
-    puts "------------UPDATE---------------------"
+    # puts params[:feature_ids]
+    # puts "------------UPDATE---------------------"
 
-    @review.update_attributes(params[:review])
-    handle_transaction
+
+    flash[:errors] = @review.handle_update(params[:review], params[:feature_ids], params[:photo], current_user)
+    # @review.update_attributes(params[:review])
+    # handle_transaction
 
     if flash[:errors].empty?
       redirect_to business_url(@business.id)

@@ -157,4 +157,62 @@ class Review < ActiveRecord::Base
     super(methods: [:avatar], include: [:user])
   end
 
+  def handle_update(new_values, new_features, new_photos, current_user)
+    trans_errors = []
+
+    transaction do
+      update_attributes!(new_values) if new_values
+
+      business_features.each do |f|
+        if new_features[f.feature_id].nil?
+          f.destroy
+        elsif new_features[f.feature_id].blank?
+          f.destroy
+          new_features.remove(f.feature_id)
+        end
+      end
+
+      if new_features
+        existing_features = business_features.pluck(:feature_id)
+
+        new_features.each do |key,value|
+          key_id = key.to_i
+          bool_value = if value == "1"
+                true
+              elsif key.to_i == 0
+                key_id = value.to_i
+                true
+              else
+                false
+              end
+          single_feature = if existing_features.include?(key_id)
+            self.business_features.where(feature_id: key_id, business_id: business_id).first.update_attributes!(value: bool_value)
+          else
+            self.business_features.build(feature_id: key_id, business_id: business_id, value: bool_value )
+          end
+
+          trans_errors += single_feature.errors.full_messages
+        end
+      end
+
+      #save photo
+      if new_photos && !new_photos[:file].blank?
+        new_photos[:business_id] = business_id
+        new_photos[:review_id] = id
+
+        newPhoto = current_user.photos.build(new_photos)
+
+        newPhoto.save!
+        trans_errors += newPhoto.errors.full_messages
+      end
+
+      save!
+
+      trans_errors += self.errors.full_messages
+    end
+
+
+    trans_errors
+  end
+
 end

@@ -2,7 +2,7 @@
 
 <h3 class="business-name large-title"><%= business.name %></h3>
 
-  <form action="<%= url %>" method="post" enctype="multipart/form-data">
+  <form id="new-review-form" class="group" action="<%= url %>" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="_method" value="<%= method %>">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -21,11 +21,11 @@
       </div>
       <div class="photo-area left">
         <label class="med-title" for="photo_file">Add Photo</label>
-        <input type="file" name="photo[file]">
+        <input type="file" name="photo[file]" value="<%= @photo.file %>">
 
         <div class="caption-area">
           <label class="med-title" for="photo_caption">Caption:</label>
-          <textarea cols="50" rows="3" name="photo[caption]" id="photo_caption"><%#= @photo.caption %></textarea>
+          <textarea cols="50" rows="3" name="photo[caption]" id="photo_caption"><%= @photo.caption %></textarea>
         </div>
       </div>
     </fieldset>
@@ -67,7 +67,7 @@
       <% p_form = feature_category.input_type == 1 ? "forms/radio_group" : "forms/checkbox_group" %>
       <% p_name = feature_category.input_type == 1 ? feature_category.features.select { |f| business_features[f.id] }[0] : nil %>
       <% p_name = p_name.id if p_name %>
-
+      <% p_custom = feature_category.input_type == 1 ? true : false%>
 
       <%= render p_form, {
         name: nil,
@@ -78,11 +78,11 @@
         data: feature_category.features,
         select_name: p_name,
         selected_data: business_features,
-        use_custom: false
+        use_custom: p_custom
       } %>
 
       <% if feature_category.input_type == 2 %>
-        <% fc_count += feature_category.features.length%>
+        <% fc_count += feature_category.features.length %>
       <% else %>
         <% fc_count += 1 %>
       <% end %>
@@ -91,13 +91,12 @@
 
     <button id="Review" type="submit" class="red-btn left">Post Review</button>
 
-    <% if method == "put" %>
-      <a href="<%= business_url(@business.id) %>">Cancel</a>
-      <%= button_to "Delete", review_url(@review.id), method: :delete, class: "gray-btn" %>
-    <% else %>
-      <a class="cancel-btn med-title" href="<%= business_url(@business.id) %>">Cancel</a>
-    <% end %>
-
-    <!-- <h5>* You can always edit or remove reviews later.</h5> -->
 </form>
 
+<ul class="submitting group">
+<% if method == "put" %>
+  <li class="left"><%= button_to "Delete", review_url(@review.id), method: :delete, class: "gray-btn" %></li>
+<% end %>
+
+<li><a class="cancel-btn med-title left" href="<%= business_url(@business.id) %>">Cancel</a></li>
+</ul>
