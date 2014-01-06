@@ -67,10 +67,10 @@ module SearchesHelper
     if search_string.blank?
       rank_string ="('0')"
     else
-      rank_string = "ts_rank(to_tsvector('simple', coalesce(businesses.name::text, '')), to_tsquery('simple', ?), 0)"
-      where_string << "to_tsvector('simple', coalesce(businesses.name::text, '')) @@ to_tsquery('simple', ?)"
-      values << search_string
-      values << search_string
+      rank_string = "ts_rank(to_tsvector('simple', coalesce(businesses.name::text, '')), to_tsquery('simple', " + Business.sanitize(search_string) + "), 0)"
+      where_string << "to_tsvector('simple', coalesce(businesses.name::text, '')) @@ to_tsquery('simple', " + Business.sanitize(search_string) + ")"
+      #sql = ActiveRecord::Base.send(:sanitize_sql_array, ["insert into foo (bar, baz) values (?, ?), (?, ?)", 'a', 'b', 'c', 'd'])
+      #res = ActiveRecord::Base.connection.execute(sql)
       orders << "search_rank DESC"
     end
 
@@ -148,7 +148,12 @@ module SearchesHelper
     join_string = joins.join(" ")
     order_string = "#{orders.join(',')}" if orders.any?
 
-    Business.includes(:categories, :photos, :neighborhood, :top_review).joins(join_string).where(where_string, *values).order(order_string).uniq
+    Business.select("businesses.*, #{rank_string} AS search_rank")
+            .includes(:categories, :photos, :neighborhood, :top_review)
+            .joins(join_string)
+            .where(where_string, *values)
+            .order(order_string)
+            .uniq
   end
 
 
