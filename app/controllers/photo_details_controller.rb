@@ -14,7 +14,9 @@ class PhotoDetailsController < ApplicationController
       flash[:errors] = @photo_detail.errors.full_messages
     end
 
-    if params[:business_id]
+    if request.xhr?
+      render json: @photo_detail
+    elsif params[:business_id]
       redirect_to business_photos_url(params[:business_id] , photo_id: params[:photo_id])
     elsif params[:user_id]
       redirect_to user_photos_url(params[:user_id] , photo_id: params[:photo_id])
@@ -30,7 +32,9 @@ class PhotoDetailsController < ApplicationController
       flash[:errors] = @photo_detail.errors.full_messages
     end
 
-    if params[:business_id]
+    if request.xhr?
+      render json: @photo_detail
+    elsif params[:business_id]
       redirect_to business_photos_url(params[:business_id] , photo_id: params[:photo_id])
     elsif params[:user_id]
       redirect_to user_photos_url(params[:user_id] , photo_id: params[:photo_id])
