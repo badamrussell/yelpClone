@@ -151,6 +151,13 @@ h1 {
   vertical-align: baseline;
 }
 
+.center-helper {
+  display: inline-block;
+  height: 100%;
+  width: 0;
+  vertical-align: middle;
+}
+
 .med-link {
   font-size: .8em;
   padding: 2px;
