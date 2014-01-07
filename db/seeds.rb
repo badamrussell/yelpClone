@@ -9,6 +9,7 @@
 user1 = User.create( email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
 user2 = User.create( email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_16.jpg") )
 user3 = User.create( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_9.jpg") )
+user4 = User.create( email: "guest@example.com", password: "password", first_name: "Guest", last_name: "Person", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
 
 new_bio = UserBio.new()
 new_bio.user_id = user1.id
@@ -22,10 +23,15 @@ new_bio = UserBio.new()
 new_bio.user_id = user3.id
 new_bio.save
 
+new_bio = UserBio.new()
+new_bio.user_id = user4.id
+new_bio.save
+
 neighborhood = Area.determine_neighborhood()
 ProfileLocation.create(user_id: user1.id, address: neighborhood, name: "Home", primary: true)
 ProfileLocation.create(user_id: user2.id, address: neighborhood, name: "Home", primary: true)
 ProfileLocation.create(user_id: user3.id, address: neighborhood, name: "Home", primary: true)
+ProfileLocation.create(user_id: user4.id, address: neighborhood, name: "Home", primary: true)
 
 
 #<Business id: 113, country_id: 1, name: "Chipotle Restaurant", address1: "274 Madison Ave", address2: "New York, NY 10016", city: "New York", state: "NY", zip_code: 10003, phone_number: "", website: "", neighborhood_id: nil, gps: "", created_at: "2013-12-18 01:21:32", updated_at: "2013-12-18 01:21:32", store_front_id: nil, latitude: 40.751402, longitude: -73.980728>
@@ -40,6 +46,8 @@ Business.create(name: "Dos Toros", country_id: 1, neighborhood_id: 1, latitude: 
 Photo.create(user_id: user1.id, business_id: 1, file: File.new("app/assets/images/temp/user_14.jpg") )
 Photo.create(user_id: user2.id, business_id: 2, file: File.new("app/assets/images/temp/store_11.jpg") )
 Photo.create(user_id: user3.id, business_id: 3, file: File.new("app/assets/images/temp/store_10.jpg") )
+Photo.create(user_id: user4.id, business_id: 1, file: File.new("app/assets/images/temp/store_10.jpg") )
+Photo.create(user_id: user4.id, business_id: 4, file: File.new("app/assets/images/temp/store_10.jpg") )
 
 BusinessCategory.create([
   {business_id: 1, category_id: 1},
@@ -706,14 +714,17 @@ Review.create([
 
 Quisque id nisl dapibus, consequat nibh vel, tempus"},
   {rating: 5, user_id: user2.id, business_id: 3, body: "imenaeos. Proin laoreet rutrum justo ac vehicula. Vivamus eros elit, sagittis ultricies auctor et, ultrices sed leo. Vestibulum ligula leo, pharetra in ante nec, faucibus pretium sapien. Duis feugiat bibendum dui, in mattis nisl ultrices ac. Quisque tincidunt eleifend mauris sed volutpat. Donec tincidunt sollicitudin velit, sit amet malesuada lacus semper vestibulum. Sed laci"},
+  {rating: 1, user_id: user4.id, business_id: 5, body: "Terrible! There was a fly in my soup. venenatis eget diam pellentesque, ultrices dictum nisi. Nullam quam lorem, lacinia ac justo nec, varius ullamcorper ligula."},
+  {rating: 3, user_id: user4.id, business_id: 1, body: "I've had better. A lot better. but some worse. Vivamus eros elit, sagittis ultricies auctor et, ultrices sed leo. Vestibulum ligula leo, pharetra in ante nec, faucibus pretium sapien. Duis feugiat bibendum dui, in mattis nisl"},
+  {rating: 5, user_id: user4.id, business_id: 2, body: "Mouth is drooling... Drooling! Nulla pharetra orci sit amet metus volutpat, ut hendrerit metus ornare. Curabitur aliquam vitae augue"},
   {rating: 3, user_id: user1.id, business_id: 3, body: "ontent of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."}
-]
-)
+  ])
 
 
 
 ProfileLocation.create([
   {user_id: user1.id, name: "Home", address: "Manhattan, NY", primary: true}
+  {user_id: user4.id, name: "Home", address: "Manhattan, NY", primary: true}
 ])
 
 
@@ -731,6 +742,10 @@ PhotoDetail.create([
   {helpful_id:2, photo_id:2, store_front: true, user_id: user2.id},
   {helpful_id:3, photo_id:3, store_front: false, user_id: user3.id},
   {helpful_id:2, photo_id:4, store_front: false, user_id: user3.id}
+  {helpful_id:1, photo_id:2, store_front: false, user_id: user4.id},
+  {helpful_id:2, photo_id:3, store_front: true, user_id: user4.id},
+  {helpful_id:3, photo_id:4, store_front: true, user_id: user4.id},
+  {helpful_id:2, photo_id:5, store_front: false, user_id: user4.id}
 ])
 
 PriceRange.create([
@@ -858,7 +873,12 @@ Bookmark.create([
   {business_id: 2, user_id: user1.id},
   {business_id: 10, user_id: user1.id},
   {business_id: 4, user_id: user1.id},
-  {business_id: 45, user_id: user1.id}
+  {business_id: 45, user_id: user1.id},
+  {business_id: 1, user_id: user4.id},
+  {business_id: 3, user_id: user4.id},
+  {business_id: 12, user_id: user4.id},
+  {business_id: 7, user_id: user4.id},
+  {business_id: 35, user_id: user4.id}
 ])
 
 Follow.create([
@@ -869,7 +889,15 @@ Follow.create([
   {fan_id: user1.id, leader_id: user2.id},
   {fan_id: user1.id, leader_id: 6},
   {fan_id: user1.id, leader_id: 10},
-  {fan_id: user1.id, leader_id: 20}
+  {fan_id: user1.id, leader_id: 20},
+  {fan_id: 12, leader_id: user4.id},
+  {fan_id: 15, leader_id: user4.id},
+  {fan_id: 3, leader_id: user4.id},
+  {fan_id: 15, leader_id: user4.id},
+  {fan_id: user4.id, leader_id: user2.id},
+  {fan_id: user4.id, leader_id: 2},
+  {fan_id: user4.id, leader_id: 7},
+  {fan_id: user4.id, leader_id: 20}
 ])
 
 Tip.create([
@@ -877,7 +905,7 @@ Tip.create([
   {body: "try the cheese", user_id: user1.id, business_id: 1},
   {body: "beware of cat", user_id: user1.id, business_id: 2},
   {body: "stay away from the bathrooms", user_id: user2.id, business_id: 3},
-  {body: "tip well", user_id: user3.id, business_id: 4}
+  {body: "tip well", user_id: user4.id, business_id: 4}
 ])
 
 ReviewVote.create([
@@ -885,9 +913,10 @@ ReviewVote.create([
   {review_id: 1, vote_id: 2, user_id: User.limit(10).last.id},
   {review_id: 1, vote_id: 3, user_id: User.limit(32).last.id},
   {review_id: 1, vote_id: 1, user_id: User.limit(15).last.id},
+  {review_id: 1, vote_id: 1, user_id: user4.id.id},
   {review_id: 202, vote_id: 1, user_id: user1.id},
   {review_id: 202, vote_id: 2, user_id: User.limit(20).last.id},
-  {review_id: 202, vote_id: 3, user_id: User.limit(30).last.id},
+  {review_id: 202, vote_id: 3, user_id: user4.id},
   {review_id: 202, vote_id: 2, user_id: User.limit(60).last.id},
   {review_id: 202, vote_id: 3, user_id: user1.id},
   {review_id: 202, vote_id: 3, user_id: User.limit(10).last.id}
@@ -895,7 +924,9 @@ ReviewVote.create([
 
 List.create([
   {name: "favorite places", user_id: user1.id },
-  {name: "exciting locations", user_id: user1.id }
+  {name: "exciting locations", user_id: user1.id },
+  {name: "best places", user_id: user4.id },
+  {name: "highly recommended", user_id: user4.id }
 ])
 
 ListReview.create([
@@ -903,13 +934,22 @@ ListReview.create([
   {list_id: 2, review_id: 2},
   {list_id: 1, review_id: 3},
   {list_id: 2, review_id: 4},
-  {list_id: 2, review_id: 5}
+  {list_id: 2, review_id: 5},
+  {list_id: 3, review_id: 6},
+  {list_id: 3, review_id: 7},
+  {list_id: 4, review_id: 8},
+  {list_id: 4, review_id: 18},
+  {list_id: 4, review_id: 9}
 ])
 
 ReviewCompliment.create([
   {compliment_id: 1, review_id: 1, user_id: User.limit(5).last.id, body: "Amazing"},
-  {compliment_id: 2, review_id: 1, user_id: User.limit(10).last.id, body: "You suck"},
-  {compliment_id: 3, review_id: 2, user_id: User.limit(20).last.id, body: "thanks!"}
+  {compliment_id: 2, review_id: 1, user_id: User.limit(10).last.id, body: "You stink"},
+  {compliment_id: 3, review_id: 2, user_id: User.limit(20).last.id, body: "thanks!"},
+  {compliment_id: 4, review_id: 2, user_id: User.limit(20).last.id, body: "hilarious!"},
+  {compliment_id: 5, review_id: 3, user_id: User.limit(20).last.id, body: "we should meetup!"},
+  {compliment_id: 6, review_id: 4, user_id: User.limit(20).last.id, body: "that was crazy!"},
+  {compliment_id: 7, review_id: 5, user_id: User.limit(20).last.id, body: "nice one."}
 ])
 
 200.times do |i|

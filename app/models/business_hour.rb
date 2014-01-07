@@ -12,6 +12,8 @@ class BusinessHour < ActiveRecord::Base
 
   def day
   	case day_id
+  	when 0
+  		"Sun"
   	when 1
   		"Mon"
   	when 2
@@ -24,8 +26,6 @@ class BusinessHour < ActiveRecord::Base
   		"Fri"
   	when 6
   		"Sat"
-  	when 7
-  		"Sun"
   	else
   		"???"
   	end

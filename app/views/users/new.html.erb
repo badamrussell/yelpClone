@@ -26,4 +26,10 @@
 
   <div><button class="red-btn" type="submit">Sign Up</button></div>
 </form>
+<form class="sign-in-guest" action="<%= session_url %>" method="post" accept-charset="utf-8">
+  <input type="hidden" name="user[email]" value="guest@example.com">
+  <input type="hidden" name="user[password]" value="password">
+
+  <div><button class="red-btn" type="submit">Log in as Guest</button></div>
+</form>
 </section>

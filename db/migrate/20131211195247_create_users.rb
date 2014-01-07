@@ -12,8 +12,8 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :day
       t.string :session_token
       t.attachment :profile_photo
-      t.integer :reviews_count
-      t.integer :photos_count
+      t.integer :reviews_count, default: 0
+      t.integer :photos_count, default: 0
       t.integer :review_compliments_count
 
       t.timestamps
