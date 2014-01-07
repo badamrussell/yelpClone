@@ -40,10 +40,13 @@ class PhotosController < ApplicationController
     @owner = User.find(params[:user_id])
     @photos = @owner.photos
     @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0
-    @photo = @photos[@select_id] || Photo.new
+    #@photo = @photos[@select_id] || Photo.new
+
+    @photos = Kaminari.paginate_array(@photos).page(params[:page]).per(1)
+    @photo = @photos[0]
     @url = photo_details_url(@photo.id, user_id: @owner.id) if @photos.any?
     @back_link = user_url(@owner.id)
-    @photos = Kaminari.paginate_array(@photos).page(params[:page]).per(1)
+
     render :show
   end
 

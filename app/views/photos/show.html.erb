@@ -3,16 +3,19 @@
 
 <%= render "layouts/errors" %>
 
-<h3><a href="<%= @back_link %>"><%= @owner.name %>:</a> Photos</h3>
+<section class="group">
+  <header>
+    <h1 class="blue"><a class="left" href="<%= @back_link %>"><%= @owner.name %>:</a></h1>
+    <h1 class="red"> Photos</h1>
+  </header>
 
-<nav class="photo-nav">
-    <%= paginate @photos %>
-  <button>Prev</button>
-  <span><strong><%= @select_id+1 %></strong> of <strong><%= @photos.length %></strong></span>
-  <button>Next</button>
-</nav>
+  <nav class="photo-nav">
+    <%= link_to_previous_page @photos, 'Prev' %>
+    <span><strong><%= @photos.current_page %></strong> of <strong><%= @photos.total_pages %></strong></span>
+    <%= link_to_next_page @photos, 'Next' %>
+  </nav>
+</section>
 
-<%  %>
 
 <section class="photo-show-container group">
 
@@ -22,15 +25,20 @@
     </section>
 
     <section class="sidebar-photo-info group">
+      <div>
       <%= render "users/passport", photo: @photo, user: @photo.user %>
-      <p><strong><%= @photo.caption %></strong></p>
-
-      <% if current_user.photo_details_for(@photo) %>
-        <%= render "photo_details/form", url: @url, method: "put", details: current_user.photo_details_for(@photo) %>
-      <% else %>
-        <%= render "photo_details/form", url: @url, method: "post", details: nil %>
-      <% end %>
-
+      <%#= render "users/avatar", user: @photo.user %>
+      </div>
+      <div>
+        <p class="comment"><strong><%= @photo.caption %></strong></p>
+      </div>
+      <div>
+        <% if current_user.photo_details_for(@photo) %>
+          <%= render "photo_details/form", url: @url, method: "put", details: current_user.photo_details_for(@photo) %>
+        <% else %>
+          <%= render "photo_details/form", url: @url, method: "post", details: nil %>
+        <% end %>
+      </div>
 
       <div>
         <p>Additional Info</p>

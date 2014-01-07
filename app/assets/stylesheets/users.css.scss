@@ -33,6 +33,27 @@
   }
 }
 
+.passport {
+  font-size: 12px;
+
+  li em {
+    color: #ccc;
+  }
+
+  img {
+    margin-right: 5px;
+  }
+
+  img.avatar {
+    height: 50px;
+    width: auto;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+}
+
 .avatar-large {
   font-size: 12px;
 

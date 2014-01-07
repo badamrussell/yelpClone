@@ -78,7 +78,7 @@ a:hover {
 }
 
 img {
-  max-width: 600px;
+/*  max-width: 600px;*/
   display: block;
 /*  border-radius: 2px;*/
 }
@@ -135,6 +135,20 @@ h1.red-title {
   display: block;
   padding: 2px;
   padding-left: 0;
+}
+
+.red {
+  color: #c00;
+}
+
+.blue {
+
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+  vertical-align: baseline;
 }
 
 .med-link {
@@ -389,6 +403,10 @@ img.star-rating-15 {
 
 .stars-select-boxes {
 }
+
+
+
+
 
 /*.stars-select-boxes li {
   margin-left: 3px;
