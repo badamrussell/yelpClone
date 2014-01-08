@@ -28,6 +28,11 @@
   input[type=radio] {
 //    display: none;
   }
+
+  .red-btn {
+    margin-top: 10px;
+    float: right;
+  }
 }
 
 .result-header {
@@ -101,11 +106,7 @@
   border: 1px solid red;
 }
 
-.new-business-container {
-  width: 270px;
-  padding:10px;
-  background-color: pink;
-}
+
 
 .finer-filter-container {
   padding-top: 10px;
@@ -138,9 +139,9 @@
   width: 280px;
   margin: auto;
 //  margin-top: 40px;
-  padding: 20px 20px 10px 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  padding: 20px 10px;
+//  border: 1px solid #ccc;
+//  border-radius: 8px;
   background: #fff;
 
   a {

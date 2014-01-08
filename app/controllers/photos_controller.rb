@@ -26,7 +26,7 @@ class PhotosController < ApplicationController
 
   def biz_show
     @owner = params[:business_id] ? Business.find(params[:business_id]) : nil
-    @photos = @owner.photos
+    @photos = @owner.photos.order(:id)
     @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0
     @photo = @photos[@select_id] || Photo.new
     @url = photo_details_url(@photo.id, business_id: @owner.id) if @photos.any?
@@ -38,7 +38,7 @@ class PhotosController < ApplicationController
 
   def user_show
     @owner = User.find(params[:user_id])
-    @photos = @owner.photos
+    @photos = @owner.photos.order(:id)
     @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0
     #@photo = @photos[@select_id] || Photo.new
 

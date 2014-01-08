@@ -30,7 +30,9 @@
       <% end %>
     </ul>
     <nav class="pagination-container group">
-      <%= paginate @results %>
+      <span class="left">Page <%= @results.current_page %> of <%= @results.total_pages %></span>
+
+      <span class="right"><%= paginate @results %></span>
     </nav>
   </section>
 
@@ -38,34 +40,23 @@
     <div>
       <div id="googleMap" style="width:300px;height:300px;"></div>
     </div>
-  </section>
-</section>
 
-<section class="related-content-container group">
-  <section class="related-content left">
-    <h3>Related Talk Topics</h3>
-    <a href="#">More Topics</a>
-  </section>
-
-  <section class="related-content left">
-    <h3>Related Lists</h3>
-    <a href="#">More Lists</a>
-  </section>
-
-  <% if @results.length > 0 %>
-  <section class="new-business-container right">
-    <div>
-      <h3 class="red-title">Not here? Tell us what we're missing.</h3>
-      <p>If the business you're looking for isn't here, add it!</p>
-      <div class="new-btn-container">
-        <a href="<%= new_business_url %>">
-          <button class="red-btn">Add a Business</button>
-        </a>
+    <% if @results.length > 0 %>
+    <section class="new-business-container right">
+      <div>
+        <h3 class="red-title">Not here? Tell us what we're missing.</h3>
+        <p>If the business you're looking for isn't here, add it!</p>
+        <div class="new-btn-container">
+          <a href="<%= new_business_url %>">
+            <button class="red-btn">Add a Business</button>
+          </a>
+        </div>
+        <!-- <p>Got search feedback?<a href="#">Help us improve</a></p> -->
       </div>
-      <!-- <p>Got search feedback?<a href="#">Help us improve</a></p> -->
-    </div>
+    </section>
+    <% end %>
+
   </section>
-  <% end %>
 </section>
 
 

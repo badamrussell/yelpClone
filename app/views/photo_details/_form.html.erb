@@ -36,17 +36,3 @@
   </noscript>
 </form>
 
-<script type="text/javascript">
-  $(function() {
-    $("#form-photo-details").change(function(event) {
-      event.preventDefault();
-      //document.getElementById("form-photo-details").submit();
-      $(this).submit();
-    })
-
-    $("#form-photo-details").on("ajax:success", function(event,data) {
-      console.log("SUCCESS")
-      console.log(data);
-    });
-  });
-</script>

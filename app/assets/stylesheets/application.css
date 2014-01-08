@@ -142,7 +142,7 @@ h1.red-title {
 }
 
 .blue {
-
+  color: #03c;
 }
 
 h1 {
@@ -411,9 +411,15 @@ img.star-rating-15 {
 .stars-select-boxes {
 }
 
+.pagination-container {
+  font-size: 14px;
+}
 
 
-
+.pagination-container nav > * {
+  color: #000;
+  margin-left: 5px;
+}
 
 /*.stars-select-boxes li {
   margin-left: 3px;
