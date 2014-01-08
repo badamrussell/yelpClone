@@ -67,17 +67,8 @@
       <a href="#">Elites</a> -->
 
 
-      <% user_votes = current_user ? current_user.review_votes : [] %>
-      <% all_votes = Vote.all %>
-      <% vote_counts = ReviewVote.vote_count %>
-      <% all_compliments = Compliment.all %>
-
       <% @business.reviews.each do |review| %>
-        <%= render "reviews/business_page", review: review,
-                                            all_vote: all_votes,
-                                            user_votes: user_votes,
-                                            vote_counts: vote_counts[review.id] || {},
-                                            all_compliments: all_compliments %>
+        <%= render "reviews/business_page", review: review %>
       <% end %>
 
     </section>

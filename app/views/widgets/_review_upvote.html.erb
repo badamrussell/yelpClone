@@ -8,9 +8,9 @@
     data-remote="true">
 
     <% review_votes = user_votes.select { |v| v.review_id == review.id } %>
-    <% all_vote.each do |vote| %>
+    <% all_votes.each do |vote| %>
       <% voted_id = review_votes.select { |v| v.id == vote.id }[0] %>
-      <% display_name = (vote_counts[vote.id] ? "#{vote.name} ( #{vote_counts[vote.id].count} )" : vote.name ) %>
+      <% display_name = (vote_counts[[review.id, vote.id]] ? "#{vote.name} ( #{vote_counts[[review.id, vote.id]]} )" : vote.name ) %>
 
       <button   type="submit"
                 class="vote_<%= vote.id %> <%= 'voted' if voted_id %>"
