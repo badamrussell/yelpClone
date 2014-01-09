@@ -31,6 +31,17 @@ ul li {
   display: block;
 }
 
+.vcenter:before {
+  display: inline;
+  vertical-align: center;
+  height: 100%;
+}
+
+.vcenter {
+  display: inline;
+  vertical-align: center;
+}
+
 body {
   display: block;
   background: #eee;

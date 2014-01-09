@@ -35,11 +35,11 @@ class SearchesController < ApplicationController
     @find_desc = params[:find_desc] || ""
     @find_loc = params[:find_loc] || ""
     @category_id = params["category_id"]
-    @saved_params = @find_loc ? {find_loc: @find_loc} : {}
+    @saved_params = @find_loc ? { find_loc: @find_loc } : {}
     @saved_params[:find_desc] = @find_desc unless @find_desc == ""
 
-    @categories = Category.all.map { |cat| {name: cat.name, id: cat.id, checked: false, visible: false } }
-    @features = Feature.all.map { |feat| {name: feat.name, id: feat.id, checked: false, visible: false } }
+    @categories = Category.all.map { |cat| { name: cat.name, id: cat.id, checked: false, visible: false } }
+    @features = Feature.all.map { |feat| { name: feat.name, id: feat.id, checked: false, visible: false } }
     @neighborhoods = Neighborhood.all.map { |neigh| {name: neigh.name, id: neigh.id, checked: false, visible: false } }
 
     query_params = {}
@@ -47,7 +47,7 @@ class SearchesController < ApplicationController
       params[:search].each { |key,value| query_params[key.to_sym] = value }
     end
 
-    query_params[:category_id] ||= params["category_id"]
+    query_params[:category_id] ||= [params["category_id"]] if params["category_id"]
     query_params[:main_category_id] ||= params["main_category_id"] if query_params[:category_id].nil?
     query_params[:sort] ||= params[:search]
 
@@ -59,7 +59,7 @@ class SearchesController < ApplicationController
 
 
     if params["category_id"]
-      crumb_category = Category.find(params["category_id"][0])
+      crumb_category = Category.find(query_params[:category_id][0])
       main_name = MainCategory.find(crumb_category.main_category_id).name
       @breadcrumbs[main_name] = search_url(main_category_id: crumb_category.main_category_id)
       @breadcrumbs[crumb_category.name] = ""
@@ -87,7 +87,6 @@ class SearchesController < ApplicationController
 
     @results = rails_query(@find_desc, query_params, @find_loc)
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
-
 
     render json: @results if request.xhr?
   end

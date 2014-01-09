@@ -151,8 +151,9 @@
 
 
 
-
-      <% unless @category_id %>
+      <% if @category_id %>
+      <input type="hidden" name="category_id" value="<%= @category_id %>">
+      <% else @category_id %>
         <section class="column left">
           <h3 class="filter-title red-title">Category</h3>
           <ul id="category-selections">
