@@ -9,7 +9,7 @@
   <div class="lower-third">
     <ul>
       <li><strong><%= business.name %></strong></li>
-      <li><div><%= render "widgets/rating", s_rating: business.rating_string, size: "med" %> <span>reviews</span></div></li>
+      <li><div><%= render "widgets/rating", s_rating: business.rating_string, size: "med" %> <span> <%= business.reviews_count %> reviews</span></div></li>
       <li><%= business.neighborhood.name %></li>
     </ul>
   </div>

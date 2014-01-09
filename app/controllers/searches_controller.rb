@@ -59,7 +59,7 @@ class SearchesController < ApplicationController
 
 
     if params["category_id"]
-      crumb_category = Category.find(params["category_id"])
+      crumb_category = Category.find(params["category_id"][0])
       main_name = MainCategory.find(crumb_category.id).name
       @breadcrumbs[main_name] = search_url(main_category_id: crumb_category.main_category_id)
       @breadcrumbs[crumb_category.name] = ""

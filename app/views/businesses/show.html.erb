@@ -14,8 +14,6 @@
           <%= button_to "Write a Review", business_writeareview_url(@business.id), method: :get, class: "red-btn left" %>
 
           <%= button_to "Add Photo", business_add_photo_url(@business.id), method: :get, class: "gray-btn left" %>
-          <button class="add-button gray-btn share-button left">Share</button>
-          <button class="add-button gray-btn bookmark-button left">Bookmark</button>
         </div>
       </div>
 
@@ -58,15 +56,6 @@
       </div>
 
 
-      <!-- Yelp Sort
-
-      <a href="#">Date</a>
-
-      <a href="#">Rating</a>
-
-      <a href="#">Elites</a> -->
-
-
       <% @business.reviews.each do |review| %>
         <%= render "reviews/business_page", review: review %>
       <% end %>
@@ -74,7 +63,6 @@
     </section>
 
     <section class="right-sidebar group">
-
       <%= render "businesses/info", business: @business %>
     </section>
 
@@ -82,8 +70,6 @@
 
 
     <%= render "scripts/vote" %>
-
-    <%= render "popups/compliments", url: review_compliments_url, review: Review.find(1), compliment: ReviewCompliment.new, method: "post" %>
 
   </section>
 

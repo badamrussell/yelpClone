@@ -25,25 +25,29 @@ class PhotosController < ApplicationController
   end
 
   def biz_show
-    @owner = params[:business_id] ? Business.find(params[:business_id]) : nil
+    @owner = Business.find(params[:business_id])
     @photos = @owner.photos.order(:id)
-    @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0
-    @photo = @photos[@select_id] || Photo.new
+
+    page_index = params[:page] || ( params[:photo_id] ? @photos.pluck(:id).index(params[:photo_id].to_i)+1 : 1 )
+
+    @photos = Kaminari.paginate_array(@photos).page(page_index).per(1)
+    @photo = @photos[0]
+
     @url = photo_details_url(@photo.id, business_id: @owner.id) if @photos.any?
     @back_link = business_url(@owner.id)
 
-    @photos = Kaminari.paginate_array(@photos).page(params[:page]).per(1)
     render :show
   end
 
   def user_show
     @owner = User.find(params[:user_id])
     @photos = @owner.photos.order(:id)
-    @select_id = params[:photo_id] ? @photos.index(Photo.find(params[:photo_id])) : 0
-    #@photo = @photos[@select_id] || Photo.new
 
-    @photos = Kaminari.paginate_array(@photos).page(params[:page]).per(1)
+    page_index = params[:page] || ( params[:photo_id] ? @photos.pluck(:id).index(params[:photo_id].to_i)+1 : 1 )
+
+    @photos = Kaminari.paginate_array(@photos).page(page_index).per(1)
     @photo = @photos[0]
+
     @url = photo_details_url(@photo.id, user_id: @owner.id) if @photos.any?
     @back_link = user_url(@owner.id)
 

@@ -27,8 +27,7 @@
 
     <section class="sidebar-photo-info group">
       <div>
-      <%= render "users/passport", photo: @photo, user: @photo.user %>
-      <%#= render "users/avatar", user: @photo.user %>
+      <%= render "users/passport", user: @photo.user %>
       </div>
       <div>
         <p class="comment"><strong><%= @photo.caption %></strong></p>

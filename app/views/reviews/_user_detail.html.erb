@@ -5,7 +5,7 @@
       <div class="biz-title"><a href="<%= business_url(business.id) %>"><%= business.name %></a></div>
       <div>Categories:
         <% business.categories.each do |category| %>
-          <a href="category_url(<%= category.id %>)"><%= category.name %></a>
+          <a href="<%= category_url(category.id)%>"><%= category.name %></a>
         <% end %>
       </div>
       <div>Neighborhood: <%= business.neighborhood.name %></div>
