@@ -71,12 +71,14 @@
 
   .mosaic-photo {
 
-
     img {
       float: left;
     }
   }
 
+  .med-title {
+    margin-top: 10px;
+  }
 
 }
 
@@ -162,6 +164,6 @@
 
 .filter-title {
   padding: 20px 0 8px 0;
-  margin-top: 20px;
+  margin-top: 10px;
   border-bottom: 1px solid #eee;
 }
