@@ -2,12 +2,13 @@
   <img src="<%= get_half_map(business.gps) %>">
   <div class="address-back group">
     <div class="group">
-    <div class="title left"><%= business.address1 %></div>
+    <p class="title left"><%= business.address1 %></p>
     <a class="edit-biz right med-link" href="<%= edit_business_url(business.id) %>">Edit</a>
     </div>
-    <div class="title"><%= business.address2 %></div>
-    <a href="#">Get Directions</a>
-    <div class=""><%= business.phone_number %></div>
+
+    <p class="title"><%= business.address2 %></p>
+    <p class=""><%= "#{business.city}, #{business.state}" %></p>
+    <p class=""><%= business.phone_number %></p>
     <a href="#"><%= business.website %></a>
   </div>
 </div>

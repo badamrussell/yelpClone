@@ -11,7 +11,7 @@
     <header class="">
       <h3 class="red-title">Recent Reviews</h3>
     </header>
-    <% @reviews.each do |review| %>
+    <% @reviews.order("updated_at DESC").each do |review| %>
       <%= render "reviews/user_detail", review: review %>
     <% end %>
   </section>
@@ -19,18 +19,13 @@
   <section class="sidebar-right">
     <%= render "users/friends", friends: @user.friends %>
 
-    <%= render "users/compliments", compliments: @user.review_compliments %>
+    <%= render "users/compliments", compliments: @user.review_compliments.order("updated_at DESC") %>
 
     <%= render "users/lists", lists: @user.lists %>
-
   </section>
 </section>
 
 </section>
 
 <%= render "scripts/vote" %>
-<%= render "popups/compliments",
-          url: review_compliments_url,
-          review: Review.new,
-          compliment: ReviewCompliment.new,
-          method: "post" %>
+<%= render "scripts/compliment_dropdown" %>

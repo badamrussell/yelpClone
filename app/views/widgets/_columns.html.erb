@@ -1,4 +1,5 @@
 
+<% url_proc = Proc.new { |val| "#{base_url}#{param_name}=#{val}" } if url_proc.nil? %>
 <% rows = (data.length / columns) %>
 <% max_rows ||= rows %>
 <% rows = max_rows if rows > max_rows %>
@@ -8,7 +9,7 @@
 
 <ul class="column left">
 <% data.each do |d| %>
-  <li><a href=" <%= base_url %><%= param_name %>=<%= d.id %>"><%= d.name %></a></li>
+  <li><a href="<%= url_proc.call(d.id) %>"><%= d.name %></a></li>
   <% cnt += 1 %>
   <% break if cnt >= rows and col_count == columns %>
   <% if cnt >= rows %>

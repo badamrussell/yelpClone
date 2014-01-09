@@ -28,19 +28,27 @@
     <%= render "widgets/columns", columns: 2,
                                   data: Neighborhood.where(area_id: 1),
                                   max_rows: 8,
+                                  url_proc: Proc.new { |val| search_url( search: {neighborhood_id: [val] } ) },
                                   base_url: "#{search_url(category_id: @category.id)}&",
-                                  param_name: "neighborhood_id" %>
+                                  param_name: "search[neighborhood_id][]" %>
   </div>
 
   <div class="side-features left">
     <div class="filter-prices group">
       <h1 class="filter-title red-title">Prices</h1>
-      <%= render "widgets/columns", columns: 2, data: PriceRange.all, base_url: "#{search_url}", param_name: "" %>
+      <%= render "widgets/columns", columns: 2,
+                                    data: PriceRange.all,
+                                    url_proc: Proc.new { |val| search_url( search: {price_range: [val] } ) },
+                                    param_name: "search[price_range][]" %>
     </div>
-
+    <!-- "search"=>{"sort"=>"", "neighborhood_id"=>["4"]} -->
     <div class="filter-features">
       <h1 class="filter-title red-title">Features</h1>
-      <%= render "widgets/columns", columns: 2, data: Feature.all, max_rows: 4, base_url: "#{search_url}", param_name: ""  %>
+      <%= render "widgets/columns",   columns: 2,
+                                      data: Feature.all,
+                                      max_rows: 4,
+                                      url_proc: Proc.new { |val| search_url( search: {feature_id: [val] } ) },
+                                      param_name: "search[feature_id][]"  %>
     </div>
 
   </div>

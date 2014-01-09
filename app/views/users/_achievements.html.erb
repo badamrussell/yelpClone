@@ -3,10 +3,8 @@
   <ul>
     <% if user.friends_count > 0 %>
       <li>
-      <a href="#">
         <img src="/assets/temp/star.jpg" height="20">
         <span><strong><%= user.friends_count %></strong> friends</span>
-      </a>
       </li>
     <% end %>
     <% if user.reviews_count > 0 %>
@@ -26,20 +24,13 @@
 
     <% if user.photos_count > 0 %>
     <li>
-      <a href="#">
+      <a href="<%= user_photos_url(user.id) %>">
         <img src="/assets/temp/star.jpg" height="20">
         <span><strong><%= user.photos_count %></strong> photos</span>
       </a>
     </li>
     <% end %>
-    <% if user.lists_count > 0 %>
-    <li>
-      <a href="#">
-        <img src="/assets/temp/star.jpg" height="20">
-        <span><strong><%= user.lists_count %></strong> lists</span>
-      </a>
-    </li>
-    <% end %>
+
 </ul>
 <div>
 

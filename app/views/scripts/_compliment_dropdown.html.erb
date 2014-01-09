@@ -1,0 +1,71 @@
+<script >
+
+$(document).ready( function() {
+  $(document).click( function(event) {
+    if (event.target != $(".compliment-dropdown") && $(".compliment-dropdown").is(":visible")) {
+      event.stopPropagation();
+      $(".compliment-dropdown").hide();
+    }
+  });
+
+  $(".compliment-controls").on("click", ".drop-menu", function(event){
+    event.preventDefault();
+    event.stopPropagation();
+
+    var $drop_window = $($(this).parent()).find(".compliment-dropdown");
+    $drop_window.show();
+  });
+
+  $(".compliment-dropdown").on("click", ".compliment-choice", function(event) {
+    var $drop_window = $($(this).parents(".compliment-dropdown"));
+    var $parent = $($(this).parents(".compliment-controls")[0]);
+    var $compliment_form = $parent.parent();
+
+    var id = $(this).data("id");
+    $($compliment_form.find("#compliment_compliment_id")).attr("value", id)
+
+    var text = $(this).find("label").text();
+    var c_class = $($(this).find(".choice-set")).find("div").clone();
+    var $newChoice = $parent.find(".dropdown-choice");
+    $newChoice.empty();
+    $newChoice.append(c_class);
+    $newChoice.append('<p>' + text + '</p>');
+
+    $compliment_form.find(".new-compliment div").replaceWith(c_class.clone());
+    console.log(">",$compliment_form.find("#compliment_compliment_id"))
+
+    $drop_window.hide();
+  });
+
+  $("form.quick-compliment").on("ajax:success", function(event, data) {
+    var $parent = $(this);
+
+    $($parent.find(".compliment-text")[0]).val("")
+
+    if ($parent.hasClass("inactive") == false) {
+      $parent.addClass("inactive");
+    }
+
+  });
+
+  $(".btn-cancel").click( function(event) {
+    var $parent = $(this).parent().parent();
+
+    if ($parent.hasClass("inactive") == false) {
+      $parent.addClass("inactive");
+    }
+    $($parent.find(".compliment-text")[0]).val("")
+  });
+
+  $(".compliment-text").focus( function(event) {
+    var $parent = $(this).parent().parent();
+
+    if ($parent.hasClass("inactive")) {
+      $parent.removeClass("inactive");
+    }
+  });
+
+});
+
+
+</script>

@@ -11,8 +11,6 @@
           <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img class="img-icon" src="<%= photo.url(:icon) %>"></a>
         </div>
         <% end %>
-      <% else %>
-        <a class="med-link left" href="#">Upload a Photo</a>
       <% end %>
     </div>
   </section>
@@ -27,10 +25,6 @@
 
   <section class="user-interact">
 
-  </section>
-
-  <section class="group">
-    <h3 class="red-title">Rating Distribution</h3>
   </section>
 
   <section class="group">
