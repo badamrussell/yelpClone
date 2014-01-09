@@ -9,13 +9,13 @@
 
     <% review_votes = user_votes.select { |v| v.review_id == review.id } %>
     <% all_votes.each do |vote| %>
-      <% voted_id = review_votes.select { |v| v.id == vote.id }[0] %>
-      <% display_name = (vote_counts[[review.id, vote.id]] ? "#{vote.name} ( #{vote_counts[[review.id, vote.id]]} )" : vote.name ) %>
-
+      <% count = vote_counts[[review.id.to_s, vote.id]] %>
+      <% voted_id = review_votes.select { |v| v.vote_id == vote.id }[0] %>
+      <% display_name = ( count ? "#{vote.name} ( #{count} )" : vote.name ) %>
       <button   type="submit"
-                class="vote_<%= vote.id %> <%= 'voted' if voted_id %>"
+                class="vote-<%= vote.id %>"
                 name="vote_id"
-                value="<%= vote.id %>"><%= display_name %></button>
+                value="<%= vote.id %>"><div class="icon-<%= vote.name.downcase %> left <%= 'faded' unless voted_id %>"></div><span><%= display_name %></span></button>
     <% end %>
   </form>
 

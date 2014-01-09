@@ -73,7 +73,10 @@
 </section>
 </section>
 
+<%= render "scripts/vote" %>
+
 <script >
+
 $(document).ready( function() {
   $(document).click( function(event) {
     if (event.target != $(".compliment-dropdown") && $(".compliment-dropdown").is(":visible")) {

@@ -13,16 +13,14 @@
     //review_votes_url(vote: {review_id: review.id, vote_id: vote.id})
 
     $(".review-vote").on("ajax:success", function(event, data) {
-        $button = $(event.currentTarget).find(".vote_"+data["id"])
-        $button.text(data.name);
-
-        $button.toggleClass("voted");
+        $button = $(event.currentTarget).find(".vote-"+data["id"])
+        $button.find("span").text(data.name);
+        $button.find("div").toggleClass("faded");
     });
 
     $(".compliment-form").on("ajax:success", function(event, data) {
       closePopup();
       console.log(event,data);
-
     });
 
     $(".bookmark-form").on("ajax:success", function(event, data) {

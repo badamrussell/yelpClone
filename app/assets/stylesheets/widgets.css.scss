@@ -40,9 +40,23 @@
       border: 1px solid #ccc;
       border-radius: 2px;
       margin-right: 10px;
+      cursor: pointer;
+      outline: none;
+      min-width: 106px;
+      text-align: left;
+    }
+
+    .vote-1 {
+
+    }
+
+    .faded {
+      opacity: 0.3;
     }
   }
 }
+
+
 
 .inactive {
   .compliment-controls {
