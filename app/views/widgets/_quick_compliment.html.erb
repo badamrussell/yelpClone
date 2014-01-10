@@ -1,3 +1,4 @@
+<% if current_user %>
 <form class="quick-compliment inactive group" action="<%= review_compliments_url %>" method="post" data-remote="true">
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -27,3 +28,4 @@
     <%= render "widgets/compliments_dropdown" %>
   </ul>
 </form>
+<% end %>
