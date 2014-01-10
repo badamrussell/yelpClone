@@ -45,9 +45,10 @@
 
   <fieldset class="business-categories">
     <legend class="med-title">Categories</legend>
+
       <% if method == "put" %>
         <% @business.categories.each do |bc| %>
-    <div class="category-selects">
+        <div class="category-selects">
           <select class="select-maincategory">
             <% MainCategory.all.each do|category| %>
               <option value="<%= category.id %>" <%= "selected" if category.id == bc.main_category_id %>>
@@ -66,7 +67,7 @@
     </div>
         <% end %>
       <% else %>
-      <div class="category-selects">
+        <div class="category-selects">
             <select class="select-maincategory">
               <% MainCategory.all.each do|category| %>
                 <option value="<%= category.id %>">
@@ -86,16 +87,17 @@
       </div>
       <% end %>
 
-    <button type="button" class="btn-link add-category">Add another category</button>
-  </fieldset>
 
+  </fieldset>
+  <button type="button" class="btn-link add-category">Add another category</button>
   <!-- <a href="#" class="small-link">See Full Category List</a> -->
 
 
   <!-- <input type="checkbox" name="business[is_opening]" value="true" id="business_is_opening"><label for="this_business_recently_opened_or_is_opening_soon">This business recently opened or is opening soon</label> -->
 
   <% if method == "post" %>
-    <%= render "forms/quick_review", business: @business, title: nil, body: "" %>
+  <hr>
+    <%= render "forms/quick_review", review: Review.new, photo: Photo.new %>
     <button class="red-btn" type="submit">Add Business</button>
   <% else %>
     <button class="red-btn" type="submit">Update</button>
@@ -135,6 +137,8 @@
     $(".add-category").click( function() {
       if ($(".business-categories").find(".category-selects").length < 3) {
         $(".business-categories").append($categoryClone.clone());
+      } else {
+
       }
     });
 

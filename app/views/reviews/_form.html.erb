@@ -9,26 +9,8 @@
 
     <input type="hidden" name="review[business_id]" value="<%= business.id %>">
 
-    <fieldset class="review-set group">
-      <div class="review-area left">
-
-        <%= render "widgets/choose_rating", rating: review.rating || 0 %>
-
-        <div class="form-text-input">
-          <label class="med-title" for="review_body">Your review</label>
-          <textarea name="review[body]" id="review_body"rows="8" cols="50"><%= review.body %></textarea>
-        </div>
-      </div>
-      <div class="photo-area left">
-        <label class="med-title" for="photo_file">Add Photo</label>
-        <input type="file" name="photo[file]" value="<%= @photo.file %>">
-
-        <div class="caption-area">
-          <label class="med-title" for="photo_caption">Caption:</label>
-          <textarea cols="50" rows="3" name="photo[caption]" id="photo_caption"><%= @photo.caption %></textarea>
-        </div>
-      </div>
-    </fieldset>
+    <% fail %>
+    <%= render "forms/quick_review", review: review, photo: photo %>
 
 
 
