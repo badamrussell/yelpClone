@@ -115,6 +115,7 @@ button.nav-search {
 
 #header-account-box {
   position: relative;
+    background: #a00;
   width: 50px;
 //  height: 30px;
   border: 1px solid black;
@@ -130,9 +131,11 @@ button.nav-search {
   }
 
   .droparrow {
+    position: absolute;
+    top: 10px;
+    right: 5px;
     width: 10px;
     height: 10px;
-    padding: 10px 4px;
   }
 
   select {
@@ -148,7 +151,13 @@ button.nav-search {
     -webkit-appearance: none;
   }
 
-
+  .darkred-box {
+    background: transparent;
+    float: right;
+    width: 20px;
+    height: 30px;
+    cursor: pointer;
+  }
 
 }
 

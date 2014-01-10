@@ -51,6 +51,9 @@ body {
 /*  padding: 20px;*/
 }
 
+button {
+  cursor: pointer;
+}
 .main-content {
   z-index: 5;
   margin: auto;

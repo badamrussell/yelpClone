@@ -27,11 +27,15 @@
 
         <div id="header-account-box" class="right">
             <a href="<%= profile_url %>"><img src="<%= current_user.avatar %>" height="40"></a>
-            <img class="droparrow left" src="/assets/real/sort_arrow_down.gif">
+
+            <div class="darkred-box">
+              <img class="droparrow left" src="/assets/real/sort_arrow_down.gif">
+            </div>
+
             <div class="sign-in-container">
               <ul class="sign-in-actions isHidden">
                 <li><a href="<%= user_url(current_user.id) %>">About Me</a></li>
-                <li><a href="<%= profile_url %>">Account Settings</a></li>
+                <li><a href="<%= edit_profile_url %>">Profile Settings</a></li>
                 <li>
                   <form action="<%= session_url %>" method="post">
                     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -72,7 +76,7 @@
 
 <script>
   $(document).ready( function() {
-    $("#header-account-box").click( function(event) {
+    $("#header-account-box .darkred-box").click( function(event) {
       event.stopPropagation();
       $(".sign-in-actions").removeClass("isHidden");
     });
