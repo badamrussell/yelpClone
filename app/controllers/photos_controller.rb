@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_filter :require_current_user!, except: [:show]
+  before_filter :require_current_user!, except: [:show, :biz_show, :user_show]
 
   def new
     @photo = Photo.new
