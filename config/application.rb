@@ -72,5 +72,9 @@ module YelpClone
         :request_specs => true
     end
 
+    config.i18n.enforce_available_locales = true
+    # or if one of your gem compete for pre-loading, use
+    #I18n.config.enforce_available_locales = true
+
   end
 end
