@@ -6,34 +6,12 @@ class Business < ActiveRecord::Base
   validates :name, :country_id, presence: true
 
   geocoded_by :full_street_address
-  after_validation :geocode #, if :address1
+  after_validation :geocode
 
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode
 
   before_validation :set_neighborhood
-
-  def full_street_address
-    a1 = address1 || ""
-    a2 = address2 || ""
-    c1 = city || ""
-    s1 = state || ""
-    z1 = zip_code || ""
-
-    "#{a1} #{a2} #{c1}, #{s1} #{z1}"
-  end
-
-  def set_neighborhood
-    self.neighborhood_id = rand(1..20) unless self.neighborhood_id
-  end
-
-  def address=(arg)
-    addr = arg.split(",").map { |a| a.strip }
-    self.address1 = addr[0]
-    self.city = addr[1]
-    self.state = addr[2].split(" ")[0]
-    self.zip_code = addr[2].split(" ")[1].to_i
-  end
 
   belongs_to(
     :country,
@@ -99,6 +77,14 @@ class Business < ActiveRecord::Base
     foreign_key: :business_id
   )
 
+  has_many(
+    :main_photos,
+    class_name: "Photo",
+    primary_key: :id,
+    foreign_key: :business_id,
+    order: "helpful_sum DESC"
+  )
+
   has_many :photo_details, through: :photos, source: :photo_details
 
   has_many(
@@ -127,68 +113,32 @@ class Business < ActiveRecord::Base
     dependent: :destroy
   )
 
+  def full_street_address
+    a1 = address1 || ""
+    a2 = address2 || ""
+    c1 = city || ""
+    s1 = state || ""
+    z1 = zip_code || ""
+
+    "#{a1} #{a2} #{c1}, #{s1} #{z1}"
+  end
+
+  def set_neighborhood
+    self.neighborhood_id = Neighborhood.random_neighborhood(1) unless self.neighborhood_id
+  end
+
+  def address=(arg)
+    addr = arg.split(",").map { |a| a.strip }
+    self.address1 = addr[0]
+    self.city = addr[1]
+    self.state = addr[2].split(" ")[0]
+    self.zip_code = addr[2].split(" ")[1].to_i
+  end
+
   def <=>(otherBiz)
     return 1 if otherBiz.rating < rating
     return -1 if otherBiz.rating > rating
     0
-  end
-
-  def self.best(categoryID)
-    Business.all[0..4]
-  end
-
-  def self.best_random(category_objs, size)
-    cats = []
-    category_objs.each do |c|
-      cats << c.id
-    end
-
-    sql = <<-SQL
-      SELECT *
-      FROM businesses
-      JOIN business_categories ON businesses.id = business_categories.business_id
-      WHERE business_categories.category_id IN (?)
-    SQL
-
-    Business.find_by_sql([sql,cats])
-  end
-
-  def self.search(search_params)
-    wheres = []
-    values = []
-    joins = []
-    where = ""
-
-    if search_params.keys.include?("feature_id")
-      joins << "INNER JOIN business_features ON businesses.id = business_features.business_id"
-    end
-    if search_params.keys.include?("category_id")
-      joins << "INNER JOIN business_categories ON businesses.id = business_categories.business_id"
-    elsif search_params.keys.include?("main_category_id")
-      joins << "INNER JOIN business_categories ON business_categories.business_id = businesses.id"
-      joins << "INNER JOIN categories ON categories.id = business_categories.business_id"
-      joins << "INNER JOIN main_categories ON main_categories.id = categories.main_category_id"
-    end
-
-    search_params.each do |key, value|
-      wheres << " #{key} = ? "
-      values << value
-    end
-
-
-    where = "WHERE #{wheres.join(" AND ")}" if wheres.any?
-
-    sql = <<-SQL
-      SELECT DISTINCT businesses.*
-      FROM businesses
-      #{joins.join("\n")}
-      #{where}
-    SQL
-
-
-
-    values.unshift(sql)
-    Business.find_by_sql(values)
   end
 
   def self.recent(num)
@@ -196,11 +146,7 @@ class Business < ActiveRecord::Base
   end
 
   def gps
-    {lat: latitude, lng: longitude}
-  end
-
-  def first_review
-
+    { lat: latitude, lng: longitude }
   end
 
   def avatar(size = nil)
@@ -215,27 +161,12 @@ class Business < ActiveRecord::Base
     end
   end
 
-  def category_list
-
-  end
-
-
-
   def get_highlight_reviews(amount)
     self.reviews[0..3]
   end
 
-  def main_photos
-   # fronts = store_front_search.map { |pd| pd.photo }
-   #
-   #  photos.each do |p|
-   #    break if fronts.length > 2
-   #    next if fronts.include?(p)
-   #    fronts << p
-   #  end
 
-    photos
-  end
+
 
   def missing_store_front?
     self.store_front_id.nil?
@@ -248,7 +179,7 @@ class Business < ActiveRecord::Base
 
   def rating_string
     return "0" if self.rating < 1
-    l,r = self.rating.round(1).to_s.split(".")
+    l,r = rating_avg.round(1).to_s.split(".")
 
     r = r.to_i < 5 ? "0" : "5"
 
@@ -257,12 +188,6 @@ class Business < ActiveRecord::Base
 
   def price_range
     price_range_avg
-  end
-
-  def avatar_tag(size_name="icon", link = "")
-    size = 30 if size_name == "icon"
-
-    "<a href='#{link}'><img width='#{size}' src='#{avatar}'></a>"
   end
 
   def now_hours
@@ -285,10 +210,6 @@ class Business < ActiveRecord::Base
     false
   end
 
-  def to_json
-    puts "----------------to JSON"
-  end
-
   def as_json(options={})
     super(methods: [:avatar, :rating_string, :top_review], include: [:categories, :neighborhood])
   end
@@ -296,5 +217,3 @@ class Business < ActiveRecord::Base
   private
 
 end
-
-#Business.create(country_id:1, name: "dos toros real", address1: "11 Carmine St", city: "New York", state: "NY", zip_code: 10014, neighborhood_id: 1)

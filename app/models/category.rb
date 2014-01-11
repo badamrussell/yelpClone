@@ -17,19 +17,13 @@ class Category < ActiveRecord::Base
     foreign_key: :category_id
   )
 
-  def self.parent_category(category_id)
-    MainCategory.find(Category.find(category_id).main_category_id)
-  end
+  def self.best_businesses(num, category_ids)
+    qs = (["?"] * category_ids).join(",")
 
-  def businesses
-    sql = <<-SQL
-      SELECT businesses.*
-      FROM businesses
-      JOIN business_categories ON businesses.id = business_categories.business_id
-      WHERE business_categories.category_id = ?
-    SQL
-
-    Business.find_by_sql([sql,id])
+    Business.joins(:business_categories)
+            .where("business_categories.category_id IN (#{qs})",*category_ids)
+            .order("rating_avg DESC")
+            .limit(num)
   end
 
   def top_five_businesses
@@ -40,22 +34,11 @@ class Category < ActiveRecord::Base
   end
 
   def new_businesses(size)
-    sql = <<-SQL
-      SELECT businesses.*
-      FROM businesses
-      JOIN business_categories ON businesses.id = business_categories.business_id
-      WHERE business_categories.category_id = ?
-      ORDER BY businesses.created_at DESC
-      LIMIT ?
-    SQL
-
-    # Business.find_by_sql([sql, id, size])
     Business.includes(:store_front_photo, :neighborhood)
-      .joins("JOIN business_categories ON businesses.id = business_categories.business_id")
-      .where("business_categories.category_id = #{id}")
+      .joins(:business_categories)
+      .where("business_categories.category_id = ?", id)
       .order("businesses.created_at DESC")
       .limit(size)
-
   end
 
   def new_photos(size)
@@ -70,15 +53,12 @@ class Category < ActiveRecord::Base
     SQL
 
     Photo.find_by_sql([sql, id, size])
-
-
-
   end
 
   def new_reviews(size)
     Review.includes(:user, :business)
-      .joins("INNER JOIN businesses ON businesses.id = reviews.business_id JOIN business_categories ON businesses.id = business_categories.business_id")
-      .where("business_categories.category_id = #{id}")
+      .joins("JOIN businesses ON reviews.business_id = businesses.id JOIN business_categories ON businesses.id = business_categories.business_id")
+      .where("business_categories.category_id = ?", id)
       .order("businesses.created_at DESC")
       .limit(size)
   end

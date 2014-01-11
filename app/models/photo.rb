@@ -1,6 +1,6 @@
 class Photo < ActiveRecord::Base
   attr_accessible :business_id, :user_id, :review_id, :file, :caption
-  attr_accessible :store_front_count
+  attr_accessible :store_front_count, :helpful_sum
 
   validates :user_id, presence: true
   after_create { update_details(1) }

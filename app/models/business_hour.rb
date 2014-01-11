@@ -1,5 +1,5 @@
 class BusinessHour < ActiveRecord::Base
-    attr_accessible :business_id, :day_id, :time_close, :time_open
+  attr_accessible :business_id, :day_id, :time_close, :time_open
 
   validates :business_id, :day_id, :time_close, :time_open, presence: true
 

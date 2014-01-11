@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   attr_accessible :birthdate, :email, :first_name, :last_name, :nickname, :session_token, :password, :profile_photo
   attr_accessible :year, :month, :day
   attr_accessible :photos_count, :reviews_count, :review_compliments_count

@@ -16,4 +16,8 @@ class Neighborhood < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :neighborhood_id
   )
+
+  def self.random_neighborhood(city_id)
+    rand(1..20)
+  end
 end

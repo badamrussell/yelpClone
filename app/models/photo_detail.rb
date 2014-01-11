@@ -2,6 +2,7 @@ class PhotoDetail < ActiveRecord::Base
   attr_accessible :helpful_id, :photo_id, :store_front, :user_id
 
   validates :photo_id, :user_id, presence: true
+  validates :user_id, uniqueness: {scope: :photo_id}
 
   after_create { update_details(1) }
   after_destroy { update_details(-1) }
@@ -33,5 +34,18 @@ class PhotoDetail < ActiveRecord::Base
       total = PhotoDetail.where(photo_id: photo_id, store_front: true).length + increment
       photo.update_attribute(:store_front_count, total)
     end
+
+    amount = if helpful_id == 1
+                1
+              elsif helpful_id == 3
+                -1
+              else
+                0
+              end
+
+    vals = [0,1,0,-1]
+    photo = Photo.find(photo_id)
+    total = photo.photo_details.inject(0) { |sum, p| sum + vals[p.helpful_id] }
+    photo.update_attributes(helpful_sum: total)
   end
 end
