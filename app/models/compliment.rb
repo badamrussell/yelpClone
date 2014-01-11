@@ -12,9 +12,8 @@ class Compliment < ActiveRecord::Base
 
   has_many :reviews, through: :review_compliments, source: :compliment
 
-
   def image_name
   	name.gsub(" ","-").gsub("'","").downcase
   end
-  
+
 end

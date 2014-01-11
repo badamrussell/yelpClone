@@ -10,5 +10,4 @@ class Country < ActiveRecord::Base
     foreign_key: :business_id
   )
 
-
 end
