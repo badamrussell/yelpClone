@@ -1,5 +1,4 @@
 class Business < ActiveRecord::Base
-  # attr_accessible :title, :body
   attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids, :latitude, :longitude
   attr_accessible :rating_avg, :store_front_id, :reviews_count, :photos_count, :price_range_avg
 
@@ -165,13 +164,9 @@ class Business < ActiveRecord::Base
     self.reviews[0..3]
   end
 
-
-
-
   def missing_store_front?
     self.store_front_id.nil?
   end
-
 
   def rating
     self.rating_avg
@@ -213,7 +208,5 @@ class Business < ActiveRecord::Base
   def as_json(options={})
     super(methods: [:avatar, :rating_string, :top_review], include: [:categories, :neighborhood])
   end
-
-  private
 
 end
