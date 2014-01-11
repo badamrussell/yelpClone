@@ -42,22 +42,14 @@ class Category < ActiveRecord::Base
   end
 
   def new_photos(size)
-    sql = <<-SQL
-      SELECT photos.*
-      FROM photos
-      INNER JOIN businesses ON businesses.id = photos.business_id
-      JOIN business_categories ON businesses.id = business_categories.business_id
-      WHERE business_categories.category_id = ?
-      ORDER BY businesses.created_at DESC
-      LIMIT ?
-    SQL
-
-    Photo.find_by_sql([sql, id, size])
+    Photo.joins(:business, "JOIN business_categories ON businesses.id = business_categories.business_id")
+        .where("business_categories.category_id = ?", 1)
+        .order("businesses.created_at DESC")
   end
 
   def new_reviews(size)
     Review.includes(:user, :business)
-      .joins("JOIN businesses ON reviews.business_id = businesses.id JOIN business_categories ON businesses.id = business_categories.business_id")
+      .joins(:business,"JOIN business_categories ON businesses.id = business_categories.business_id")
       .where("business_categories.category_id = ?", id)
       .order("businesses.created_at DESC")
       .limit(size)
