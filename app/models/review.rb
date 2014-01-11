@@ -94,11 +94,7 @@ class Review < ActiveRecord::Base
       end
     end
 
-    rating_avg = if rating_count > 0
-      rating_total / (rating_count.to_f)
-    else
-      0
-    end
+    rating_avg = rating_count > 0 ? rating_total / (rating_count.to_f) : 0
 
     price_range_avg = if price_range_count > 0
       new_price = (price_range_total / price_range_count).round
@@ -106,13 +102,11 @@ class Review < ActiveRecord::Base
     else
       0
     end
+
     business.update_attributes(price_range_avg: price_range_avg, rating_avg: rating_avg)
   end
 
-
-
   def snippet(size = 60)
-
     if self.body.include?(".")
       self.body[0, self.body.index(".")]
     elsif self.body.length < size
@@ -122,23 +116,12 @@ class Review < ActiveRecord::Base
     end
   end
 
-  def category_list
-    ["food", "stuff"]
-  end
-
   def destroy_features
-    business_features.each do |bf|
-      bf.destroy
-    end
+    business_features.each { |bf| bf.destroy }
   end
 
   def completed_biz_features
-    feat_hash = {}
-    business_features.each do |f|
-      feat_hash[f.feature_id] = f.value
-    end
-
-    feat_hash
+    Hash[ business_features.map { |f| [f.feature_id, f.value] } ]
   end
 
   def self.recent(num)
