@@ -36,8 +36,8 @@
       <div>
         <% if current_user.id == @photo.user_id %>
 
-        <% elsif current_user.photo_details_for(@photo) %>
-          <%= render "photo_details/form", url: @url, method: "put", details: current_user.photo_details_for(@photo) %>
+        <% elsif @photo.photo_details.any? %>
+          <%= render "photo_details/form", url: @url, method: "put", details: @photo.photo_details %>
         <% else %>
           <%= render "photo_details/form", url: @url, method: "post", details: nil %>
         <% end %>

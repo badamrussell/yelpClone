@@ -72,6 +72,7 @@ class User < ActiveRecord::Base
   has_many :votes, through: :review_votes, source: :vote
 
   has_many :compliments, through: :reviews, source: :compliments
+
   has_many(
     :review_compliments,
     through: :reviews,
@@ -123,31 +124,6 @@ class User < ActiveRecord::Base
     profile: "100x100#"
   }
 
-  def full_compliments
-
-  end
-
-  #--temporary placeholders until associations can be made
-  def friends
-    []
-  end
-
-  def friends_count
-    0
-  end
-
-  def fans
-    [1,2,3,4]
-  end
-
-  def fans_count
-    4
-  end
-
-  def lists_count
-    4
-  end
-
   def self.random_token
     SecureRandom::urlsafe_base64(16)
   end
@@ -176,7 +152,6 @@ class User < ActiveRecord::Base
     self.save!
   end
 
-
   def name
     "#{self.first_name} #{self.last_name[0]}."
   end
@@ -185,10 +160,6 @@ class User < ActiveRecord::Base
     profile_photo_file_name ? self.profile_photo.url(size) : "/assets/temp/default_user.jpg"
   end
 
-
-  def photo_details_for(photo)
-    self.photo_details.where(photo_id: photo.id)[0]
-  end
 
   def top_photos(qty)
 
@@ -223,16 +194,41 @@ class User < ActiveRecord::Base
     result.map { |r| r.attributes }
   end
 
-  def achievements
-    list = []
 
-  end
 
 
   def as_json(options={})
     puts "--------------------- USER AS JSON"
     super( methods: [:avatar, :name] )
   end
+
+
+  #--temporary placeholders until associations can be made
+  def achievements
+    list = []
+
+  end
+
+  def friends
+    []
+  end
+
+  def friends_count
+    0
+  end
+
+  def fans
+    [1,2,3,4]
+  end
+
+  def fans_count
+    4
+  end
+
+  def lists_count
+    4
+  end
+
 
   private
 
