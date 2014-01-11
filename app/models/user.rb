@@ -44,7 +44,8 @@ class User < ActiveRecord::Base
     class_name: "Photo",
     primary_key: :id,
     foreign_key: :user_id,
-    dependent: :destroy
+    dependent: :destroy,
+    order: :helpful_sum
   )
 
   has_many(
@@ -131,11 +132,7 @@ class User < ActiveRecord::Base
   def self.verify_credentials(email, secret)
     user = User.find_by_email(email)
 
-    if user && user.pw_matches?(secret)
-      user
-    else
-      nil
-    end
+    (user && user.pw_matches?(secret)) ? user : nil
   end
 
   def password=(secret)
@@ -160,9 +157,7 @@ class User < ActiveRecord::Base
     profile_photo_file_name ? self.profile_photo.url(size) : "/assets/temp/default_user.jpg"
   end
 
-
   def top_photos(qty)
-
     if photos.loaded?
       photos[0...qty]
     else
@@ -181,32 +176,22 @@ class User < ActiveRecord::Base
   end
 
   def compliment_count
-    sql = <<-SQL
-      SELECT compliments.id AS id, compliments.name AS name, COUNT(compliments.id) AS count
-      FROM compliments
-      INNER JOIN review_compliments ON review_compliments.compliment_id = compliments.id
-      INNER JOIN reviews ON reviews.id = review_compliments.review_id
-      WHERE reviews.user_id = ?
-      GROUP BY compliments.id
-    SQL
+    result = Compliment.select("compliments.id AS id, compliments.name AS name, COUNT(compliments.id) AS count")
+    .joins(:review_compliments, "JOIN reviews ON reviews.id = review_compliments.review_id")
+    .where("reviews.user_id = ?", id)
+    .group("compliments.id")
 
-    result = Compliment.find_by_sql([sql, id])
     result.map { |r| r.attributes }
   end
 
-
-
-
   def as_json(options={})
-    puts "--------------------- USER AS JSON"
     super( methods: [:avatar, :name] )
   end
 
 
-  #--temporary placeholders until associations can be made
+  #--temporary placeholders until features added
   def achievements
     list = []
-
   end
 
   def friends
