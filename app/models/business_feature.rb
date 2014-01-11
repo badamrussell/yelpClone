@@ -2,6 +2,7 @@ class BusinessFeature < ActiveRecord::Base
   attr_accessible :business_id, :feature_id, :value, :review_id
 
   validates :business_id, :feature_id, :review, presence: true
+  validates :feature_id, uniqueness: { scope: :review_id }
 
   belongs_to(
     :business,
