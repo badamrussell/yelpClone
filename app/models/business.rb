@@ -112,6 +112,14 @@ class Business < ActiveRecord::Base
     dependent: :destroy
   )
 
+  def store_front_count(size)
+    photos.select("photos.id, COUNT(CASE WHEN photo_details.store_front THEN 1 ELSE null END) AS photo_count")
+          .joins("LEFT JOIN photo_details ON photo_details.photo_id = photos.id")
+          .group("photos.id")
+          .order("photo_count DESC, photos.id DESC")
+          .limit(size).all
+  end
+
   def full_street_address
     a1 = address1 || ""
     a2 = address2 || ""

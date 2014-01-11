@@ -3,9 +3,9 @@ class Photo < ActiveRecord::Base
   attr_accessible :store_front_count, :helpful_sum
 
   validates :user_id, presence: true
-  after_create { update_details(1) }
-  after_destroy { update_details(-1) }
-  after_update { update_details(0) }
+  after_create :update_details
+  after_destroy :update_details
+  after_update :update_details
 
   belongs_to(
     :user,
@@ -44,37 +44,17 @@ class Photo < ActiveRecord::Base
     showcase: "300x300#"
   }
 
-  def update_details(increment)
+  def update_details
     if self.business_id
+
       biz = self.business
 
-      details = biz.photos
-                .select("photos.id, COUNT(photo_details.store_front) AS photo_count")
-                .joins("LEFT JOIN photo_details ON photo_details.photo_id = photos.id")
-                .group("photos.id")
-                .order("photo_count DESC, photos.id DESC")
-                .limit(2).all
+      details = biz.store_front_count(2)
 
-      if increment == -1
-        if biz.store_front_id == self.id
-          biz.store_front_id = nil
-
-          details.each do |d|
-            next if d.id == self.id
-            biz.store_front_id = d.id
-            break
-          end
-
-          biz.save
-        end
-      elsif biz.missing_store_front?
-        biz.update_attribute(:store_front_id, self.id)
-      else
-        if details.empty?
-          biz.update_attribute(:store_front_id, self.id)
-        elsif details[0].id != biz.store_front_id
-          biz.update_attribute(:store_front_id, details[0].id)
-        end
+      if details.empty? && biz.store_front_id
+        biz.update_attribute(:store_front_id, nil)
+      elsif details[0].id != biz.store_front_id
+        biz.update_attribute(:store_front_id, details[0].id)
       end
     end
   end

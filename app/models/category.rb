@@ -18,7 +18,7 @@ class Category < ActiveRecord::Base
   )
 
   def self.best_businesses(num, category_ids)
-    qs = (["?"] * category_ids).join(",")
+    qs = (["?"] * category_ids.length).join(",")
 
     Business.joins(:business_categories)
             .where("business_categories.category_id IN (#{qs})",*category_ids)
