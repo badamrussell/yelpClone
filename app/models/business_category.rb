@@ -2,7 +2,7 @@ class BusinessCategory < ActiveRecord::Base
   attr_accessible :business_id, :category_id
 
   validates :business, :category_id, presence: true
-  #validates :business_id, scope: [:category_id], uniqueness: true
+  validates :business_id, uniqueness: { scope: :category_id }
 
   belongs_to(
     :business,

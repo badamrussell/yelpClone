@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   attr_accessible :year, :month, :day
   attr_accessible :photos_count, :reviews_count, :review_compliments_count
 
+  attr_protected :password_digest
+
   attr_reader :password
 
   validates :email, :session_token, :first_name, :last_name, presence: true

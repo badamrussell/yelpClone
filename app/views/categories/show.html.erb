@@ -60,14 +60,17 @@
     <h1 class="filter-title red-title">Fresh <%= @category.name %> Reviews</h1>
 
     <% reviews = @category.new_reviews(4) %>
+
     <ul class="review-block left">
-    <% reviews[0...2].each do |review| %>
-      <li class="group"><%= render "reviews/quick", review: review , title: "?????", body: review.body %></li>
-    <% end %>
-    </ul>
-    <ul class="review-block left">
-    <% reviews[2...4].each do |review| %>
-      <li class="group"><%= render "reviews/quick", review: review , title: "?????", body: review.body %></li>
+    <% 4.times do |index| %>
+      <li class="group">
+      <% if reviews[index] %>
+        <%= render "reviews/quick", review: reviews[index] , title: "?????", body: reviews[index].body %>
+      <% else %>
+        <%= render "reviews/write_review" %>
+      <% end %>
+      </li>
+      <%= "</ul><ul class=\"review-block left\">".html_safe if index == 1 %>
     <% end %>
     </ul>
   </section>
