@@ -17,8 +17,17 @@ class ReviewsController < ApplicationController
     # puts params
     # puts "---------------------------------"
     # handle_transaction
+    #streamlines data from feature inputs
+    features = {}
+    params[:feature_ids].each do |k,v|
+      if k.to_i == 0
+        features[v.to_i] = true
+      else
+        features[k.to_i] = v == "1"
+      end
+    end
 
-    flash[:errors] = @review.handle_update(nil, params[:feature_ids], params[:photo], current_user)
+    flash[:errors] = @review.handle_update(nil, features, params[:photo], current_user)
 
     if flash[:errors].empty?
       redirect_to business_url(params[:review][:business_id])
