@@ -78,4 +78,8 @@ class Photo < ActiveRecord::Base
   def title_snippet
     title.length > 48 ? "#{title}..."[0..50] : title
   end
+
+  def user_details(user_id)
+    photo_details.where(user_id: user_id)
+  end
 end
