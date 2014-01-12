@@ -170,7 +170,7 @@ class Business < ActiveRecord::Base
   end
 
   def get_highlight_reviews(amount)
-    self.reviews[0..3]
+    @highlight_reviews ||= self.reviews.order("rating DESC").first(4)
   end
 
   def missing_store_front?

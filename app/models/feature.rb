@@ -18,4 +18,8 @@ class Feature < ActiveRecord::Base
   )
 
   has_many :businesses, through: :business_features, source: :business
+
+  def self.quick_all
+    @features ||= Feature.all
+  end
 end

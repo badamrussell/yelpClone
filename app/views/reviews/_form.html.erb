@@ -28,7 +28,7 @@
     <% fc_count = 0 %>
 
     <% bool_choice = FeatureCategory.basic_choice %>
-    <% FeatureCategory.first.features.each do |feature| %>
+    <% FeatureCategory.quick_all.first.features.each do |feature| %>
       <%= render "forms/radio_group", {
         name: nil,
         title: feature.name,
@@ -43,7 +43,7 @@
       <% fc_count += 1 %>
     <% end %>
     <% fc_count += 1 %>
-    <% FeatureCategory.all.each do |feature_category| %>
+    <% FeatureCategory.quick_all.each do |feature_category| %>
       <% next if feature_category.id == 1 %>
       <% p_form = feature_category.input_type == 1 ? "forms/radio_group" : "forms/checkbox_group" %>
       <% p_name = feature_category.input_type == 1 ? feature_category.features.select { |f| business_features[f.id] }[0] : nil %>
