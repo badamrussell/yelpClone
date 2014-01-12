@@ -1,5 +1,58 @@
 module SearchesHelper
 
+  def set_filters(search_params)
+    category_list = Category.all.map { |cat| { name: cat.name, id: cat.id, checked: false, visible: false } }
+    feature_list = Feature.all.map { |feat| { name: feat.name, id: feat.id, checked: false, visible: false } }
+    neighborhood_list = Neighborhood.all.map { |neigh| {name: neigh.name, id: neigh.id, checked: false, visible: false } }
+
+    set = search_params ? params[:search][:category_id] : []
+    categories = gather_filter_settings(set, category_list, 5)
+
+    set = search_params ? params[:search][:feature_id] : []
+    features = gather_filter_settings(set, feature_list, 5)
+
+    set = search_params ? params[:search][:neighborhood_id] : []
+    neighborhoods = gather_filter_settings(set, neighborhood_list, 5)
+
+    [categories, features, neighborhoods]
+  end
+
+  def gather_filter_settings(set, list, visible_limit)
+    new_set = []
+
+    visible_count = 0
+
+    if set
+      extra_items = visible_limit - set.length
+      set = set.map { |a| a.to_i }
+
+      list.each do |item|
+        if set.include?(item[:id])
+          item[:checked] = true
+          new_set << item
+
+          if visible_count <= visible_limit
+            item[:visible] = true
+            visible_count += 1
+          end
+        elsif extra_items > 0
+          item[:visible] = true
+          new_set << item
+
+          visible_count += 1
+          extra_items -= 1
+        end
+      end
+    else
+      new_set = list[0...visible_limit]
+      new_set.each { |a| a[:visible] = true }
+    end
+
+
+    new_set
+  end
+
+
   def determine_bounds(center, miles_offset)
     # calculates ne and sw corner
     # SW-74.069, 40.710

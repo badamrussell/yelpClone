@@ -1,41 +1,5 @@
 class SearchesController < ApplicationController
 
-  def gather_filter_settings(set, list, visible_limit)
-    new_set = []
-
-    visible_count = 0
-
-
-    if set
-      extra_items = visible_limit - set.length
-      set = set.map { |a| a.to_i }
-
-      list.each do |item|
-        if set.include?(item[:id])
-          item[:checked] = true
-          new_set << item
-
-          if visible_count <= visible_limit
-            item[:visible] = true
-            visible_count += 1
-          end
-        elsif extra_items > 0
-          item[:visible] = true
-          new_set << item
-
-          visible_count += 1
-          extra_items -= 1
-        end
-      end
-    else
-      new_set = list[0...visible_limit]
-      new_set.each { |a| a[:visible] = true }
-    end
-
-
-    new_set
-  end
-
   def show
     #search elements
     # find, near
