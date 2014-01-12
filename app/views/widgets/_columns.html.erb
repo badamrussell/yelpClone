@@ -1,5 +1,5 @@
 
-<% url_proc = Proc.new { |val| "#{base_url}#{param_name}=#{val}" } if url_proc.nil? %>
+<% url_proc ||= Proc.new { |val| "#{base_url}#{param_name}=#{val}" } %>
 <% rows = (data.length / columns) %>
 <% max_rows ||= rows %>
 <% rows = max_rows if rows > max_rows %>

@@ -28,23 +28,26 @@
 
     </div>
     <div class="finer-filter-container group">
-      <% if @finer_filters %>
+      <% if @top_category_filter %>
         <%#= render "widgets/columns", columns: 6, data: Neighborhood.where(area_id: 1), base_url: search_url(category_id: @category.id), param_name: "neighborhood_id" %>
         <%= render  "widgets/columns",
                     columns: 6,
-                    data: @finer_filters,
-                    # base_url: "/search?",
-                    base_url: search_url(@saved_params) + "&",
-                    param_name: @finer_filter_name,
+                    data: @top_category_filter,
+                    url_proc: Proc.new { |val| search_url( @link_params.merge(@top_link_param => val) ) },
                     max_rows: 3 %>
       <% end %>
 
     </div>
   </section>
 
-  <form id="form-fine-filters" action="<%= search_url( @saved_params) %>" method="get" data-remote="true">
+  <form id="form-fine-filters" action="<%= search_url %>" method="get" data-remote="true">
     <input type="hidden" name="find_desc" value="<%= @find_desc %>">
     <input type="hidden" name="find_loc" value="<%= @find_loc %>">
+
+    <% if @main_category_id %>
+      <input type="hidden" name="main_category_id" value="<%= @main_category_id %>">
+    <% end %>
+
     <section class="search-filter-container group">
       <section class="column left">
         <h3 class="filter-title red-title">Sort By</h3>
@@ -69,15 +72,15 @@
       <section class="column left">
         <h3 class="filter-title red-title">Neighborhoods</h3>
         <ul id="neighborhood-selections">
-          <% @neighborhoods.sort { |a| a[:checked] ? 0 : 1 }.each do |n| %>
+          <% @neighborhoods.each do |n| %>
+            <li>
             <% if n[:visible] %>
-              <li>
-                <input type="checkbox" id="n_<%= n[:id] %>" name="search[neighborhood_id][]" value="<%= n[:id] %>" <%= "checked" if n[:checked] %>>
-                <label for="n_<%= n[:id] %>"><%= n[:name] %></label>
-              </li>
-            <% elsif n[:checked] %>
-              <li><input type="hidden" name="search[neighborhood_id][]" value="<%= n[:id] %>"></li>
+              <input type="checkbox" id="n_<%= n[:id] %>" name="search[neighborhood_id][]" value="<%= n[:id] %>" <%= "checked" if n[:checked] %>>
+              <label for="n_<%= n[:id] %>"><%= n[:name] %></label>
+            <% else %>
+              <input type="hidden" name="search[neighborhood_id][]" value="<%= n[:id] %>">
             <% end %>
+            </li>
           <% end %>
         </ul>
         <button class="btn-link" type="button" onclick='showFilterPopup("#neighborhood-popup", "#neighborhood-selections")'>More Neighborhoods</button>
@@ -129,15 +132,15 @@
       <section class="column left">
         <h3 class="filter-title red-title">Features</h3>
         <ul id="feature-selections">
-          <% @features.sort { |a| a[:checked] ? 0 : 1 }.each do |f| %>
+          <% @features.each do |f| %>
+            <li>
             <% if f[:visible] %>
-              <li>
                 <input type="checkbox" id="f_<%= f[:id] %>" name="search[feature_id][]" value="<%= f[:id] %>" <%= "checked" if f[:checked] %>>
                 <label for="f_<%= f[:id] %>"><%= f[:name] %></label>
-              </li>
-            <% elsif f[:checked] %>
-              <li><input type="hidden" name="search[feature_id][]" value="<%= f[:id] %>"></li>
+            <% else %>
+              <input type="hidden" name="search[feature_id][]" value="<%= f[:id] %>">
             <% end %>
+            </li>
           <% end %>
         </ul>
         <button class="btn-link" type="button" onclick='showFilterPopup("#feature-popup", "#feature-selections")'>More Features</button>
@@ -157,15 +160,15 @@
         <section class="column left">
           <h3 class="filter-title red-title">Category</h3>
           <ul id="category-selections">
-            <% @categories.sort { |a,b| a[:checked] ? a[:name] <=> b[:name] : 1 }.each do |c| %>
+            <% @categories.each do |c| %>
+              <li>
               <% if c[:visible] %>
-                <li>
-                  <input type="checkbox" id="c_<%= c[:id] %>" name="search[category_id][]" value="<%= c[:id] %>" <%= "checked" if c[:checked] %>>
-                  <label for="c_<%= c[:id] %>"><%= c[:name] %></label>
-                </li>
-              <% elsif c[:checked] %>
-                <li><input type="hidden" name="search[category_id][]" value="<%= c[:id] %>"></li>
+                <input type="checkbox" id="c_<%= c[:id] %>" name="search[category_id][]" value="<%= c[:id] %>" <%= "checked" if c[:checked] %>>
+                <label for="c_<%= c[:id] %>"><%= c[:name] %></label>
+              <% else %>
+                <input type="hidden" name="search[category_id][]" value="<%= c[:id] %>">
               <% end %>
+              </li>
             <% end %>
           </ul>
           <!-- <button class="btn-link" type="button" onclick='showFilterPopup("#category-popup", "#category-selections")'>More Categories</button> -->
