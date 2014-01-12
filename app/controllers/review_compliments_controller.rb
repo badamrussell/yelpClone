@@ -6,11 +6,10 @@ class ReviewComplimentsController < ApplicationController
   end
 
   def create
-    @compliment = ReviewCompliment.new(params[:compliment])
-    @compliment.user_id = current_user.id
+    params[:compliment].merge!(user_id: current_user.id)
+    @compliment = ReviewCompliment.create(params[:compliment])
     @review = Review.find(@compliment.review_id)
 
-    @compliment.save
     flash[:errors] = @compliment.errors.full_messages
 
     if request.xhr?
