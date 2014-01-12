@@ -1,12 +1,10 @@
 class ReviewVotesController < ApplicationController
 
   def create
-    newVote = ReviewVote.new(params[:vote])
-    newVote.user_id = current_user.id
+    params[:vote].merge!(user_id: current_user.id)
+    newVote = ReviewVote.create(params[:vote])
 
-    newVote.save
     flash[:errors] = newVote.errors.full_messages
-
 
     redirect_to :back
   end
