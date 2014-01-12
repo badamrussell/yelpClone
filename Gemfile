@@ -15,6 +15,7 @@ gem 'aws-sdk'
 gem 'addressable', require: 'addressable/uri'
 gem 'geocoder'
 gem 'kaminari'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'pry-rails'
