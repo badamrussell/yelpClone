@@ -48,8 +48,7 @@ module SearchesHelper
       new_set.each { |a| a[:visible] = true }
     end
 
-
-    new_set
+    new_set.sort { |a,b| a[:checked] ? (b[:checked] ? a[:name] <=> b[:name] : -1 ) : 1 }
   end
 
 
