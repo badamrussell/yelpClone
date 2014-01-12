@@ -1,10 +1,6 @@
 class PhotoDetailsController < ApplicationController
   before_filter :require_current_user!, except: [:show]
 
-  def edit
-    fail
-  end
-
   def update
     @photo_detail = current_user.photo_details.where(photo_id: params[:photo_id])[0]
 
@@ -24,8 +20,9 @@ class PhotoDetailsController < ApplicationController
   end
 
   def create
-    @photo_detail = current_user.photo_details.new(params[:photo_details])
-    @photo_detail.photo_id = params[:photo_id]
+    params[:photo_details].merge!( user_id: current_user.id )
+    @photo_detail = PhotoDetail.creation(params[:photo_details])
+
     if @photo_detail.save
 
     else

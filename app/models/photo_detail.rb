@@ -41,4 +41,11 @@ class PhotoDetail < ActiveRecord::Base
 
     photo.update_attributes(helpful_sum: total)
   end
+
+  def creation(detail_photo_id, detail_params)
+    photo = Photo.find(detail_photo_id)
+
+    photo.photo_details.new(detail_params)
+  end
+
 end
