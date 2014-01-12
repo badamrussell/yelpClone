@@ -11,4 +11,18 @@ class UserBio < ActiveRecord::Base
     foreign_key: :user_id
   )
 
+  def creation(user, profile_params, user_params)
+    trans_errors = []
+
+    ActiveRecord::Base.transaction do
+      self.update_attributes(profile_params)
+      user.update_attributes(user_params)
+
+      trans_errors += profile.errors.full_messages
+      trans_errors += user.errors.full_messages
+    end
+
+    trans_errors
+  end
+
 end
