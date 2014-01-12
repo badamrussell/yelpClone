@@ -122,9 +122,9 @@ class User < ActiveRecord::Base
 
 
   has_attached_file :profile_photo, styles: {
-    icon_s: "30x30#",
-    icon_m: "60x60#",
-    profile: "100x100#"
+    small: "30x30#",
+    medium: "60x60#",
+    large: "150x150#"
   }
 
   def initial_values

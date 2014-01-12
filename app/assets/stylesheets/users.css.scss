@@ -143,12 +143,16 @@
     height: 20px;
     float: left;
     padding: 0 0 6px 8px;
+    border-radius: 4px;
   }
 
   .thumb-photos div a {
     display: block;
   }
 
+  .thumb-photos img {
+    border-radius: 2px;
+  }
 
   h3 {
     margin-top: 16px;

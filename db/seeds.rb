@@ -6,26 +6,45 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-user1 = User.create( email: "b.ad.russell@gmail.com", password: "123456", first_name: "adam", last_name: "russell", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
-user2 = User.create( email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_16.jpg") )
-user3 = User.create( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_9.jpg") )
-user4 = User.create( email: "guest@example.com", password: "password", first_name: "Guest", last_name: "Person", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
+user1 = User.create( email: "guest@example.com", password: "123456", first_name: "Guest", last_name: "Gusterson", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
+user2 = User.create( email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_1.jpg") )
+user3 = User.create( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_2.jpg") )
+user4 = User.create( email: "frink@example.com", password: "123456", first_name: "John", last_name: "Frink", profile_photo: File.new("app/assets/images/temp/user_3.jpg") )
 
-new_bio = UserBio.new()
-new_bio.user_id = user1.id
-new_bio.save
+new_bio = UserBio.new({
+  headline: Faker::Lorem.sentence,
+  hometown: Faker::Address.city,
+  reviews: Faker::Lorem.sentence,
+  book: Faker::Lorem.words,
+  dont_tell: Faker::Lorem.sentence
+})
 
-new_bio = UserBio.new()
-new_bio.user_id = user2.id
-new_bio.save
-
-new_bio = UserBio.new()
-new_bio.user_id = user3.id
-new_bio.save
-
-new_bio = UserBio.new()
-new_bio.user_id = user4.id
-new_bio.save
+new_bio = UserBio.create([
+  { headline: "I'm new here...",
+    hometown: "New York, NY",
+    reviews: "Because I am a guest!",
+    dont_tell: "I love to test project web sites.",
+    user_id: user1.id
+  },
+  { headline: "I'm new here...",
+    hometown: "Albuquerque, NM",
+    reviews: "No Half Measures.",
+    dont_tell: "I used to be a high school chemistry teacher.",
+    user_id: user2.id
+  },
+  { headline: "I'm new here...",
+    hometown: "Bikini Bottom",
+    reviews: "We've been smeckledorfed!",
+    dont_tell: "Well, it's no secret that the best thing about a secret is secretly telling someone your secret...",
+    user_id: user3.id
+  },
+  { headline: "I'm new here...",
+    hometown: "Springfield, OR",
+    reviews: "Ah, for glavin out loud...",
+    dont_tell: "This sarcasm detector is off the charts!",
+    user_id: user4.id
+  }
+])
 
 neighborhood = Area.determine_neighborhood()
 ProfileLocation.create(user_id: user1.id, address: neighborhood, name: "Home", primary: true)
@@ -33,21 +52,16 @@ ProfileLocation.create(user_id: user2.id, address: neighborhood, name: "Home", p
 ProfileLocation.create(user_id: user3.id, address: neighborhood, name: "Home", primary: true)
 ProfileLocation.create(user_id: user4.id, address: neighborhood, name: "Home", primary: true)
 
-
-#<Business id: 113, country_id: 1, name: "Chipotle Restaurant", address1: "274 Madison Ave", address2: "New York, NY 10016", city: "New York", state: "NY", zip_code: 10003, phone_number: "", website: "", neighborhood_id: nil, gps: "", created_at: "2013-12-18 01:21:32", updated_at: "2013-12-18 01:21:32", store_front_id: nil, latitude: 40.751402, longitude: -73.980728>
-
-#<Business id: 107, country_id: 1, name: "Dos Toros", address1: "137 4th Ave", address2: "New York, NY 10003", city: "New York", state: "NY", zip_code: 10003, phone_number: nil, website: nil, neighborhood_id: nil, gps: nil, created_at: "2013-12-18 01:16:44", updated_at: "2013-12-18 01:16:44", store_front_id: nil, latitude: 40.7335433, longitude: -73.9898218>
-
-
 Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
-Business.create(name: "Chipotle", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
-Business.create(name: "Dos Toros", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
+Business.create(name: "Krusty Burger", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
+Business.create(name: "The Krusty Krab", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
 
-Photo.create(user_id: user1.id, business_id: 1, file: File.new("app/assets/images/temp/user_14.jpg") )
-Photo.create(user_id: user2.id, business_id: 2, file: File.new("app/assets/images/temp/store_11.jpg") )
-Photo.create(user_id: user3.id, business_id: 3, file: File.new("app/assets/images/temp/store_10.jpg") )
-Photo.create(user_id: user4.id, business_id: 1, file: File.new("app/assets/images/temp/store_10.jpg") )
-Photo.create(user_id: user4.id, business_id: 4, file: File.new("app/assets/images/temp/store_10.jpg") )
+Photo.create(user_id: user1.id, business_id: 1, file: File.new("app/assets/images/temp/store_0a.jpg") )
+Photo.create(user_id: user2.id, business_id: 2, file: File.new("app/assets/images/temp/store_0c.jpg") )
+Photo.create(user_id: user3.id, business_id: 3, file: File.new("app/assets/images/temp/store_0b.jpg") )
+Photo.create(user_id: user4.id, business_id: 1, file: File.new("app/assets/images/temp/food_39.jpg") )
+Photo.create(user_id: user4.id, business_id: 2, file: File.new("app/assets/images/temp/food_30.jpg") )
+Photo.create(user_id: user4.id, business_id: 3, file: File.new("app/assets/images/temp/food_15.jpg") )
 
 BusinessCategory.create([
   {business_id: 1, category_id: 1},
@@ -446,7 +460,27 @@ Neighborhood.create([
   {name: "Woodrow", area_id: 5}
 ])
 
-open_times = [6.hours, 7.5.hours.to_i, 8.hours, 9.hours]
+
+(4..51).each do |index|
+  user = User.create( email: Faker::Internet.email,
+                      password: "123456",
+                      first_name: Faker::Name.first_name,
+                      last_name: Faker::Name.last_name,
+                      profile_photo: File.new("app/assets/images/temp/user_#{index}.jpg")
+                    )
+  new_bio = UserBio.new({
+    headline: Faker::Lorem.sentence,
+    hometown: Faker::Address.city,
+    reviews: Faker::Lorem.sentence,
+    book: Faker::Lorem.words,
+    dont_tell: Faker::Lorem.sentence
+  })
+
+  new_bio.user_id = user.id
+  new_bio.save
+end
+
+open_times = [6.hours, 7.5.hours.to_i, 8.hours, 9.hours, 7.5.hours.to_i]
 close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 
 (1..3).each do |i|
@@ -459,11 +493,11 @@ close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 
 end
 
-100.times do |i|
+200.times do |i|
   b = Business.create( {  name: Faker::Company.name,
                           country_id: 1,
                           phone_number: Faker::PhoneNumber.phone_number,
-                          neighborhood_id: rand(50)+1,
+                          neighborhood_id: rand(1..50),
                           latitude: Area.rand_lat,
                           longitude: Area.rand_long
                         } )
@@ -483,29 +517,10 @@ end
   end
 
 
-  Photo.create(user_id: rand(user1.id..(user1.id+20)), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..12)}.jpg"))
+  Photo.create(user_id: rand(user1.id..(user1.id+50)), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..43)}.jpg"))
 end
 
-20.times do
-  user = User.create( email: Faker::Internet.email,
-                      password: "123456",
-                      first_name: Faker::Name.first_name,
-                      last_name: Faker::Name.last_name,
-                      profile_photo: File.new("app/assets/images/temp/user_#{rand(1..15)}.jpg")
-                    )
-  new_bio = UserBio.new({
-    headline: Faker::Lorem.sentence,
-    hometown: Faker::Address.city,
-    reviews: Faker::Lorem.sentence,
-    book: Faker::Lorem.words,
-    dont_tell: Faker::Lorem.sentence
-  })
 
-  new_bio.user_id = user.id
-  new_bio.save
-
-  ProfileLocation.create(user_id: user.id, address: neighborhood, name: "Home", primary: true)
-end
 
 
 
@@ -705,43 +720,26 @@ Country.create([
 
 
 
+
 Review.create([
   {rating: 3, user_id: user1.id, business_id: 1, body: "Food was amazing!"},
   {rating: 1, user_id: user2.id, business_id: 1, body: "Meh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis euismod velit sit amet iaculis. Nullam lacinia vel felis at tincidunt. Fusce non euismod sem, non mollis lectus. Nunc sed enim et dolor tempus mattis vel ut felis. Sed condimentum eget turpis sed tempor. Aenean varius quis nunc ac convallis. Maecenas feugiat in massa sit amet tincidunt. Fusce dapibus dui nisi, et consequat nisi aliquet at. Aenean mi purus, venenatis eget diam pellentesque, ultrices dictum nisi. Nullam quam lorem, lacinia ac justo nec, varius ullamcorper ligula. Pellentes"},
-  {rating: 2, user_id: user3.id, business_id: 2, body: "Whatever. Iate ther .Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis euismod velit sit amet iaculis. Nullam lacinia vel felis at tincidunt. Fusce non euismod sem, non mollis lectus. Nunc sed enim et dolor tempus mattis vel ut felis. Sed condimentum eget turpis sed tempor. Aenean varius quis nunc ac convallis. Maecenas feugiat in massa sit amet tincidunt. Fusce dapibus dui nisi, et consequat nisi aliquet at. Aenean mi purus, venenatis eget diam pellentesque, entes"},
+  {rating: 2, user_id: user3.id, business_id: 2, body: "Whatever. I ate there .Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis euismod velit sit amet iaculis. Nullam lacinia vel felis at tincidunt. Fusce non euismod sem, non mollis lectus. Nunc sed enim et dolor tempus mattis vel ut felis. Sed condimentum eget turpis sed tempor. Aenean varius quis nunc ac convallis. Maecenas feugiat in massa sit amet tincidunt. Fusce dapibus dui nisi, et consequat nisi aliquet at. Aenean mi purus, venenatis eget diam pellentesque, entes"},
   {rating: 5, user_id: user1.id, business_id: 2, body: "el, tempus felis. Nulla pharetra orci sit amet metus volutpat, ut hendrerit metus ornare. Curabitur aliquam vitae augue at feugiat. Maecenas gravida scelerisque tortor sed eleifend. Sed at lorem laoreet velit consectetur dapibus. Vestibulum semper pretium scelerisque. Etiam tempus elit at nisl porttitor egestas. Nunc id tincidunt magna. Interdum et malesuada fames ac ante ipsum primis in"},
   {rating: 4, user_id: user3.id, business_id: 3, body: " Fusce eu mauris vel nulla posuere mattis sed ac felis. Etiam rhoncus venenatis augue, non posuere enim sollicitudin in. Aliquam sollicitudin nisl ut magna dapibus scelerisque. Pellentesque adipiscing pharetra est ac luctus. Phasellus auctor ac erat in varius.
-
 Quisque id nisl dapibus, consequat nibh vel, tempus"},
   {rating: 5, user_id: user2.id, business_id: 3, body: "imenaeos. Proin laoreet rutrum justo ac vehicula. Vivamus eros elit, sagittis ultricies auctor et, ultrices sed leo. Vestibulum ligula leo, pharetra in ante nec, faucibus pretium sapien. Duis feugiat bibendum dui, in mattis nisl ultrices ac. Quisque tincidunt eleifend mauris sed volutpat. Donec tincidunt sollicitudin velit, sit amet malesuada lacus semper vestibulum. Sed laci"},
   {rating: 1, user_id: user4.id, business_id: 5, body: "Terrible! There was a fly in my soup. venenatis eget diam pellentesque, ultrices dictum nisi. Nullam quam lorem, lacinia ac justo nec, varius ullamcorper ligula."},
   {rating: 3, user_id: user4.id, business_id: 1, body: "I've had better. A lot better. but some worse. Vivamus eros elit, sagittis ultricies auctor et, ultrices sed leo. Vestibulum ligula leo, pharetra in ante nec, faucibus pretium sapien. Duis feugiat bibendum dui, in mattis nisl"},
   {rating: 5, user_id: user4.id, business_id: 2, body: "Mouth is drooling... Drooling! Nulla pharetra orci sit amet metus volutpat, ut hendrerit metus ornare. Curabitur aliquam vitae augue"},
   {rating: 3, user_id: user1.id, business_id: 3, body: "ontent of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."}
-  ])
-
-
-
-ProfileLocation.create([
-  {user_id: user1.id, name: "Home", address: "Manhattan, NY", primary: true}
-  {user_id: user4.id, name: "Home", address: "Manhattan, NY", primary: true}
 ])
-
-
-# Photo.create([
-#   {business_id:1, img_url: "/assets/temp/food_1.jpg", user_id:1},
-#   {business_id:1, img_url: "/assets/temp/front.jpg", user_id:1},
-#   {business_id:2, img_url: "/assets/temp/food_3.jpg", user_id:2},
-#   {business_id:1, img_url: "/assets/temp/food_4.jpg", user_id:2},
-#   {business_id:3, img_url: "/assets/temp/food_5.jpg", user_id:3},
-#   {business_id:3, img_url: "/assets/temp/food_6.jpg", user_id:3}
-# ])
 
 PhotoDetail.create([
   {helpful_id:1, photo_id:1, store_front: false, user_id: user1.id},
   {helpful_id:2, photo_id:2, store_front: true, user_id: user2.id},
   {helpful_id:3, photo_id:3, store_front: false, user_id: user3.id},
-  {helpful_id:2, photo_id:4, store_front: false, user_id: user3.id}
+  {helpful_id:2, photo_id:4, store_front: false, user_id: user3.id},
   {helpful_id:1, photo_id:2, store_front: false, user_id: user4.id},
   {helpful_id:2, photo_id:3, store_front: true, user_id: user4.id},
   {helpful_id:3, photo_id:4, store_front: true, user_id: user4.id},
@@ -913,7 +911,7 @@ ReviewVote.create([
   {review_id: 1, vote_id: 2, user_id: User.limit(10).last.id},
   {review_id: 1, vote_id: 3, user_id: User.limit(32).last.id},
   {review_id: 1, vote_id: 1, user_id: User.limit(15).last.id},
-  {review_id: 1, vote_id: 1, user_id: user4.id.id},
+  {review_id: 1, vote_id: 1, user_id: user4.id},
   {review_id: 202, vote_id: 1, user_id: user1.id},
   {review_id: 202, vote_id: 2, user_id: User.limit(20).last.id},
   {review_id: 202, vote_id: 3, user_id: user4.id},
@@ -952,8 +950,9 @@ ReviewCompliment.create([
   {compliment_id: 7, review_id: 5, user_id: User.limit(20).last.id, body: "nice one."}
 ])
 
-200.times do |i|
-  business_id = rand(1..103)
+total_businesses = Business.count
+300.times do |i|
+  business_id = rand(1..total_businesses)
   review_id = i + 1
   Review.create(  rating: rand(5)+1,
                   user_id: User.limit(20).shuffle.last.id,

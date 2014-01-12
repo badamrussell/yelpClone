@@ -15,7 +15,7 @@
 			<% break if i > 3 %>
 			<li class="compliment-quick group">
 				<div class="avatar-container left">
-			    <a href="<%= user_url(c.user_id) %>"><img class="avatar-30" src="<%= c.user.avatar %>"></a>
+			    <a href="<%= user_url(c.user_id) %>"><img class="avatar-30" src="<%= c.user.avatar(:medium) %>"></a>
 			  </div>
 
 			  <div class="side-right">

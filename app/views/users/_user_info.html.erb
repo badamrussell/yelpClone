@@ -3,12 +3,12 @@
 
 
   <section class="photos-container group">
-    <div class="user-avatar left"><img width="120" src="<%= user.avatar %>"></div>
+    <div class="user-avatar left"><img width="120" src="<%= user.avatar(:large) %>"></div>
     <div class="thumb-photos">
       <% if user.photos_count > 0 %>
         <% user.top_photos(9).each do |photo| %>
         <div class="left">
-          <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img class="img-icon" src="<%= photo.url(:icon) %>"></a>
+          <a href="<%= user_photos_url(user.id, photo_id: photo.id) %>"><img class="img-icon" src="<%= photo.url(:small) %>"></a>
         </div>
         <% end %>
       <% end %>

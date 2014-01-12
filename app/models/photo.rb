@@ -39,8 +39,9 @@ class Photo < ActiveRecord::Base
   )
 
   has_attached_file :file, styles: {
-    icon_s: "30x30#",
-    small: "150x150>",
+    small: "30x30#",
+    medium: "60x60#",
+    large: "150x150#",
     showcase: "300x300#"
   }
 

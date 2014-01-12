@@ -319,8 +319,8 @@ ActiveRecord::Schema.define(:version => 20140112014616) do
   add_index "user_bios", ["user_id"], :name => "index_user_bios_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                      :null => false
-    t.string   "password_digest",            :null => false
+    t.string   "email",                                     :null => false
+    t.string   "password_digest",                           :null => false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "nickname"
@@ -333,11 +333,11 @@ ActiveRecord::Schema.define(:version => 20140112014616) do
     t.string   "profile_photo_content_type"
     t.integer  "profile_photo_file_size"
     t.datetime "profile_photo_updated_at"
-    t.integer  "reviews_count"
-    t.integer  "photos_count"
+    t.integer  "reviews_count",              :default => 0
+    t.integer  "photos_count",               :default => 0
     t.integer  "review_compliments_count"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "img_url"
   end
 
