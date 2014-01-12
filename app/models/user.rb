@@ -12,7 +12,9 @@ class User < ActiveRecord::Base
   validates :password_digest, presence: { message: "Password cannot be blank." }
   validates :password, length: { minimum: 6 }, on: :create
   validates :email, uniqueness: true
+
   before_validation :ensure_token
+  after_create :initial_values
 
   has_one(
     :bio,
@@ -124,6 +126,15 @@ class User < ActiveRecord::Base
     icon_m: "60x60#",
     profile: "100x100#"
   }
+
+  def initial_values
+    newBio = UserBio.new()
+    newBio.user_id = self.id
+    newBio.save!
+
+    neighborhood = Area.determine_neighborhood()
+    newLocation = self.profile_locations.create(address: neighborhood, name: "Home", primary: true)
+  end
 
   def self.random_token
     SecureRandom::urlsafe_base64(16)

@@ -11,7 +11,6 @@ class UsersController < ApplicationController
 
     unless @user
       flash[:errors] = @user.errors.messages
-      # render @user
       redirect_to users_url
     end
   end
@@ -24,14 +23,8 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      newBio = UserBio.new()
-      newBio.user_id = @user.id
-      newBio.save!
-
-      neighborhood = Area.determine_neighborhood()
-      newLocation = @user.profile_locations.create(address: neighborhood, name: "Home", primary: true)
-
       sign_in(@user)
+
       flash[:success] = ["Welcome to Yelp Clone!"]
       redirect_to user_url(@user.id)
     else
@@ -41,7 +34,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    # @user = User.find(params[:id])
     redirect_to edit_profile_url
   end
 

@@ -81,13 +81,9 @@ class ReviewsController < ApplicationController
     end
 
     vote = Vote.find(params[:vote_id])
-    # vote_count = Review.find(params[:id]).vote_count[vote.id]
+
     existing_vote = vote_counts[[params[:id], vote.id]]
-    display_name = if existing_vote
-        "#{vote.name} ( #{existing_vote} )"
-      else
-        vote.name
-      end
+    display_name = existing_vote ? "#{vote.name} ( #{existing_vote} )" : vote.name
 
     flash[:errors] = existingVote.errors.full_messages
 
