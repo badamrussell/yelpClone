@@ -7,12 +7,11 @@ class PhotosController < ApplicationController
   end
 
   def create
+
     @photo = current_user.photos.new(params[:photo])
 
     if @photo.save
       if params[:business_id]
-        # business = Business.find(params[:business_id])
-        # business.update_attribute(:avatar_id, @photo.id) if business.missing_store_front?
         redirect_to business_url(params[:business_id])
       else
         redirect_to user_url(current_user.id)
@@ -24,8 +23,7 @@ class PhotosController < ApplicationController
     end
   end
 
-  def biz_show
-    @owner = Business.find(params[:business_id])
+  def show(owner_hash)
     @photos = @owner.photos.order(:id)
 
     page_index = params[:page] || ( params[:photo_id] ? @photos.pluck(:id).index(params[:photo_id].to_i)+1 : 1 )
@@ -33,25 +31,26 @@ class PhotosController < ApplicationController
     @photos = Kaminari.paginate_array(@photos).page(page_index).per(1)
     @photo = @photos[0]
 
-    @url = photo_details_url(@photo.id, business_id: @owner.id) if @photos.any?
+    @url = photo_details_url(@photo.id, owner_hash) if @photos.any?
     @back_link = business_url(@owner.id)
 
     render :show
   end
 
+  def biz_show
+    @owner = Business.find(params[:business_id])
+
+    @back_link = business_url(@owner.id)
+
+    show(business_id: @owner.id)
+  end
+
   def user_show
     @owner = User.find(params[:user_id])
-    @photos = @owner.photos.order(:id)
 
-    page_index = params[:page] || ( params[:photo_id] ? @photos.pluck(:id).index(params[:photo_id].to_i)+1 : 1 )
-
-    @photos = Kaminari.paginate_array(@photos).page(page_index).per(1)
-    @photo = @photos[0]
-
-    @url = photo_details_url(@photo.id, user_id: @owner.id) if @photos.any?
     @back_link = user_url(@owner.id)
 
-    render :show
+    show(user_id: @owner.id)
   end
 
   def destroy
