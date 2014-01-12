@@ -3,7 +3,7 @@
   <button onclick="placeSearch()">Google Place Search</button>
 </section> -->
 
-<form class="new-biz" action="<%= url %>" method="post">
+<form class="new-biz" action="<%= url %>" method="post" enctype="multipart/form-data">
   <input type="hidden" name="_method" value="<%= method %>">
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -97,7 +97,7 @@
 
   <% if method == "post" %>
   <hr>
-    <%= render "forms/quick_review", review: Review.new, photo: Photo.new %>
+    <%= render "forms/quick_review", review: @review, photo: @photo %>
     <button class="red-btn" type="submit">Add Business</button>
   <% else %>
     <button class="red-btn" type="submit">Update</button>

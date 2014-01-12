@@ -24,6 +24,7 @@ class Business < ActiveRecord::Base
     class_name: "Review",
     primary_key: :id,
     foreign_key: :business_id,
+    inverse_of: :business,
     dependent: :destroy
   )
 
@@ -211,6 +212,30 @@ class Business < ActiveRecord::Base
     return true if d && (d.time_open..d.time_close) === time_now
 
     false
+  end
+
+  def creation_transaction(review_params, photo_params)
+    trans_errors = []
+
+    self.transaction do
+      photo = nil
+      review = nil
+      unless review_params[:body].blank?
+        review = self.reviews.build(review_params)
+
+        if photo_params[:file]
+          photo = review.photos.build(photo_params)
+        end
+      end
+
+      save
+
+      trans_errors += photo.errors.full_messages if photo
+      trans_errors += review.errors.full_messages if review
+      trans_errors += self.errors.full_messages
+    end
+
+    trans_errors
   end
 
   def as_json(options={})

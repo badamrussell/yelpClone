@@ -1,7 +1,8 @@
 class Review < ActiveRecord::Base
   attr_accessible :rating, :user_id, :business_id, :body, :price_range, :feature_ids
 
-  validates :rating, :user_id, :business_id, :body, presence: true
+  validates :rating, :user_id, :business, presence: true
+  validates :body, presence: { message: "Review cannot be blank!" }
   validates :rating, numericality: { greater_than: 0 }
 
   before_destroy :destroy_features
@@ -24,6 +25,7 @@ class Review < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :business_id,
     counter_cache: true,
+    inverse_of: :reviews,
     include: [:neighborhood, :photos]
   )
 

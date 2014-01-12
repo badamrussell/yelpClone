@@ -1,8 +1,7 @@
 class BookmarksController < ApplicationController
   before_filter :require_current_user!, except: :show
 
-
-	def create
+  def create
 
 		if Bookmark.where(user_id: current_user.id, business_id: params[:bookmark][:business_id]).empty?
 			@bookmark = current_user.bookmarks.new(params[:bookmark])
