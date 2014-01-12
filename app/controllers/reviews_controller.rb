@@ -5,19 +5,15 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @business = Business.find(params[:business_id])
-    @business_features = []
+    @business_features = {}
     @photo = Photo.new
   end
 
   def create
     @review = current_user.reviews.new(params[:review])
-    @business = Business.find(@review.business_id)
-    @photo = Photo.new
-    # puts params
-    # puts "---------------------------------"
-    # handle_transaction
-    #streamlines data from feature inputs
     @business_features = {}
+
+    #streamlines data from feature inputs
     if params[:feature_ids]
       params[:feature_ids].each do |k,v|
         if k.to_i == 0
@@ -28,24 +24,14 @@ class ReviewsController < ApplicationController
       end
     end
 
-    flash[:errors] = @review.handle_update(nil, @business_features, params[:photo], current_user)
+    flash[:errors] = @review.creation(nil, @business_features, params[:photo], current_user)
 
     if flash[:errors].empty?
       redirect_to business_url(params[:review][:business_id])
     else
-      # @business_features = {}
-      #
-      # params[:feature_ids].each do |k,v|
-      #   if v == "1"
-      #     @business_features[k] = true
-      #   elsif k.to_i > 1
-      #     @business_features[v] = true
-      #   else
-      #     @business_features[k] = false
-      #   end
-      # end
-      # puts @business_features
-      # puts "----------------------------"
+      @business = Business.find(@review.business_id)
+      @photo = Photo.new(params[:photo])
+
       render :new
     end
   end
@@ -54,28 +40,21 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @business = Business.find(@review.business_id)
     @business_features = @review.completed_biz_features
-
     @photo = @review.photos.first || Photo.new
-    puts @business_features
-    puts "---------------------------------"
   end
 
   def update
     @review = Review.find(params[:id])
-    @business = Business.find(@review[:business_id])
-    @business_features = @review.business_features
 
-    # puts params[:feature_ids]
-    # puts "------------UPDATE---------------------"
-
-
-    flash[:errors] = @review.handle_update(params[:review], params[:feature_ids], params[:photo], current_user)
-    # @review.update_attributes(params[:review])
-    # handle_transaction
+    flash[:errors] = @review.creation(params[:review], params[:feature_ids], params[:photo], current_user)
 
     if flash[:errors].empty?
       redirect_to business_url(@business.id)
     else
+      @business = Business.find(@review[:business_id])
+      @business_features = @review.business_features
+      @photo = Photo.new(params[:photo])
+
       render :edit
     end
   end

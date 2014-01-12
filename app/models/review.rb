@@ -143,7 +143,7 @@ class Review < ActiveRecord::Base
     super(methods: [:avatar], include: [:user])
   end
 
-  def handle_update(new_values, new_features, new_photos, current_user)
+  def creation(new_values, new_features, new_photos, current_user)
     trans_errors = []
 
     transaction do
