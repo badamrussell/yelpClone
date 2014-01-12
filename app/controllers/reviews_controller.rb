@@ -12,39 +12,40 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.new(params[:review])
     @business = Business.find(@review.business_id)
-
-
+    @photo = Photo.new
     # puts params
     # puts "---------------------------------"
     # handle_transaction
     #streamlines data from feature inputs
-    features = {}
-    params[:feature_ids].each do |k,v|
-      if k.to_i == 0
-        features[v.to_i] = true
-      else
-        features[k.to_i] = v == "1"
+    @business_features = {}
+    if params[:feature_ids]
+      params[:feature_ids].each do |k,v|
+        if k.to_i == 0
+          @business_features[v.to_i] = true
+        else
+          @business_features[k.to_i] = v == "1"
+        end
       end
     end
 
-    flash[:errors] = @review.handle_update(nil, features, params[:photo], current_user)
+    flash[:errors] = @review.handle_update(nil, @business_features, params[:photo], current_user)
 
     if flash[:errors].empty?
       redirect_to business_url(params[:review][:business_id])
     else
-      @business_features = {}
-
-      params[:feature_ids].each do |k,v|
-        if v == "1"
-          @business_features[k] = true
-        elsif k.to_i > 1
-          @business_features[v] = true
-        else
-          @business_features[k] = false
-        end
-      end
-      puts @business_features
-      puts "----------------------------"
+      # @business_features = {}
+      #
+      # params[:feature_ids].each do |k,v|
+      #   if v == "1"
+      #     @business_features[k] = true
+      #   elsif k.to_i > 1
+      #     @business_features[v] = true
+      #   else
+      #     @business_features[k] = false
+      #   end
+      # end
+      # puts @business_features
+      # puts "----------------------------"
       render :new
     end
   end

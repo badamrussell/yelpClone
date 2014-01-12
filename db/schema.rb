@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140111201738) do
+ActiveRecord::Schema.define(:version => 20140112014616) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20140111201738) do
     t.integer  "business_id", :null => false
     t.integer  "feature_id",  :null => false
     t.boolean  "value",       :null => false
-    t.integer  "review_id"
+    t.integer  "review_id",   :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

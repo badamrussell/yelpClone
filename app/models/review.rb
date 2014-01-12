@@ -2,6 +2,7 @@ class Review < ActiveRecord::Base
   attr_accessible :rating, :user_id, :business_id, :body, :price_range, :feature_ids
 
   validates :rating, :user_id, :business_id, :body, presence: true
+  validates :rating, numericality: { greater_than: 0 }
 
   before_destroy :destroy_features
   after_create { update_data(1) }
@@ -146,36 +147,20 @@ class Review < ActiveRecord::Base
     transaction do
       update_attributes!(new_values) if new_values
 
-      business_features.each do |f|
-        if new_features[f.feature_id].nil?
-          f.destroy
-        elsif new_features[f.feature_id].blank?
-          f.destroy
-          new_features.remove(f.feature_id)
+      business_features.each { |f| f.destroy if new_features[f.feature_id].nil? }
+
+      existing_features = business_features.pluck(:feature_id)
+      new_features.each do |key,value|
+
+        #if id.nil? does not seem to work...
+        single_feature = unless existing_features.include?(key)
+          single_feature = self.business_features.build(feature_id: key, business_id: business_id, value: value)
+        else
+          single_feature = self.business_features.where(feature_id: key, business_id: business_id)[0]
+          single_feature.update_attributes(value: value)
         end
-      end
 
-      if new_features
-        existing_features = business_features.pluck(:feature_id)
-
-        new_features.each do |key,value|
-          key_id = key.to_i
-          bool_value = if value == "1"
-                true
-              elsif key.to_i == 0
-                key_id = value.to_i
-                true
-              else
-                false
-              end
-          single_feature = if existing_features.include?(key_id)
-            self.business_features.where(feature_id: key_id, business_id: business_id).first.update_attributes!(value: bool_value)
-          else
-            self.business_features.build(feature_id: key_id, business_id: business_id, value: bool_value )
-          end
-
-          trans_errors += single_feature.errors.full_messages
-        end
+        trans_errors += single_feature.errors.full_messages
       end
 
       #save photo
@@ -185,15 +170,14 @@ class Review < ActiveRecord::Base
 
         newPhoto = current_user.photos.build(new_photos)
 
-        newPhoto.save!
+        newPhoto.save
         trans_errors += newPhoto.errors.full_messages
       end
 
-      save!
+      save
 
       trans_errors += self.errors.full_messages
     end
-
 
     trans_errors
   end
