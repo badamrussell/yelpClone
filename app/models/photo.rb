@@ -42,7 +42,7 @@ class Photo < ActiveRecord::Base
     small: "30x30#",
     medium: "60x60#",
     large: "150x150#",
-    showcase: "300x300#"
+    showcase: "300x300^"
   }
 
   def update_details
