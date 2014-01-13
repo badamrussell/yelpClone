@@ -19,7 +19,7 @@
   <section class="sidebar-right">
     <%= render "users/friends", friends: @user.friends %>
 
-    <%= render "users/compliments", compliments: @user.review_compliments.order("updated_at DESC") %>
+    <%= render "widgets/recent_compliments", compliments: @user.review_compliments.order("updated_at DESC") %>
 
     <%= render "users/lists", lists: @user.lists %>
   </section>
