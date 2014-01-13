@@ -54,39 +54,6 @@
   }
 }
 
-.avatar-large {
-  font-size: 12px;
-
-  .side-left {
-    width: 60px;
-    height: 60px;
-    overflow: hidden;
-    border-radius: 2px;
-    margin-right: 4px;
-    border: 1px solid black;
-    .img-avatar {
-      width: 60px;
-      display: inline;
-    }
-  }
-
-  li {
-    padding-bottom: 4px;
-  }
-  .side-stats {
-    display: block;
-    width: 60px;
-
-    img {
-      margin: 0 4px;
-    }
-  }
-
-  .side-right {
-    font-size: 10px;
-    font-weight: none;
-  }
-}
 
 
 .user-profile-nav {

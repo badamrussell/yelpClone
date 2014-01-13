@@ -1,10 +1,11 @@
-
+<% on_side ||= false %>
+<% img_size ||= nil %>
 <div class="avatar group">
   <div class="group">
     <div class="side-left left">
-      <a href="<%= profile_url %>"><img class="img-avatar" src="<%= user.avatar %>"></a>
-
+      <a href="<%= profile_url %>"><img class="img-avatar" src="<%= user.avatar(img_size) %>"></a>
     </div>
+
 
     <div class="side-stats left">
       <img class="left" src="<%= user.avatar %>" height="10">
@@ -15,6 +16,8 @@
       <img class="left" src="/assets/temp/star.jpg" height="10">
       <span><%= user.reviews_count %></span>
     </div>
+
+
   </div>
   <div class="side-right">
     <ul class="group">
