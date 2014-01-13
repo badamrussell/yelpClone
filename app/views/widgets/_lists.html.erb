@@ -10,9 +10,10 @@
 
 	<ul>
 		<% lists.each_with_index do |list,i| %>
+      <% break if i > 1 %>
 
-			<% break if i > 1 %>
-			<li class="list-quick group">
+      <li class="list-quick group">
+
 				<header class="group">
 					<div class="side-left left">
 				    <a href="<%= list_url(list.id) %>"><img class="avatar-30" src="<%= list.reviews[0].business.avatar %>"></a>
@@ -33,6 +34,7 @@
 						</li>
 					<% end %>
 				</ul>
+
 			</li>
 		<% end %>
 	</ul>

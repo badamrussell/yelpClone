@@ -21,7 +21,7 @@
 
     <%= render "widgets/recent_compliments", compliments: @user.review_compliments.order("updated_at DESC") %>
 
-    <%= render "users/lists", lists: @user.lists %>
+    <%= render "widgets/lists", lists: @user.lists %>
   </section>
 </section>
 
