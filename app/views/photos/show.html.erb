@@ -27,7 +27,16 @@
 
     <section class="sidebar-photo-info group">
       <div>
-      <%= render "users/passport", user: @photo.user %>
+        <div class="passport group">
+          <div class="side-left left">
+            <a href="<%= profile_url %>"><img class="avatar" src="<%= @photo.user.avatar(:medium) %>"></a>
+          </div>
+
+          <ul class="side-right">
+            <li><em>Photo added by</em></li>
+            <li><a href="<%= user_url(user.id) %>"><%= @photo.user.name %></a></li>
+          </ul>
+        </div>
       </div>
       <div>
         <p class="comment"><strong><%= @photo.caption %></strong></p>
