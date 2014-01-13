@@ -11,10 +11,12 @@
       <!-- <li><div><a href="#">Events</a></div></li> -->
     </ul>
   </nav>
+
   <section class="user-profile-title">
     <h1 class="red-title left"><%= user.name %>'s Profile</h1>
     <% if user == current_user %>
       <a href="<%= edit_user_url(user.id) %>">edit</a>
     <% end %>
   </section>
+
 </header>
