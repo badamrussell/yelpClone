@@ -16,6 +16,9 @@ gem 'addressable', require: 'addressable/uri'
 gem 'geocoder'
 gem 'kaminari'
 gem 'newrelic_rpm'
+gem 'dalli'
+gem 'memcachier'
+gem 'multi_fetch_fragments'
 
 group :development do
   gem 'pry-rails'

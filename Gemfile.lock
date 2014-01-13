@@ -56,6 +56,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
+    dalli (2.7.0)
     debug_inspector (0.0.2)
     debugger (1.5.0)
       columnize (>= 0.3.1)
@@ -88,6 +89,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     meta_request (0.2.8)
       callsite
       rack-contrib
@@ -95,6 +97,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
+    multi_fetch_fragments (0.0.17)
     multi_json (1.8.2)
     multi_xml (0.5.5)
     newrelic_rpm (3.7.1.182)
@@ -184,13 +187,16 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   coffee-rails (~> 3.2.1)
+  dalli
   debugger
   faker
   figaro
   geocoder
   jquery-rails
   kaminari
+  memcachier
   meta_request
+  multi_fetch_fragments
   newrelic_rpm
   paperclip
   pg
