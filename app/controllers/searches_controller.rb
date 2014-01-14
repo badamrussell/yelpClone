@@ -4,7 +4,7 @@ class SearchesController < ApplicationController
     extend SearchesHelper
 
     @search_params = params[:search] || {}
-    @search_params[:distance] ||= 0
+    @search_params[:distance] ||= "0"
     @find_desc = params[:find_desc] || ""
     @find_loc = params[:find_loc] || ""
     @category_id = params["category_id"]
@@ -51,8 +51,10 @@ class SearchesController < ApplicationController
       @top_link_param = :main_category_id
     end
 
-
-    @categories, @features, @neighborhoods = set_filters(params[:search])
+    @features = selected_features( params[:search][:feature_id] )
+    @categories = selected_categories( params[:search][:category_id] )
+    @neighborhoods = selected_neighborhoods( params[:search][:neighborhood_id] )
+    @prices = selected_prices( params[:search][:price_range] )
 
     render json: @results if request.xhr?
   end

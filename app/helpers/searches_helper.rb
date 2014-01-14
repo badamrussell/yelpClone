@@ -1,20 +1,32 @@
 module SearchesHelper
 
-  def set_filters(search_params)
+  def selected_categories(set = nil)
+    set ||= []
     category_list = Category.all.map { |cat| { name: cat.name, id: cat.id, checked: false, visible: false } }
+
+    gather_filter_settings(set, category_list, 5)
+  end
+
+  def selected_features(set = nil)
+    set ||= []
     feature_list = Feature.all.map { |feat| { name: feat.name, id: feat.id, checked: false, visible: false } }
+
+    gather_filter_settings(set, feature_list, 5)
+  end
+
+  def selected_neighborhoods(set = nil)
+    set ||= []
     neighborhood_list = Neighborhood.all.map { |neigh| {name: neigh.name, id: neigh.id, checked: false, visible: false } }
 
-    set = search_params ? params[:search][:category_id] : []
-    categories = gather_filter_settings(set, category_list, 5)
+    gather_filter_settings(set, neighborhood_list, 5)
+  end
 
-    set = search_params ? params[:search][:feature_id] : []
-    features = gather_filter_settings(set, feature_list, 5)
+  def selected_prices(set = nil)
+    set ||= []
 
-    set = search_params ? params[:search][:neighborhood_id] : []
-    neighborhoods = gather_filter_settings(set, neighborhood_list, 5)
-
-    [categories, features, neighborhoods]
+    PriceRange.all.map do |p|
+      {name: p.name, id: p.id, checked: set.include?(p.id.to_s), visible: true }
+    end
   end
 
   def gather_filter_settings(set, list, visible_limit)

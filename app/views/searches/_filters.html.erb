@@ -24,12 +24,10 @@
           </h3>
         <% end %>
       </nav>
-
-
     </div>
+
     <div class="finer-filter-container group">
       <% if @top_category_filter %>
-        <%#= render "widgets/columns", columns: 6, data: Neighborhood.where(area_id: 1), base_url: search_url(category_id: @category.id), param_name: "neighborhood_id" %>
         <%= render  "widgets/columns",
                     columns: 6,
                     data: @top_category_filter,
@@ -69,23 +67,10 @@
         <a class="filter-more" href="#"></a>
       </section>
 
-      <section class="column left">
-        <h3 class="filter-title red-title">Neighborhoods</h3>
-        <ul id="neighborhood-selections">
-          <% @neighborhoods.each do |n| %>
-            <li>
-            <% if n[:visible] %>
-              <input type="checkbox" id="n_<%= n[:id] %>" name="search[neighborhood_id][]" value="<%= n[:id] %>" <%= "checked" if n[:checked] %>>
-              <label for="n_<%= n[:id] %>"><%= n[:name] %></label>
-            <% else %>
-              <input type="hidden" name="search[neighborhood_id][]" value="<%= n[:id] %>">
-            <% end %>
-            </li>
-          <% end %>
-        </ul>
-        <button class="btn-link" type="button" onclick='showFilterPopup("#neighborhood-popup", "#neighborhood-selections")'>More Neighborhoods</button>
-      </section>
-
+      <%= render "widgets/filter_checkbox_set", name: "Neighborhoods",
+                                                field_name: "neighborhood_id",
+                                                data: @neighborhoods,
+                                                prefix: "n" %>
       <section class="column left">
         <h3 class="filter-title red-title">Distance</h3>
         <ul>
@@ -113,68 +98,22 @@
         <a class="filter-more" href="#"></a>
       </section>
 
-      <section class="column left">
-        <h3 class="filter-title red-title">Price</h3>
+      <%= render "widgets/filter_checkbox_set", name: "Price",
+                                                field_name: "price_range",
+                                                data: @prices,
+                                                prefix: "p",
+                                                skip_button: true %>
 
-        <ul>
-          <% PriceRange.all.each do |p| %>
-            <li>
-              <% p_choice = @search_params[:price_range] || [] %>
-              <input type="checkbox" id="p_<%= p.id %>" name="search[price_range][]" value="<%= p.id %>" <%= "checked" if p_choice.include?(p.id.to_s) %>>
-              <label for="p_<%= p.id %>"><%= p.name %></label>
-            </li>
-          <% end %>
-        </ul>
+      <%= render "widgets/filter_checkbox_set", name: "Features",
+                                                field_name: "feature_id",
+                                                data: @features,
+                                                prefix: "f" %>
 
-        <a class="filter-more" href="#"></a>
-      </section>
+      <%= render "widgets/filter_checkbox_set", name: "Categories",
+                                                field_name: "category_id",
+                                                data: @categories,
+                                                prefix: "c" %>
 
-      <section class="column left">
-        <h3 class="filter-title red-title">Features</h3>
-        <ul id="feature-selections">
-          <% @features.each do |f| %>
-            <li>
-            <% if f[:visible] %>
-                <input type="checkbox" id="f_<%= f[:id] %>" name="search[feature_id][]" value="<%= f[:id] %>" <%= "checked" if f[:checked] %>>
-                <label for="f_<%= f[:id] %>"><%= f[:name] %></label>
-            <% else %>
-              <input type="hidden" name="search[feature_id][]" value="<%= f[:id] %>">
-            <% end %>
-            </li>
-          <% end %>
-        </ul>
-        <button class="btn-link" type="button" onclick='showFilterPopup("#feature-popup", "#feature-selections")'>More Features</button>
-      </section>
-
-
-
-
-
-
-
-
-
-      <% if @category_id %>
-      <input type="hidden" name="category_id" value="<%= @category_id %>">
-      <% else @category_id %>
-        <section class="column left">
-          <h3 class="filter-title red-title">Category</h3>
-          <ul id="category-selections">
-            <% @categories.each do |c| %>
-              <li>
-              <% if c[:visible] %>
-                <input type="checkbox" id="c_<%= c[:id] %>" name="search[category_id][]" value="<%= c[:id] %>" <%= "checked" if c[:checked] %>>
-                <label for="c_<%= c[:id] %>"><%= c[:name] %></label>
-              <% else %>
-                <input type="hidden" name="search[category_id][]" value="<%= c[:id] %>">
-              <% end %>
-              </li>
-            <% end %>
-          </ul>
-          <!-- <button class="btn-link" type="button" onclick='showFilterPopup("#category-popup", "#category-selections")'>More Categories</button> -->
-          <button class="btn-link" type="button" onclick='showFilterPopup("#category-popup", "#category-selections")'>More Categories</button>
-        </section>
-      <% end %>
 
     </section>
 

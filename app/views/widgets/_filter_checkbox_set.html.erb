@@ -1,0 +1,20 @@
+<% d_name = name.downcase %>
+<% skip_button ||= false %>
+<section class="column left">
+  <h3 class="filter-title red-title"><%= name %></h3>
+  <ul id="<%= d_name %>-selections">
+    <% data.each do |d| %>
+      <li>
+      <% if d[:visible] %>
+        <input type="checkbox" id="<%= prefix %>_<%= d[:id] %>" name="search[<%= field_name %>][]" value="<%= d[:id] %>" <%= "checked" if d[:checked] %>>
+        <label for="<%= prefix %>_<%= d[:id] %>"><%= d[:name] %></label>
+      <% else %>
+        <input type="hidden" name="search[<%= field_name %>][]" value="<%= d[:id] %>">
+      <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <% unless skip_button %>
+    <button class="btn-link" type="button" onclick='showFilterPopup("#<%= d_name %>-popup", "#<%= d_name %>-selections")'>More <%= name %></button>
+  <% end %>
+</section>
