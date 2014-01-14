@@ -41,7 +41,13 @@
     <section class="content-left">
       <section class="review-highlights">
         <% @business.get_highlight_reviews(3).each do |review| %>
-          <%= render "reviews/highlight", review: review %>
+          <div class="review-highlight group">
+            <div class="avatar-med left"><img src="<%= review.user.avatar(:medium) %>"></div>
+
+            <blockquote class="left">
+              <span class="quote-left">"</span><%= review.snippet %><span class="quote-right">"</span>
+            </blockquote>
+          </div>
         <% end %>
       </section>
       <!-- <a href="#">Show more review highlights</a> -->
@@ -57,7 +63,9 @@
 
 
       <% @business.reviews.each do |review| %>
-        <%= render "reviews/business_page", review: review %>
+        <%#= render "reviews/business_page", review: review %>
+        <%= render "reviews/basic", review: review,
+                                    has_headline: false %>
       <% end %>
 
     </section>

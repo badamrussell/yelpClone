@@ -12,7 +12,7 @@
       <h3 class="red-title">Recent Reviews</h3>
     </header>
     <% @reviews.order("updated_at DESC").each do |review| %>
-      <%= render "reviews/user_detail", review: review %>
+      <%= render "reviews/detailed", review: review %>
     <% end %>
   </section>
 

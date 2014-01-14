@@ -1,0 +1,51 @@
+<!-- avatar_class: review-user-side || avatar-60
+has_headline: true || false -->
+<% img_size ||= :large %>
+<section class="basic-review-container group">
+  <div class="review-user-side left">
+    <%= render "users/avatar", user: review.user, img_size: img_size %>
+
+    <div class="user-interact-container">
+      <ul class="group">
+      <% if review.user != current_user %>
+
+      <% else %>
+        <li><a href="<%= edit_review_url(review.id) %>">Edit</a></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="review-main left">
+    <% if has_headline %>
+      <div class="headline">
+        <p>
+          <a href="<%= user_url(review.user_id) %>"><strong><%= review.user.name %></strong></a> wrote a review for
+          <a href="<%= business_url(review.business_id) %>"><%= review.business.name %></a>
+        </p>
+      </div>
+    <% end %>
+
+    <div class="rating-header group">
+      <%= render "widgets/rating", s_rating: review.rating_string, size: "large" %>
+      <time><%= review.created_at.strftime("%m/%d/%Y") %></time>
+    </div>
+
+    <div class="business-review-body">
+      <p><%= review.body %></p>
+    </div>
+
+    <div class="business-photos-container group">
+      <% review.photos.each do |photo| %>
+        <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url(:small) %>"></a>
+      <% end %>
+    </div>
+
+    <% if current_user %>
+      <%= render "widgets/review_upvote", review: review %>
+      <div class="widget">
+        <%= render "widgets/quick_compliment", review: review %>
+      </div>
+    <% end %>
+  </div>
+</section>
