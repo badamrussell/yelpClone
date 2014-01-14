@@ -108,11 +108,12 @@
                                                 field_name: "feature_id",
                                                 data: @features,
                                                 prefix: "f" %>
-
+      <% unless @category_id %>
       <%= render "widgets/filter_checkbox_set", name: "Categories",
                                                 field_name: "category_id",
                                                 data: @categories,
                                                 prefix: "c" %>
+      <% end %>
 
 
     </section>

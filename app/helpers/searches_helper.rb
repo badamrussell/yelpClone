@@ -1,5 +1,25 @@
 module SearchesHelper
 
+  def format_params_for_query(params)
+
+    query_params = {}
+    if params[:search]
+      params[:search].each { |key,value| query_params[key.to_sym] = value }
+    end
+
+    query_params[:category_id] ||= [params["category_id"]] if params["category_id"]
+    query_params[:main_category_id] ||= params["main_category_id"] if query_params[:category_id].nil?
+    query_params[:sort] ||= params[:search]
+
+    if @search_params[:distance].to_f > 0
+      query_params[:distance] = determine_bounds(current_location, @search_params[:distance].to_f)
+    else
+      query_params[:distance] = nil
+    end
+
+    query_params
+  end
+
   def selected_categories(set = nil)
     set ||= []
     category_list = Category.all.map { |cat| { name: cat.name, id: cat.id, checked: false, visible: false } }
@@ -175,7 +195,9 @@ module SearchesHelper
   end
 
 
-  def rails_query(search_string, search_params, search_location)
+  def rails_query(search_string, params, search_location)
+    search_params = format_params_for_query(params)
+
     wheres = []
     joins = []
     values = []
