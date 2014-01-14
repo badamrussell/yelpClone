@@ -87,6 +87,7 @@ var showFilterPopup = function(mainEl, choiceCont) {
   if ($pop) {
 
     $("#overlay").removeClass();
+    $("body").width($('body').width());
     $("body").addClass("no-scroll");
 
     $pop.addClass("popup-show");

@@ -1,0 +1,48 @@
+<% sub_collection ||= nil %>
+
+<section id="<%= prefix %>-popup" class="popup-form popup-hide">
+  <form class="popup-form-container" action="<%= search_url %>" data-remote="true" method="post">
+    <header class="popup-title">
+      <h3 class="red-title"><%= title %></h3>
+    </header>
+
+    <fieldset class="choices-container group">
+      <% main_collection.each do |c| %>
+
+
+        <% if sub_collection %>
+          <h2 class="med-bold"><%= c.name %></h2>
+
+          <section class="choice-container group">
+            <% c.send(sub_collection).each do |sc| %>
+              <% id_name = sc.name.downcase.gsub(" ","_") %>
+              <div class="choice left">
+                <input  class="left"
+                        type="checkbox"
+                        name="search[<%= field_name %>][]"
+                        value="<%= sc.id %>"
+                        id="<%= prefix %>_<%= id_name %>">
+                <label for="<%= prefix %>_<%= id_name %>"><%= sc.name %></label>
+              </div>
+            <% end %>
+          </section>
+        <% else %>
+          <% id_name = c.name.downcase.gsub(" ","_") %>
+          <div class="choice left">
+            <input  class="left"
+                    type="checkbox"
+                    name="search[<%= field_name %>][]"
+                    value="<%= c.id %>"
+                    id="<%= prefix %>_<%= id_name %>">
+            <label for="<%= prefix %>_<%= id_name %>"><%= c.name %></label>
+          </div>
+        <% end %>
+      <% end %>
+    </fieldset>
+
+    <footer class="popup-footer group">
+      <button class="red-btn left" onclick="submitPopupSearch('#<%= prefix %>-popup', '#<%= prefix %>-selections')" type="button">Search</button>
+      <div class="right"><a onclick="closePopup()">Cancel</a></div>
+    </footer>
+  </form>
+</section>

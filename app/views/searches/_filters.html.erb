@@ -125,14 +125,23 @@
   </form>
 </nav>
 
-<%= render "popups/categories",
-          url: review_compliments_url,
-          main_category_id: 1,
-          method: "post" %>
+<%= render "widgets/popup",
+          title: "More Categories",
+          main_collection: Category.where(main_category_id: 1),
+          field_name: "category_id",
+          prefix: "categories" %>
 
 
-<%= render "popups/features",
-          method: "post" %>
+<%= render "widgets/popup",
+          title: "More Features",
+          main_collection: FeatureCategory.includes(:features).all,
+          sub_collection: :features,
+          field_name: "feature_id",
+          prefix: "features" %>
 
-<%= render "popups/neighborhoods",
-          method: "post" %>
+<%= render "widgets/popup",
+          title: "More Neighborhoods",
+          main_collection: Area.includes(:neighborhoods).where(city_id: 1),
+          sub_collection: :neighborhoods,
+          field_name: "neighborhood_id",
+          prefix: "neighborhoods" %>
