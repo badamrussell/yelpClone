@@ -1,7 +1,7 @@
 
 <section class="main-content group">
 
-  <%= render "layouts/errors" %>
+<%= render "layouts/errors" %>
 
 <div class="group">
   <%= render "searches/filters" %>
@@ -9,6 +9,7 @@
 
 <section class="group">
   <section class="main-side left">
+
     <ul class="business-results">
       <% if @results.length > 0 %>
         <% @results.each do |result| %>
@@ -24,28 +25,28 @@
                 <button class="red-btn">Add a Business</button>
               </a>
             </div>
-            <!-- <p>Got search feedback?<a href="#">Help us improve</a></p> -->
           </div>
         </section>
       <% end %>
     </ul>
+
     <nav class="pagination-container group">
       <span class="left">Page <%= @results.current_page %> of <%= @results.total_pages %></span>
 
       <span class="right"><%= paginate @results %></span>
     </nav>
+
   </section>
 
   <section class="sidebar-map right">
-    <div>
-      <div id="googleMap" style="width:300px;height:300px;"></div>
-    </div>
+    <div id="googleMap"></div>
 
     <% if @results.length > 0 %>
     <section class="new-business-container right">
       <div>
         <h3 class="red-title">Not here? Tell us what we're missing.</h3>
         <p>If the business you're looking for isn't here, add it!</p>
+
         <div class="new-btn-container">
           <a href="<%= new_business_url %>">
             <button class="red-btn">Add a Business</button>
