@@ -108,7 +108,9 @@
                                                 field_name: "feature_id",
                                                 data: @features,
                                                 prefix: "f" %>
-      <% unless @category_id %>
+      <% if @category_id %>
+        <input type="hidden" name="category_id" value="<%= @category_id %>">
+      <% else %>
       <%= render "widgets/filter_checkbox_set", name: "Categories",
                                                 field_name: "category_id",
                                                 data: @categories,
