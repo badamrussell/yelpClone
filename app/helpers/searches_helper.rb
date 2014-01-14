@@ -44,49 +44,45 @@ module SearchesHelper
     query_params
   end
 
-  def selected_categories(set = nil)
-    set ||= []
+  def selected_categories(set = [])
+    # set ||= []
     category_list = Category.all.map { |cat| { name: cat.name, id: cat.id, checked: false, visible: false } }
 
     gather_filter_settings(set, category_list, 5)
   end
 
-  def selected_features(set = nil)
-    set ||= []
+  def selected_features(set = [])
+    # set ||= []
     feature_list = Feature.all.map { |feat| { name: feat.name, id: feat.id, checked: false, visible: false } }
 
     gather_filter_settings(set, feature_list, 5)
   end
 
-  def selected_neighborhoods(set = nil)
-    set ||= []
+  def selected_neighborhoods(set = [])
+    # set ||= []
     neighborhood_list = Neighborhood.all.map { |neigh| {name: neigh.name, id: neigh.id, checked: false, visible: false } }
 
     gather_filter_settings(set, neighborhood_list, 5)
   end
 
-  def selected_prices(set = nil)
-    set ||= []
+  def selected_prices(set = [])
+    # set ||= []
 
     PriceRange.all.map do |p|
       {name: p.name, id: p.id, checked: set.include?(p.id.to_s), visible: true }
     end
   end
 
-  def gather_filter_settings(set, list, visible_limit)
-    set ||= []
+  def gather_filter_settings(set = [], list, visible_limit)
+    # set ||= []
 
     extra_count = visible_limit - set.length
 
     new_set = list.select { |item| set.include?(item[:id].to_s) }
+    extra_items = (list - new_set)[0, extra_count]
 
     new_set.each { |item| item[:checked] = true }
-
-    if extra_count > 0
-      extra_items = list.reject { |item| set.include?(item[:id].to_s)}
-      extra_count.times { |i| new_set << extra_items[i] }
-
-    end
+    new_set += extra_items
 
     visible_limit.times { |index| new_set[index][:visible] = true }
 
