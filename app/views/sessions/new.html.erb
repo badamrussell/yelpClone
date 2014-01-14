@@ -1,29 +1,4 @@
-
-<section class="main-content">
-<%= render "layouts/errors" %>
-<form class="sign-in" action="<%= session_url %>" method="post" accept-charset="utf-8">
-
-  <h1 class="red-title">Log in to YelpClone</h1>
-
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-  <div class="form-text-input">
-    <label class="med-title" for="user_email">Email</label>
-    <input size="40" type="text" name="user[email]" value="" id="user_email">
-  </div>
-  <div class="form-text-input">
-    <label class="med-title" for="user_password">Password</label>
-    <input size="40" type="password" name="user[password]" value="" id="user_password">
-  </div>
-
-  <div><button class="red-btn" type="submit">Log in</button></div>
-</form>
-
-<form class="sign-in-guest" action="<%= session_url %>" method="post" accept-charset="utf-8">
-  <input type="hidden" name="user[email]" value="guest@example.com">
-  <input type="hidden" name="user[password]" value="password">
-
-  <div><button class="red-btn" type="submit">Log in as Guest</button></div>
-</form>
-
-</section>
+<%= render "sessions/form", user: @user,
+                            title: "Log into YelpClone",
+                            btn_text: "Log in",
+                            signup_page: false %>
