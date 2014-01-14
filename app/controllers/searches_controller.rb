@@ -1,4 +1,5 @@
 class SearchesController < ApplicationController
+  include MakeQuery
 
   def show
     extend SearchesHelper

@@ -1,5 +1,21 @@
 module GoogleMap
 
+  def self.determine_bounds(center, miles_offset)
+    # calculates ne and sw corner
+    # SW-74.069, 40.710
+    # NE -73.86, 40.866
+
+    lng_offset = miles_offset / 69.0
+    lat_offset = miles_offset / 53.0
+    bounds = []
+    bounds << center[:lat] - lat_offset
+    bounds << center[:lng] + lng_offset
+    bounds << center[:lat] + lat_offset
+    bounds << center[:lng] - lng_offset
+
+    bounds
+  end
+
   def self.get_static_map(center)
     icon_location = "https://s3.amazonaws.com/kelp_dev/pin.png"
     marker = []
