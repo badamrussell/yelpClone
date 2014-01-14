@@ -76,5 +76,8 @@ module YelpClone
     # or if one of your gem compete for pre-loading, use
     #I18n.config.enforce_available_locales = true
 
+    # %W(#{config.root}/lib)
+    config.autoload_paths << File.join(Rails.root, "lib", "modules")
+
   end
 end

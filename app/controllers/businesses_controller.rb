@@ -1,4 +1,6 @@
 class BusinessesController < ApplicationController
+  # include GoogleMap
+
   before_filter :require_current_user!, except: [:show]
 
   def show
