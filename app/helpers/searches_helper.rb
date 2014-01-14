@@ -74,35 +74,22 @@ module SearchesHelper
   end
 
   def gather_filter_settings(set, list, visible_limit)
-    new_set = []
+    set ||= []
 
-    visible_count = 0
+    extra_count = visible_limit - set.length
 
-    if set
-      extra_items = visible_limit - set.length
-      set = set.map { |a| a.to_i }
+    new_set = list.select { |item| set.include?(item[:id].to_s) }
 
-      list.each do |item|
-        if set.include?(item[:id])
-          item[:checked] = true
-          new_set << item
+    new_set.each { |item| item[:checked] = true }
 
-          if visible_count <= visible_limit
-            item[:visible] = true
-            visible_count += 1
-          end
-        elsif extra_items > 0
-          item[:visible] = true
-          new_set << item
+    if extra_count > 0
+      extra_items = list.reject { |item| set.include?(item[:id].to_s)}
+      extra_count.times { |i| new_set << extra_items[i] }
 
-          visible_count += 1
-          extra_items -= 1
-        end
-      end
-    else
-      new_set = list[0...visible_limit]
-      new_set.each { |a| a[:visible] = true }
     end
+
+    visible_limit.times { |index| new_set[index][:visible] = true }
+
 
     new_set.sort { |a,b| a[:checked] ? (b[:checked] ? a[:name] <=> b[:name] : -1 ) : 1 }
   end
@@ -147,7 +134,6 @@ module SearchesHelper
     return query unless params
 
     set = params.map { |n| n.to_i }
-    set.each { |s| values << s }
 
     query.where("neighborhood_id IN (#{q_set(set.length)})", *set)
   end
