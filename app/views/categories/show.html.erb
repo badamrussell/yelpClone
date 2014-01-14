@@ -41,7 +41,6 @@
                                     url_proc: Proc.new { |val| search_url( category_id: @category.id, search: {price_range: [val] } ) },
                                     param_name: "search[price_range][]" %>
     </div>
-    <!-- "search"=>{"sort"=>"", "neighborhood_id"=>["4"]} -->
     <div class="filter-features">
       <h1 class="filter-title red-title">Features</h1>
       <%= render "widgets/columns",   columns: 2,
