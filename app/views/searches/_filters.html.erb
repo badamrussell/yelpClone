@@ -141,7 +141,7 @@
 
 <%= render "widgets/popup",
           title: "More Neighborhoods",
-          main_collection: Area.includes(:neighborhoods).where(city_id: 1),
+          main_collection: Area.includes(:neighborhoods).where(city_id: 1).order(:id),
           sub_collection: :neighborhoods,
           field_name: "neighborhood_id",
           prefix: "neighborhoods" %>

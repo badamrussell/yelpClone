@@ -156,6 +156,6 @@ var submitPopupSearch = function(formEl, mainEl) {
   }
 
   closePopup();
-  console.log(document.getElementById("form-fine-filters"));
-  //document.getElementById("form-fine-filters").submit();
+  //console.log(document.getElementById("form-fine-filters"));
+  document.getElementById("form-fine-filters").submit();
 }

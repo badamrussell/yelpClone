@@ -8,7 +8,7 @@
 
     <div class="business-address">
       <address>
-        <p class="biz-neighborhood"><%= business.neighborhood.name %></p>
+        <p class="biz-neighborhood"><%= business.neighborhood.name %>, <%= business.neighborhood.area.name %></p>
         <p><%= business.address1 if business.address1 %></p>
         <p><%= business.address2 if business.address2 %></p>
         <p><%= "#{business.city}, #{business.state} #{business.zip_code}" if business.city %></p>
