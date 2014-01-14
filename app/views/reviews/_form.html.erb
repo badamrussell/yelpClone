@@ -14,7 +14,7 @@
     <hr>
 
     <h3 class="red-title">Have additional tips on this business? <em>(Optional)</em><h3>
-    <h3>We're surveying Yelpers for more handy information on this business. If the majority says it's so, then that's what we'll show.</h3>
+    <h3>We're surveying Yolpers for more handy information on this business. If the majority says it's so, then that's what we'll show.</h3>
 
     <!-- <fieldset>
       <%= render "forms/photo_helpful" %>
@@ -25,35 +25,22 @@
     <% @review_features.each do |feat|%>
       <% if feat[1][:type] == "checkbox" %>
       <fieldset class="checkbox-set">
-        <h3 class="med-title"><%= feat[0] %></h3>
-        <div class="checkboxes">
-
-          <% feat.each do |f| %>
-          <% next if f == feat.first %>
-            <input  type="checkbox"
-                    name="<%= f[:name] %>"
-                    value="<%= f[:value] %>"
-                    id="<%= f[:id] %>"
-                    <%= "checked" if f[:checked] %>>
-            <label for="<%= f[:id] %>"><%= f[:content] %></label>
-          <% end %>
       <% else %>
       <fieldset class="radio-set">
-        <h3 class="med-title"><%= feat[0] %></h3>
-        <% feat.each do |f| %>
-        <% next if f == feat.first %>
-          <input  type="radio"
-                  name="<%= f[:name] %>"
-                  value="<%= f[:value] %>"
-                  id="<%= f[:id] %>"
-                  <%= "checked" if f[:checked] %>>
-          <label for="<%= f[:id] %>"><%= f[:content] %></label>
-        <% end %>
-
       <% end %>
-      </div>
-      </fieldset>
 
+      <h3 class="med-title"><%= feat[0] %></h3>
+
+      <% feat.each do |f| %>
+      <% next if f == feat.first %>
+        <input  type="<%= f[:type] %>"
+                name="<%= f[:name] %>"
+                value="<%= f[:value] %>"
+                id="<%= f[:id] %>"
+                <%= "checked" if f[:checked] %>>
+        <label for="<%= f[:id] %>"><%= f[:content] %></label>
+      <% end %>
+      </fieldset>
 
     <% end %>
 
