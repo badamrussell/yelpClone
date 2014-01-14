@@ -63,7 +63,6 @@
 
 
       <% @business.reviews.each do |review| %>
-        <%#= render "reviews/business_page", review: review %>
         <%= render "reviews/basic", review: review,
                                     has_headline: false %>
       <% end %>

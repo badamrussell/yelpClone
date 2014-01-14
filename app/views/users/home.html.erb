@@ -7,11 +7,8 @@
     <ul>
       <% @reviews.each do |review| %>
         <li>
-        <%#= render "reviews/review_2",  review: review %>
-
         <%= render "reviews/basic", review: review,
                                     img_size: :medium,
-                                    size: 60,
                                     has_headline: true %>
         </li>
       <% end %>
