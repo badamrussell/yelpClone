@@ -16,27 +16,7 @@ class SearchesController < ApplicationController
     @results = rails_query(@find_desc, params, @find_loc)
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
 
-
-    @breadcrumbs = { "Business" => search_url }
-    @top_category_filter = nil
-    @top_link_param = nil
-
-
-    if @category_id
-      crumb_category = Category.find(@category_id)
-      main_name = MainCategory.find(crumb_category.main_category_id).name
-      @breadcrumbs[main_name] = search_url(main_category_id: crumb_category.main_category_id)
-      @breadcrumbs[crumb_category.name] = ""
-    elsif @main_category_id
-      main_name = MainCategory.find(params["main_category_id"]).name
-      @breadcrumbs[main_name] = ""
-      @top_category_filter = Category.where(main_category_id: params["main_category_id"])
-      @top_link_param = :category_id
-    else
-      @breadcrumbs["Business"] = ""
-      @top_category_filter = MainCategory.all
-      @top_link_param = :main_category_id
-    end
+    @breadcrumbs, @top_category_filter, @top_link_param = make_breadcrumbs(@category_id, @main_category_id)
 
     params[:search] ||= {}
 
