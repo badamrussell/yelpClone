@@ -145,21 +145,23 @@ class Review < ActiveRecord::Base
 
   def creation(new_values, new_features, new_photos, current_user)
     trans_errors = []
+    existing_features = business_features.pluck(:feature_id)
 
     transaction do
       update_attributes!(new_values) if new_values
 
-      business_features.each { |f| f.destroy if new_features[f.feature_id].nil? }
+      business_features.each { |f| f.destroy unless new_features.keys.include?(f.feature_id) }
 
-      existing_features = business_features.pluck(:feature_id)
+
       new_features.each do |key,value|
 
         #if id.nil? does not seem to work...
         single_feature = unless existing_features.include?(key)
-          single_feature = self.business_features.build(feature_id: key, business_id: business_id, value: value)
+          self.business_features.build(feature_id: key, business_id: business_id, value: value)
         else
           single_feature = self.business_features.where(feature_id: key, business_id: business_id)[0]
           single_feature.update_attributes(value: value)
+          single_feature
         end
 
         trans_errors += single_feature.errors.full_messages

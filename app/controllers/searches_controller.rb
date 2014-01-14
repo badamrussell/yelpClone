@@ -51,6 +51,8 @@ class SearchesController < ApplicationController
       @top_link_param = :main_category_id
     end
 
+    params[:search] ||= {}
+
     @features = selected_features( params[:search][:feature_id] )
     @categories = selected_categories( params[:search][:category_id] )
     @neighborhoods = selected_neighborhoods( params[:search][:neighborhood_id] )

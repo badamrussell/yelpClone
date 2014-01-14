@@ -11,10 +11,7 @@
 
     <%= render "forms/quick_review", review: review, photo: photo %>
 
-
-
     <hr>
-
 
     <h3 class="red-title">Have additional tips on this business? <em>(Optional)</em><h3>
     <h3>We're surveying Yelpers for more handy information on this business. If the majority says it's so, then that's what we'll show.</h3>
@@ -25,50 +22,41 @@
       <%= render "forms/photo_helpful" %>
     </fieldset> -->
 
-    <% fc_count = 0 %>
+    <% @review_features.each do |feat|%>
+      <% if feat[1][:type] == "checkbox" %>
+      <fieldset class="checkbox-set">
+        <h3 class="med-title"><%= feat[0] %></h3>
+        <div class="checkboxes">
 
-    <% bool_choice = FeatureCategory.basic_choice %>
-    <% FeatureCategory.quick_all.first.features.each do |feature| %>
-      <%= render "forms/radio_group", {
-        name: nil,
-        title: feature.name,
-        prefix: "feature_ids",
-        attr_name: feature.id,
-        nested_name: nil,
-        data: bool_choice,
-        select_name: feature.id,
-        selected_data: business_features,
-        use_custom: false
-      } %>
-      <% fc_count += 1 %>
-    <% end %>
-    <% fc_count += 1 %>
-    <% FeatureCategory.quick_all.each do |feature_category| %>
-      <% next if feature_category.id == 1 %>
-      <% p_form = feature_category.input_type == 1 ? "forms/radio_group" : "forms/checkbox_group" %>
-      <% p_name = feature_category.input_type == 1 ? feature_category.features.select { |f| business_features[f.id] }[0] : nil %>
-      <% p_name = p_name.id if p_name %>
-      <% p_custom = feature_category.input_type == 1 ? true : false%>
-
-      <%= render p_form, {
-        name: nil,
-        title: feature_category.name,
-        prefix: "feature_ids",
-        attr_name: feature_category.name,
-        nested_name: nil,
-        data: feature_category.features,
-        select_name: p_name,
-        selected_data: business_features,
-        use_custom: p_custom
-      } %>
-
-      <% if feature_category.input_type == 2 %>
-        <% fc_count += feature_category.features.length %>
+          <% feat.each do |f| %>
+          <% next if f == feat.first %>
+            <input  type="checkbox"
+                    name="<%= f[:name] %>"
+                    value="<%= f[:value] %>"
+                    id="<%= f[:id] %>"
+                    <%= "checked" if f[:checked] %>>
+            <label for="<%= f[:id] %>"><%= f[:content] %></label>
+          <% end %>
       <% else %>
-        <% fc_count += 1 %>
+      <fieldset class="radio-set">
+        <h3 class="med-title"><%= feat[0] %></h3>
+        <% feat.each do |f| %>
+        <% next if f == feat.first %>
+          <input  type="radio"
+                  name="<%= f[:name] %>"
+                  value="<%= f[:value] %>"
+                  id="<%= f[:id] %>"
+                  <%= "checked" if f[:checked] %>>
+          <label for="<%= f[:id] %>"><%= f[:content] %></label>
+        <% end %>
+
       <% end %>
+      </div>
+      </fieldset>
+
 
     <% end %>
+
 
     <button id="Review" type="submit" class="red-btn left">Post Review</button>
 

@@ -1,28 +1,24 @@
 class ReviewsController < ApplicationController
 
+  include ReviewsHelper
+
   before_filter :require_current_user!, except: [:show]
 
   def new
+
     @review = Review.new
     @business = Business.find(params[:business_id])
     @business_features = {}
     @photo = Photo.new
+    @review_features = makeFeatures(@business_features)
+
+    puts(@review_features)
   end
 
   def create
     @review = current_user.reviews.new(params[:review])
-    @business_features = {}
 
-    #streamlines data from feature inputs
-    if params[:feature_ids]
-      params[:feature_ids].each do |k,v|
-        if k.to_i == 0
-          @business_features[v.to_i] = true
-        else
-          @business_features[k.to_i] = v == "1"
-        end
-      end
-    end
+    @business_features = format_features(params[:feature_ids])
 
     flash[:errors] = @review.creation(nil, @business_features, params[:photo], current_user)
 
@@ -41,15 +37,20 @@ class ReviewsController < ApplicationController
     @business = Business.find(@review.business_id)
     @business_features = @review.completed_biz_features
     @photo = @review.photos.first || Photo.new
+    @review_features = makeFeatures(@business_features)
+
+    puts(@review_features)
+
   end
 
   def update
     @review = Review.find(params[:id])
+    @business_features = format_features(params[:feature_ids])
 
-    flash[:errors] = @review.creation(params[:review], params[:feature_ids], params[:photo], current_user)
+    flash[:errors] = @review.creation(params[:review], @business_features, params[:photo], current_user)
 
     if flash[:errors].empty?
-      redirect_to business_url(@business.id)
+      redirect_to business_url(@review.business_id)
     else
       @business = Business.find(@review[:business_id])
       @business_features = @review.business_features
