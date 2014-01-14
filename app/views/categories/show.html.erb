@@ -94,7 +94,7 @@
   <ul class="new-business-block group">
   <% @category.new_businesses(5).each do |biz| %>
     <li class="biz-storefronts left">
-      <%= render "photos/with_lower3_biz",  icon_url: business_url(biz.id),
+      <%= render "photos/with_lower3_rating",  icon_url: business_url(biz.id),
                                             width: 180,
                                             business: biz,
                                             photo: biz.avatar

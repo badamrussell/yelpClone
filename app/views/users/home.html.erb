@@ -20,7 +20,7 @@
 
       <% Business.recent(3).each do |rest| %>
         <li>
-          <%= render "photos/with_lower3_biz",  icon_url: business_url(rest.id),
+          <%= render "photos/with_lower3_rating",  icon_url: business_url(rest.id),
                                                 width: 180,
                                                 business: rest,
                                                 photo: rest.avatar

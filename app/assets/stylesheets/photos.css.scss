@@ -88,29 +88,9 @@
 }
 
 .image-w-third {
-  display: block;
   margin: 0;
   padding: 0;
-  position: relative;
-  overflow: hidden;
-//  box-shadow: 2px 1px 3px #222;
-//  .white-title {
-//    font-size: 0.7em;
-//  }
-//
-//  .like-btn a {
-//    font-size: 12px;
-//    padding: 5px;
-//    position: absolute;
-//    color: white;
-//  }
-
-
-
-}
-
-
-.image-w-third {
+  display: block;
   position: relative;
   width: 220px;
   height: 220px;
@@ -120,8 +100,6 @@
   img {
     display: block;
   }
-
-
 }
 
 .image-w-third-biz {
@@ -136,24 +114,8 @@
   }
 
   .lower-third {
-    display: block;
-    position: absolute;
-    bottom: -50px;
-    content: "";
-    height: 100px;
-    width: 180px;
-    background: rgba(0,0,0,0.9);
-    transition: bottom 1s;
-    padding: 6px;
-    overflow: normal;
-    color: #fff;
-
-    .img_with_3rd:hover .lower_3rd{
-      bottom: 0;
-    }
 
     ul li {
-      font-size: 14px;
       float: none;
       display: block;
       padding: 4px 0;
@@ -179,31 +141,22 @@
   overflow: normal;
   color: #fff;
   font-size: 14px;
+
   .img_with_3rd:hover .lower_3rd{
     bottom: 0;
   }
 
-//  line-height: 14px;
-//
-//  .main-image {
-//
-//
-//  }
-//
   .icon-photo {
     width: 25px;
     float: left;
     display: block;
     padding-right: 6px;
   }
-//
+
   .white-title {
     left: 10px;
     width: 180px;
   }
-//
-//  .tiny-font {
-//  }
 }
 
 .photo-icons {
