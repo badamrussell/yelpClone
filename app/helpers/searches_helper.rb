@@ -24,9 +24,7 @@ module SearchesHelper
     [crumbs, top_category_filter, top_link_param]
   end
 
-  def get_selected(objs, set, size, &proc)
-    proc ||= Proc.new { |a,b| a[:checked] ? (b[:checked] ? a[:name] <=> b[:name] : -1 ) : 1 }
-
+  def get_selected(objs, set, size, proc)
     list = objs.map { |item| { name: item.name, id: item.id, checked: false, visible: false } }
 
     gather_filter_settings(set, list, size, proc)
