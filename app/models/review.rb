@@ -111,9 +111,10 @@ class Review < ActiveRecord::Base
       biz_search = BusinessSearch.where(business_id: business_id).first
       biz_search ||= BusinessSearch.new(business_id: business_id, words: "")
 
-      current_words = body.downcase.gsub(/[^\s\w]/,"")
+      current_words = body.downcase.gsub(/[^\s\w]/,"").split(" ")
+      current_words = current_words.select { |w| w.length > 2 }
 
-      biz_search.words = (biz_search.words.split(" ") + body.split(" ")).uniq.join(" ")
+      biz_search.words = (biz_search.words.split(" ") + current_words).uniq.join(" ")
       biz_search.save!
     end
 

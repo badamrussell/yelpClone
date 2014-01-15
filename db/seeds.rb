@@ -497,7 +497,7 @@ close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 end
 
 
-200.times do |i|
+20.times do |i|
   b = Business.create( {  name: Faker::Company.name,
                           country_id: 1,
                           phone_number: Faker::PhoneNumber.phone_number,
@@ -739,15 +739,16 @@ Quisque id nisl dapibus, consequat nibh vel, tempus"},
   {rating: 3, user_id: user1.id, business_id: 3, body: "ontent of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."}
 ])
 
+ps = Photo.all
 PhotoDetail.create([
-  {helpful_id:1, photo_id:1, store_front: false, user_id: user1.id},
-  {helpful_id:2, photo_id:2, store_front: true, user_id: user2.id},
-  {helpful_id:3, photo_id:3, store_front: false, user_id: user3.id},
-  {helpful_id:2, photo_id:4, store_front: false, user_id: user3.id},
-  {helpful_id:1, photo_id:2, store_front: false, user_id: user4.id},
-  {helpful_id:2, photo_id:3, store_front: true, user_id: user4.id},
-  {helpful_id:3, photo_id:4, store_front: true, user_id: user4.id},
-  {helpful_id:2, photo_id:5, store_front: false, user_id: user4.id}
+  {helpful_id:1, photo_id: ps[0].id, store_front: false, user_id: user1.id},
+  {helpful_id:2, photo_id: ps[1].id, store_front: true, user_id: user2.id},
+  {helpful_id:3, photo_id: ps[2].id, store_front: false, user_id: user3.id},
+  {helpful_id:2, photo_id: ps[3].id, store_front: false, user_id: user3.id},
+  {helpful_id:1, photo_id: ps[4].id, store_front: false, user_id: user4.id},
+  {helpful_id:2, photo_id: ps[5].id, store_front: true, user_id: user4.id},
+  {helpful_id:3, photo_id: ps[6].id, store_front: true, user_id: user4.id},
+  {helpful_id:2, photo_id: ps[7].id, store_front: false, user_id: user4.id}
 ])
 
 PriceRange.create([
@@ -960,12 +961,12 @@ total_businesses = Business.count
   business_id = rand(1..total_businesses)
   review_id = i + 1
 
-  start_index = rand(random_revies.length-21)
+  start_index = rand(random_reviews.length-21)
 
   Review.create(  rating: rand(5)+1,
                   user_id: User.limit(20).shuffle.last.id,
                   business_id: business_id,
-                  body: random_reviews[start_index, random(20)],
+                  body: random_reviews[start_index, rand(2..20)].join("\n"),
                   price_range: rand(5)
                 )
 

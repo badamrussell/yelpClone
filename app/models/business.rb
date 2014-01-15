@@ -3,7 +3,8 @@ class Business < ActiveRecord::Base
   attr_accessible :rating_avg, :store_front_id, :reviews_count, :photos_count, :price_range_avg
 
   validates :name, :country_id, presence: true
-  validates :country_id, :neighborhood_id, :store_front_id, numericality: true
+  validates :country_id, :neighborhood_id, numericality: true
+  validates :store_front_id, numericality: true, allow_nil: true
 
   geocoded_by :full_street_address
   after_validation :geocode

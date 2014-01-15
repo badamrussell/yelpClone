@@ -37,10 +37,13 @@ class PhotoDetail < ActiveRecord::Base
     end
 
     vals = [0,2,1,-2]
-    photo = Photo.find(photo_id)
-    total = photo.photo_details.inject(0) { |sum, p| sum + vals[p.helpful_id] }
+    photo = Photo.find_by_id(photo_id)
+    if photo then
+      total = photo.photo_details.inject(0) { |sum, p| sum + vals[p.helpful_id] }
+      photo.update_attributes(helpful_sum: total)
+    end
 
-    photo.update_attributes(helpful_sum: total)
+
   end
 
   def creation(detail_photo_id, detail_params)
