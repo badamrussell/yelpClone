@@ -18,9 +18,9 @@ class Category < ActiveRecord::Base
     foreign_key: :category_id
   )
 
-  def self.best_businesses(num, category_ids)
+  def self.best_businesses(num, id_set)
     Business.joins(:business_categories)
-            .where("business_categories.category_id IN (#{q_set(category_ids.length)})",*category_ids)
+            .where("business_categories.category_id IN (#{q_set(id_set.length)})", *category_ids)
             .order("rating_avg DESC")
             .limit(num)
   end

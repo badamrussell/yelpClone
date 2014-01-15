@@ -20,10 +20,12 @@ class SearchesController < ApplicationController
 
     params[:search] ||= {}
 
-    @features = selected_features( params[:search][:feature_id] )
-    @categories = selected_categories( params[:search][:category_id] )
-    @neighborhoods = selected_neighborhoods( params[:search][:neighborhood_id] )
-    @prices = selected_prices( params[:search][:price_range] )
+    # @prices = selected_prices( params[:search][:price_range] )
+
+    @features = get_selected( Feature.all, params[:search][:feature_id], 5 )
+    @categories = get_selected( Category.all, params[:search][:category_id], 5 )
+    @neighborhoods = get_selected( Neighborhood.all, params[:search][:neighborhood_id], 5 )
+    @prices = get_selected( PriceRange.all, params[:search][:price_range], 4 ) { |a,b| a[:checked] ? -1 : (a[:checked] ? a[:id] <=> b[:id] : -1 ) }
 
     render json: @results if request.xhr?
   end

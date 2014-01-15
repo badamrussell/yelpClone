@@ -24,36 +24,15 @@ module SearchesHelper
     [crumbs, top_category_filter, top_link_param]
   end
 
-  def selected_categories(set = nil)
-    set ||= []
-    category_list = Category.all.map { |cat| { name: cat.name, id: cat.id, checked: false, visible: false } }
+  def get_selected(objs, set, size, &proc)
+    proc ||= Proc.new { |a,b| a[:checked] ? (b[:checked] ? a[:name] <=> b[:name] : -1 ) : 1 }
 
-    gather_filter_settings(set, category_list, 5)
+    list = objs.map { |item| { name: item.name, id: item.id, checked: false, visible: false } }
+
+    gather_filter_settings(set, list, size, proc)
   end
 
-  def selected_features(set = nil)
-    set ||= []
-    feature_list = Feature.all.map { |feat| { name: feat.name, id: feat.id, checked: false, visible: false } }
-
-    gather_filter_settings(set, feature_list, 5)
-  end
-
-  def selected_neighborhoods(set = nil)
-    set ||= []
-    neighborhood_list = Neighborhood.all.map { |neigh| {name: neigh.name, id: neigh.id, checked: false, visible: false } }
-
-    gather_filter_settings(set, neighborhood_list, 5)
-  end
-
-  def selected_prices(set = nil)
-    set ||= []
-
-    PriceRange.all.map do |p|
-      {name: p.name, id: p.id, checked: set.include?(p.id.to_s), visible: true }
-    end
-  end
-
-  def gather_filter_settings(set = nil, list, visible_limit)
+  def gather_filter_settings(set = nil, list, visible_limit, proc)
     set ||= []
 
     extra_count = visible_limit - set.length
@@ -66,8 +45,7 @@ module SearchesHelper
 
     visible_limit.times { |index| new_set[index][:visible] = true }
 
-
-    new_set.sort { |a,b| a[:checked] ? (b[:checked] ? a[:name] <=> b[:name] : -1 ) : 1 }
+    new_set.sort &proc
   end
 
 end
