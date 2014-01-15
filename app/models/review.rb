@@ -4,6 +4,7 @@ class Review < ActiveRecord::Base
   validates :rating, :user_id, :business, presence: true
   validates :body, presence: { message: "Review cannot be blank!" }
   validates :rating, numericality: { greater_than: 0 }
+  validates :user_id, :business_id, numericality: true
 
   before_destroy :destroy_features
   after_create { update_data(1) }

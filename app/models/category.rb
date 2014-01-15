@@ -2,6 +2,7 @@ class Category < ActiveRecord::Base
   attr_accessible :main_category_id, :name
 
   validates :main_category_id, :name, presence: true
+  validates :main_category_id, numericality: true
 
   belongs_to(
     :main_category,
@@ -18,10 +19,8 @@ class Category < ActiveRecord::Base
   )
 
   def self.best_businesses(num, category_ids)
-    qs = (["?"] * category_ids.length).join(",")
-
     Business.joins(:business_categories)
-            .where("business_categories.category_id IN (#{qs})",*category_ids)
+            .where("business_categories.category_id IN (#{q_set(category_ids.length)})",*category_ids)
             .order("rating_avg DESC")
             .limit(num)
   end
@@ -54,4 +53,13 @@ class Category < ActiveRecord::Base
       .order("businesses.created_at DESC")
       .limit(size)
   end
+
+
+
+  private
+
+  def q_set(size)
+    size.times.map { "?" }.join(",")
+  end
+
 end

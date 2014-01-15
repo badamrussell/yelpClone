@@ -2,6 +2,7 @@ class Bookmark < ActiveRecord::Base
   attr_accessible :business_id, :user_id
 
   validates :business_id, :user_id, presence: true
+  validates :business_id, :user_id, numericality: true
 
   belongs_to(
     :business,

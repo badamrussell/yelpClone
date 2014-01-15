@@ -2,6 +2,7 @@ class List < ActiveRecord::Base
   attr_accessible :name, :desc, :user_id, :list_reviews_count
 
   validates :name, :user_id, presence: true
+  validates :user_id, numericality: true
 
   belongs_to(
     :user,

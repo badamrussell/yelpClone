@@ -2,6 +2,7 @@ class Neighborhood < ActiveRecord::Base
   attr_accessible :area_id, :name
 
   validates :area_id, :name, presence: true
+  validates :area_id, numericality: true
 
   belongs_to(
     :area,

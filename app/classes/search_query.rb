@@ -29,6 +29,8 @@ class SearchQuery
     @query.uniq
   end
 
+
+
   private
 
   def where(params, name)

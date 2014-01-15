@@ -3,6 +3,7 @@ class PhotoDetail < ActiveRecord::Base
 
   validates :photo_id, :user_id, presence: true
   validates :user_id, uniqueness: {scope: :photo_id}
+  validates :helpful_id, :photo_id, :user_id, numericality: true
 
   after_create { update_details(1) }
   after_destroy { update_details(-1) }

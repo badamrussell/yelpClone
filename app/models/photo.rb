@@ -3,6 +3,8 @@ class Photo < ActiveRecord::Base
   attr_accessible :store_front_count, :helpful_sum
 
   validates :user_id, presence: true
+  validates :business_id, :user_id, :review_id, numericality: true
+
   after_create :update_details
   after_destroy :update_details
   after_update :update_details

@@ -3,6 +3,7 @@ class BusinessCategory < ActiveRecord::Base
 
   validates :business, :category_id, presence: true
   validates :business_id, uniqueness: { scope: :category_id }
+  validates :business_id, :category_id, numericality: true
 
   belongs_to(
     :business,

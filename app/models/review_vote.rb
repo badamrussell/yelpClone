@@ -2,6 +2,7 @@ class ReviewVote < ActiveRecord::Base
   attr_accessible :review_id, :vote_id, :user_id
 
   validates :review_id, :vote_id, :user_id, presence: true
+  validates :review_id, :vote_id, :user_id, numericality: true
 
   belongs_to(
     :review,

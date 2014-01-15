@@ -2,6 +2,7 @@ class ReviewCompliment < ActiveRecord::Base
   attr_accessible :body, :compliment_id, :review_id, :user_id
 
   validates :compliment_id, :review_id, :user_id, presence: true
+  validates :compliment_id, :review_id, :user_id, numericality: true
 
   belongs_to(
     :compliment,
