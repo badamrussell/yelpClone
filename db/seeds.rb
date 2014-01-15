@@ -6,6 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+random_reviews = File.readlines("app/assets/images/temp/random_reviews.txt").to_a
+
+
 user1 = User.create( email: "guest@example.com", password: "123456", first_name: "Guest", last_name: "Gusterson", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
 user2 = User.create( email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_1.jpg") )
 user3 = User.create( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_2.jpg") )
@@ -493,6 +496,7 @@ close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 
 end
 
+
 200.times do |i|
   b = Business.create( {  name: Faker::Company.name,
                           country_id: 1,
@@ -950,14 +954,18 @@ ReviewCompliment.create([
   {compliment_id: 7, review_id: 5, user_id: User.limit(20).last.id, body: "nice one."}
 ])
 
+
 total_businesses = Business.count
-300.times do |i|
+10.times do |i|
   business_id = rand(1..total_businesses)
   review_id = i + 1
+
+  start_index = rand(random_revies.length-21)
+
   Review.create(  rating: rand(5)+1,
                   user_id: User.limit(20).shuffle.last.id,
                   business_id: business_id,
-                  body: Faker::Lorem.paragraph,
+                  body: random_reviews[start_index, random(20)],
                   price_range: rand(5)
                 )
 

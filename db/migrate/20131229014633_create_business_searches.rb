@@ -12,7 +12,7 @@ class CreateBusinessSearches < ActiveRecord::Migration
     execute <<-SQL
       CREATE INDEX word_search_idx
       ON business_searches
-      USING gin(words);
+      USING gin(to_tsvector('english', words));
     SQL
 
 

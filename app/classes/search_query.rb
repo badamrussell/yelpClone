@@ -63,17 +63,19 @@ class SearchQuery
   def tsvector(search_string)
     return nil if search_string.blank?
 
-    @query = @query.where("to_tsvector('simple', coalesce(businesses.name::text, '')) @@ to_tsquery('simple', " + Business.sanitize(search_string) + ")")
-                .order("search_rank DESC")
+    @query = @query.where("to_tsvector('english', coalesce(businesses.name::text, '')) @@ to_tsquery('english', " + Business.sanitize(search_string) + ")")
+
   end
 
   def order(params)
-    return nil if params.blank?
+    return nil if params.nil?
 
     if params == "rated"
       @query = @query.order("businesses.rating_avg DESC")
     elsif params == "reviewed"
       @query = @query.order("businesses.reviews_count DESC")
+    else
+       @query = @query.order("search_rank DESC")
     end
   end
 
