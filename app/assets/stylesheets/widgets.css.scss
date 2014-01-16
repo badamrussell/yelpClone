@@ -87,6 +87,7 @@
 
   .compliment-controls {
     position: relative;
+    margin-top: 10px;
   }
 
   button.drop-menu {
@@ -111,12 +112,17 @@
       float: right;
     }
   }
+
+  .btn-cancel {
+    line-height: 30px;
+    margin-left: 10px;
+  }
 }
 
 .compliment-dropdown {
   display: none;
   position: absolute;
-  top: 85px;
+  top: 30 px;
   z-index: 100;
   background: #fff;
   border: 1px solid #eee;

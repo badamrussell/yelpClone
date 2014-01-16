@@ -1,9 +1,12 @@
 <% on_side ||= false %>
 <% img_size ||= nil %>
 
+
 <div class="avatar group">
   <div class="group">
-    <a href="<%= user_url(user.id) %>"><img class="img-avatar left" src="<%= user.avatar(img_size) %>"></a>
+    <div class="avatar-60 left">
+      <a href="<%= user_url(user.id) %>"><img class="img-avatar" src="<%= user.avatar(img_size) %>"></a>
+    </div>
 
     <div class="side-stats left">
       <img class="left" src="<%= user.avatar %>" height="10">

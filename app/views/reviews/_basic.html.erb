@@ -41,7 +41,7 @@ has_headline: true || false -->
       <% end %>
     </div>
 
-    <% if current_user %>
+    <% if current_user && current_user.id != review.user_id%>
       <%= render "widgets/review_upvote", review: review %>
       <div class="widget">
         <%= render "widgets/quick_compliment", review: review %>
