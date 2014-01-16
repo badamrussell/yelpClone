@@ -19,7 +19,7 @@ class Business < ActiveRecord::Base
       indexes :main_category_id, type: "integer"
     end
 
-    indexes :reviews do
+    indexes :reviews, type: :nested do
       indexes :body, analyzer: "snowball"
     end
   end
@@ -281,7 +281,21 @@ class Business < ActiveRecord::Base
     m = options[:main_category_id]
 
     Business.search do
+      # query { match :name, search_string } unless search_string.blank?
       query { string search_string } unless search_string.blank?
+
+      # facet('matching_reviews') do
+      #   query { nested :reviews, query { match "reviews.body", 'food' } }
+      # end
+      # unless search_string.blank?
+        # query { match :name, search_string }
+        # query { match "reviews.body", 'food' }
+        # query do
+        #   nested path: "reviews" do
+        #     query { match "reviews.body", 'food' }
+        #   end
+        # end
+      # end
 
       filter :terms, price_range_avg: p if p
       filter :terms, neighborhood_id: n if n
@@ -289,6 +303,7 @@ class Business < ActiveRecord::Base
       filter :terms, "categories.id" => c if c
       filter :terms, "categories.main_category_id" => m if m
 
+      highlight "name", "top_review.body", options: { tag: "<strong>" }
     end
   end
 end
