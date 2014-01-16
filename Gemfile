@@ -19,6 +19,8 @@ gem 'newrelic_rpm'
 gem 'dalli'
 gem 'memcachier'
 gem 'multi_fetch_fragments'
+gem 'tire'
+gem 'elasticsearch-api'
 
 group :development do
   gem 'pry-rails'

@@ -1,4 +1,27 @@
 class Business < ActiveRecord::Base
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
+  mapping do
+    indexes :name, type: "string", analyzer: "snowball", boost: 100
+
+    indexes :neighborhood_id, type: "integer"
+    indexes :price_range_avg, type: "integer"
+
+    indexes :business_features do
+      indexes :feature_id, type: "integer"
+    end
+
+    indexes :business_categories do
+      indexes :category_id, type: "integer"
+      indexes :main_category_id, type: "integer"
+    end
+
+    indexes :reviews do
+      indexes :body, analyzer: "snowball"
+    end
+  end
+
   attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids, :latitude, :longitude
   attr_accessible :rating_avg, :store_front_id, :reviews_count, :photos_count, :price_range_avg
 
@@ -13,6 +36,7 @@ class Business < ActiveRecord::Base
   after_validation :reverse_geocode
 
   before_validation :set_neighborhood
+  after_touch { tire.update_index }
 
   belongs_to(
     :country,
@@ -244,4 +268,30 @@ class Business < ActiveRecord::Base
     super(methods: [:avatar, :rating_string, :top_review], include: [:categories, :neighborhood])
   end
 
+  def review_content
+    reviews.pluck(:body)
+  end
+
+  def to_indexed_json
+    to_json( methods: review_content)
+  end
+
+  def self.go(search_string, options)
+    p = options[:price_range]
+    n = options[:neighbohood_id]
+    f = options[:feature_id]
+    c = options[:category_id]
+    m = options[:main_category_id]
+
+    Business.search do
+      query { string search_string }
+
+      filter :terms, price_range_avg: p if p
+      filter :terms, neighborhorhood_id: n if n
+      filter :terms, feature_id: f if f
+      filter :terms, category_id: c if c
+      filter :terms, main_category_id: m if m
+
+    end
+  end
 end

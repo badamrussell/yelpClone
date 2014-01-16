@@ -25,6 +25,10 @@ class SearchQuery
     order(search_params[:sort])
   end
 
+  def query
+    @query
+  end
+
   def uniq
     @query.uniq
   end

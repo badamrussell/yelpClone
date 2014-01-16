@@ -13,7 +13,14 @@ class SearchesController < ApplicationController
     @link_params = @find_loc ? { find_loc: @find_loc } : {}
     @link_params[:find_desc] = @find_desc unless @find_desc == ""
 
-    @results = SearchQuery.new(@find_desc, params, @find_loc).uniq
+    @results = if params[:search_type] = "es"
+        SearchQuery.new("", params, @find_loc).query.search(@find_desc)
+      elsif params[:search_type] = "pg"
+
+      else
+        SearchQuery.new(@find_desc, params, @find_loc).uniq
+      end
+
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
 
     @breadcrumbs, @top_category_filter, @top_link_param = make_breadcrumbs(@category_id, @main_category_id)

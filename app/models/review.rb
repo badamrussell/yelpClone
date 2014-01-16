@@ -27,6 +27,7 @@ class Review < ActiveRecord::Base
     foreign_key: :business_id,
     counter_cache: true,
     inverse_of: :reviews,
+    touch: true,
     include: [:neighborhood, :photos]
   )
 
