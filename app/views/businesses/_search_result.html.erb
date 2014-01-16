@@ -17,11 +17,10 @@
     </div>
   </section>
 
-
   <% if business.top_review %>
     <section class="review-container group">
       <div class="avatar-30 left">
-        <img height="40" src="<%= business.top_review.user.avatar %>">
+        <img src="<%= business.top_review.user_avatar %>">
       </div>
       <div class="highlight-body">
         <%= business.top_review.body[0..190] %>

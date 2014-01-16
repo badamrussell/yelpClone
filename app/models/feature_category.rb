@@ -12,6 +12,10 @@ class FeatureCategory < ActiveRecord::Base
 
   BOOLCHOICE = Struct.new(:id, :name)
 
+  def self.all_cached
+    @all_feature_categories ||= all
+  end
+
   def self.basic_choice
     [BOOLCHOICE.new(1, "Yes"), BOOLCHOICE.new(0, "No")]
   end

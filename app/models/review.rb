@@ -148,12 +148,16 @@ class Review < ActiveRecord::Base
     "#{self.rating}0"
   end
 
-  def avatar
+  def user_avatar
+    self.user.avatar
+  end
+
+  def business_avatar
     self.user.avatar
   end
 
   def as_json(options={})
-    super(methods: [:avatar], include: [:user])
+    super(methods: [:user_avatar, :business_avatar], include: [:user])
   end
 
   def creation(new_values, new_features, new_photos, current_user)

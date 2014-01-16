@@ -266,7 +266,7 @@ class Business < ActiveRecord::Base
   end
 
   def as_json(options={})
-    super(methods: [:avatar, :rating_string, :top_review], include: [:categories, :business_features, neighborhood: { include: :area } ])
+    super(methods: [:avatar, :rating_string, :top_review ], include: [:categories, :business_features, neighborhood: { include: :area } ])
   end
 
   def to_indexed_json
