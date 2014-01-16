@@ -20,7 +20,7 @@ class Category < ActiveRecord::Base
 
   def self.best_businesses(num, id_set)
     Business.joins(:business_categories)
-            .where("business_categories.category_id IN (#{q_set(id_set.length)})", *category_ids)
+            .where("business_categories.category_id IN (#{self.q_set(id_set.length)})", *id_set)
             .order("rating_avg DESC")
             .limit(num)
   end
@@ -56,10 +56,11 @@ class Category < ActiveRecord::Base
 
 
 
-  private
+  protected
 
-  def q_set(size)
+  def self.q_set(size)
     size.times.map { "?" }.join(",")
   end
+
 
 end

@@ -266,19 +266,9 @@ class Business < ActiveRecord::Base
     trans_errors
   end
 
-  def areatr
-    neighborhood..where(area_id: neighborhood.id)
-  end
-
   def as_json(options={})
-    super(methods: [:avatar, :rating_string, :top_review], include: [:categories, neighborhood: { include: :area } ])
+    super(methods: [:avatar, :rating_string, :top_review], include: [:categories, :business_features, neighborhood: { include: :area } ])
   end
-
-  def review_content
-    reviews.pluck(:body)
-  end
-
-
 
   def to_indexed_json
     to_json( include: { reviews: { only: [:body] } } )
@@ -287,8 +277,8 @@ class Business < ActiveRecord::Base
   def self.es_query(search_string, options = {})
     options ||= {}
 
-    p = options[:price_range]
-    n = options[:neighbohood_id]
+    p = options[:price_range_avg]
+    n = options[:neighborhood_id]
     f = options[:feature_id]
     c = options[:category_id]
     m = options[:main_category_id]
@@ -297,10 +287,10 @@ class Business < ActiveRecord::Base
       query { string search_string } unless search_string.blank?
 
       filter :terms, price_range_avg: p if p
-      filter :terms, neighborhorhood_id: n if n
-      filter :terms, feature_id: f if f
-      filter :terms, category_id: c if c
-      filter :terms, main_category_id: m if m
+      filter :terms, neighborhood_id: n if n
+      filter :terms, "business_features.feature_id" => f if f
+      filter :terms, "categories.id" => c if c
+      filter :terms, "categories.main_category_id" => m if m
 
     end
   end

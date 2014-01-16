@@ -5,7 +5,7 @@ class BusinessesController < ApplicationController
 
   def show
     @business = Business.includes(:business_hours, :business_features).find(params[:id])
-    @best_businesses = Category.best_businesses(5, @business.categories)
+    @best_businesses = Category.best_businesses(5, @business.categories.pluck(:id))
   end
 
   def new
