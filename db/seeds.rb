@@ -9,10 +9,10 @@
 random_reviews = File.readlines("app/assets/images/temp/random_reviews.txt").to_a
 
 
-user1 = User.create( email: "guest@example.com", password: "123456", first_name: "Guest", last_name: "Gusterson", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
-user2 = User.create( email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_1.jpg") )
-user3 = User.create( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_2.jpg") )
-user4 = User.create( email: "frink@example.com", password: "123456", first_name: "John", last_name: "Frink", profile_photo: File.new("app/assets/images/temp/user_3.jpg") )
+user1 = User.create!( email: "guest@example.com", password: "123456", first_name: "Guest", last_name: "Gusterson", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
+user2 = User.create!( email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_1.jpg") )
+user3 = User.create!( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_2.jpg") )
+user4 = User.create!( email: "frink@example.com", password: "123456", first_name: "John", last_name: "Frink", profile_photo: File.new("app/assets/images/temp/user_3.jpg") )
 
 new_bio = UserBio.new({
   headline: Faker::Lorem.sentence,
@@ -22,7 +22,7 @@ new_bio = UserBio.new({
   dont_tell: Faker::Lorem.sentence
 })
 
-new_bio = UserBio.create([
+new_bio = UserBio.create!([
   { headline: "I'm new here...",
     hometown: "New York, NY",
     reviews: "Because I am a guest!",
@@ -50,23 +50,23 @@ new_bio = UserBio.create([
 ])
 
 neighborhood = Area.determine_neighborhood()
-ProfileLocation.create(user_id: user1.id, address: neighborhood, name: "Home", primary: true)
-ProfileLocation.create(user_id: user2.id, address: neighborhood, name: "Home", primary: true)
-ProfileLocation.create(user_id: user3.id, address: neighborhood, name: "Home", primary: true)
-ProfileLocation.create(user_id: user4.id, address: neighborhood, name: "Home", primary: true)
+ProfileLocation.create!(user_id: user1.id, address: neighborhood, name: "Home", primary: true)
+ProfileLocation.create!(user_id: user2.id, address: neighborhood, name: "Home", primary: true)
+ProfileLocation.create!(user_id: user3.id, address: neighborhood, name: "Home", primary: true)
+ProfileLocation.create!(user_id: user4.id, address: neighborhood, name: "Home", primary: true)
 
-Business.create(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
-Business.create(name: "Krusty Burger", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
-Business.create(name: "The Krusty Krab", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
+Business.create!(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
+Business.create!(name: "Krusty Burger", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
+Business.create!(name: "The Krusty Krab", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
 
-Photo.create(user_id: user1.id, business_id: 1, file: File.new("app/assets/images/temp/store_0a.jpg") )
-Photo.create(user_id: user2.id, business_id: 2, file: File.new("app/assets/images/temp/store_0c.jpg") )
-Photo.create(user_id: user3.id, business_id: 3, file: File.new("app/assets/images/temp/store_0b.jpg") )
-Photo.create(user_id: user4.id, business_id: 1, file: File.new("app/assets/images/temp/food_39.jpg") )
-Photo.create(user_id: user4.id, business_id: 2, file: File.new("app/assets/images/temp/food_30.jpg") )
-Photo.create(user_id: user4.id, business_id: 3, file: File.new("app/assets/images/temp/food_15.jpg") )
+Photo.create!(user_id: user1.id, business_id: 1, file: File.new("app/assets/images/temp/store_0a.jpg") )
+Photo.create!(user_id: user2.id, business_id: 2, file: File.new("app/assets/images/temp/store_0c.jpg") )
+Photo.create!(user_id: user3.id, business_id: 3, file: File.new("app/assets/images/temp/store_0b.jpg") )
+Photo.create!(user_id: user4.id, business_id: 1, file: File.new("app/assets/images/temp/food_39.jpg") )
+Photo.create!(user_id: user4.id, business_id: 2, file: File.new("app/assets/images/temp/food_30.jpg") )
+Photo.create!(user_id: user4.id, business_id: 3, file: File.new("app/assets/images/temp/food_15.jpg") )
 
-BusinessCategory.create([
+BusinessCategory.create!([
   {business_id: 1, category_id: 1},
   {business_id: 1, category_id: 4},
   {business_id: 1, category_id: 7},
@@ -84,7 +84,7 @@ BusinessCategory.create([
   {business_id: 4, category_id: 12}
 ])
 
-MainCategory.create([
+MainCategory.create!([
   {name: "Restaurants"},
   {name: "Food"},
   {name: "Nightlife"},
@@ -113,7 +113,7 @@ MainCategory.create([
   {name: "Religious Organizations"}
 ])
 
-City.create([
+City.create!([
   {name: "New York"},
   {name: "San Francisco"},
   {name: "Los Angeles"},
@@ -122,7 +122,7 @@ City.create([
   {name: "Palo Alto"}
 ])
 
-Area.create([
+Area.create!([
   {name: "Manhattan", city_id: 1},
   {name: "Brooklyn", city_id: 1},
   {name: "Queens", city_id: 1},
@@ -130,7 +130,7 @@ Area.create([
   {name: "Staten Island", city_id: 1}
 ])
 
-Neighborhood.create([
+Neighborhood.create!([
   {name: "Alphabet City", area_id: 1},
   {name: "Battery Park", area_id: 1},
   {name: "Chelsea", area_id: 1},
@@ -465,7 +465,7 @@ Neighborhood.create([
 
 
 (4..51).each do |index|
-  user = User.create( email: Faker::Internet.email,
+  user = User.create!( email: Faker::Internet.email,
                       password: "123456",
                       first_name: Faker::Name.first_name,
                       last_name: Faker::Name.last_name,
@@ -491,14 +491,14 @@ close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 
   5.times do
     d = avail_days.shuffle!.pop
-    BusinessHour.create( business_id: i, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
+    BusinessHour.create!( business_id: i, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
   end
 
 end
 
 
 20.times do |i|
-  b = Business.create( {  name: Faker::Company.name,
+  b = Business.create!( {  name: Faker::Company.name,
                           country_id: 1,
                           phone_number: Faker::PhoneNumber.phone_number,
                           neighborhood_id: rand(1..50),
@@ -506,7 +506,7 @@ end
                           longitude: Area.rand_long
                         } )
 
-  BusinessCategory.create([
+  BusinessCategory.create!([
     {business_id: b.id, category_id: rand(1..30)},
     {business_id: b.id, category_id: rand(31..60)},
     {business_id: b.id, category_id: rand(61..100)}
@@ -517,18 +517,18 @@ end
 
   5.times do
     d = avail_days.shuffle!.pop
-    BusinessHour.create( business_id: b.id, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
+    BusinessHour.create!( business_id: b.id, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
   end
 
 
-  Photo.create(user_id: rand(user1.id..(user1.id+50)), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..43)}.jpg"))
+  Photo.create!(user_id: rand(user1.id..(user1.id+50)), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..43)}.jpg"))
 end
 
 
 
 
 
-Category.create([
+Category.create!([
 
   {name: "Afghan", main_category_id: 1},
   {name: "African", main_category_id: 1},
@@ -714,7 +714,7 @@ Category.create([
 
 
 
-Country.create([
+Country.create!([
   {name: "United States"},
   {name: "United Kingdom"},
   {name: "Germany"},
@@ -725,7 +725,7 @@ Country.create([
 
 
 
-Review.create([
+Review.create!([
   {rating: 3, user_id: user1.id, business_id: 1, body: "Food was amazing!"},
   {rating: 1, user_id: user2.id, business_id: 1, body: "Meh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis euismod velit sit amet iaculis. Nullam lacinia vel felis at tincidunt. Fusce non euismod sem, non mollis lectus. Nunc sed enim et dolor tempus mattis vel ut felis. Sed condimentum eget turpis sed tempor. Aenean varius quis nunc ac convallis. Maecenas feugiat in massa sit amet tincidunt. Fusce dapibus dui nisi, et consequat nisi aliquet at. Aenean mi purus, venenatis eget diam pellentesque, ultrices dictum nisi. Nullam quam lorem, lacinia ac justo nec, varius ullamcorper ligula. Pellentes"},
   {rating: 2, user_id: user3.id, business_id: 2, body: "Whatever. I ate there .Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla mollis euismod velit sit amet iaculis. Nullam lacinia vel felis at tincidunt. Fusce non euismod sem, non mollis lectus. Nunc sed enim et dolor tempus mattis vel ut felis. Sed condimentum eget turpis sed tempor. Aenean varius quis nunc ac convallis. Maecenas feugiat in massa sit amet tincidunt. Fusce dapibus dui nisi, et consequat nisi aliquet at. Aenean mi purus, venenatis eget diam pellentesque, entes"},
@@ -740,7 +740,7 @@ Quisque id nisl dapibus, consequat nibh vel, tempus"},
 ])
 
 ps = Photo.all
-PhotoDetail.create([
+PhotoDetail.create!([
   {helpful_id:1, photo_id: ps[0].id, store_front: false, user_id: user1.id},
   {helpful_id:2, photo_id: ps[1].id, store_front: true, user_id: user2.id},
   {helpful_id:3, photo_id: ps[2].id, store_front: false, user_id: user3.id},
@@ -751,14 +751,14 @@ PhotoDetail.create([
   {helpful_id:2, photo_id: ps[7].id, store_front: false, user_id: user4.id}
 ])
 
-PriceRange.create([
+PriceRange.create!([
   {name: "$", description: "$5-10"},
   {name: "$$", description: "$11-30"},
   {name: "$$$", description: "$31-60"},
   {name: "$$$$", description: "$61+"}
 ])
 
-FeatureCategory.create([
+FeatureCategory.create!([
   {name: "General Features", input_type: 1},
   {name: "Alcohol", input_type: 2},
   {name: "Meals Served", input_type: 2},
@@ -772,7 +772,7 @@ FeatureCategory.create([
   {name: "Noise Level", input_type: 1}
 ])
 
-Feature.create([
+Feature.create!([
   # { name: "Offering a Deal", feature_category_id: 1 },  #1
   # { name: "Open At:", feature_category_id: 1 },
   # { name: "Open Now:", feature_category_id: 1 },
@@ -845,19 +845,19 @@ Feature.create([
 
 
 
-Helpful.create([
+Helpful.create!([
   {name: "Very Helpful"},
   {name: "Helpful"},
   {name: "Not Helpful"}
 ])
 
-Vote.create([
+Vote.create!([
   {name: "Useful"},
   {name: "Funny"},
   {name: "Cool"}
 ])
 
-Compliment.create([
+Compliment.create!([
   {name: "Thank You"},
   {name: "Good Writer"},
   {name: "Just a Note"},
@@ -871,7 +871,7 @@ Compliment.create([
   {name: "Great Lists"}
 ])
 
-Bookmark.create([
+Bookmark.create!([
   {business_id: 1, user_id: user1.id},
   {business_id: 2, user_id: user1.id},
   {business_id: 10, user_id: user1.id},
@@ -884,7 +884,7 @@ Bookmark.create([
   {business_id: 35, user_id: user4.id}
 ])
 
-Follow.create([
+Follow.create!([
   {fan_id: 2, leader_id: user1.id},
   {fan_id: 3, leader_id: user1.id},
   {fan_id: 4, leader_id: user1.id},
@@ -903,7 +903,7 @@ Follow.create([
   {fan_id: user4.id, leader_id: 20}
 ])
 
-Tip.create([
+Tip.create!([
   {body: "beware of rats", user_id: user1.id, business_id: 1},
   {body: "try the cheese", user_id: user1.id, business_id: 1},
   {body: "beware of cat", user_id: user1.id, business_id: 2},
@@ -911,7 +911,7 @@ Tip.create([
   {body: "tip well", user_id: user4.id, business_id: 4}
 ])
 
-ReviewVote.create([
+ReviewVote.create!([
   {review_id: 1, vote_id: 1, user_id: user2.id},
   {review_id: 1, vote_id: 2, user_id: User.limit(10).last.id},
   {review_id: 1, vote_id: 3, user_id: User.limit(32).last.id},
@@ -925,14 +925,14 @@ ReviewVote.create([
   {review_id: 202, vote_id: 3, user_id: User.limit(10).last.id}
 ])
 
-List.create([
+List.create!([
   {name: "favorite places", user_id: user1.id },
   {name: "exciting locations", user_id: user1.id },
   {name: "best places", user_id: user4.id },
   {name: "highly recommended", user_id: user4.id }
 ])
 
-ListReview.create([
+ListReview.create!([
   {list_id: 1, review_id: 1},
   {list_id: 2, review_id: 2},
   {list_id: 1, review_id: 3},
@@ -945,7 +945,7 @@ ListReview.create([
   {list_id: 4, review_id: 9}
 ])
 
-ReviewCompliment.create([
+ReviewCompliment.create!([
   {compliment_id: 1, review_id: 1, user_id: User.limit(5).last.id, body: "Amazing"},
   {compliment_id: 2, review_id: 1, user_id: User.limit(10).last.id, body: "You stink"},
   {compliment_id: 3, review_id: 2, user_id: User.limit(20).last.id, body: "thanks!"},
@@ -963,14 +963,14 @@ total_businesses = Business.count
 
   start_index = rand(random_reviews.length-21)
 
-  Review.create(  rating: rand(5)+1,
+  Review.create!(  rating: rand(5)+1,
                   user_id: User.limit(20).shuffle.last.id,
                   business_id: business_id,
                   body: random_reviews[start_index, rand(2..20)].join("\n"),
                   price_range: rand(5)
                 )
 
-  ReviewCompliment.create(  compliment_id: rand(1..11),
+  ReviewCompliment.create!(  compliment_id: rand(1..11),
                             review_id: review_id,
                             user_id: rand(1..20),
                             body: Faker::Lorem.sentence
@@ -992,7 +992,7 @@ total_businesses = Business.count
         true
       end
 
-      BusinessFeature.create(business_id: business_id, feature_id: feat.id, value: true, review_id: review_id)
+      BusinessFeature.create!(business_id: business_id, feature_id: feat.id, value: true, review_id: review_id)
       feat_cnt -= 1
     end
     category_cnt -= 1
