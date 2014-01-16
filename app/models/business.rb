@@ -2,6 +2,8 @@ class Business < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
+  self.include_root_in_json = false
+
   mapping do
     indexes :name, type: "string", analyzer: "snowball", boost: 100
 
@@ -264,19 +266,27 @@ class Business < ActiveRecord::Base
     trans_errors
   end
 
+  def areatr
+    neighborhood..where(area_id: neighborhood.id)
+  end
+
   def as_json(options={})
-    super(methods: [:avatar, :rating_string, :top_review], include: [:categories, :neighborhood])
+    super(methods: [:avatar, :rating_string, :top_review], include: [:categories, neighborhood: { include: :area } ])
   end
 
   def review_content
     reviews.pluck(:body)
   end
 
+
+
   def to_indexed_json
-    to_json( methods: review_content)
+    to_json( include: { reviews: { only: [:body] } } )
   end
 
   def self.es_query(search_string, options = {})
+    options ||= {}
+
     p = options[:price_range]
     n = options[:neighbohood_id]
     f = options[:feature_id]
@@ -284,7 +294,7 @@ class Business < ActiveRecord::Base
     m = options[:main_category_id]
 
     Business.search do
-      query { string search_string }
+      query { string search_string } unless search_string.blank?
 
       filter :terms, price_range_avg: p if p
       filter :terms, neighborhorhood_id: n if n
@@ -292,7 +302,6 @@ class Business < ActiveRecord::Base
       filter :terms, category_id: c if c
       filter :terms, main_category_id: m if m
 
-      highlight
     end
   end
 end
