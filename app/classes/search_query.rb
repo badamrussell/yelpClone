@@ -1,6 +1,6 @@
 class SearchQuery
 
-  def initialize(search_string, params, search_location)
+  def initialize(search_string, search_location, params)
     rank_string = ranking(search_string)
 
     @query = Business.select("businesses.*, #{rank_string} AS search_rank")

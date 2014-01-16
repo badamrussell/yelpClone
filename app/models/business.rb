@@ -138,6 +138,7 @@ class Business < ActiveRecord::Base
     class_name: "BusinessHour",
     primary_key: :id,
     foreign_key: :business_id,
+    order: :day_id,
     dependent: :destroy
   )
 
@@ -221,7 +222,7 @@ class Business < ActiveRecord::Base
   def now_hours
     # Sunday is 0
     d = if business_hours.loaded?
-        business_hours.select { |d| d.day_id = Time.now.wday}[0]
+        business_hours.select { |d| d.day_id == Time.now.wday}[0]
       else
         business_hours.where(day_id: Time.now.wday)[0]
       end
@@ -270,7 +271,7 @@ class Business < ActiveRecord::Base
     to_json( include: { reviews: { only: [:body] } } )
   end
 
-  def self.es_query(search_string, options = {})
+  def self.es_query(search_string, location, options = {})
     options ||= {}
 
     p = options[:price_range]
