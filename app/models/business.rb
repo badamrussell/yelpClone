@@ -5,7 +5,7 @@ class Business < ActiveRecord::Base
   self.include_root_in_json = false
 
   mapping do
-    indexes :name, type: "string", analyzer: "snowball", boost: 100
+    indexes :name, type: "string", analyzer: "keyword", boost: 100
 
     indexes :neighborhood_id, type: "integer", index: :not_analyzed
     indexes :price_range_avg, type: "integer", index: :not_analyzed
@@ -22,7 +22,7 @@ class Business < ActiveRecord::Base
     end
 
     indexes :reviews, type: :nested do
-      indexes :body, analyzer: "snowball"
+      indexes :body, analyzer: "keyword"
     end
   end
 
@@ -284,7 +284,7 @@ class Business < ActiveRecord::Base
     bounds = GoogleMap.determine_bounds(center, distance.to_f) if distance
 
     Business.search do
-      # query { match :name, search_string } unless search_string.blank?
+      #query { match :name, search_string } unless search_string.blank?
       query { string search_string } unless search_string.blank?
 
       # filter :range do
