@@ -6,7 +6,7 @@ var makeReviewElement = function(business, size, biz_url, cat_url) {
   var biz_rating = '<div class="star-' + size + '-' + business.rating_string + '"></div>';
 
   var biz_price = "";
-  for (var i=0; i < business.price_range; i++) {
+  for (var i=0; i < business.price_range_avg; i++) {
     biz_price += "$";
   }
 

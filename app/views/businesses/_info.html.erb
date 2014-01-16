@@ -18,7 +18,7 @@
 				<tr>
 					<td><%= render "widgets/price_range" %></td>
 					<td> Price Range
-						<strong><%= business.price_range > 0 ? PriceRange.find(business.price_range).description : "?" %></strong>
+						<strong><%= business.price_range_avg > 0 ? PriceRange.find(business.price_range_avg).description : "?" %></strong>
 					</td>
 				</tr>
 			</table>

@@ -218,10 +218,6 @@ class Business < ActiveRecord::Base
     l + r
   end
 
-  def price_range
-    price_range_avg
-  end
-
   def now_hours
     # Sunday is 0
     d = if business_hours.loaded?
@@ -277,7 +273,7 @@ class Business < ActiveRecord::Base
   def self.es_query(search_string, options = {})
     options ||= {}
 
-    p = options[:price_range_avg]
+    p = options[:price_range]
     n = options[:neighborhood_id]
     f = options[:feature_id]
     c = options[:category_id]
