@@ -948,9 +948,8 @@ ReviewCompliment.create!([
 
 
 total_businesses = Business.count
-10.times do |i|
+50.times do |i|
   business_id = rand(1..total_businesses)
-  review_id = i + 1
 
   start_index = rand(random_reviews.length-21)
 

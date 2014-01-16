@@ -46,7 +46,7 @@
 		<h3 class="red-title">More business info</h3>
 
 		<ul>
-			<% business.features.each do |feature| %>
+			<% business.features.uniq.each do |feature| %>
 			<li>
 
 				<% if feature.feature_category_id == 1 %>

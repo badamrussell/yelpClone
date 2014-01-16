@@ -23,6 +23,7 @@ class Category < ActiveRecord::Base
             .where("business_categories.category_id IN (#{self.q_set(id_set.length)})", *id_set)
             .order("rating_avg DESC")
             .limit(num)
+            .uniq
   end
 
   def top_five_businesses
