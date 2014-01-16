@@ -1,7 +1,8 @@
 class Area < ActiveRecord::Base
   attr_accessible :city_id, :name
 
-  validates :city_id, :name, presence: true, numericality: true
+  validates :city_id, :name, presence: true
+  validates :city_id, numericality: true
 
   belongs_to(
     :city,

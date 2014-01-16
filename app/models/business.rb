@@ -276,7 +276,7 @@ class Business < ActiveRecord::Base
     to_json( methods: review_content)
   end
 
-  def self.go(search_string, options)
+  def self.es_query(search_string, options = {})
     p = options[:price_range]
     n = options[:neighbohood_id]
     f = options[:feature_id]
@@ -292,6 +292,7 @@ class Business < ActiveRecord::Base
       filter :terms, category_id: c if c
       filter :terms, main_category_id: m if m
 
+      highlight
     end
   end
 end

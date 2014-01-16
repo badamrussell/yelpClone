@@ -14,7 +14,7 @@ class SearchesController < ApplicationController
     @link_params[:find_desc] = @find_desc unless @find_desc == ""
 
     @results = if params[:search_type] = "es"
-        SearchQuery.new("", params, @find_loc).query.search(@find_desc)
+        Business.es_query(@find_desc, params[:search])
       elsif params[:search_type] = "pg"
 
       else

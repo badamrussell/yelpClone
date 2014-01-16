@@ -108,16 +108,16 @@ class Review < ActiveRecord::Base
       0
     end
 
-    if increment == 1
-      biz_search = BusinessSearch.where(business_id: business_id).first
-      biz_search ||= BusinessSearch.new(business_id: business_id, words: "")
-
-      current_words = body.downcase.gsub(/[^\s\w]/,"").split(" ")
-      current_words = current_words.select { |w| w.length > 2 }
-
-      biz_search.words = (biz_search.words.split(" ") + current_words).uniq.join(" ")
-      biz_search.save!
-    end
+    # if increment == 1
+    #   biz_search = BusinessSearch.where(business_id: business_id).first
+    #   biz_search ||= BusinessSearch.new(business_id: business_id, words: "")
+    #
+    #   current_words = body.downcase.gsub(/[^\s\w]/,"").split(" ")
+    #   current_words = current_words.select { |w| w.length > 2 }
+    #
+    #   biz_search.words = (biz_search.words.split(" ") + current_words).uniq.join(" ")
+    #   biz_search.save!
+    # end
 
     business.update_attributes(price_range_avg: price_range_avg, rating_avg: rating_avg)
   end

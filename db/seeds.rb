@@ -14,40 +14,30 @@ user2 = User.create!( email: "walt@amc.com", password: "123456", first_name: "wa
 user3 = User.create!( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_2.jpg") )
 user4 = User.create!( email: "frink@example.com", password: "123456", first_name: "John", last_name: "Frink", profile_photo: File.new("app/assets/images/temp/user_3.jpg") )
 
-new_bio = UserBio.new({
-  headline: Faker::Lorem.sentence,
-  hometown: Faker::Address.city,
-  reviews: Faker::Lorem.sentence,
-  book: Faker::Lorem.words,
-  dont_tell: Faker::Lorem.sentence
-})
-
-new_bio = UserBio.create!([
-  { headline: "I'm new here...",
+UserBio.find_by_user_id(user1.id).update_attributes(
+    headline: "I'm new here...",
     hometown: "New York, NY",
     reviews: "Because I am a guest!",
-    dont_tell: "I love to test project web sites.",
-    user_id: user1.id
-  },
-  { headline: "I'm new here...",
+    dont_tell: "I love to test project web sites."
+)
+UserBio.find_by_user_id(user2.id).update_attributes(
+    headline: "I'm new here...",
     hometown: "Albuquerque, NM",
     reviews: "No Half Measures.",
-    dont_tell: "I used to be a high school chemistry teacher.",
-    user_id: user2.id
-  },
-  { headline: "I'm new here...",
+    dont_tell: "I used to be a high school chemistry teacher."
+)
+UserBio.find_by_user_id(user3.id).update_attributes(
+    headline: "I'm new here...",
     hometown: "Bikini Bottom",
     reviews: "We've been smeckledorfed!",
-    dont_tell: "Well, it's no secret that the best thing about a secret is secretly telling someone your secret...",
-    user_id: user3.id
-  },
-  { headline: "I'm new here...",
+    dont_tell: "Well, it's no secret that the best thing about a secret is secretly telling someone your secret..."
+)
+UserBio.find_by_user_id(user4.id).update_attributes(
+    headline: "I'm new here...",
     hometown: "Springfield, OR",
     reviews: "Ah, for glavin out loud...",
-    dont_tell: "This sarcasm detector is off the charts!",
-    user_id: user4.id
-  }
-])
+    dont_tell: "This sarcasm detector is off the charts!"
+)
 
 neighborhood = Area.determine_neighborhood()
 ProfileLocation.create!(user_id: user1.id, address: neighborhood, name: "Home", primary: true)
@@ -471,16 +461,13 @@ Neighborhood.create!([
                       last_name: Faker::Name.last_name,
                       profile_photo: File.new("app/assets/images/temp/user_#{index}.jpg")
                     )
-  new_bio = UserBio.new({
+  UserBio.find_by_user_id(user.id).update_attributes(
     headline: Faker::Lorem.sentence,
     hometown: Faker::Address.city,
     reviews: Faker::Lorem.sentence,
     book: Faker::Lorem.words,
     dont_tell: Faker::Lorem.sentence
-  })
-
-  new_bio.user_id = user.id
-  new_bio.save
+  )
 end
 
 open_times = [6.hours, 7.5.hours.to_i, 8.hours, 9.hours, 7.5.hours.to_i]
@@ -497,7 +484,7 @@ close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 end
 
 
-20.times do |i|
+5.times do |i|
   b = Business.create!( {  name: Faker::Company.name,
                           country_id: 1,
                           phone_number: Faker::PhoneNumber.phone_number,
@@ -506,10 +493,14 @@ end
                           longitude: Area.rand_long
                         } )
 
+  rand1 = rand(1..30)
+  rand2 = rand(31..60)
+  rand3 = rand(61..100)
+
   BusinessCategory.create!([
-    {business_id: b.id, category_id: rand(1..30)},
-    {business_id: b.id, category_id: rand(31..60)},
-    {business_id: b.id, category_id: rand(61..100)}
+    { business_id: b.id, category_id: rand1 },
+    { business_id: b.id, category_id: rand2 },
+    { business_id: b.id, category_id: rand3 }
   ])
 
   avail_days = [0,1,2,3,4,5,6]
@@ -963,7 +954,8 @@ total_businesses = Business.count
 
   start_index = rand(random_reviews.length-21)
 
-  Review.create!(  rating: rand(5)+1,
+  review = Review.create!(
+                  rating: rand(5)+1,
                   user_id: User.limit(20).shuffle.last.id,
                   business_id: business_id,
                   body: random_reviews[start_index, rand(2..20)].join("\n"),
@@ -971,20 +963,19 @@ total_businesses = Business.count
                 )
 
   ReviewCompliment.create!(  compliment_id: rand(1..11),
-                            review_id: review_id,
+                            review_id: review.id,
                             user_id: rand(1..20),
                             body: Faker::Lorem.sentence
                           )
-  f_categories = FeatureCategory.all
-  category_cnt = rand(5)
+  f_categories = FeatureCategory.all.shuffle[0,rand(1..8)]
 
-  while category_cnt > 0
-    category = f_categories.shuffle!.pop
+  f_categories.each do |category|
     features = Feature.where(feature_category_id: category.id)
     feat_cnt = rand(features.length / 2)
+    features = features.shuffle[0,feat_cnt]
 
-    while feat_cnt > 0
-      feat = features.shuffle.pop
+    features.each do |feat|
+      feat = features.shuffle!.pop
 
       val = if category.input_type == 1
         (rand(2) == 1 ? true : false)
@@ -992,9 +983,8 @@ total_businesses = Business.count
         true
       end
 
-      BusinessFeature.create!(business_id: business_id, feature_id: feat.id, value: true, review_id: review_id)
-      feat_cnt -= 1
+      BusinessFeature.create!(business_id: business_id, feature_id: feat.id, value: true, review_id: review.id)
     end
-    category_cnt -= 1
+
   end
 end
