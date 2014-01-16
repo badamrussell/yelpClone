@@ -7,16 +7,18 @@ class Business < ActiveRecord::Base
   mapping do
     indexes :name, type: "string", analyzer: "snowball", boost: 100
 
-    indexes :neighborhood_id, type: "integer"
-    indexes :price_range_avg, type: "integer"
+    indexes :neighborhood_id, type: "integer", index: :not_analyzed
+    indexes :price_range_avg, type: "integer", index: :not_analyzed
+    indexes :latitude, type: "float", index: :not_analyzed
+    indexes :longitude, type: "float", index: :not_analyzed
 
     indexes :business_features do
-      indexes :feature_id, type: "integer"
+      indexes :feature_id, type: "integer", index: :not_analyzed
     end
 
     indexes :business_categories do
-      indexes :category_id, type: "integer"
-      indexes :main_category_id, type: "integer"
+      indexes :category_id, type: "integer", index: :not_analyzed
+      indexes :main_category_id, type: "integer", index: :not_analyzed
     end
 
     indexes :reviews, type: :nested do
@@ -271,7 +273,7 @@ class Business < ActiveRecord::Base
     to_json( include: { reviews: { only: [:body] } } )
   end
 
-  def self.es_query(search_string, location, options = {})
+  def self.es_query(search_string, distance, center, options = {})
     options ||= {}
 
     p = options[:price_range]
@@ -279,22 +281,15 @@ class Business < ActiveRecord::Base
     f = options[:feature_id]
     c = options[:category_id]
     m = options[:main_category_id]
+    bounds = GoogleMap.determine_bounds(center, distance.to_f) if distance
 
     Business.search do
       # query { match :name, search_string } unless search_string.blank?
       query { string search_string } unless search_string.blank?
 
-      # facet('matching_reviews') do
-      #   query { nested :reviews, query { match "reviews.body", 'food' } }
-      # end
-      # unless search_string.blank?
-        # query { match :name, search_string }
-        # query { match "reviews.body", 'food' }
-        # query do
-        #   nested path: "reviews" do
-        #     query { match "reviews.body", 'food' }
-        #   end
-        # end
+      # filter :range do
+      #   latitude: [gte: bounds[0], lte: bounds[2]]
+      #   longitude: [gte: bounds[1], lte: bounds[3]]
       # end
 
       filter :terms, price_range_avg: p if p
@@ -303,6 +298,11 @@ class Business < ActiveRecord::Base
       filter :terms, "categories.id" => c if c
       filter :terms, "categories.main_category_id" => m if m
 
+
+
+
+
+      #name not really working...
       highlight "name", "top_review.body", options: { tag: "<strong>" }
     end
   end
