@@ -957,7 +957,7 @@ total_businesses = Business.count
                   rating: rand(5)+1,
                   user_id: User.limit(20).shuffle.last.id,
                   business_id: business_id,
-                  body: random_reviews[start_index, rand(2..20)].join("\n"),
+                  body: random_reviews[start_index, rand(2..10)].join("\n"),
                   price_range: rand(5)
                 )
 

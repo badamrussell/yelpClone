@@ -62,11 +62,16 @@
       </div>
 
 
-      <% @business.reviews.each do |review| %>
+      <% @reviews.each do |review| %>
         <%= render "reviews/basic", review: review,
                                     has_headline: false %>
       <% end %>
 
+      <nav class="pagination-container group">
+        <span class="left">Page <%= @reviews.current_page %> of <%= @reviews.total_pages %></span>
+
+        <span class="right"><%= paginate @reviews %></span>
+      </nav>
     </section>
 
     <section class="right-sidebar group">

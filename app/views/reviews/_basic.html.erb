@@ -32,7 +32,7 @@ has_headline: true || false -->
     </div>
 
     <div class="business-review-body">
-      <p><%= review.body %></p>
+      <%= simple_format(review.body) %>
     </div>
 
     <div class="business-photos-container group">
