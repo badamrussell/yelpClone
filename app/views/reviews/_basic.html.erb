@@ -37,7 +37,12 @@ has_headline: true || false -->
 
     <div class="business-photos-container group">
       <% review.photos.each do |photo| %>
-        <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url(:small) %>"></a>
+        <% if photo.business_id%>
+          <a href="<%= business_photos_url(photo.business_id, photo_id: photo.id) %>"><img src="<%= photo.url(:small) %>"></a>
+          <% else %>
+
+          <a href="<%= user_photos_url(photo.user_id, photo_id: photo.id) %>"><img src="<%= photo.url(:small) %>"></a>
+          <% end %>
       <% end %>
     </div>
 

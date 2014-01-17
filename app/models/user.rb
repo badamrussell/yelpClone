@@ -225,6 +225,23 @@ class User < ActiveRecord::Base
     4
   end
 
+  def vote_tallies
+    return @tallies if @tallies
+
+    @tallies = {  "cool" => 0,
+                  "useful" => 0,
+                  "funny" => 0,
+                  "compliments" => compliments.count
+                }
+
+    result = votes.select("votes.name, COUNT(votes.id) AS v_count").group("votes.id")
+
+    result.each do |a|
+      @tallies[a.attributes["name"].downcase] = a.attributes["v_count"]
+    end
+
+    @tallies
+  end
 
   private
 

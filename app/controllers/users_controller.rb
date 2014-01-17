@@ -49,10 +49,11 @@ class UsersController < ApplicationController
   end
 
   def home
-    @reviews = if current_user
-      Review.recent(10).where("reviews.user_id != ?",current_user.id)
+    @reviews, @tallies = if current_user
+      [Review.recent(10).where("reviews.user_id != ?",current_user.id),
+      current_user.vote_tallies]
     else
-      Review.recent(10)
+      [Review.recent(10),nil]
     end
   end
 end

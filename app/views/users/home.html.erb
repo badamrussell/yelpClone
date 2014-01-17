@@ -47,7 +47,7 @@
 
           <ul class="icons left">
             <li>
-              <img class="left" src="<%= current_user.avatar %>" height="10">
+              <img class="left" src="/assets/temp/friends_icon.png" height="10">
               <span><%= current_user.friends_count %></span>
             </li>
 
@@ -67,10 +67,10 @@
 
       <div class="review-stats">
         <ul class="group">
-          <li><div class="icon-useful left"></div><strong></strong> useful votes</li>
-          <li><div class="icon-cool left"></div><strong></strong> cool votes</li>
-          <li><div class="icon-funny left"></div><strong></strong> funny votes</li>
-          <li><div class="icon-compliment left"></div><strong></strong> compliments</li>
+          <li><div class="icon-useful left"></div><strong><%= @tallies["useful"] %></strong> useful votes</li>
+          <li><div class="icon-cool left"></div><strong><%= @tallies["cool"] %></strong> cool votes</li>
+          <li><div class="icon-funny left"></div><strong><%= @tallies["funny"] %></strong> funny votes</li>
+          <li><div class="icon-compliment left"></div><strong><%= @tallies["compliments"] %></strong> compliments</li>
         </ul>
       </div>
     </div>
