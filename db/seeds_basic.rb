@@ -484,7 +484,7 @@ close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 end
 
 
-1000.times do |i|
+5.times do |i|
   b = Business.create!( {  name: Faker::Company.name,
                           country_id: 1,
                           phone_number: Faker::PhoneNumber.phone_number,
@@ -948,7 +948,7 @@ ReviewCompliment.create!([
 
 
 total_businesses = Business.count
-800.times do |i|
+50.times do |i|
   business_id = rand(1..total_businesses)
 
   start_index = rand(random_reviews.length-21)
