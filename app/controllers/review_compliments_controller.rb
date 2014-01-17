@@ -10,6 +10,10 @@ class ReviewComplimentsController < ApplicationController
     @compliment = ReviewCompliment.create(params[:compliment])
     @review = Review.find(@compliment.review_id)
 
+    puts params
+    puts @compliment
+    puts @compliment.valid?
+    puts "-----------------------"
     flash[:errors] = @compliment.errors.full_messages
 
     if request.xhr?

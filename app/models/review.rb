@@ -141,7 +141,7 @@ class Review < ActiveRecord::Base
   end
 
   def self.recent(num)
-    Review.limit(num).includes(:user, :business, :photos)
+    Review.limit(num).includes(:user, :business, :photos).order("reviews.updated_at DESC")
   end
 
   def rating_string
