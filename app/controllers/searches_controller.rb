@@ -7,6 +7,7 @@ class SearchesController < ApplicationController
     @search_params[:distance] ||= "0"
     @find_desc = params[:find_desc] || ""
     @find_loc = params[:find_loc] || ""
+    @search_type = params[:search_type] || "pg"
     @category_id = params["category_id"]
     @main_category_id = params["main_category_id"]
 

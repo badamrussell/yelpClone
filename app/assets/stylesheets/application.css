@@ -123,10 +123,11 @@ img {
 }
 
 .highlight-text {
-  background: yellow;
-  color: red;
+  background: #eedd82;
+/*  color: #c00;*/
+/*  text-decoration: underline;*/
   font-weight: bold;
-  padding: 5px;
+  padding: 0 4px;
 }
 
 h3.title-link {

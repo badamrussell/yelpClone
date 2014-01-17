@@ -41,6 +41,7 @@
   <form id="form-fine-filters" action="<%= search_url %>" method="get" data-remote="true">
     <input type="hidden" name="find_desc" value="<%= @find_desc %>">
     <input type="hidden" name="find_loc" value="<%= @find_loc %>">
+    <input type="hidden" name="search_type" value="<%= @search_type %>">
 
     <% if @main_category_id %>
       <input type="hidden" name="main_category_id" value="<%= @main_category_id %>">
