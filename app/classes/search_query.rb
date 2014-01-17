@@ -1,7 +1,10 @@
 class SearchQuery
 
   def initialize(search_string, search_location, params)
+    @search_string = search_string
     rank_string = ranking(search_string)
+
+
 
     @query = Business.select("businesses.*, #{rank_string} AS search_rank")
                     .includes(:categories, :photos, :neighborhood, :top_review)
@@ -67,8 +70,10 @@ class SearchQuery
   def tsvector(search_string)
     return nil if search_string.blank?
 
-    @query = @query.where("to_tsvector('english', coalesce(businesses.name::text, '')) @@ to_tsquery('english', " + Business.sanitize(search_string) + ")")
+    str = Business.sanitize(search_string.gsub(","," "))
 
+    @query = @query.where("to_tsvector('english', coalesce(businesses.name::text, '')) @@ to_tsquery('english', " + format_search_string + ")")
+    #@query = @query.where("businesses.name @@ #{s_string}")
   end
 
   def order(params)
@@ -83,11 +88,15 @@ class SearchQuery
     end
   end
 
+  def format_search_string
+    Business.sanitize(@search_string.gsub(","," ").split(" ").join(" | "))
+  end
+
   def ranking(search_string)
     if search_string.blank?
       "('0')"
     else
-      "ts_rank(to_tsvector('simple', coalesce(businesses.name::text, '')), to_tsquery('simple', " + Business.sanitize(search_string) + "), 0)"
+      "ts_rank(to_tsvector('simple', coalesce(businesses.name::text, '')), to_tsquery('simple', " + format_search_string + "), 0)"
     end
   end
 

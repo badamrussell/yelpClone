@@ -1,6 +1,12 @@
+<% highlight ||= {} %>
 <div class="business-info">
   <div class="business-header">
-      <h1 class="page-title"><a href="<%= business_url(business.id) %>"><%= business.name %></a></h1>
+      <h1 class="page-title"><a href="<%= business_url(business.id) %>">
+        <%= highlight["name"] ? (highlight["name"][0]).html_safe : business.name %>
+        <%#= business.name %>
+      </a>
+      </h1>
+
   </div>
 
   <div class="rating-container group">
