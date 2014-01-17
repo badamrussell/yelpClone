@@ -31,10 +31,10 @@
         //console.log(mapIO[i])
         var coord = mapIO[i].position;
         //console.log(coord.nb,pos.lat,coord.ob,pos.lng)
-        var latDiff = Math.abs(coord.nb - pos.lat);
-        var lngDiff = Math.abs(coord.ob - pos.lng)
+        var latDiff = Math.abs(coord.d - pos.lat);
+        var lngDiff = Math.abs(coord.e - pos.lng)
+
         if (latDiff < 0.000000001 && lngDiff < 0.000000001) {
-          //console.log("FOUND IT")
           if (selectedMarker) {
             selectedMarker.setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
             $(this).toggleClass("selected");
