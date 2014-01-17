@@ -7,6 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 random_reviews = File.readlines("app/assets/images/temp/random_reviews.txt").to_a
+open_times = [6.hours, 7.5.hours.to_i, 8.hours, 9.hours, 7.5.hours.to_i]
+close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 
 200.times do |i|
   b = Business.create!( {  name: Faker::Company.name,
@@ -32,7 +34,7 @@ random_reviews = File.readlines("app/assets/images/temp/random_reviews.txt").to_
 
   5.times do
     d = avail_days.shuffle!.pop
-    BusinessHour.create!( business_id: b.id, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
+    BusinessHour.create!( business_id: b.id, day_id: d, time_close: close_times[rand(4)], time_open: open_times[rand(5)] )
   end
 
 
