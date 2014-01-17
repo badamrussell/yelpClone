@@ -5,7 +5,7 @@ class Business < ActiveRecord::Base
   self.include_root_in_json = false
 
   mapping do
-    indexes :name, type: "string", analyzer: "keyword", boost: 100
+    indexes :name, type: "string", analyzer: "snowball", boost: 100
 
     indexes :neighborhood_id, type: "integer", index: :not_analyzed
     indexes :price_range_avg, type: "integer", index: :not_analyzed
@@ -21,8 +21,12 @@ class Business < ActiveRecord::Base
       indexes :main_category_id, type: "integer", index: :not_analyzed
     end
 
+    indexes :top_review, as: "top_review", type: :nested do
+      indexes :body, type: "string", analyzer: "snowball"
+    end
+
     indexes :reviews, type: :nested do
-      indexes :body, analyzer: "keyword"
+      indexes :body, analyzer: "snowball"
     end
   end
 
@@ -284,13 +288,20 @@ class Business < ActiveRecord::Base
     bounds = GoogleMap.determine_bounds(center, distance.to_f) if distance
 
     Business.search do
-      #query { match :name, search_string } unless search_string.blank?
-      query { string search_string } unless search_string.blank?
-
+      # query { match :name, search_string } unless search_string.blank?
+      # query { string search_string } unless search_string.blank?
+      # query { multi_match :search_string, :body}
       # filter :range do
       #   latitude: [gte: bounds[0], lte: bounds[2]]
       #   longitude: [gte: bounds[1], lte: bounds[3]]
       # end
+      query do
+        nested :path => 'top_review' do
+          query do
+            match "top_review.body", search_string
+          end
+        end
+      end
 
       filter :terms, price_range_avg: p if p
       filter :terms, neighborhood_id: n if n
