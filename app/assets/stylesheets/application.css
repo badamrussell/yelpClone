@@ -122,6 +122,13 @@ img {
   overflow: hidden;
 }
 
+.highlight-text {
+  background: yellow;
+  color: red;
+  font-weight: bold;
+  padding: 5px;
+}
+
 h3.title-link {
   font-size: 1.2em;
   font-weight: bold;

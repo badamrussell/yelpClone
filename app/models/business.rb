@@ -324,7 +324,7 @@ class Business < ActiveRecord::Base
       filter :terms, "business_features.feature_id" => f if f
       filter :terms, "categories.id" => c if c
       filter :terms, "categories.main_category_id" => m if m
-      # highlight "name", "reviews.body", options: { tag: "<strong>" }
+      highlight "name", "top_review.body", options: { tag: '<strong class="highlight-text">', fragment_size: 200 }
     end
   end
 
@@ -362,11 +362,14 @@ class Business < ActiveRecord::Base
       filter :terms, "categories.main_category_id" => m if m
 
 
-
+      # sort do
+      #   by :updated_at, :desc
+      #   by :num_comments, :desc
+      # end
 
 
       #name not really working...
-      highlight "name", "top_review.body", options: { tag: "<strong>" }
+      highlight "name", "top_review.body"
     end
   end
 end

@@ -1,3 +1,4 @@
+<% highlight ||= nil %>
 <div class="business-result group" data-lat="<%= business.latitude %>" data-lng="<%= business.longitude %>">
   <section class="business-info-container group">
     <img class="avatar-90" width="100" src="<%= business.avatar %>">
@@ -23,7 +24,8 @@
         <img src="<%= business.top_review.user_avatar %>">
       </div>
       <div class="highlight-body">
-        <%= business.top_review.body[0..190] %>
+
+        <%= highlight ? (highlight["top_review.body"][0]).html_safe : business.top_review.body[0..190] %>
       </div>
     </section>
   <% end %>

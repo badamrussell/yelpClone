@@ -16,7 +16,22 @@ class SearchesController < ApplicationController
     @results = if params[:search_type] == "pg"
         SearchQuery.new(@find_desc, @find_loc, params).uniq
       else
-        Business.es_query(@find_desc, @find_loc, current_location, params[:search])
+        es_result = Business.es_query(@find_desc, @find_loc, current_location, params[:search])
+
+        es_result.each_with_index do |e,i|
+          e.top_review
+          unless e.highlight.nil?
+            if e.highlight["top_review.body"]
+              h = e.highlight["top_review.body"][0]
+              es_result[i].top_review.body = es_result[i].top_review.body.gsub(h,'<strong class="highlight-text">#{h}</strong>')
+              es_result[i].top_review.body = "HAHAHAAH"
+            else
+              es_result[i].name = e.highlight["name"]
+            end
+          end
+        end
+
+        es_result
       end
 
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
