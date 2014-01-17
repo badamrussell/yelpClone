@@ -43,8 +43,9 @@ class Category < ActiveRecord::Base
 
   def new_photos(size)
     Photo.joins(:business, "JOIN business_categories ON businesses.id = business_categories.business_id")
-        .where("business_categories.category_id = ?", 1)
+        .where("business_categories.category_id = ?", id)
         .order("businesses.created_at DESC")
+        .limit(size)
   end
 
   def new_reviews(size)
