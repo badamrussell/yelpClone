@@ -4,7 +4,7 @@ class Review < ActiveRecord::Base
   validates :rating, :user_id, :business, presence: true
   validates :body, presence: { message: "Review cannot be blank!" }
   validates :rating, numericality: { greater_than: 0 }
-  validates :user_id, :business_id, numericality: true
+  validates :user_id, numericality: true
 
   before_destroy :destroy_features
   after_create { update_data(1) }
@@ -176,7 +176,6 @@ class Review < ActiveRecord::Base
               single_feature = self.business_features.where(feature_id: key, business_id: business_id)[0]
               single_feature.update_attributes(value: value)
               single_feature
-              fail
             else
               self.business_features.build(feature_id: key, business_id: business_id, value: value)
             end
