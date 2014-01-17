@@ -5,12 +5,13 @@ class Business < ActiveRecord::Base
   self.include_root_in_json = false
 
   mapping do
-    indexes :name, type: "string", analyzer: "snowball", boost: 100
+    indexes :name, boost: 100
 
     indexes :neighborhood_id, type: "integer", index: :not_analyzed
     indexes :price_range_avg, type: "integer", index: :not_analyzed
     indexes :latitude, type: "float", index: :not_analyzed
     indexes :longitude, type: "float", index: :not_analyzed
+
 
     indexes :business_features do
       indexes :feature_id, type: "integer", index: :not_analyzed
@@ -21,12 +22,12 @@ class Business < ActiveRecord::Base
       indexes :main_category_id, type: "integer", index: :not_analyzed
     end
 
-    indexes :top_review, as: "top_review", type: :nested do
-      indexes :body, type: "string", analyzer: "snowball"
+    indexes :reviews do
+      indexes :body
     end
 
-    indexes :reviews, type: :nested do
-      indexes :body, analyzer: "snowball"
+    indexes :top_review do
+      indexes :body
     end
   end
 
@@ -277,7 +278,58 @@ class Business < ActiveRecord::Base
     to_json( include: { reviews: { only: [:body] } } )
   end
 
+  def self.es_suggest(input_text)
+
+    Business.search do
+      suggest :suggest_title do
+        text input_text
+
+        term :name, size: 3, sort: 'frequency'
+      end
+
+      suggest :phrase_suggest_title do
+        text input_text
+
+        phrase :name, size: 3 do
+          # Optinally, configure the `smoothing` option...
+          #
+          smoothing :stupid_backoff, discount: 0.5
+
+          # ...or the `generator` option.
+          # generator :name, min_word_len: 1
+        end
+      end
+
+
+
+    end
+  end
+
   def self.es_query(search_string, distance, center, options = {})
+    options ||= {}
+
+    p = options[:price_range]
+    n = options[:neighborhood_id]
+    f = options[:feature_id]
+    c = options[:category_id]
+    m = options[:main_category_id]
+
+    Business.search do
+      query do
+        match [:name, "top_review.body"], search_string
+      end
+
+      filter :terms, price_range_avg: p if p
+      filter :terms, neighborhood_id: n if n
+      filter :terms, "business_features.feature_id" => f if f
+      filter :terms, "categories.id" => c if c
+      filter :terms, "categories.main_category_id" => m if m
+      # highlight "name", "reviews.body", options: { tag: "<strong>" }
+    end
+  end
+
+
+  def self.es_query2(search_string, distance, center, options = {})
     options ||= {}
 
     p = options[:price_range]

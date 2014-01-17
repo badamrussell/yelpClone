@@ -13,10 +13,10 @@ class SearchesController < ApplicationController
     @link_params = @find_loc ? { find_loc: @find_loc } : {}
     @link_params[:find_desc] = @find_desc unless @find_desc == ""
 
-    @results = if params[:search_type] == "es"
-        Business.es_query(@find_desc, @find_loc, current_location, params[:search])
-      else
+    @results = if params[:search_type] == "pg"
         SearchQuery.new(@find_desc, @find_loc, params).uniq
+      else
+        Business.es_query(@find_desc, @find_loc, current_location, params[:search])
       end
 
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)

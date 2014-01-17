@@ -8,6 +8,37 @@
 
 random_reviews = File.readlines("app/assets/images/temp/random_reviews.txt").to_a
 
+200.times do |i|
+  b = Business.create!( {  name: Faker::Company.name,
+                          country_id: 1,
+                          phone_number: Faker::PhoneNumber.phone_number,
+                          neighborhood_id: rand(1..50),
+                          latitude: Area.rand_lat,
+                          longitude: Area.rand_long
+                        } )
+
+  rand1 = rand(1..30)
+  rand2 = rand(31..60)
+  rand3 = rand(61..100)
+
+  BusinessCategory.create!([
+    { business_id: b.id, category_id: rand1 },
+    { business_id: b.id, category_id: rand2 },
+    { business_id: b.id, category_id: rand3 }
+  ])
+
+  avail_days = [0,1,2,3,4,5,6]
+
+
+  5.times do
+    d = avail_days.shuffle!.pop
+    BusinessHour.create!( business_id: b.id, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
+  end
+
+
+  Photo.create!(user_id: rand(user1.id..(user1.id+50)), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..43)}.jpg"))
+end
+
 
 total_businesses = Business.count
 all_users = User.all
