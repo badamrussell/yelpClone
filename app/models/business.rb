@@ -315,9 +315,7 @@ class Business < ActiveRecord::Base
     m = options[:main_category_id]
 
     Business.search do
-      query do
-        match [:name, "top_review.body"], search_string
-      end
+      query { match [:name, "top_review.body"], search_string } unless search_string.blank?
 
       filter :terms, price_range_avg: p if p
       filter :terms, neighborhood_id: n if n

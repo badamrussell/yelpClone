@@ -17,8 +17,8 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.new(params[:review])
-
     @business_features = format_features(params[:feature_ids])
+    @review_features = makeFeatures(@business_features)
 
     flash[:errors] = @review.creation(nil, @business_features, params[:photo], current_user)
 
@@ -46,6 +46,7 @@ class ReviewsController < ApplicationController
   def update
     @review = Review.find(params[:id])
     @business_features = format_features(params[:feature_ids])
+    @review_features = makeFeatures(@business_features)
 
     flash[:errors] = @review.creation(params[:review], @business_features, params[:photo], current_user)
 

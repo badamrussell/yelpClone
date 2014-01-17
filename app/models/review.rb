@@ -171,15 +171,15 @@ class Review < ActiveRecord::Base
 
 
       new_features.each do |key,value|
-
         #if id.nil? does not seem to work...
-        single_feature = unless existing_features.include?(key)
-          self.business_features.build(feature_id: key, business_id: business_id, value: value)
-        else
-          single_feature = self.business_features.where(feature_id: key, business_id: business_id)[0]
-          single_feature.update_attributes(value: value)
-          single_feature
-        end
+        single_feature = if existing_features.include?(key)
+              single_feature = self.business_features.where(feature_id: key, business_id: business_id)[0]
+              single_feature.update_attributes(value: value)
+              single_feature
+              fail
+            else
+              self.business_features.build(feature_id: key, business_id: business_id, value: value)
+            end
 
         trans_errors += single_feature.errors.full_messages
       end

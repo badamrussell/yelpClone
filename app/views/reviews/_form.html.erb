@@ -22,7 +22,7 @@
       <%= render "forms/photo_helpful" %>
     </fieldset> -->
 
-    <% @review_features.each do |feat|%>
+    <% review_features.each do |feat|%>
       <% if feat[1][:type] == "checkbox" %>
       <fieldset class="checkbox-set">
       <% else %>
