@@ -21,6 +21,7 @@ gem 'memcachier'
 gem 'multi_fetch_fragments'
 gem 'tire'
 gem 'elasticsearch-api'
+gem 'stretcher'
 
 group :development do
   gem 'pry-rails'

@@ -270,12 +270,27 @@ class Business < ActiveRecord::Base
     trans_errors
   end
 
+  def location
+    [{ type: "point", lat: latitude, lon: longitude }]
+  end
+
   def as_json(options={})
-    super(methods: [:avatar, :rating_string, :top_review ], include: [:categories, :business_features, neighborhood: { include: :area } ])
+    if options.empty?
+      super(methods: [:avatar, :rating_string, :top_review ], include: [:categories, :business_features, neighborhood: { include: :area } ])
+    else
+      super options
+    end
   end
 
   def to_indexed_json
-    to_json( include: { reviews: { only: [:body] } } )
+    to_json( include: { categories: { only: [:id, :name] }, 
+                        neighborhood: { only: [:area_id, :name] },
+                        business_features: { only: [:feature_id] },
+                        reviews: { only: [:id, :body] }
+                      },
+              methods: [:avatar, :rating_string, :location],
+              only: [:name, :neighborhood_id, :price_range_avg]
+            )
   end
 
   def self.es_suggest(input_text)
