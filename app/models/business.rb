@@ -33,6 +33,8 @@ class Business < ActiveRecord::Base
 
   attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids, :latitude, :longitude
   attr_accessible :rating_avg, :store_front_id, :reviews_count, :photos_count, :price_range_avg
+  attr_accessible :hours0, :hours1, :hours2, :hours3, :hours4, :hours5, :hours6
+  attr_accessible :category1_id, :category2_id, :category3_id
 
   validates :name, :country_id, presence: true
   validates :country_id, :neighborhood_id, numericality: true
@@ -140,6 +142,10 @@ class Business < ActiveRecord::Base
 
   has_many :bookmarkers, through: :bookmarks, source: :user
 
+  # def business_hours
+  #   :hours0
+  # end
+
   has_many(
     :business_hours,
     class_name: "BusinessHour",
@@ -148,6 +154,16 @@ class Business < ActiveRecord::Base
     order: :day_id,
     dependent: :destroy
   )
+
+  # def category_ids=(ids)
+  #   category1_id = ids[0] if ids[0]
+  #   category2_id = ids[1] if ids[1]
+  #   category3_id = ids[2] if ids[2]
+  # end
+
+  # def categories
+  #   Category.where(id: [category1_id, category2_id, category3_id])
+  # end
 
   def store_front_count(size)
     photos.select("photos.id, COUNT(CASE WHEN photo_details.store_front THEN 1 ELSE null END) AS photo_count")
@@ -385,4 +401,24 @@ class Business < ActiveRecord::Base
       highlight "name", "top_review.body"
     end
   end
+
+  def self.migrateCategories
+    Business.all.each do |b|
+      ids = b.business_categories.pluck(:category_id)
+
+      b.category1_id = ids[0] if ids[0]
+      b.category2_id = ids[1] if ids[1]
+      b.category3_id = ids[2] if ids[2]
+      b.save!
+    end
+
+  end
+
+
+  def self.migrateHours
+    Business.each do |b|
+     
+    end
+  end
+
 end
