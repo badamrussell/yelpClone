@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140112014616) do
+ActiveRecord::Schema.define(:version => 20140131183042) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -95,6 +95,16 @@ ActiveRecord::Schema.define(:version => 20140112014616) do
     t.datetime "updated_at",                       :null => false
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "category1_id"
+    t.integer  "category2_id"
+    t.integer  "category3_id"
+    t.integer  "hours0"
+    t.integer  "hours1"
+    t.integer  "hours2"
+    t.integer  "hours3"
+    t.integer  "hours4"
+    t.integer  "hours5"
+    t.integer  "hours6"
   end
 
   add_index "businesses", ["name"], :name => "index_businesses_on_name"
