@@ -5,143 +5,180 @@
 
 class ESQuery
 
-  def initialize
-    @server = Stretcher::Server.new("http://localhost:9200")
-    # @client = Elasticsearch::Client.new log: true
-    @server.index(:foo).delete rescue nil
-    @server.index(:foo).create( mapping_setup_nested )
-
-    add_businesses
+  def initialize(name, local=false)
+    @server = make_server(local)
+    @name = name
   end
 
-  def mapping_setup_nested
-    { mappings: {
-        business: {
-          properties: {
-            name: {
-              type: "string",
-              boost: 100
-            },
-            
-            categories: {
-              type: "object",
+  def self.reset(name, local = false, delete_it = false)
+    es_query = ESQuery.new(name, local)
+
+    if delete_it
+      es_query.delete_index(name)
+      es_query.create_mapping_setup_nested
+      es_query.add_businesses
+    end
+
+    return es_query
+  end
+
+  def make_server(is_local)
+    if is_local
+      @server = Stretcher::Server.new("http://localhost:9200")
+    else
+      @server = Stretcher::Server.new( ENV["BONSAI_URL"] )
+    end
+  end
+
+  def delete_index(name)
+    @server.index(name).delete rescue nil
+  end
+
+  def create_mapping_setup_nested
+    @server.index(@name).create(
+      { mappings: {
+          business: {
+            properties: {
               name: {
                 type: "string",
-                boost: 50
-              }
-            },
-
-            business_features: {
-              type: "object",
+                boost: 100
+              },
               id: {
-                type: "integer",
-                boost: 10
+                type: "integer"
+              },
+              address1: { type: "string" },
+              address2: { type: "string" },
+              city: { type: "string" },
+              zip_code: { type: "string" },
+
+              rating_string: {
+                type: "string"
+              },
+
+              categories: {
+                type: "object",
+                name: {
+                  type: "string",
+                  boost: 50
+                },
+                main_category_id: {
+                  type: "integer"
+                }
+              },
+
+              business_features: {
+                type: "object",
+                feature_id: {
+                  type: "integer",
+                  boost: 10
+                }
+              },
+
+              reviews: {
+                type: "nested",
+                body: { type: "string" },
+                id: { type: "integer" }
+              },
+
+              location: {
+                type: "geo_point",
+                precision: "1m"
+              },
+
+              neighborhood: {
+                type: "object",
+                name: { type: "string" },
+                id: { type: "integer" },
+
+                area: {
+                  type: "object",
+                  name: { type: "string" }
+                }
               }
-            },
-
-            reviews: {
-              type: "nested",
-              body: { type: "string" },
-              id: { type: "integer" }
-            },
-
-            location: {
-              type: "geo_point",
-              precision: "1m"
             }
           }
         }
-
-        # reviews: {
-        #   properties: {
-        #     body: {
-        #       type: "string"
-        #     },
-
-        #     business_id: {
-        #       type: "integer"
-        #     }
-        #   }
-        # }
       }
-    }
+    )
   end
 
   def add_businesses
-    Business.order("id ASC").first(10).each do |b|
+    Business.order("id ASC").first(30).each do |b|
       add_document(b)
     end
   end
 
   def add_document(biz)
     puts biz.id
-    @server.index(:foo).type(:business).put( biz.id, JSON.parse(biz.to_indexed_json) )
+    @server.index(@name).type(:business).put( biz.id, JSON.parse(biz.to_indexed_json) )
   end
 
+  def server
+    @server
+  end
 
-  def search(text)
-    # @server.index(:foo).search({
-    #     size: 1000,
-    #     query: {
-    #       multi_match: {
-    #         query: text,
-    #         fields: ["name", "categories.name", "reviews.body"]
-    #       }
-    #     },
-    #     query: {
-    #       nested: {
-    #         path: "reviews",
-    #         query: {
-    #           match: {
-    #             "reviews.body" => "page"
-    #           }
-    #         }
-    #       }
-    #     }
-    #   })
+  def search(text, options = {})
+    p = options[:price_range]
+    n = options[:neighborhood_id]
+    f = options[:feature_id]
+    c = options[:category_id]
+    m = options[:main_category_id]
 
-    # @server.index(:foo).search({
-    #     size: 1000,
-    #     query: {
-    #       bool: {
-    #         must: [
-    #           { terms: {
-    #               "business_features.feature_id" => [13]
-    #           }},
-    #           { terms: {
-    #               "categories.id" => [13]
-    #           }},
-    #           { terms: {
-    #               neighborhood_id: [13]
-    #           }},
-    #           { terms: {
-    #               price_range_avg: [13]
-    #           }},
-    #         ],
+    must_options = []
 
-    #         minimum_should_match: 1,
-    #         should: [
-    #           { match: {
-    #               name: text 
-    #           }},
+    must_options << {terms: { price_range_avg: p } } if p
+    must_options << {terms: { neighborhood_id: n } } if n
+    must_options << {terms: { "business_features.feature_id" => f } } if f
+    must_options << {terms: { category_id: c } } if c
+    must_options << {terms: { "categories.main_category_id" => m } } if m
 
-    #           { term: {
-    #             "categories.name" => text
-    #           }},
+    es_results = @server.index(@name).search({
+        size: 1000,
+        query: {
+          bool: {
 
-    #           { nested: {
-    #             path: "reviews",
-    #             query: {
-    #               match: {
-    #                 "reviews.body" => text
-    #               }
-    #             }
-    #           }}
-    #         ]
-    #       }
-    #     }
+            must: must_options,
+
+            should: [
+              { match: {
+                  name: text 
+              }},
+
+              { term: {
+                "categories.name" => text
+              }},
+
+              { nested: {
+                path: "reviews",
+                query: {
+                  match: {
+                    "reviews.body" => text
+                  }
+                }
+              }}
+            ],
+
+            minimum_should_match: 1,
+          }
+        },
+
+        highlight: {
+          fields: {
+            name: {
+              pre_tags: ['<strong class="highlight-text">'],
+              post_tags: ["</strong>"],
+            },
+            "reviews.body" => {
+              fragment_size: 200,
+              pre_tags: ['<strong class="highlight-text">'],
+              post_tags: ["</strong>"],
+            }
+          }
+        }
+      })
 
 
+    es_results.results
 
 
 

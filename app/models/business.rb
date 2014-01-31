@@ -283,13 +283,13 @@ class Business < ActiveRecord::Base
   end
 
   def to_indexed_json
-    to_json( include: { categories: { only: [:id, :name] }, 
-                        neighborhood: { only: [:area_id, :name] },
+    to_json( include: { categories: { only: [:id, :name, :main_category_id] }, 
+                        neighborhood: { include: :area },
                         business_features: { only: [:feature_id] },
                         reviews: { only: [:id, :body] }
                       },
               methods: [:avatar, :rating_string, :location],
-              only: [:name, :neighborhood_id, :price_range_avg]
+              only: [:name, :id, :address1 ,:address2, :neighborhood_id, :city, :zip_code, :price_range_avg]
             )
   end
 

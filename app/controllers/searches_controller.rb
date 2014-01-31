@@ -17,7 +17,9 @@ class SearchesController < ApplicationController
     @results = if params[:search_type] == "pg"
         SearchQuery.new(@find_desc, @find_loc, params).uniq
       else
-        Business.es_query(@find_desc, @find_loc, current_location, params[:search])
+        # Business.es_query(@find_desc, @find_loc, current_location, params[:search])
+        e = ESQuery.reset(:businesses_nested, false, true)
+        e.search(@find_desc, params)
       end
 
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
@@ -25,6 +27,7 @@ class SearchesController < ApplicationController
     @breadcrumbs, @top_category_filter, @top_link_param = make_breadcrumbs(@category_id, @main_category_id)
 
     params[:search] ||= {}
+
 
     id_sort = Proc.new { |a,b| a[:checked] ? -1 : (a[:checked] ? a[:id] <=> b[:id] : -1 ) }
     name_sort = Proc.new { |a,b| a[:checked] ? (b[:checked] ? a[:name] <=> b[:name] : -1 ) : 1 }
