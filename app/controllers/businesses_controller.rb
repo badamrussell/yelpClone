@@ -4,7 +4,7 @@ class BusinessesController < ApplicationController
   before_filter :require_current_user!, except: [:show]
 
   def show
-    @business = Business.includes(:business_hours, :business_features).find(params[:id])
+    @business = Business.includes(:business_features).find(params[:id])
     @reviews = Kaminari.paginate_array(@business.reviews.order("updated_at DESC")).page(params[:page]).per(4)
 
     @best_businesses = Category.best_businesses(5, @business.categories.pluck(:id))

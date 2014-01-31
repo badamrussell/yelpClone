@@ -17,10 +17,10 @@ class Business < ActiveRecord::Base
       indexes :feature_id, type: "integer", index: :not_analyzed
     end
 
-    indexes :business_categories do
-      indexes :category_id, type: "integer", index: :not_analyzed
-      indexes :main_category_id, type: "integer", index: :not_analyzed
-    end
+    # indexes :business_categories do
+    #   indexes :category_id, type: "integer", index: :not_analyzed
+    #   indexes :main_category_id, type: "integer", index: :not_analyzed
+    # end
 
     indexes :reviews do
       indexes :body
@@ -74,15 +74,15 @@ class Business < ActiveRecord::Base
     include: :user
   )
 
-  has_many(
-    :business_categories,
-    class_name: "BusinessCategory",
-    primary_key: :id,
-    foreign_key: :business_id,
-    dependent: :destroy
-  )
+  # has_many(
+  #   :business_categories,
+  #   class_name: "BusinessCategory",
+  #   primary_key: :id,
+  #   foreign_key: :business_id,
+  #   dependent: :destroy
+  # )
 
-  has_many :categories, through: :business_categories, source: :category
+  # has_many :categories, through: :business_categories, source: :category
 
   has_many(
     :business_features,
@@ -146,24 +146,56 @@ class Business < ActiveRecord::Base
   #   :hours0
   # end
 
-  has_many(
-    :business_hours,
-    class_name: "BusinessHour",
+  # has_many(
+  #   :business_hours,
+  #   class_name: "BusinessHour",
+  #   primary_key: :id,
+  #   foreign_key: :business_id,
+  #   order: :day_id,
+  #   dependent: :destroy
+  # )
+
+  def business_hours
+    @hours_open ||= 5.times.map { |index| BusinessSchedule.new(index, 8.hours, 18.hours) }
+  end
+
+
+  def category_ids=(ids)
+    category1_id = ids[0] if ids[0]
+    category2_id = ids[1] if ids[1]
+    category3_id = ids[2] if ids[2]
+  end
+
+  has_one(
+    :category1,
+    class_name: "Category",
     primary_key: :id,
-    foreign_key: :business_id,
-    order: :day_id,
-    dependent: :destroy
+    foreign_key: :category1_id
   )
 
-  # def category_ids=(ids)
-  #   category1_id = ids[0] if ids[0]
-  #   category2_id = ids[1] if ids[1]
-  #   category3_id = ids[2] if ids[2]
-  # end
+  has_one(
+    :category2,
+    class_name: "Category",
+    primary_key: :id,
+    foreign_key: :category2_id
+  )
 
-  # def categories
-  #   Category.where(id: [category1_id, category2_id, category3_id])
-  # end
+  has_one(
+    :category3,
+    class_name: "Category",
+    primary_key: :id,
+    foreign_key: :category3_id
+  )
+
+  # has_many(
+  #   :categories,
+  #   conditions: ["category1_id IN (1) OR category2_id IN (2) OR category3_id IN (3)"],
+  #   class_name: "Category"
+  # )
+
+  def categories
+    Category.where(id: [category1_id, category2_id, category3_id])
+  end
 
   def store_front_count(size)
     photos.select("photos.id, COUNT(CASE WHEN photo_details.store_front THEN 1 ELSE null END) AS photo_count")
@@ -242,25 +274,41 @@ class Business < ActiveRecord::Base
     l + r
   end
 
-  def now_hours
-    # Sunday is 0
-    d = if business_hours.loaded?
-        business_hours.select { |d| d.day_id == Time.now.wday}[0]
-      else
-        business_hours.where(day_id: Time.now.wday)[0]
-      end
+  def now_hours 
+    day = business_hours[Time.now.wday] if Time.now.wday < business_hours.length
 
-    d ? d.open_hours : ""
+    day ? day.open_hours : ""
   end
 
   def is_open?
-    d = business_hours.where(day_id: Time.now.wday)[0]
+    day = business_hours[Time.now.wday] if Time.now.wday < business_hours.length
 
     time_now = Time.now.hour.hours + Time.now.min.minutes
-    return true if d && (d.time_open..d.time_close) === time_now
+    return true if day && (day.time_open..day.time_close) === time_now
 
     false
   end
+
+
+  # def now_hours
+  #   # Sunday is 0
+  #   d = if business_hours.loaded?
+  #       business_hours.select { |d| d.day_id == Time.now.wday}[0]
+  #     else
+  #       business_hours.where(day_id: Time.now.wday)[0]
+  #     end
+
+  #   d ? d.open_hours : ""
+  # end
+
+  # def is_open?
+  #   d = business_hours.where(day_id: Time.now.wday)[0]
+
+  #   time_now = Time.now.hour.hours + Time.now.min.minutes
+  #   return true if d && (d.time_open..d.time_close) === time_now
+
+  #   false
+  # end
 
   def creation_transaction(review_params, photo_params)
     trans_errors = []
@@ -309,6 +357,10 @@ class Business < ActiveRecord::Base
             )
   end
 
+  def self.where_categories(ids)
+    Business.where("category1_id IN (?) OR category2_id IN (?) OR OR category3_id IN (?)", ids, ids, ids)
+  end
+
   def self.es_suggest(input_text)
 
     Business.search do
@@ -330,9 +382,6 @@ class Business < ActiveRecord::Base
           # generator :name, min_word_len: 1
         end
       end
-
-
-
     end
   end
 
@@ -357,62 +406,6 @@ class Business < ActiveRecord::Base
     end
   end
 
-
-  def self.es_query2(search_string, distance, center, options = {})
-    options ||= {}
-
-    p = options[:price_range]
-    n = options[:neighborhood_id]
-    f = options[:feature_id]
-    c = options[:category_id]
-    m = options[:main_category_id]
-    bounds = GoogleMap.determine_bounds(center, distance.to_f) if distance
-
-    Business.search do
-      # query { match :name, search_string } unless search_string.blank?
-      # query { string search_string } unless search_string.blank?
-      # query { multi_match :search_string, :body}
-      # filter :range do
-      #   latitude: [gte: bounds[0], lte: bounds[2]]
-      #   longitude: [gte: bounds[1], lte: bounds[3]]
-      # end
-      query do
-        nested :path => 'top_review' do
-          query do
-            match "top_review.body", search_string
-          end
-        end
-      end
-
-      filter :terms, price_range_avg: p if p
-      filter :terms, neighborhood_id: n if n
-      filter :terms, "business_features.feature_id" => f if f
-      filter :terms, "categories.id" => c if c
-      filter :terms, "categories.main_category_id" => m if m
-
-
-      # sort do
-      #   by :updated_at, :desc
-      #   by :num_comments, :desc
-      # end
-
-
-      #name not really working...
-      highlight "name", "top_review.body"
-    end
-  end
-
-  def self.migrateCategories
-    Business.all.each do |b|
-      ids = b.business_categories.pluck(:category_id)
-
-      b.category1_id = ids[0] if ids[0]
-      b.category2_id = ids[1] if ids[1]
-      b.category3_id = ids[2] if ids[2]
-      b.save!
-    end
-
-  end
 
 
   def self.migrateHours

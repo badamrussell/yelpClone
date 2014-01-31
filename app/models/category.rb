@@ -11,16 +11,8 @@ class Category < ActiveRecord::Base
     foreign_key: :main_category_id
   )
 
-  belongs_to(
-    :business_category,
-    class_name: "BusinessCategory",
-    primary_key: :id,
-    foreign_key: :category_id
-  )
-
   def self.best_businesses(num, id_set)
-    Business.joins(:business_categories)
-            .where("business_categories.category_id IN (#{self.q_set(id_set.length)})", *id_set)
+    Business.where("businesses.category1_id IN (?) OR businesses.category2_id IN (?) OR businesses.category3_id IN (?)", id_set, id_set, id_set)
             .order("rating_avg DESC")
             .limit(num)
             .uniq
@@ -28,30 +20,28 @@ class Category < ActiveRecord::Base
 
   def top_five_businesses
     Business.includes(:photos)
-      .joins("JOIN business_categories ON businesses.id = business_categories.business_id")
-      .where("business_categories.category_id = #{id}")
-      .limit(5)
+            .where("businesses.category1_id = ? OR businesses.category2_id = ? OR businesses.category3_id = ?", id, id, id)
+            .limit(5)
   end
 
   def new_businesses(size)
     Business.includes(:store_front_photo, :neighborhood)
-      .joins(:business_categories)
-      .where("business_categories.category_id = ?", id)
+      .where("businesses.category1_id IN (?) OR businesses.category2_id IN (?) OR businesses.category3_id IN (?)", id, id, id)
       .order("businesses.created_at DESC")
       .limit(size)
   end
 
   def new_photos(size)
-    Photo.joins(:business, "JOIN business_categories ON businesses.id = business_categories.business_id")
-        .where("business_categories.category_id = ?", id)
+    Photo.joins(:business)
+        .where("businesses.category1_id IN (?) OR businesses.category2_id IN (?) OR businesses.category3_id IN (?)", id, id, id)
         .order("businesses.created_at DESC")
         .limit(size)
   end
 
   def new_reviews(size)
     Review.includes(:user, :business)
-      .joins(:business,"JOIN business_categories ON businesses.id = business_categories.business_id")
-      .where("business_categories.category_id = ?", id)
+      .joins(:business)
+      .where("businesses.category1_id IN (?) OR businesses.category2_id IN (?) OR businesses.category3_id IN (?)", id, id, id)
       .order("businesses.created_at DESC")
       .limit(size)
   end

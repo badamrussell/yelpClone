@@ -7,18 +7,18 @@ class SearchQuery
 
 
     @query = Business.select("businesses.*, #{rank_string} AS search_rank")
-                    .includes(:categories, :photos, :neighborhood, :top_review)
+                    .includes(:photos, :neighborhood, :top_review)
 
     search_params = format_params_for_query(params)
 
     where(search_params[:neighborhood_id], "neighborhood_id")
     where(search_params[:feature_id], "business_features.feature_id")
-    where(search_params[:category_id], "business_categories.category_id")
+    where_category(search_params[:category_id])
     where(search_params[:price_range], "businesses.price_range_avg")
 
     join(search_params[:feature_id], "business_features")
-    join(search_params[:category_id], "business_categories")
-    join(search_params[:main_category_id], "business_categories")
+    # join(search_params[:category_id], "business_categories")
+    # join(search_params[:main_category_id], "business_categories")
 
     tsvector(search_string)
 
@@ -40,6 +40,13 @@ class SearchQuery
 
   private
 
+  def where_category(params)
+    return nil unless params
+
+    set = params.map { |n| n.to_i }
+    @query = @query.where("businesses.category1_id IN (?) OR businesses.category2_id IN (?) OR businesses.category3_id IN (?)", set, set, set)
+  end
+
   def where(params, name)
     return nil unless params
 
@@ -55,9 +62,12 @@ class SearchQuery
 
   def main_category(params)
     return nil unless params
-
-    @query = @query.joins("JOIN categories ON categories.id = business_categories.category_id")
-                  .where("categories.main_category_id = ?", params)
+    # @query = @query.joins("JOIN categories ON categories.id = business_categories.category_id")
+                  # .where("categories.main_category_id = ?", params)
+    @query = @query.joins("JOIN categories as c1 ON c1.id = businesses.category1_id")
+                  .joins("JOIN categories as c2 ON c2.id = businesses.category2_id")
+                  .joins("JOIN categories as c3 ON c3.id = businesses.category3_id")
+                  .where("c1.main_category_id = ? OR c2.main_category_id = ? OR c3.main_category_id = ?", params, params, params)
   end
 
   def distance(params)

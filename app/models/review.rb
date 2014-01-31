@@ -31,7 +31,7 @@ class Review < ActiveRecord::Base
     include: [:neighborhood, :photos]
   )
 
-  has_many :categories, through: :business, source: :categories
+  # has_many :categories, through: :business, source: :categories
 
   has_many(
     :photos,

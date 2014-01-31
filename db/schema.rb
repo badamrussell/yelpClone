@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140131183042) do
+ActiveRecord::Schema.define(:version => 20140131203532) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -31,15 +31,6 @@ ActiveRecord::Schema.define(:version => 20140131183042) do
 
   add_index "bookmarks", ["business_id"], :name => "index_bookmarks_on_business_id"
   add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
-
-  create_table "business_categories", :force => true do |t|
-    t.integer  "business_id", :null => false
-    t.integer  "category_id", :null => false
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "business_categories", ["business_id", "category_id"], :name => "index_business_categories_on_business_id_and_category_id", :unique => true
 
   create_table "business_features", :force => true do |t|
     t.integer  "business_id", :null => false

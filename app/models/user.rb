@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     class_name: "Review",
     primary_key: :id,
     foreign_key: :user_id,
-    include: [:categories, :photos, :business],
+    include: [:photos, :business],
     dependent: :destroy
   )
 
