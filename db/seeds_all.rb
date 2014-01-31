@@ -6,13 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-random_reviews = File.readlines("app/assets/images/temp/random_reviews.txt").to_a
+random_reviews = File.readlines("https://s3.amazonaws.com/yolp_seed_images/random_reviews.txt").to_a
+
+ = "https://s3.amazonaws.com/yolp_seed_images/"
+random_stores = []
 
 
-user1 = User.create!( email: "guest@example.com", password: "123456", first_name: "Guest", last_name: "Gusterson", profile_photo: File.new("app/assets/images/temp/user_0.jpg") )
-user2 = User.create!( email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("app/assets/images/temp/user_1.jpg") )
-user3 = User.create!( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("app/assets/images/temp/user_2.jpg") )
-user4 = User.create!( email: "frink@example.com", password: "123456", first_name: "John", last_name: "Frink", profile_photo: File.new("app/assets/images/temp/user_3.jpg") )
+user1 = User.create!( email: "guest@example.com", password: "123456", first_name: "Guest", last_name: "Gusterson", profile_photo: File.new("#{ENV['SEED_IMAGE_URL']}/user_0.jpg") )
+user2 = User.create!( email: "walt@amc.com", password: "123456", first_name: "walt", last_name: "white", profile_photo: File.new("#{ENV['SEED_IMAGE_URL']}/user_1.jpg") )
+user3 = User.create!( email: "sponge@bob.com", password: "123456", first_name: "Spongebob", last_name: "Squarepants", profile_photo: File.new("#{ENV['SEED_IMAGE_URL']}/user_2.jpg") )
+user4 = User.create!( email: "frink@example.com", password: "123456", first_name: "John", last_name: "Frink", profile_photo: File.new("#{ENV['SEED_IMAGE_URL']}/user_3.jpg") )
 
 UserBio.find_by_user_id(user1.id).update_attributes(
     headline: "I'm new here...",
@@ -45,34 +48,34 @@ ProfileLocation.create!(user_id: user2.id, address: neighborhood, name: "Home", 
 ProfileLocation.create!(user_id: user3.id, address: neighborhood, name: "Home", primary: true)
 ProfileLocation.create!(user_id: user4.id, address: neighborhood, name: "Home", primary: true)
 
-Business.create!(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
-Business.create!(name: "Krusty Burger", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
-Business.create!(name: "The Krusty Krab", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long)
+Business.create!(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long, category1_id: 1, category2_id: 4, category3_id: 7 )
+Business.create!(name: "Krusty Burger", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long, category1_id: 10, category2_id: 1, category3_id: 2 )
+Business.create!(name: "The Krusty Krab", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long, category1_id: 12, category2_id: 1, category3_id: 2 )
 
-Photo.create!(user_id: user1.id, business_id: 1, file: File.new("app/assets/images/temp/store_0a.jpg") )
-Photo.create!(user_id: user2.id, business_id: 2, file: File.new("app/assets/images/temp/store_0c.jpg") )
-Photo.create!(user_id: user3.id, business_id: 3, file: File.new("app/assets/images/temp/store_0b.jpg") )
-Photo.create!(user_id: user4.id, business_id: 1, file: File.new("app/assets/images/temp/food_39.jpg") )
-Photo.create!(user_id: user4.id, business_id: 2, file: File.new("app/assets/images/temp/food_30.jpg") )
-Photo.create!(user_id: user4.id, business_id: 3, file: File.new("app/assets/images/temp/food_15.jpg") )
+Photo.create!(user_id: user1.id, business_id: 1, file: File.new("https://s3.amazonaws.com/yolp_seed_images/store_0a.jpg") )
+Photo.create!(user_id: user2.id, business_id: 2, file: File.new("https://s3.amazonaws.com/yolp_seed_images/store_0c.jpg") )
+Photo.create!(user_id: user3.id, business_id: 3, file: File.new("https://s3.amazonaws.com/yolp_seed_images/store_0b.jpg") )
+Photo.create!(user_id: user4.id, business_id: 1, file: File.new("https://s3.amazonaws.com/yolp_seed_images/food_39.jpg") )
+Photo.create!(user_id: user4.id, business_id: 2, file: File.new("https://s3.amazonaws.com/yolp_seed_images/food_30.jpg") )
+Photo.create!(user_id: user4.id, business_id: 3, file: File.new("https://s3.amazonaws.com/yolp_seed_images/food_15.jpg") )
 
-BusinessCategory.create!([
-  {business_id: 1, category_id: 1},
-  {business_id: 1, category_id: 4},
-  {business_id: 1, category_id: 7},
+# BusinessCategory.create!([
+#   {business_id: 1, category_id: 1},
+#   {business_id: 1, category_id: 4},
+#   {business_id: 1, category_id: 7},
 
-  {business_id: 2, category_id: 10},
-  {business_id: 2, category_id: 1},
-  {business_id: 2, category_id: 2},
+#   {business_id: 2, category_id: 10},
+#   {business_id: 2, category_id: 1},
+#   {business_id: 2, category_id: 2},
 
-  {business_id: 3, category_id: 12},
-  {business_id: 3, category_id: 1},
-  {business_id: 3, category_id: 2},
+#   {business_id: 3, category_id: 12},
+#   {business_id: 3, category_id: 1},
+#   {business_id: 3, category_id: 2},
 
-  {business_id: 4, category_id: 20},
-  {business_id: 4, category_id: 8},
-  {business_id: 4, category_id: 12}
-])
+#   {business_id: 4, category_id: 20},
+#   {business_id: 4, category_id: 8},
+#   {business_id: 4, category_id: 12}
+# ])
 
 MainCategory.create!([
   {name: "Restaurants"},
@@ -459,7 +462,7 @@ Neighborhood.create!([
                       password: "123456",
                       first_name: Faker::Name.first_name,
                       last_name: Faker::Name.last_name,
-                      profile_photo: File.new("app/assets/images/temp/user_#{index}.jpg")
+                      profile_photo: File.new("https://s3.amazonaws.com/yolp_seed_images/user_#{index}.jpg")
                     )
   UserBio.find_by_user_id(user.id).update_attributes(
     headline: Faker::Lorem.sentence,
@@ -470,49 +473,54 @@ Neighborhood.create!([
   )
 end
 
-open_times = [6.hours, 7.5.hours.to_i, 8.hours, 9.hours, 7.5.hours.to_i]
-close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
+# open_times = [6.hours, 7.5.hours.to_i, 8.hours, 9.hours, 7.5.hours.to_i]
+# close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 
-(1..3).each do |i|
-  avail_days = [0,1,2,3,4,5,6]
+# (1..3).each do |i|
+#   avail_days = [0,1,2,3,4,5,6]
 
-  5.times do
-    d = avail_days.shuffle!.pop
-    BusinessHour.create!( business_id: i, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
-  end
+#   5.times do
+#     d = avail_days.shuffle!.pop
+#     BusinessHour.create!( business_id: i, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
+#   end
 
-end
+# end
 
 
 5.times do |i|
+  rand1 = rand(1..30)
+  rand2 = rand(31..60)
+  rand3 = rand(61..100)
+
   b = Business.create!( {  name: Faker::Company.name,
                           country_id: 1,
                           phone_number: Faker::PhoneNumber.phone_number,
                           neighborhood_id: rand(1..50),
                           latitude: Area.rand_lat,
-                          longitude: Area.rand_long
+                          longitude: Area.rand_long,
+                          category1_id: rand1 },
+                          category2_id: rand2 },
+                          category3_id: rand3
                         } )
 
-  rand1 = rand(1..30)
-  rand2 = rand(31..60)
-  rand3 = rand(61..100)
+  
 
-  BusinessCategory.create!([
-    { business_id: b.id, category_id: rand1 },
-    { business_id: b.id, category_id: rand2 },
-    { business_id: b.id, category_id: rand3 }
-  ])
+  # BusinessCategory.create!([
+  #   { business_id: b.id, category_id: rand1 },
+  #   { business_id: b.id, category_id: rand2 },
+  #   { business_id: b.id, category_id: rand3 }
+  # ])
 
-  avail_days = [0,1,2,3,4,5,6]
+  # avail_days = [0,1,2,3,4,5,6]
 
 
-  5.times do
-    d = avail_days.shuffle!.pop
-    BusinessHour.create!( business_id: b.id, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
-  end
+  # 5.times do
+  #   d = avail_days.shuffle!.pop
+  #   BusinessHour.create!( business_id: b.id, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
+  # end
 
 
-  Photo.create!(user_id: rand(user1.id..(user1.id+50)), business_id: i+3, file: File.new("app/assets/images/temp/store_#{rand(1..43)}.jpg"))
+  Photo.create!(user_id: rand(user1.id..(user1.id+50)), business_id: i+3, file: File.new("https://s3.amazonaws.com/yolp_seed_images/store_#{rand(1..43)}.jpg"))
 end
 
 
@@ -961,12 +969,15 @@ total_businesses = Business.count
                   price_range: rand(5)
                 )
 
-  ReviewCompliment.create!(  compliment_id: rand(1..11),
-                            review_id: review.id,
-                            user_id: rand(1..20),
-                            body: Faker::Lorem.sentence
-                          )
-  f_categories = FeatureCategory.all.shuffle[0,rand(1..8)]
+  if rand(5) == 1
+    ReviewCompliment.create!(  compliment_id: rand(1..11),
+                              review_id: review.id,
+                              user_id: rand(1..20),
+                              body: Faker::Lorem.sentence
+                            )
+  end
+  
+  f_categories = FeatureCategory.all.shuffle[0,rand(3)]
 
   f_categories.each do |category|
     features = Feature.where(feature_category_id: category.id)
