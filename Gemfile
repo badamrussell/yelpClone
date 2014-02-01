@@ -20,6 +20,7 @@ gem 'dalli'
 gem 'memcachier'
 gem 'multi_fetch_fragments'
 gem 'stretcher'
+gem 'faker'
 
 group :development do
   gem 'pry-rails'
@@ -27,12 +28,10 @@ group :development do
   gem 'rspec-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'faker'
   gem 'meta_request'
 end
 
 group :production do
-  gem 'faker'
   gem 'rmagick'
 end
 
