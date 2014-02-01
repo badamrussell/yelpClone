@@ -18,7 +18,7 @@ class SearchesController < ApplicationController
         SearchQuery.new(@find_desc, @find_loc, params).uniq
       else
         # Business.es_query(@find_desc, @find_loc, current_location, params[:search])
-        e = ESQuery.reset(:businesses_nested, false, true)
+        e = ESQuery.reset(:businesses_nested, false, false)
         e.search(@find_desc, params)
       end
 
