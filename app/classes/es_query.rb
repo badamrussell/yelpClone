@@ -55,6 +55,16 @@ class ESQuery
                 type: "string"
               },
 
+              top_review: {
+                type: "object",
+                body: {
+                  type: "string"
+                },
+                user: {
+                  type: "object"
+                }
+              },
+
               categories: {
                 type: "object",
                 name: {
@@ -143,19 +153,22 @@ class ESQuery
               { match: {
                   name: text 
               }},
+              { match: {
+                  "top_review.body" => text 
+              }},
 
               { term: {
                 "categories.name" => text
-              }},
-
-              { nested: {
-                path: "reviews",
-                query: {
-                  match: {
-                    "reviews.body" => text
-                  }
-                }
               }}
+
+              # { nested: {
+              #   path: "reviews",
+              #   query: {
+              #     match: {
+              #       "reviews.body" => text
+              #     }
+              #   }
+              # }}
             ],
 
             minimum_should_match: 1,
@@ -168,11 +181,17 @@ class ESQuery
               pre_tags: ['<strong class="highlight-text">'],
               post_tags: ["</strong>"],
             },
-            "reviews.body" => {
+            "top_review.body" => {
               fragment_size: 200,
               pre_tags: ['<strong class="highlight-text">'],
               post_tags: ["</strong>"],
             }
+
+            # "reviews.body" => {
+            #   fragment_size: 200,
+            #   pre_tags: ['<strong class="highlight-text">'],
+            #   post_tags: ["</strong>"],
+            # }
           }
         }
       })

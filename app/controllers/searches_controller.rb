@@ -23,7 +23,6 @@ class SearchesController < ApplicationController
       end
 
     @results = Kaminari.paginate_array(@results).page(params[:page]).per(10)
-
     @breadcrumbs, @top_category_filter, @top_link_param = make_breadcrumbs(@category_id, @main_category_id)
 
     params[:search] ||= {}

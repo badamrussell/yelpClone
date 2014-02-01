@@ -7,7 +7,7 @@ class SearchQuery
 
 
     @query = Business.select("businesses.*, #{rank_string} AS search_rank")
-                    .includes(:photos, :neighborhood, :top_review)
+                    .includes(:photos, :neighborhood)
 
     search_params = format_params_for_query(params)
 
