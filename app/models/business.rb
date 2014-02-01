@@ -340,19 +340,18 @@ class Business < ActiveRecord::Base
 
   def as_json(options={})
     if options.empty?
-      super(methods: [:avatar, :rating_string, :top_review ], include: [:categories, :business_features, neighborhood: { include: :area } ])
+      super(methods: [:avatar, :rating_string, :categories ], include: [:business_features, :top_review, neighborhood: { include: :area } ])
     else
       super options
     end
   end
 
   def to_elasticsearch_json
-    to_json( include: { categories: { only: [:id, :name, :main_category_id] }, 
-                        neighborhood: { include: :area },
+    to_json( include: { neighborhood: { include: :area },
                         business_features: { only: [:feature_id] },
                         reviews: { only: [:id, :body] }
                       },
-              methods: [:avatar, :rating_string, :location],
+              methods: [:avatar, :rating_string, :location, :categories],
               only: [:name, :id, :address1 ,:address2, :neighborhood_id, :city, :zip_code, :price_range_avg]
             )
   end
