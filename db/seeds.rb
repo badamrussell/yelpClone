@@ -11,7 +11,7 @@ random_reviews = File.readlines("app/assets/images/random_reviews.txt").to_a
 # close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 user1_id = User.order("id ASC").first.id
 
-5.times do |i|
+1100.times do |i|
   rand1 = rand(1..30)
   rand2 = rand(31..60)
   rand3 = rand(61..100)
@@ -51,7 +51,7 @@ end
 total_businesses = Business.count
 all_users = User.all
 
-8.times do |i|
+1200.times do |i|
   business_id = rand(1..total_businesses)
 
   start_index = rand(random_reviews.length-21)
