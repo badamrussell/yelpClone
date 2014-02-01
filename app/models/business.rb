@@ -31,7 +31,7 @@ class Business < ActiveRecord::Base
     end
   end
 
-  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :category_ids, :latitude, :longitude
+  attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :latitude, :longitude
   attr_accessible :rating_avg, :store_front_id, :reviews_count, :photos_count, :price_range_avg
   attr_accessible :hours0, :hours1, :hours2, :hours3, :hours4, :hours5, :hours6
   attr_accessible :category1_id, :category2_id, :category3_id
@@ -242,7 +242,7 @@ class Business < ActiveRecord::Base
   end
 
   def avatar(size = nil)
-    return "/assets/temp/default_house.jpg" unless store_front_id
+    return "/assets/default_house.jpg" unless store_front_id
 
     if photos.loaded?
       photos.select { |p| p.id == store_front_id }[0].url(size)
@@ -346,7 +346,7 @@ class Business < ActiveRecord::Base
     end
   end
 
-  def to_indexed_json
+  def to_elasticsearch_json
     to_json( include: { categories: { only: [:id, :name, :main_category_id] }, 
                         neighborhood: { include: :area },
                         business_features: { only: [:feature_id] },

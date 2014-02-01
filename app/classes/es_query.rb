@@ -110,7 +110,7 @@ class ESQuery
 
   def add_document(biz)
     puts biz.id
-    @server.index(@name).type(:business).put( biz.id, JSON.parse(biz.to_indexed_json) )
+    @server.index(@name).type(:business).put( biz.id, JSON.parse(biz.to_elastic_search_json) )
   end
 
   def server

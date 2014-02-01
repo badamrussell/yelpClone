@@ -165,7 +165,7 @@ class User < ActiveRecord::Base
   end
 
   def avatar(size = nil)
-    profile_photo_file_name ? self.profile_photo.url(size) : "/assets/temp/default_user.jpg"
+    profile_photo_file_name ? self.profile_photo.url(size) : "/assets/default_user.jpg"
   end
 
   def top_photos(qty)

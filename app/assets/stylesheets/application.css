@@ -403,13 +403,13 @@ textarea {
 img.star-rating {
   width: 164px;
   height: 30px;
-  background:url("https://s3.amazonaws.com/yolp_seed_images/stars_large_map.png") 0 0;
+  background:url("/assets/stars_large_map.png") 0 0;
 }
 
 img.star-rating-15 {
   width: 82px;
   height: 15px;
-  background:url("https://s3.amazonaws.com/yolp_seed_images/stars_large_map.png") 0 0;
+  background:url("/assets/stars_large_map.png") 0 0;
 }
 
 
@@ -420,7 +420,7 @@ img.star-rating-15 {
 /*img.star-rating {
   width: 164px;
   height: 30px;
-  background:url("https://s3.amazonaws.com/yolp_seed_images/stars_large_map.png") 0 30px;
+  background:url("/assets/stars_large_map.png") 0 30px;
 }*/
 
 .rating-container {
@@ -456,5 +456,5 @@ img.star-rating-15 {
 
   width: 164px;
   height: 30px;
-  background:url("https://s3.amazonaws.com/yolp_seed_images/stars_large_map.png") 0 30px;
+  background:url("/assets/stars_large_map.png") 0 30px;
 }*/
