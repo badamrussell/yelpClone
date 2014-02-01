@@ -24,7 +24,6 @@
         <img src="<%= business.top_review.user_avatar %>">
       </div>
       <div class="highlight-body">
-
         <%= highlight["top_review.body"] ? (highlight["top_review.body"][0]).html_safe : business.top_review.body[0..190] %>
       </div>
     </section>

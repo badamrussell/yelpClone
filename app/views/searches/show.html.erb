@@ -13,7 +13,7 @@
     <ul class="business-results">
       <% if @results.length > 0 %>
         <% @results.each do |result| %>
-          <li><%= render "businesses/search_result", business: result, highlight: (result["highlight"].nil? ? nil : result.highlight) %></li>
+          <li><%= render "businesses/search_result", business: result, highlight: (result["_highlight"].nil? ? nil : result._highlight) %></li>
         <% end %>
       <% else %>
         <section class="new-business-container">
