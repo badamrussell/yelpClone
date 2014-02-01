@@ -347,13 +347,13 @@ class Business < ActiveRecord::Base
   end
 
   def to_elasticsearch_json
-    to_json( include: { top_review: { only: [:body], include: :user },
+    to_json( include: { top_review: { only: [:body], methods: [:user_avatar] },
                         neighborhood: { include: :area },
                         business_features: { only: [:feature_id] },
                         # reviews: { only: [:id, :body] }
                       },
               methods: [:avatar, :rating_string, :location, :categories],
-              only: [:name, :id, :address1 ,:address2, :neighborhood_id, :city, :zip_code, :price_range_avg]
+              only: [:name, :id, :address1 ,:address2, :neighborhood_id, :longitude, :latitude, :city, :zip_code, :price_range_avg, :reviews_count]
             )
   end
 

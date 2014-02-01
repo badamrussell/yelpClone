@@ -157,6 +157,7 @@ class Review < ActiveRecord::Base
   end
 
   def as_json(options={})
+    puts "hera"
     super(methods: [:user_avatar, :business_avatar], include: [:user])
   end
 

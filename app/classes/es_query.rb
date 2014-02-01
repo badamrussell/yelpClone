@@ -50,6 +50,9 @@ class ESQuery
               address2: { type: "string" },
               city: { type: "string" },
               zip_code: { type: "string" },
+              reviews_count: { type: "integer" },
+              longitude: { type: "float" },
+              latitude: { type: "float"},
 
               rating_string: {
                 type: "string"
@@ -198,103 +201,6 @@ class ESQuery
 
 
     es_results.results
-
-
-
-  #     {
-  #   "query" : {
-  #     "multi_match" : {
-  #       "query": "afghan",
-  #       "fields": ["name","categories.name"]
-  #     }
-  #   },
-  #   "query" : {
-  #     "nested" : {
-  #       "path" : "reviews",
-  #       "query" : {
-  #         "match" : {
-  #           "reviews.body" : "afghan"
-  #         }
-  #       }
-  #     }
-  #   }
-  # }
   end
-
-  # def query(search_string, distance, center, options = {})
-  #   options ||= {}
-
-  #   p = options[:price_range]
-  #   n = options[:neighborhood_id]
-  #   f = options[:feature_id]
-  #   c = options[:category_id]
-  #   m = options[:main_category_id]
-
-  #   Business.search do
-  #     query { match [:name, "top_review.body"], search_string } unless search_string.blank?
-
-  #     filter :terms, price_range_avg: p if p
-  #     filter :terms, neighborhood_id: n if n
-  #     filter :terms, "business_features.feature_id" => f if f
-  #     filter :terms, "categories.id" => c if c
-  #     filter :terms, "categories.main_category_id" => m if m
-  #     highlight "name", "top_review.body", options: { tag: '<strong class="highlight-text">', fragment_size: 200 }
-  #   end
-
-  # end
-
-  # include Tire::Model::Search
-  # include Tire::Model::Callbacks
-
-  # self.include_root_in_json = false
-
-  # mapping do
-  #   indexes :name, boost: 100
-
-  #   indexes :neighborhood_id, type: "integer", index: :not_analyzed
-  #   indexes :price_range_avg, type: "integer", index: :not_analyzed
-  #   indexes :latitude, type: "float", index: :not_analyzed
-  #   indexes :longitude, type: "float", index: :not_analyzed
-
-
-  #   indexes :business_features do
-  #     indexes :feature_id, type: "integer", index: :not_analyzed
-  #   end
-
-  #   indexes :business_categories do
-  #     indexes :category_id, type: "integer", index: :not_analyzed
-  #     indexes :main_category_id, type: "integer", index: :not_analyzed
-  #   end
-
-  #   indexes :reviews do
-  #     indexes :body
-  #   end
-
-  #   indexes :top_review do
-  #     indexes :body
-  #   end
-  # end
-
-
-  # def self.es_query(search_string, distance, center, options = {})
-  #   options ||= {}
-
-  #   p = options[:price_range]
-  #   n = options[:neighborhood_id]
-  #   f = options[:feature_id]
-  #   c = options[:category_id]
-  #   m = options[:main_category_id]
-
-  #   Business.search do
-  #     query { match [:name, "top_review.body"], search_string } unless search_string.blank?
-
-  #     filter :terms, price_range_avg: p if p
-  #     filter :terms, neighborhood_id: n if n
-  #     filter :terms, "business_features.feature_id" => f if f
-  #     filter :terms, "categories.id" => c if c
-  #     filter :terms, "categories.main_category_id" => m if m
-  #     highlight "name", "top_review.body", options: { tag: '<strong class="highlight-text">', fragment_size: 200 }
-  #   end
-  # end
 
 end
