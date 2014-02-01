@@ -1,36 +1,4 @@
 class Business < ActiveRecord::Base
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-
-  self.include_root_in_json = false
-
-  mapping do
-    indexes :name, boost: 100
-
-    indexes :neighborhood_id, type: "integer", index: :not_analyzed
-    indexes :price_range_avg, type: "integer", index: :not_analyzed
-    indexes :latitude, type: "float", index: :not_analyzed
-    indexes :longitude, type: "float", index: :not_analyzed
-
-
-    indexes :business_features do
-      indexes :feature_id, type: "integer", index: :not_analyzed
-    end
-
-    # indexes :business_categories do
-    #   indexes :category_id, type: "integer", index: :not_analyzed
-    #   indexes :main_category_id, type: "integer", index: :not_analyzed
-    # end
-
-    indexes :reviews do
-      indexes :body
-    end
-
-    indexes :top_review do
-      indexes :body
-    end
-  end
-
   attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :latitude, :longitude
   attr_accessible :rating_avg, :store_front_id, :reviews_count, :photos_count, :price_range_avg
   attr_accessible :hours0, :hours1, :hours2, :hours3, :hours4, :hours5, :hours6
@@ -359,51 +327,6 @@ class Business < ActiveRecord::Base
 
   def self.where_categories(ids)
     Business.where("category1_id IN (?) OR category2_id IN (?) OR OR category3_id IN (?)", ids, ids, ids)
-  end
-
-  def self.es_suggest(input_text)
-
-    Business.search do
-      suggest :suggest_title do
-        text input_text
-
-        term :name, size: 3, sort: 'frequency'
-      end
-
-      suggest :phrase_suggest_title do
-        text input_text
-
-        phrase :name, size: 3 do
-          # Optinally, configure the `smoothing` option...
-          #
-          smoothing :stupid_backoff, discount: 0.5
-
-          # ...or the `generator` option.
-          # generator :name, min_word_len: 1
-        end
-      end
-    end
-  end
-
-  def self.es_query(search_string, distance, center, options = {})
-    options ||= {}
-
-    p = options[:price_range]
-    n = options[:neighborhood_id]
-    f = options[:feature_id]
-    c = options[:category_id]
-    m = options[:main_category_id]
-
-    Business.search do
-      query { match [:name, "top_review.body"], search_string } unless search_string.blank?
-
-      filter :terms, price_range_avg: p if p
-      filter :terms, neighborhood_id: n if n
-      filter :terms, "business_features.feature_id" => f if f
-      filter :terms, "categories.id" => c if c
-      filter :terms, "categories.main_category_id" => m if m
-      highlight "name", "top_review.body", options: { tag: '<strong class="highlight-text">', fragment_size: 200 }
-    end
   end
 
 
