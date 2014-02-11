@@ -229,21 +229,16 @@ class Business < ActiveRecord::Base
     trans_errors = []
 
     self.transaction do
-      trans(review_params, self.reviews)
 
       if has_field?(review_params, :body)
         review = self.reviews.build(review_params)
-        trans_errors += review.errors.full_messages
 
-        if has_field?(photo_params, :file)
-          photo = review.photos.build(photo_params)
-          trans_errors += photo.errors.full_messages
-        end
+        review.photos.build(photo_params) if has_field?(photo_params, :file)
       end
 
       save
 
-      trans_errors += self.errors.full_messages
+      trans_errors = self.errors.full_messages
     end
 
     trans_errors

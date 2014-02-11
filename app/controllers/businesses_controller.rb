@@ -22,6 +22,7 @@ class BusinessesController < ApplicationController
 
     params[:review].merge!( user_id: current_user.id )
     params[:photo].merge!( user_id: current_user.id )
+
     flash[:errors] = @business.creation_transaction(params[:review], params[:photo])
 
 
