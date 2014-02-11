@@ -42,16 +42,6 @@ class Business < ActiveRecord::Base
     include: :user
   )
 
-  # has_many(
-  #   :business_categories,
-  #   class_name: "BusinessCategory",
-  #   primary_key: :id,
-  #   foreign_key: :business_id,
-  #   dependent: :destroy
-  # )
-
-  # has_many :categories, through: :business_categories, source: :category
-
   has_many(
     :business_features,
     class_name: "BusinessFeature",
@@ -110,30 +100,6 @@ class Business < ActiveRecord::Base
 
   has_many :bookmarkers, through: :bookmarks, source: :user
 
-  # def business_hours
-  #   :hours0
-  # end
-
-  # has_many(
-  #   :business_hours,
-  #   class_name: "BusinessHour",
-  #   primary_key: :id,
-  #   foreign_key: :business_id,
-  #   order: :day_id,
-  #   dependent: :destroy
-  # )
-
-  def business_hours
-    @hours_open ||= 5.times.map { |index| BusinessSchedule.new(index, 8.hours, 18.hours) }
-  end
-
-
-  def category_ids=(ids)
-    category1_id = ids[0] if ids[0]
-    category2_id = ids[1] if ids[1]
-    category3_id = ids[2] if ids[2]
-  end
-
   has_one(
     :category1,
     class_name: "Category",
@@ -155,17 +121,21 @@ class Business < ActiveRecord::Base
     foreign_key: :category3_id
   )
 
-  # has_many(
-  #   :categories,
-  #   conditions: ["category1_id IN (1) OR category2_id IN (2) OR category3_id IN (3)"],
-  #   class_name: "Category"
-  # )
+  def business_hours
+    @hours_open ||= 5.times.map { |index| BusinessSchedule.new(index, 8.hours, 18.hours) }
+  end
+
+  def category_ids=(ids)
+    category1_id = ids[0] if ids[0]
+    category2_id = ids[1] if ids[1]
+    category3_id = ids[2] if ids[2]
+  end
 
   def categories
     Category.where(id: [category1_id, category2_id, category3_id])
   end
 
-  def store_front_count(size)
+  def store_fronts(size)
     photos.select("photos.id, COUNT(CASE WHEN photo_details.store_front THEN 1 ELSE null END) AS photo_count")
           .joins("LEFT JOIN photo_details ON photo_details.photo_id = photos.id")
           .group("photos.id")
@@ -252,50 +222,27 @@ class Business < ActiveRecord::Base
     day = business_hours[Time.now.wday] if Time.now.wday < business_hours.length
 
     time_now = Time.now.hour.hours + Time.now.min.minutes
-    return true if day && (day.time_open..day.time_close) === time_now
-
-    false
-  end
-
-
-  # def now_hours
-  #   # Sunday is 0
-  #   d = if business_hours.loaded?
-  #       business_hours.select { |d| d.day_id == Time.now.wday}[0]
-  #     else
-  #       business_hours.where(day_id: Time.now.wday)[0]
-  #     end
-
-  #   d ? d.open_hours : ""
-  # end
-
-  # def is_open?
-  #   d = business_hours.where(day_id: Time.now.wday)[0]
-
-  #   time_now = Time.now.hour.hours + Time.now.min.minutes
-  #   return true if d && (d.time_open..d.time_close) === time_now
-
-  #   false
-  # end
+    day && (day.time_open..day.time_close) === time_now
+  end  
 
   def creation_transaction(review_params, photo_params)
     trans_errors = []
 
     self.transaction do
-      photo = nil
-      review = nil
-      unless review_params[:body].blank?
-        review = self.reviews.build(review_params)
+      trans(review_params, self.reviews)
 
-        if photo_params[:file]
+      if has_field?(review_params, :body)
+        review = self.reviews.build(review_params)
+        trans_errors += review.errors.full_messages
+
+        if has_field?(photo_params, :file)
           photo = review.photos.build(photo_params)
+          trans_errors += photo.errors.full_messages
         end
       end
 
       save
 
-      trans_errors += photo.errors.full_messages if photo
-      trans_errors += review.errors.full_messages if review
       trans_errors += self.errors.full_messages
     end
 
@@ -326,15 +273,13 @@ class Business < ActiveRecord::Base
   end
 
   def self.where_categories(ids)
-    Business.where("category1_id IN (?) OR category2_id IN (?) OR OR category3_id IN (?)", ids, ids, ids)
+    Business.where("category1_id IN (?) OR category2_id IN (?) OR category3_id IN (?)", ids, ids, ids)
   end
 
+  private
 
-
-  def self.migrateHours
-    Business.each do |b|
-     
-    end
+  def has_field?(params, field_name)
+    !params[field_name].blank?
   end
 
 end

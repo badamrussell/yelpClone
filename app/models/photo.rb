@@ -52,7 +52,7 @@ class Photo < ActiveRecord::Base
 
       biz = self.business
 
-      details = biz.store_front_count(2)
+      details = biz.store_fronts(2)
 
       if details.empty? && biz.store_front_id
         biz.update_attribute(:store_front_id, nil)
