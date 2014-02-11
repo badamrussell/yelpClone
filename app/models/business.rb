@@ -15,7 +15,6 @@ class Business < ActiveRecord::Base
   after_validation :reverse_geocode
 
   before_validation :set_neighborhood
-  after_touch { tire.update_index }
 
   belongs_to(
     :country,
