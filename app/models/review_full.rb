@@ -7,53 +7,31 @@ class ReviewFull
   attr_accessor :review, :business, :photo, :business_features, :review_features, :errors
 
   def self.create_review(current_user, params)
-    new_review = ReviewFull.new(current_user)
-
-    new_review.instance_eval do
-      @review = current_user.reviews.new(params[:review])
-      @business = review.business
-      @photo = review.photos.first
-      @photo_params = params[:photo]
-
-      @business_features = make_business_features(params[:feature_ids])
-      @review_features = setup_review_choices(business_features)
-    end
-
-    new_review
+    ReviewFull.new(current_user.reviews.new(params[:review]), current_user, params)
   end
 
   def self.update_review(current_user, params, is_update=false)
-    new_review = ReviewFull.new(current_user)
-
-    new_review.instance_eval do
-      @review = Review.find(params[:id])
-      @business = review.business
-      @photo = review.photos.first || Photo.new
-      @photo_params = params[:photo]
-
-      @business_features = is_update ? make_business_features(params[:feature_ids]) : review.completed_biz_features
-      @review_features = setup_review_choices(business_features)
+    if is_update
+      ReviewFull.new(Review.find(params[:id]), current_user, params)
+    else
+      ReviewFull.new(Review.find(params[:id]), current_user, params, nil, review.completed_biz_features)
     end
-
-    new_review
   end
 
   def self.new_review(current_user, params)
-    new_review = ReviewFull.new(current_user)
-
-    new_review.instance_eval do
-      @review = Review.new
-      @business = Business.find(params[:business_id])
-      @photo = Photo.new
-
-      @business_features = {}
-      @review_features = setup_review_choices(business_features)
-    end
-
-    new_review
+    ReviewFull.new(Review.new, current_user, params, Business.find(params[:business_id]))
   end
 
-  def initialize(current_user)    
+  def initialize(review, current_user, params, business=nil, biz_features=nil)  
+    @review = review
+
+    @business = (business ? business : @review.business)
+    @photo = review.photos.first || Photo.new
+    @photo_params = params[:photo]
+
+    @business_features = (biz_features ? biz_features : make_business_features(params[:feature_ids]))
+    @review_features = setup_review_choices(business_features)
+
     @errors = []
     @current_user = current_user
   end
