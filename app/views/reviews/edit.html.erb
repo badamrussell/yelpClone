@@ -3,12 +3,12 @@
 <h4>Edit Your Review:</h4>
 
 <%= render "reviews/form", {
-    business: @business,
-    url: review_url(@review.id),
+    business: @review_full.business,
+    url: review_url(@review_full.review.id),
     method: "put",
-    review: @review,
-    business_features: @business_features,
-    review_features: @review_features,
-    photo: @photo
+    review: @review_full.review,
+    business_features: @review_full.business_features,
+    review_features: @review_full.review_features,
+    photo: @review_full.photo
   } %>
 </section>

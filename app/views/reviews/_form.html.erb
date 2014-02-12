@@ -51,8 +51,8 @@
 
 <ul class="submitting group">
 <% if method == "put" %>
-  <li class="left"><%= button_to "Delete", review_url(@review.id), method: :delete, class: "gray-btn" %></li>
+  <li class="left"><%= button_to "Delete", review_url(review.id), method: :delete, class: "gray-btn" %></li>
 <% end %>
 
-<li><a class="cancel-btn med-title left" href="<%= business_url(@business.id) %>">Cancel</a></li>
+<li><a class="cancel-btn med-title left" href="<%= business_url(business.id) %>">Cancel</a></li>
 </ul>

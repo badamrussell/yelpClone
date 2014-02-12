@@ -1,15 +1,14 @@
-
 <section class="main-content group">
 <h3 class="red-title">Complete Your Review:</h3>
 
 <%= render "layouts/errors" %>
 <%= render "reviews/form", {
-  business: @business,
+  business: @review_full.business,
   url: reviews_url,
   method: "post",
-  review: @review,
-  business_features: @business_features,
-  review_features: @review_features,
-  photo: @photo
+  review: @review_full.review,
+  business_features: @review_full.business_features,
+  review_features: @review_full.review_features,
+  photo: @review_full.photo
 } %>
 </section>

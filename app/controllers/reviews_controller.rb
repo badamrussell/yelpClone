@@ -1,62 +1,39 @@
 class ReviewsController < ApplicationController
 
-  include ReviewsHelper
-
   before_filter :require_current_user!, except: [:show]
 
   def new
-
-    @review = Review.new
-    @business = Business.find(params[:business_id])
-    @business_features = {}
-    @photo = Photo.new
-    @review_features = makeFeatures(@business_features)
-
-    puts(@review_features)
+    @review_full = ReviewFull.new_review(current_user, params)
   end
 
   def create
-    @review = current_user.reviews.new(params[:review])
-    @business_features = format_features(params[:feature_ids])
-    @review_features = makeFeatures(@business_features)
+    @review_full = ReviewFull.create_review(current_user, params)
 
-    flash[:errors] = @review.creation(nil, @business_features, params[:photo], current_user)
+    @review_full.perform_transaction(nil)
+
+    flash[:errors] = @review_full.errors
 
     if flash[:errors].empty?
-      redirect_to business_url(params[:review][:business_id])
+      redirect_to business_url(@review_full.business.id)
     else
-      @business = Business.find(@review.business_id)
-      @photo = Photo.new(params[:photo])
-
       render :new
     end
   end
 
   def edit
-    @review = Review.find(params[:id])
-    @business = Business.find(@review.business_id)
-    @business_features = @review.completed_biz_features
-    @photo = @review.photos.first || Photo.new
-    @review_features = makeFeatures(@business_features)
-
-    puts(@review_features)
-
+    @review_full = ReviewFull.update_review(current_user, params)
   end
 
   def update
-    @review = Review.find(params[:id])
-    @business_features = format_features(params[:feature_ids])
-    @review_features = makeFeatures(@business_features)
+    @review_full = ReviewFull.update_review(current_user, params, true)
 
-    flash[:errors] = @review.creation(params[:review], @business_features, params[:photo], current_user)
+    @review_full.perform_transaction(params[:review])
+
+    flash[:errors] = @review_full.errors
 
     if flash[:errors].empty?
-      redirect_to business_url(@review.business_id)
+      redirect_to business_url(@review_full.review.business_id)
     else
-      @business = Business.find(@review[:business_id])
-      @business_features = @review.business_features
-      @photo = Photo.new(params[:photo])
-
       render :edit
     end
   end
