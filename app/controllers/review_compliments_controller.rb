@@ -29,12 +29,7 @@ class ReviewComplimentsController < ApplicationController
     @compliment = ReviewCompliment.find(params[:id])
     @review = Review.find(@compliment.review_id)
 
-    if @compliment.update_attributes(params[:compliment])
-      redirect_to business_url(@review.business_id)
-    else
-      flash[:errors] = @compliment.errors.full_messages
-      render :new
-    end
+    update_action(@compliment, params[:compliment], business_url(@review.business_id))
   end
 
   def destroy
