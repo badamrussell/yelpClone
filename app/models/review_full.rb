@@ -37,19 +37,12 @@ class ReviewFull
   end
 
   def perform_transaction(review_values)
-    features_delete = get_delete_features
-    existing_features = @review.business_features.pluck(:feature_id).to_set
-
     @review.transaction do
       @review.update_attributes!(review_values) if review_values
 
-      features_delete.each { |f| f.destroy }
-      
-      business_features.each do |key, value|
-        single_feature = (existing_features.include?(key) ? update_feature(key, value) : create_feature(key, value))
+      remove_missing_features
 
-        @errors += single_feature.errors.full_messages
-      end
+      update_existing_features
 
       save_photo(@photo_params)
       
@@ -63,6 +56,20 @@ class ReviewFull
 
   private
 
+  def remove_missing_features
+    get_delete_features.each { |f| f.destroy }
+  end
+
+  def update_existing_features
+    existing_features = @review.business_features.pluck(:feature_id).to_set
+
+    business_features.each do |key, value|
+      single_feature = (existing_features.include?(key) ? update_feature(key, value) : create_feature(key, value))
+
+      @errors += single_feature.errors.full_messages
+    end
+  end
+  
   def make_business_features(features)
 
     feats = {}
