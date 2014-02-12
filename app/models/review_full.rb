@@ -1,5 +1,9 @@
 class ReviewFull
-
+  SIMPLE_CHOICES = [{id: "Yes", value: "1", content: "Yes"}, 
+                    {id: "No", value: "0", content: "No"}, 
+                    {id: "nil", value: nil, content: nil}
+                  ]
+  
   attr_accessor :review, :business, :photo, :business_features, :review_features, :errors
 
   def self.create_review(current_user, params)
@@ -12,7 +16,7 @@ class ReviewFull
       @photo_params = params[:photo]
 
       @business_features = make_business_features(params[:feature_ids])
-      @review_features = make_review_features(business_features)
+      @review_features = setup_review_choices(business_features)
     end
 
     new_review
@@ -28,7 +32,7 @@ class ReviewFull
       @photo_params = params[:photo]
 
       @business_features = is_update ? make_business_features(params[:feature_ids]) : review.completed_biz_features
-      @review_features = make_review_features(business_features)
+      @review_features = setup_review_choices(business_features)
     end
 
     new_review
@@ -43,7 +47,7 @@ class ReviewFull
       @photo = Photo.new
 
       @business_features = {}
-      @review_features = make_review_features(business_features)
+      @review_features = setup_review_choices(business_features)
     end
 
     new_review
@@ -99,81 +103,64 @@ class ReviewFull
     feats
   end
 
-  def make_review_features(set)
-
-    features = []
-
-    FeatureCategory.quick_all.first.features.each do |feature|
-      choices = []
-
-      choices << feature.name
-
+  def setup_boolean_features(set)
+    FeatureCategory.quick_all.first.features.map do |feature|
       check_value = set[feature.id].nil? ? nil : set[feature.id]
 
-      choices << {   type: "radio",
-                      name: "feature_ids[#{feature.id}]",
-                      id: "feature_ids_#{feature.id}_Yes",
-                      value: "1",
-                      content: "Yes",
-                      checked: check_value
-                  }
-      choices << {   type: "radio",
-                      name: "feature_ids[#{feature.id}]",
-                      id: "feature_ids_#{feature.id}_No",
-                      value: "0",
-                      content: "No",
-                      checked: check_value == false
-                  }
-      choices << {   type: "radio",
-                      name: "feature_ids[#{feature.id}]",
-                      id: "feature_ids_#{feature.id}_nil",
-                      value: nil,
-                      content: "Not Sure"
-                  }
-
-      features << choices
+      [feature.name] + SIMPLE_CHOICES.map do |c|
+        {  type: "radio",
+            name: "feature_ids[#{feature.id}]",
+            id: "feature_ids_#{feature.id}_#{c.id}",
+            value: c.value,
+            content: c.content,
+            checked: check_value
+        }
+      end
     end
+  end
 
-
-    FeatureCategory.quick_all.each do |feature|
-      next if feature.id == 1
-      choices = []
-
-      choices << feature.name
-
-      f_type = (feature.input_type == 1 ? "radio" : "checkbox")
-      f_name = (feature.input_type == 1 ? nil : feature.name)
-      f_value = (feature.input_type == 1 ? nil : "1")
-      f_id = (feature.input_type == 1 ? feature.name : nil)
-
-      feature.features.each do |f|
-        temp_name = f_name || f.name
-        temp_value = f_value || f.id
-        temp_id = f_id || f.id
-
-        choices << {  type: f_type,
-                      name: "feature_ids[#{temp_id}]",
-                      id: "feature_ids_#{ temp_id }_#{ temp_name }",
-                      value: temp_value,
-                      content: f.name,
-                      checked: set.keys.include?(f.id)
-                    }
-
+  def setup_checkbox_choices(feature, set)
+    f_type, f_name, f_value, f_id = if feature.input_type == 1
+        ["radio", nil, nil, feature.name]
+      else
+        ["checkbox", feature.name, "1", nil]
       end
 
-      if f_type == "radio"
+    feature.features.map do |f|
+      temp_name = f_name || f.name
+      temp_value = f_value || f.id
+      temp_id = f_id || f.id
+
+      {  type: f_type,
+        name: "feature_ids[#{temp_id}]",
+        id: "feature_ids_#{ temp_id }_#{ temp_name }",
+        value: temp_value,
+        content: f.name,
+        checked: set.keys.include?(f.id)
+      }
+    end
+  end
+
+  def setup_checkbox_features(set)
+    FeatureCategory.quick_all.map do |feature|
+      next if feature.id == 1
+      choices = [feature.name] + setup_checkbox_choices(feature, set)
+
+      if feature.input_type == 1
         choices << {   type: "radio",
-                        name: "feature_ids[#{f_id}]",
-                        id: "feature_ids_#{f_id}_nil",
+                        name: "feature_ids[#{feature.name}]",
+                        id: "feature_ids_#{feature.name}_nil",
                         value: nil,
                         content: "Not Sure"
                     }
       end
 
-      features << choices
+      choices
     end
+  end
 
-    features
+  def setup_review_choices(set)
+    setup_boolean_features(set) + setup_checkbox_features(set)
   end
 
   def save_photo(new_photos)
