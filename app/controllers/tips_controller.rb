@@ -14,13 +14,7 @@ class TipsController < ApplicationController
 
   def create
     @tips = current_user.tips.new(params[:tips])
-
-    if @tips.save
-      redirect_to tips_url(@tips.id)
-    else
-      flash[:errors] = @tips.errors.full_messages
-      render :new
-    end
+    create_action(@tips, tips_url(@tips.id))
   end
 
   def destroy
@@ -38,13 +32,7 @@ class TipsController < ApplicationController
 
   def update
     @tips = Tip.find(params[:id])
-
-    if @tips.update_attributes(params[:tips])
-      redirect_to tips_url
-    else
-      flash[:errors] = @tips.errors.full_messages
-      render :edit
-    end
+    update_action(@tips, params[:tips], tips_url)
   end
 
 end

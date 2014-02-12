@@ -14,13 +14,7 @@ class ListsController < ApplicationController
 
   def create
     @list = current_user.lists.new(params[:list])
-
-    if @list.save
-      redirect_to list_url(@list.id)
-    else
-      flash[:errors] = @list.errors.full_messages
-      render :new
-    end
+    create_action(@list, list_url(@list.id))
   end
 
   def destroy
@@ -38,13 +32,7 @@ class ListsController < ApplicationController
 
   def update
     @list = List.find(params[:id])
-
-    if @list.update_attributes(params[:list])
-      redirect_to lists_url
-    else
-      flash[:errors] = @list.errors.full_messages
-      render :edit
-    end
+    update_action(@list, params[:list], lists_url)
   end
 
 end
