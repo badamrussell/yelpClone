@@ -1,11 +1,11 @@
 module VotesHelper
 
   def all_votes
-    @all_votes ||= Vote.all
+    Vote.all_cached
   end
 
   def vote_counts
-    @vote_counts ||= Vote.joins(:review_votes).group(:review_id, "votes.id").count(:vote_id)
+  	Vote.vote_counts
   end
 
   def user_votes

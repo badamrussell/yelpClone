@@ -48,23 +48,11 @@ class ReviewsController < ApplicationController
   end
 
   def toggle_vote
-
-    existingVote = current_user.review_votes.find_by_review_id_and_vote_id(params[:id], params[:vote_id])
-
-    action = 1
-    if existingVote.nil?
-      existingVote = current_user.review_votes.create(vote_id: params[:vote_id], review_id: params[:id])
-    else
-      existingVote.destroy
-      action = -1
-    end
-
-    vote = Vote.find(params[:vote_id])
-
-    existing_vote = vote_counts[[params[:id], vote.id]]
-    display_name = existing_vote ? "#{vote.name} ( #{existing_vote} )" : vote.name
-
-    flash[:errors] = existingVote.errors.full_messages
+    action = ReviewVote.toggle(current_user, params[:id], params[:vote_id])
+    vote = Vote.all_cached.select { |v| v.id == params[:vote_id].to_i }[0]
+    
+    toggle_vote_count = Vote.vote_counts[[params[:id], vote.id]]
+    display_name = toggle_vote_count ? "#{vote.name} ( #{toggle_vote_count} )" : vote.name
 
     if request.xhr?
       render json: { id: vote.id, name: display_name, action: action }

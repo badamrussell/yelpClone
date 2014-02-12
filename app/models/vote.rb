@@ -10,4 +10,15 @@ class Vote < ActiveRecord::Base
     foreign_key: :vote_id
   )
 
+
+  def self.all_cached
+  	@all_votes ||= Vote.all
+  end
+
+
+  def self.vote_counts
+  	@vote_counts = Vote.joins(:review_votes).group(:review_id, "votes.id").count(:vote_id)
+  end
+
+
 end
