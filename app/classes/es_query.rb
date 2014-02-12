@@ -121,9 +121,21 @@ class ESQuery
     end
   end
 
+  def business_json(biz)
+    biz.to_json( include: { top_review: { only: [:body], methods: [:user_avatar] },
+                        neighborhood: { include: :area },
+                        business_features: { only: [:feature_id] },
+                        # reviews: { only: [:id, :body] }
+                      },
+              methods: [:avatar, :rating_string, :location, :categories],
+              only: [:name, :id, :address1 ,:address2, :neighborhood_id, :longitude, :latitude, :city, :zip_code, :price_range_avg, :reviews_count]
+            )
+  end
+
   def add_document(biz)
     puts biz.id
-    @server.index(@name).type(:business).put( biz.id, JSON.parse(biz.to_elasticsearch_json) )
+    @server.index(@name).type(:business).put( biz.id, JSON.parse(business_json(biz) )
+    # @server.index(@name).type(:business).put( biz.id, JSON.parse(biz.to_elasticsearch_json) )
   end
 
   def server

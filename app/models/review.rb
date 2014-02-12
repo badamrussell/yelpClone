@@ -93,8 +93,6 @@ class Review < ActiveRecord::Base
     end
   end
 
-  
-
   def completed_biz_features
     Hash[ business_features.map { |f| [f.feature_id, f.value] } ]
   end
@@ -117,12 +115,6 @@ class Review < ActiveRecord::Base
 
   def as_json(options={})
     super(methods: [:user_avatar, :business_avatar], include: [:user])
-  end
-
-  def creation(new_values, new_features, new_photos, current_user)
-    transaction = ReviewTransaction.new(self, current_user)
-    transaction.perform(new_values, new_features, new_photos)
-    transaction.errors
   end
   
 end

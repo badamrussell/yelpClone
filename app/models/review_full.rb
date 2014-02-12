@@ -14,7 +14,8 @@ class ReviewFull
     if is_update
       ReviewFull.new(Review.find(params[:id]), current_user, params)
     else
-      ReviewFull.new(Review.find(params[:id]), current_user, params, nil, review.completed_biz_features)
+      temp_review = Review.find(params[:id])
+      ReviewFull.new(temp_review, current_user, params, nil, temp_review.completed_biz_features)
     end
   end
 
@@ -95,9 +96,9 @@ class ReviewFull
       [feature.name] + SIMPLE_CHOICES.map do |c|
         {  type: "radio",
             name: "feature_ids[#{feature.id}]",
-            id: "feature_ids_#{feature.id}_#{c.id}",
-            value: c.value,
-            content: c.content,
+            id: "feature_ids_#{feature.id}_#{c[:id]}",
+            value: c[:value],
+            content: c[:content],
             checked: check_value
         }
       end
@@ -127,8 +128,10 @@ class ReviewFull
   end
 
   def setup_checkbox_features(set)
-    FeatureCategory.quick_all.map do |feature|
+    feats = []
+    FeatureCategory.quick_all.each do |feature|
       next if feature.id == 1
+      # puts setup_checkbox_choices(feature, set)
       choices = [feature.name] + setup_checkbox_choices(feature, set)
 
       if feature.input_type == 1
@@ -140,8 +143,9 @@ class ReviewFull
                     }
       end
 
-      choices
+      feats << choices
     end
+    feats
   end
 
   def setup_review_choices(set)
