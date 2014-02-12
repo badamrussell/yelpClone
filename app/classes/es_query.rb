@@ -2,6 +2,7 @@
 
 # remember to start elasticsearch server for local testing
 # elasticsearch -f
+# ui : http://localhost:9200/_plugin/head/
 
 class ESQuery
 
@@ -133,8 +134,7 @@ class ESQuery
   end
 
   def add_document(biz)
-    puts biz.id
-    @server.index(@name).type(:business).put( biz.id, JSON.parse(business_json(biz) )
+    @server.index(@name).type(:business).put( biz.id, JSON.parse(business_json(biz) ) )
     # @server.index(@name).type(:business).put( biz.id, JSON.parse(biz.to_elasticsearch_json) )
   end
 
@@ -154,9 +154,12 @@ class ESQuery
     must_options << {terms: { price_range_avg: p } } if p
     must_options << {terms: { neighborhood_id: n } } if n
     must_options << {terms: { "business_features.feature_id" => f } } if f
-    must_options << {terms: { category_id: c } } if c
+    must_options << {terms: { "categories.id" => c } } if c
     must_options << {terms: { "categories.main_category_id" => m } } if m
 
+    puts "----++++++++++++-----"
+    puts must_options
+    puts "----++++++++++++-----"
     es_results = @server.index(@name).search({
         size: 1000,
         query: {

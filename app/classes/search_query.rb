@@ -43,7 +43,7 @@ class SearchQuery
   def where_category(params)
     return nil unless params
 
-    set = params.map { |n| n.to_i }
+    set = params[0].map { |n| n.to_i }
     @query = @query.where("businesses.category1_id IN (?) OR businesses.category2_id IN (?) OR businesses.category3_id IN (?)", set, set, set)
   end
 

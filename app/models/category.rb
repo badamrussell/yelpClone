@@ -11,6 +11,10 @@ class Category < ActiveRecord::Base
     foreign_key: :main_category_id
   )
 
+  def self.all_cached
+    @all_categories ||= Category.all
+  end
+
   def self.best_businesses(num, id_set)
     Business.where("businesses.category1_id IN (?) OR businesses.category2_id IN (?) OR businesses.category3_id IN (?)", id_set, id_set, id_set)
             .order("rating_avg DESC")

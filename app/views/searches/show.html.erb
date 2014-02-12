@@ -4,15 +4,15 @@
 <%= render "layouts/errors" %>
 
 <div class="group">
-  <%= render "searches/filters" %>
+  <%= render "searches/filters", search: @search %>
 </div>
 
 <section class="group">
   <section class="main-side left">
 
     <ul class="business-results">
-      <% if @results.length > 0 %>
-        <% @results.each do |result| %>
+      <% if @search.paginated_results.length > 0 %>
+        <% @search.paginated_results.each do |result| %>
           <li><%= render "businesses/search_result", business: result, highlight: (result["_highlight"].nil? ? nil : result._highlight) %></li>
         <% end %>
       <% else %>
@@ -31,9 +31,9 @@
     </ul>
 
     <nav class="pagination-container group">
-      <span class="left">Page <%= @results.current_page %> of <%= @results.total_pages %></span>
+      <span class="left">Page <%= @search.paginated_results.current_page %> of <%= @search.paginated_results.total_pages %></span>
 
-      <span class="right"><%= paginate @results %></span>
+      <span class="right"><%= paginate @search.paginated_results %></span>
     </nav>
 
   </section>
@@ -41,7 +41,7 @@
   <section class="sidebar-map right">
     <div id="googleMap"></div>
 
-    <% if @results.length > 0 %>
+    <% if @search.paginated_results.length > 0 %>
     <section class="new-business-container right">
       <div>
         <h3 class="red-title">Not here? Tell us what we're missing.</h3>
@@ -60,7 +60,7 @@
 </section>
 
 
-<%= render "scripts/map", results: @results, main: current_location %>
+<%= render "scripts/map", results: @search.paginated_results, main: current_location %>
 <script src="http://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>&sensor=false"></script>
 
 </section>
