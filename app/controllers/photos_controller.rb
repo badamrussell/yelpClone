@@ -7,7 +7,6 @@ class PhotosController < ApplicationController
   end
 
   def create
-
     @photo = current_user.photos.new(params[:photo])
 
     if @photo.save
@@ -23,34 +22,23 @@ class PhotosController < ApplicationController
     end
   end
 
-  def show(owner_hash)
-    @photos = @owner.photos.order(:id)
-
-    page_index = params[:page] || ( params[:photo_id] ? @photos.pluck(:id).index(params[:photo_id].to_i)+1 : 1 )
-
-    @photos = Kaminari.paginate_array(@photos).page(page_index).per(1)
-    @photo = @photos[0]
-
-    @url = photo_details_url(@photo.id, owner_hash) if @photos.any?
-    @back_link = business_url(@owner.id)
+  def show(owner, back_link, owner_hash)
+    url_proc = Proc.new { |p| photo_details_url(p) }
+    @photo_viewer = PhotoViewer.new(owner, owner_hash, params, url_proc, back_link)
 
     render :show
   end
 
   def biz_show
-    @owner = Business.find(params[:business_id])
+    owner = Business.find(params[:business_id])
 
-    @back_link = business_url(@owner.id)
-
-    show(business_id: @owner.id)
+    show(owner, business_url(owner.id), business_id: owner.id)
   end
 
   def user_show
-    @owner = User.find(params[:user_id])
+    owner = User.find(params[:user_id])
 
-    @back_link = user_url(@owner.id)
-
-    show(user_id: @owner.id)
+    show(owner, user_url(owner.id), user_id: owner.id)
   end
 
   def destroy

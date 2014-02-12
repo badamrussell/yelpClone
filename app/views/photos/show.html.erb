@@ -6,14 +6,14 @@
 <section class="group">
 
   <header>
-    <h1 class="blue"><a class="left" href="<%= @back_link %>"><%= @owner.name %>:</a></h1>
+    <h1 class="blue"><a class="left" href="<%= @photo_viewer.back_link %>"><%= @photo_viewer.owner.name %>:</a></h1>
     <h1 class="red"> Photos</h1>
   </header>
 
   <nav class="photo-nav">
-    <%= link_to_previous_page @photos, 'Prev' %>
-    <span><strong><%= @photos.current_page %></strong> of <strong><%= @photos.total_pages %></strong></span>
-    <%= link_to_next_page @photos, 'Next' %>
+    <%= link_to_previous_page @photo_viewer.paginated_photos, 'Prev' %>
+    <span><strong><%= @photo_viewer.current_page %></strong> of <strong><%= @photo_viewer.total_pages %></strong></span>
+    <%= link_to_next_page @photo_viewer.paginated_photos, 'Next' %>
   </nav>
 
 </section>
@@ -21,45 +21,45 @@
 
 <section class="photo-show-container group">
 
-  <% if @photo.id %>
+  <% if @photo_viewer.photo.id %>
     <section class="content-photo">
       <span class="center-helper"></span>
-      <img src="<%= @photo.url %>">
+      <img src="<%= @photo_viewer.photo.url %>">
     </section>
 
     <section class="sidebar-photo-info group">
       <div>
         <div class="passport group">
           <div class="side-left left">
-            <a href="<%= profile_url %>"><img class="avatar" src="<%= @photo.user.avatar(:medium) %>"></a>
+            <a href="<%= profile_url %>"><img class="avatar" src="<%= @photo_viewer.photo.user.avatar(:medium) %>"></a>
           </div>
 
           <ul class="side-right">
             <li><em>Photo added by</em></li>
-            <li><a href="<%= user_url(@photo.user.id) %>"><%= @photo.user.name %></a></li>
+            <li><a href="<%= user_url(@photo_viewer.photo.user.id) %>"><%= @photo_viewer.photo.user.name %></a></li>
           </ul>
         </div>
       </div>
 
       <div>
-        <p class="comment"><strong><%= @photo.caption %></strong></p>
+        <p class="comment"><strong><%= @photo_viewer.photo.caption %></strong></p>
       </div>
 
       <% if current_user %>
       <div>
-        <% if current_user.id == @photo.user_id %>
+        <% if current_user.id == @photo_viewer.photo.user_id %>
 
-        <% elsif @photo.user_details(current_user.id).any? %>
-          <%= render "photo_details/form", url: @url, method: "put", details: @photo.user_details(current_user.id) %>
+        <% elsif @photo_viewer.photo.user_details(current_user.id).any? %>
+          <%= render "photo_details/form", url: @photo_viewer.url, method: "put", details: @photo_viewer.photo.user_details(current_user.id) %>
         <% else %>
-          <%= render "photo_details/form", url: @url, method: "post", details: nil %>
+          <%= render "photo_details/form", url: @photo_viewer.url, method: "post", details: nil %>
         <% end %>
       </div>
       <% end %>
 
       <div>
         <p>Additional Info</p>
-        <em>Uploaded <strong><%= @photo.created_at.strftime("%B %d,%Y") %></strong></em>
+        <em>Uploaded <strong><%= @photo_viewer.photo.created_at.strftime("%B %d,%Y") %></strong></em>
       </div>
 
     </section>
