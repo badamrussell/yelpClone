@@ -4,7 +4,7 @@ class Business < ActiveRecord::Base
   attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :latitude, :longitude
   attr_accessible :rating_avg, :store_front_id, :reviews_count, :photos_count, :price_range_avg
   attr_accessible :hours0, :hours1, :hours2, :hours3, :hours4, :hours5, :hours6
-  attr_accessible :category1_id, :category2_id, :category3_id
+  attr_accessible :category_ids
 
   validates :name, :country_id, presence: true
   validates :country_id, :neighborhood_id, numericality: true

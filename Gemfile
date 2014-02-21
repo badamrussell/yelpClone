@@ -31,6 +31,11 @@ group :development do
   gem 'meta_request'
 end
 
+group :test do
+  gem 'capybara'
+  gem 'launchy'
+end
+
 group :production do
   gem 'rmagick'
 end

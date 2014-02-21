@@ -34,4 +34,20 @@ YelpClone::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  config.paperclip_defaults = {
+    # :storage => :s3,
+    # :s3_credentials => {
+    #   :bucket => ENV["BUCKET_NAME_DEV"],
+    #   :access_key_id => ENV["ACCESS_KEY"],
+    #   :secret_access_key => ENV["SECRET_KEY"],
+    #   :s3_host_name => 's3.amazonaws.com' # or whatever your region host name is
+    # },
+    # :path => "/images/",
+    :default_url => ':rails_root/app/assets/images/default_house.jpg'
+  }
+
+  # Paperclip::Attachment.default_options.merge!({
+  #   :path => "app/assets/images"
+  # })
 end

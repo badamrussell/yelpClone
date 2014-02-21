@@ -98,9 +98,9 @@
   <% if method == "post" %>
   <hr>
     <%= render "forms/quick_review", review: @review, photo: @photo %>
-    <button class="red-btn" type="submit">Add Business</button>
+    <button class="red-btn" type="submit" id="add-business">Add Business</button>
   <% else %>
-    <button class="red-btn" type="submit">Update</button>
+    <button class="red-btn" type="submit" id="add-business">Update</button>
   <% end %>
 </form>
 

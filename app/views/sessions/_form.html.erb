@@ -27,14 +27,14 @@
     <input size="40" type="password" name="user[password]" value="" id="user_password">
   </div>
 
-  <div><button class="red-btn" type="submit"><%= btn_text %></button></div>
+  <div><button class="red-btn" type="submit" id="signup-user"><%= btn_text %></button></div>
 </form>
 
 <form class="sign-in-guest" action="<%= session_url %>" method="post" accept-charset="utf-8">
   <input type="hidden" name="user[email]" value="guest@example.com">
   <input type="hidden" name="user[password]" value="123456">
 
-  <div><button class="red-btn" type="submit">Log in as Guest</button></div>
+  <div><button class="red-btn" type="submit" id="login-guest">Log in as Guest</button></div>
 </form>
 
 </section>

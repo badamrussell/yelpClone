@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'capybara/rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -16,6 +17,8 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
+
+  # load "#{Rails.root}/db/test_seeds.rb"
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -35,4 +38,36 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+end
+
+def signupUser(username)
+  visit "/users/new"
+
+  fill_in "user_first_name", with: "Charlie"
+  fill_in "user_last_name", with: "Guest"
+  fill_in "user_email", with: username
+  fill_in "user_password", with: "123456"
+
+  click_button "signup-user"
+end
+
+def loginGuest
+  visit "/"
+
+  click_button "login-guest"
+end
+
+def makeBusiness(biz_name)
+  visit("/businesses/new")
+
+    # save_and_open_page
+
+  fill_in "business_name", with: biz_name
+  fill_in "business_address1", with: "770 Broadway Ave"
+  fill_in "business_city", with: "New York City"
+  fill_in "business_state", with: "NY"
+  fill_in "business_zip_code", with: "10003"
+  select "Afghan", from: "business[category_ids][]"
+
+  click_button "add-business"
 end
