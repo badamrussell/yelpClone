@@ -48,17 +48,23 @@ class Photo < ActiveRecord::Base
   }
 
   def update_details
+    # puts "UPDATE PHOTO"
     if self.business_id
 
       biz = self.business
 
       details = biz.store_fronts(2)
+      # puts "#{biz.name} : #{biz.id}"
+      # puts "UPDATE PHOTO #{biz.store_front_id}, #{details}"
 
       if details.empty? && biz.store_front_id
         biz.update_attribute(:store_front_id, nil)
       elsif details[0].id != biz.store_front_id
         biz.update_attribute(:store_front_id, details[0].id)
       end
+
+      # puts "UPDATED PHOTO #{biz.id} = #{biz.store_front_id}, #{biz.valid?}"
+      # p Business.find(biz.id)
     end
   end
 

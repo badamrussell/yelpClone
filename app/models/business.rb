@@ -69,7 +69,7 @@ class Business < ActiveRecord::Base
     @hours_open ||= 5.times.map { |index| BusinessSchedule.new(index, 8.hours, 18.hours) }
   end
 
-  def now_hours 
+  def now_hours
     day = business_hours[Time.now.wday] if Time.now.wday < business_hours.length
 
     day ? day.open_hours : ""

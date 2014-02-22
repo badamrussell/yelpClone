@@ -36,6 +36,7 @@ module BusinessPhoto
   end
 
   def avatar(size = nil)
+    # puts "AVATAR: #{id}: #{store_front_id}"
     return "/assets/default_house.jpg" unless store_front_id
 
     if photos.loaded?
