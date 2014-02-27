@@ -58,7 +58,7 @@ class Business < ActiveRecord::Base
 
   
   def self.recent(num)
-    Business.limit(num).includes(:neighborhood, :photos)
+    Business.limit(num).includes(:neighborhood, :photos).order("created_at DESC")
   end
 
   def get_highlight_reviews(amount=4)
@@ -66,20 +66,23 @@ class Business < ActiveRecord::Base
   end
 
   def business_hours
-    @hours_open ||= 5.times.map { |index| BusinessSchedule.new(index, 8.hours, 18.hours) }
+    # @hours_open ||= 5.times.map { |index| BusinessSchedule.new(index, 8.hours, 18.hours) }
+    @business_schedule ||= BusinessSchedule.new
+  end
+
+  def add_hour(day_id, start_hour, close_hour)
+    @business_schedule ||=  BusinessSchedule.new
+    @business_schedule.add(day_id, start_hour, close_hour)
   end
 
   def now_hours
-    day = business_hours[Time.now.wday] if Time.now.wday < business_hours.length
-
-    day ? day.open_hours : ""
+    @business_schedule ||=  BusinessSchedule.new
+    @business_schedule.open_hours(Time.now.wday)
   end
 
   def is_open?
-    day = business_hours[Time.now.wday] if Time.now.wday < business_hours.length
-
-    time_now = Time.now.hour.hours + Time.now.min.minutes
-    day && (day.time_open..day.time_close) === time_now
+    @business_schedule ||=  BusinessSchedule.new
+    @business_schedule.is_open?(Time.now.wday)
   end  
 
   def <=>(otherBiz)

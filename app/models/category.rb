@@ -22,6 +22,9 @@ class Category < ActiveRecord::Base
             .uniq
   end
 
+
+
+
   def top_five_businesses
     Business.includes(:photos)
             .where("businesses.category1_id = ? OR businesses.category2_id = ? OR businesses.category3_id = ?", id, id, id)
@@ -38,7 +41,7 @@ class Category < ActiveRecord::Base
   def new_photos(size)
     Photo.joins(:business)
         .where("businesses.category1_id IN (?) OR businesses.category2_id IN (?) OR businesses.category3_id IN (?)", id, id, id)
-        .order("businesses.created_at DESC")
+        .order("photos.created_at DESC")
         .limit(size)
   end
 
@@ -46,7 +49,7 @@ class Category < ActiveRecord::Base
     Review.includes(:user, :business)
       .joins(:business)
       .where("businesses.category1_id IN (?) OR businesses.category2_id IN (?) OR businesses.category3_id IN (?)", id, id, id)
-      .order("businesses.created_at DESC")
+      .order("reviews.created_at DESC")
       .limit(size)
   end
 

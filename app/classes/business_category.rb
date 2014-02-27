@@ -43,9 +43,9 @@ module BusinessCategory
 
 
   def category_ids=(ids)
-    category1_id = ids[0] if ids[0]
-    category2_id = ids[1] if ids[1]
-    category3_id = ids[2] if ids[2]
+    self.category1_id = ids[0] if ids[0]
+    self.category2_id = ids[1] if ids[1]
+    self.category3_id = ids[2] if ids[2]
   end
 
   # scope :categories, where(id: [:category1_id, :category2_id, :category3_id])

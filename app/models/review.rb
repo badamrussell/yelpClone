@@ -87,9 +87,9 @@ class Review < ActiveRecord::Base
     if self.body.include?(".")
       self.body[0, self.body.index(".")]
     elsif self.body.length < size
-      self.body[0..size]
+      self.body
     else
-      self.body[0..size] + "..."
+      self.body[0...size] + "..."
     end
   end
 
@@ -106,6 +106,7 @@ class Review < ActiveRecord::Base
   end
 
   def user_avatar
+    #USE DELEGATE?
     self.user.avatar
   end
 

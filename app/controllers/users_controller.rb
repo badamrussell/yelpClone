@@ -55,5 +55,7 @@ class UsersController < ApplicationController
     else
       [Review.recent(10),nil]
     end
+
+    # expires_in 3.minutes, :public => true
   end
 end

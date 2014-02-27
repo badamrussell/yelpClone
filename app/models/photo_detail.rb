@@ -31,14 +31,14 @@ class PhotoDetail < ActiveRecord::Base
   )
 
   def update_details(increment)
-    puts "UPDATE PHOTO DETAILS #{increment}, #{store_front}"
+    # puts "UPDATE PHOTO DETAILS #{increment}, #{store_front}"
 
     thisPhoto = Photo.find_by_id(photo_id)
     # puts "------------------"
     # p thisPhoto
     if store_front
       total = PhotoDetail.where(photo_id: photo_id, store_front: true).length
-      puts "COUNT: #{total}"
+      # puts "COUNT: #{total}"
       total = 0 if total < 0
       thisPhoto.update_attributes(store_front_count: total)
     end
