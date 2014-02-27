@@ -38,12 +38,6 @@ user1_id = User.order("id ASC").first.id
   # avail_days = [0,1,2,3,4,5,6]
 
 
-  # 5.times do
-  #   d = avail_days.shuffle!.pop
-  #   BusinessHour.create!( business_id: b.id, day_id: d, time_close: close_times[rand(4)], time_open: open_times[rand(5)] )
-  # end
-
-
   Photo.create!(user_id: rand(user1_id..(user1_id+50)), business_id: i+3, file: open("https://s3.amazonaws.com/yolp_seed_images/store_#{rand(1..43)}.jpg"))
 end
 

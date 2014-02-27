@@ -473,15 +473,6 @@ end
 # open_times = [6.hours, 7.5.hours.to_i, 8.hours, 9.hours, 7.5.hours.to_i]
 # close_times = [17.hours, 18.5.hours.to_i, 19.hours, 19.5.hours.to_i]
 
-# (1..3).each do |i|
-#   avail_days = [0,1,2,3,4,5,6]
-
-#   5.times do
-#     d = avail_days.shuffle!.pop
-#     BusinessHour.create!( business_id: i, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
-#   end
-
-# end
 
 
 5.times do |i|
@@ -510,11 +501,6 @@ end
 
   # avail_days = [0,1,2,3,4,5,6]
 
-
-  # 5.times do
-  #   d = avail_days.shuffle!.pop
-  #   BusinessHour.create!( business_id: b.id, day_id: d, time_close: close_times[rand(3)], time_open: open_times[rand(3)] )
-  # end
 
 
   Photo.create!(user_id: rand(user1.id..(user1.id+50)), business_id: i+3, file: open("https://s3.amazonaws.com/yolp_seed_images/store_#{rand(1..43)}.jpg"))
