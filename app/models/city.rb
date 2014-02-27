@@ -7,7 +7,7 @@ class City < ActiveRecord::Base
     :areas,
     class_name: "Area",
     primary_key: :id,
-    foreign_key: :area_id
+    foreign_key: :city_id
   )
 
   has_many :neighborhoods, through: :areas, source: :neighborhoods

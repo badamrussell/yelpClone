@@ -47,6 +47,7 @@ module BusinessLocation
     self.city = addr[1]
     self.state = addr[2].split(" ")[0]
     self.zip_code = addr[2].split(" ")[1].to_i
+    self.neighborhood_id = Neighborhood.from_zip_code(self.zip_code) unless self.neighborhood_id
   end
 
   def gps

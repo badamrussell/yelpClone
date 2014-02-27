@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe ReviewVote do
+  before { setup_db }
    
   context "associations" do
   	it { should belong_to(:review) }

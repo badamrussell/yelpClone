@@ -19,6 +19,11 @@ class Neighborhood < ActiveRecord::Base
   )
 
   def self.random_neighborhood(city_id)
-    rand(1..20)
+    Neighborhood.pluck(:id).first(20).shuffle[0]
   end
+
+  def self.from_zip_code(zip_code)
+    self.neighborhood_id = Neighborhood.random_neighborhood(1)
+  end
+
 end

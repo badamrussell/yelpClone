@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe BusinessFeature do
+  before { setup_db }
+  
   context "associations" do
   	it { should belong_to(:business) }
   	it { should belong_to(:feature) }

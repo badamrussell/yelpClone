@@ -2,6 +2,13 @@ include ActionDispatch::TestProcess
 
 FactoryGirl.define do
 
+	# factory :guest do
+	# 	first_name "Guest"
+	# 	last_name "Gusterson"
+	# 	email "guest@example.com"
+	# 	password "123456"
+	# end
+
 	factory :user do
 		first_name "Bob"
 		last_name "Bobber"

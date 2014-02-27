@@ -55,4 +55,7 @@ class BusinessSchedule
     @days[day_id] && @days[day_id] === time_now
   end
 
+  def each
+    @days.each
+  end
 end

@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe User do
+  before { setup_db }
   
   context "associations" do
   	it { should have_one(:bio) }
@@ -85,6 +86,8 @@ describe User do
       photo1 = create(:photo, user_id: user1.id) 
       photo2 = create(:photo, user_id: user1.id) 
 
+      detail = PhotoDetail.create(photo_id: photo1.id, helpful_id: 1, user_id: 2)
+      
       expect(user1.top_photos(2)).to eq([photo1, photo2])
   	end
   end

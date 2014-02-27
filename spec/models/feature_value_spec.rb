@@ -1,10 +1,9 @@
 require 'spec_helper'
 
-describe FeatureValues do
-  pending "add some examples to (or delete) #{__FILE__}"
-
+describe FeatureValue do
+	
   context "associations" do
-  	it { should have_many(:features) }
+  	it { should belong_to(:features) }
   end
 
   context "validations" do

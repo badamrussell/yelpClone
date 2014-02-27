@@ -7,7 +7,7 @@ class Country < ActiveRecord::Base
     :businesses,
     class_name: "Business",
     primary_key: :id,
-    foreign_key: :business_id
+    foreign_key: :country_id
   )
 
 end

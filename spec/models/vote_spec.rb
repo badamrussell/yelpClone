@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Vote do
+  before { setup_db }
   
   context "associations" do
   	it { should have_many(:review_votes) }

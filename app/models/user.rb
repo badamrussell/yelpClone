@@ -46,8 +46,7 @@ class User < ActiveRecord::Base
     class_name: "Photo",
     primary_key: :id,
     foreign_key: :user_id,
-    dependent: :destroy,
-    order: :helpful_sum
+    dependent: :destroy
   )
 
   has_many(
@@ -163,9 +162,9 @@ class User < ActiveRecord::Base
 
   def top_photos(qty)
     if photos.loaded?
-      photos[0...qty]
+      photos.order("helpful_sum DESC")[0...qty]
     else
-      photos.limit(qty)
+      photos.order("helpful_sum DESC").limit(qty)
     end
   end
 

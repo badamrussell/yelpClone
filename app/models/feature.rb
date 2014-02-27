@@ -10,7 +10,7 @@ class Feature < ActiveRecord::Base
     foreign_key: :feature_id
   )
 
-  has_one(
+  belongs_to(
     :category,
     class_name: "FeatureCategory",
     primary_key: :id,

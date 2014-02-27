@@ -5,7 +5,7 @@ describe Feature do
   context "associations" do
   	it { should have_many(:businesses) }
   	it { should have_many(:business_features) }
-  	it { should has_one(:category) }
+  	it { should belong_to(:category) }
   end
 
   context "validations" do

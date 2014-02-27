@@ -41,6 +41,41 @@ RSpec.configure do |config|
   config.order = "random"
 end
 
+def setup_db
+  User.create!( email: "guest@example.com", password: "123456", first_name: "Guest", last_name: "Gusterson" )
+  Country.create(name: "USA")
+  MainCategory.create!(name: "Restaurants")
+  City.create!(name: "New York")
+
+  Area.create!(name: "Manhattan", city_id: 1)
+  Neighborhood.create!(name: "Harlem", area_id: 1)
+  Category.create(main_category_id: 1, name: "Afghan")
+  Category.create(main_category_id: 1, name: "American")
+  Category.create(main_category_id: 1, name: "Italian")
+
+  PriceRange.create!([
+    {name: "$", description: "$5-10"},
+    {name: "$$", description: "$11-30"},
+    {name: "$$$", description: "$31-60"},
+    {name: "$$$$", description: "$61+"}
+  ])
+
+  FeatureCategory.create!([
+    {name: "General Features", input_type: 1},
+    {name: "Alcohol", input_type: 2},
+    {name: "Meals Served", input_type: 2},
+    {name: "Music", input_type: 1},
+    {name: "Parking", input_type: 2},
+    {name: "Wi-Fi", input_type: 1},
+    {name: "Smoking", input_type: 1},
+    {name: "Ambience", input_type: 2},
+    {name: "Attire", input_type: 1},
+    {name: "Noise Level", input_type: 1}
+  ])
+  
+end
+
+
 def signupUser(username)
   visit "/users/new"
 

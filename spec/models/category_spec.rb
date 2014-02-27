@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Category do
-  
+  before { setup_db }
+
   context "associations" do
   	it { should belong_to(:main_category) }
   end

@@ -3,16 +3,22 @@ require 'spec_helper'
 feature "User can visit a business" do
 
 	before {
+		setup_db
+
 		loginGuest
 	}
+
+
+
+
+
 
 	# SHOULD STUB GEOCODER...
 
 	scenario 'create a new business' do
 		makeBusiness("Melrose Place")
-
-		find(".page-title").should have_content("Melrose Place")
 		# save_and_open_page
+		find(".page-title").should have_content("Melrose Place")
 	end
 
 	feature "and edit it" do
