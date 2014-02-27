@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   before_validation :ensure_token
-  after_create :initial_values
+  after_create :initial_bio
 
   has_one(
     :bio,
@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
 
   has_many(
     :follows,
-    class_name: "User",
+    class_name: "Follow",
     primary_key: :id,
     foreign_key: :leader_id
   )
@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
 
   has_many(
     :followees,
-    class_name: "User",
+    class_name: "Follow",
     primary_key: :id,
     foreign_key: :fan_id
   )
@@ -127,14 +127,7 @@ class User < ActiveRecord::Base
     large: "150x150#"
   }
 
-  def initial_values
-    newBio = UserBio.new()
-    newBio.user_id = self.id
-    newBio.save!
-
-    neighborhood = Area.determine_neighborhood()
-    newLocation = self.profile_locations.create(address: neighborhood, name: "Home", primary: true)
-  end
+  
 
   def self.random_token
     SecureRandom::urlsafe_base64(16)
@@ -228,16 +221,16 @@ class User < ActiveRecord::Base
   def vote_tallies
     return @tallies if @tallies
 
-    @tallies = {  "cool" => 0,
-                  "useful" => 0,
-                  "funny" => 0,
-                  "compliments" => compliments.count
-                }
+    @tallies = { "compliments" => compliments.count }
+    Vote.all.each { |v| @tallies[v.name] = 0 }
 
-    result = votes.select("votes.name, COUNT(votes.id) AS v_count").group("votes.id")
+    result = ReviewVote.select("votes.name, COUNT(votes.id) AS v_count")
+                      .joins("JOIN votes on votes.id = review_votes.vote_id")
+                      .where(review_id: reviews.pluck(:id))
+                      .group("votes.id")
 
-    result.each do |a|
-      @tallies[a.attributes["name"].downcase] = a.attributes["v_count"]
+    result.all.each do |a|
+      @tallies[a.attributes["name"].downcase] = a.attributes["v_count"].to_i
     end
 
     @tallies
@@ -249,4 +242,12 @@ class User < ActiveRecord::Base
     self.session_token ||= self.class.random_token
   end
 
+  def initial_bio
+    newBio = UserBio.new()
+    newBio.user_id = self.id
+    newBio.save!
+
+    neighborhood = Area.determine_neighborhood()
+    newLocation = self.profile_locations.create(address: neighborhood, name: "Home", primary: true)
+  end
 end

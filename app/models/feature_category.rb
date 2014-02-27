@@ -20,7 +20,7 @@ class FeatureCategory < ActiveRecord::Base
     [BOOLCHOICE.new(1, "Yes"), BOOLCHOICE.new(0, "No")]
   end
 
-  def self.quick_all
+  def self.with_features
     @features ||= FeatureCategory.includes(:features).all
   end
 end

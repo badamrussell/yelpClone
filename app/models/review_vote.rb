@@ -3,6 +3,7 @@ class ReviewVote < ActiveRecord::Base
 
   validates :review_id, :vote_id, :user_id, presence: true
   validates :review_id, :vote_id, :user_id, numericality: true
+  validates :vote_id, uniqueness: { scope: [:review_id, :user_id] }
 
   belongs_to(
     :review,

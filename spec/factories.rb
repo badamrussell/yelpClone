@@ -7,6 +7,10 @@ FactoryGirl.define do
 		last_name "Bobber"
 		email "bob@bobby.bob"
 		password "123456"
+
+		trait :profile_photo do
+			profile_photo { fixture_file_upload("#{Rails.root.join}/app/assets/images/default_house.jpg", 'image/jpg') }
+		end
 	end
 
 	factory :business do
@@ -57,6 +61,10 @@ FactoryGirl.define do
 		trait :price_range do |value|
 			price_range value
 		end
+
+		trait :user_id do |value|
+			user_id value
+		end
 	end
 
 
@@ -67,16 +75,15 @@ FactoryGirl.define do
 		trait :compliment_id do |value|
 			compliment_id value
 		end
-		trait :business_id do |value|
-			business_id value
+		trait :review_id do |value|
+			review_id value
 		end
-
 	end
 
 	factory :photo do
-		business_id 1
 		user_id 1
 		file { fixture_file_upload("#{Rails.root.join}/app/assets/images/default_user.jpg", 'image/jpg') }
+
 
 		trait :business_id do |value|
 			business_id value
@@ -88,6 +95,10 @@ FactoryGirl.define do
 
 		trait :store_front_count do |value|
 			store_front_count value
+		end
+
+		trait :user_id do |value|
+			user_id value
 		end
 		# after(:create) { |photo| puts "PHOTO AFTER CREATE" }
 	end
@@ -133,4 +144,36 @@ FactoryGirl.define do
 			name value
 		end
 	end
+
+	factory :review_vote do
+		vote_id 1
+		user_id 1
+
+		trait :review_id do |value|
+			review_id value
+		end
+
+		trait :user_id do |value|
+			user_id value
+		end
+
+		trait :vote_id do |value|
+			vote_id value
+		end
+	end
+
+
+	factory :vote do
+
+		trait :name do |value|
+			name value
+		end
+	end
+
+	# factory :compliment do
+
+	# end
+
+	
+
 end

@@ -13,6 +13,18 @@ describe PhotoDetail do
 		it { should validate_presence_of(:user_id) }
 	end
 
+  context "unique photo_id/user_id combination" do
+    it "duplicate entry raises error" do
+      business = Business.create(name: "terrible truckstop", country_id: 1)
+      photo1 = Photo.create(business_id: business.id, user_id: 1, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
+      
+      detail = PhotoDetail.create(photo_id: photo1.id, helpful_id: 1, store_front: true, user_id: 2)
+      detail2 = PhotoDetail.new(photo_id: photo1.id, helpful_id: 1, store_front: true, user_id: 2)
+      
+      expect { detail2.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: User has already been taken")
+    end
+  end
+
   context "when added" do
 
   	pending "associated photo is updated" do

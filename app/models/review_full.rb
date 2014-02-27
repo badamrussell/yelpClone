@@ -90,7 +90,7 @@ class ReviewFull
   end
 
   def setup_boolean_features(set)
-    FeatureCategory.quick_all.first.features.map do |feature|
+    FeatureCategory.with_features.first.features.map do |feature|
       check_value = set[feature.id].nil? ? nil : set[feature.id]
 
       [feature.name] + SIMPLE_CHOICES.map do |c|
@@ -129,7 +129,7 @@ class ReviewFull
 
   def setup_checkbox_features(set)
     feats = []
-    FeatureCategory.quick_all.each do |feature|
+    FeatureCategory.with_features.each do |feature|
       next if feature.id == 1
       # puts setup_checkbox_choices(feature, set)
       choices = [feature.name] + setup_checkbox_choices(feature, set)

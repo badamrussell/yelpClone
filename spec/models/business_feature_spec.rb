@@ -15,6 +15,17 @@ describe BusinessFeature do
   	# it { should validate_uniqueness_of(:review_id) }
   end
 
+  context "unique feature_id/review_id combination" do
+    it "duplicate entry raises error" do
+      business = Business.create(name: "terrible truckstop", country_id: 1)
+      review1 = create(:review, rating: 1, body: "awful", business_id: business.id)
+      feature1 = create(:business_feature, business_id: business.id, review_id: review1.id)
+      
+      feature2 = BusinessFeature.new(business_id: business.id, review_id: review1.id, feature_id: 1, value: true)
+      expect { feature2.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Feature has already been taken")
+    end
+  end
+
   context "updates REVIEW" do
   	let(:business) { create(:business) }
   	# let(:review1) { create(:review) }

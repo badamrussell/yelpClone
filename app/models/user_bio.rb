@@ -6,7 +6,7 @@ class UserBio < ActiveRecord::Base
   validates :user_id, uniqueness: true
   validates :language_id, :user_id, numericality: true
 
-  has_one(
+  belongs_to(
     :user,
     class_name: "User",
     primary_key: :id,

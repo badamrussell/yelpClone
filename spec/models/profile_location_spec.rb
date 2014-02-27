@@ -1,5 +1,15 @@
 require 'spec_helper'
 
 describe ProfileLocation do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  context "associations" do
+  	it { should belong_to(:user) }
+  end
+
+  context "validations" do
+  	it { should validate_presence_of(:user_id) }
+  	it { should validate_presence_of(:name) }
+  	it { should validate_presence_of(:address) }
+  end
+
 end

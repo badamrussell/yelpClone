@@ -1,5 +1,16 @@
 require 'spec_helper'
 
 describe Feature do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  context "associations" do
+  	it { should have_many(:businesses) }
+  	it { should have_many(:business_features) }
+  	it { should has_one(:category) }
+  end
+
+  context "validations" do
+  	it { should validate_presence_of(:name) }
+  	it { should validate_presence_of(:feature_category_id) }
+  end
+
 end
