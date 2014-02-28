@@ -1,17 +1,19 @@
 
-<% if flash[:errors] %>
-<div class="">
+<% if flash[:errors] && flash[:errors].any? %>
+<div class="flash-notification">
   <ul class="flash-red">
     <% flash[:errors].each do |err| %>
       <li><%= err %></li>
     <% end %>
   </ul>
 </div>
-<% elsif flash[:success] %>
+<% elsif flash[:success] && flash[:success].any? %>
+<div class="flash-notification">
 <ul class="flash-green">
   <% flash[:success].each do |err| %>
     <li><%= err %></li>
   <% end %>
 </ul>
+</div>
 <% end %>
 

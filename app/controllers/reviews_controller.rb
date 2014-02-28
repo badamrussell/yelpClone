@@ -14,6 +14,7 @@ class ReviewsController < ApplicationController
     flash[:errors] = @review_full.errors
 
     if flash[:errors].empty?
+      flash[:success] = ["Your #{@review_full.review.rating} star review was added!"]
       redirect_to business_url(@review_full.business.id)
     else
       render :new

@@ -140,7 +140,10 @@ class Search
     new_set.each { |item| item[:checked] = true }
     new_set += extra_items
 
-    visible_limit.times { |index| new_set[index][:visible] = true }
+    visible_limit.times do |index|
+    	break if index >= new_set.length
+    	new_set[index][:visible] = true
+    end
 
     new_set.sort &proc
   end

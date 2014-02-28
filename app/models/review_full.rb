@@ -129,15 +129,15 @@ class ReviewFull
 
   def setup_checkbox_features(set)
     feats = []
-    FeatureCategory.with_features.each do |feature|
-      next if feature.id == 1
-      # puts setup_checkbox_choices(feature, set)
-      choices = [feature.name] + setup_checkbox_choices(feature, set)
+    FeatureCategory.with_features.each do |feat_category|
+      next if feat_category.name == "General Features"
+      # puts setup_checkbox_choices(feat_category, set)
+      choices = [feat_category.name] + setup_checkbox_choices(feat_category, set)
 
-      if feature.input_type == 1
+      if feat_category.input_type == 1
         choices << {   type: "radio",
-                        name: "feature_ids[#{feature.name}]",
-                        id: "feature_ids_#{feature.name}_nil",
+                        name: "feature_ids[#{feat_category.name}]",
+                        id: "feature_ids_#{feat_category.name}_nil",
                         value: nil,
                         content: "Not Sure"
                     }

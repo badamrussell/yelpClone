@@ -36,6 +36,7 @@ group :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
+  gem 'selenium-webdriver'
 end
 
 group :production do
