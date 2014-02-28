@@ -21,6 +21,8 @@ RSpec.configure do |config|
   # load "#{Rails.root}/db/test_seeds.rb"
   config.include FactoryGirl::Syntax::Methods
   
+  config.include NavigationHelpers, type: :feature
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

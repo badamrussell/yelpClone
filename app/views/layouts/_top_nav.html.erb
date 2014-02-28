@@ -49,8 +49,16 @@
         </div>
         <% else %>
           <div id="header-login-box"class="right">
+
+<!--             <div class="sign-up small-red left">
+              <%#= link_to "Log In", new_session_url %>
+            </div>
+            <div class="small-red left">
+              <%#= link_to "Sign Up", new_user_url %>
+            </div> -->
+
             <a href="<%= new_session_url %>" class="small-red left">Log In</a>
-            <a href="<%= new_user_url %>" class="small-red left">Sign Up</a>
+            <a id="sign-up" href="<%= new_user_url %>" class="small-red left">Sign Up</a>
           </div>
         <% end %>
 
