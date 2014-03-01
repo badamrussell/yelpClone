@@ -27,7 +27,7 @@
 
   </section>
 
-  <section class="group">
+  <section id="compliment-badges" class="group">
     <h3 class="red-title">Compliments</h3>
     <% user.compliment_count.each do |c| %>
       <% c_name = c["name"].gsub(" ","-").gsub("'","").downcase %>

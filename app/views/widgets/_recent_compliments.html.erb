@@ -1,6 +1,6 @@
 <!-- -->
 
-<section class="section-container">
+<section id="recent-compliments" class="section-container">
 
 
 <% if compliments.empty? %>
@@ -11,20 +11,20 @@
 	<h3 class="red-title"><%= compliments.length %> Compliments</h3>
 
 	<ul>
-		<% compliments.each_with_index do |c,i| %>
+		<% compliments.each_with_index do |rc,i| %>
 			<% break if i > 3 %>
 			<li class="compliment-quick group">
 				<div class="avatar-container left">
-			    <a href="<%= user_url(c.user_id) %>"><img class="avatar-30" src="<%= c.user.avatar(:medium) %>"></a>
+			    <a href="<%= user_url(rc.user_id) %>"><img class="avatar-30" src="<%= rc.user.avatar(:medium) %>"></a>
 			  </div>
 
 			  <div class="side-right">
 					<span>
-						<div class="<%= c.compliment.image_name %>-20 left"></div>
-					  <p class="compliment-name"><%= c.compliment.name %></p>
+						<div class="<%= rc.compliment.image_name %>-20 left"></div>
+					  <p class="compliment-name"><%= rc.compliment.name %></p>
 					</span>
 
-					<p class="compliment-body"><%= text_snippet(c.body, 40) %></p>
+					<p class="compliment-body"><%= text_snippet(rc.body, 40) %></p>
 				</div>
 			</li>
 		<% end %>

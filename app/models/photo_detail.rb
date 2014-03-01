@@ -3,7 +3,7 @@ class PhotoDetail < ActiveRecord::Base
 
   validates :photo_id, :user_id, presence: true
   validates :user_id, uniqueness: {scope: :photo_id}
-  validates :helpful_id, :photo_id, :user_id, numericality: true
+  validates :helpful_id, :photo_id, :user_id, numericality: true, allow_nil: true
 
   after_create { update_details(1) }
   after_destroy { update_details(-1) }
@@ -45,14 +45,21 @@ class PhotoDetail < ActiveRecord::Base
 
     if thisPhoto then
       # puts "--------"
-      total = thisPhoto.photo_details.inject(0) { |sum, p| sum + Helpful.find(helpful_id).value }
+      total = thisPhoto.photo_details.inject(0) do |sum, p|
+        if helpful_id
+          sum + Helpful.find(helpful_id).value
+        else
+          sum
+        end
+      end
+
       thisPhoto.update_attributes(helpful_sum: total)
     end
 
 
   end
 
-  def creation(detail_photo_id, detail_params)
+  def self.creation(detail_photo_id, detail_params)
     photo = Photo.find(detail_photo_id)
 
     photo.photo_details.new(detail_params)

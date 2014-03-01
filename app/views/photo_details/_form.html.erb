@@ -7,7 +7,7 @@
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-  <fieldset>
+  <fieldset id="photo-detail-choices">
     <div><legend>Is this photo helpful?</legend></div>
     <% Helpful.all.each do |help| %>
     <div>

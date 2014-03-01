@@ -21,17 +21,6 @@ module NavigationHelpers
 		top_menu.find("#pg-search").click
 	end
 
-	def search_and_go_to_business(biz_name)
-		within top_menu do
-			fill_in "find", with: biz_name
-			find("#pg-search").click
-		end
-
-		within find(".business-results") do
-			# find(".business-info-container")
-			click_link(biz_name)
-		end
-
-	end
+	
 
 end

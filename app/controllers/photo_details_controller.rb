@@ -15,7 +15,7 @@ class PhotoDetailsController < ApplicationController
 
   def create
     params[:photo_details].merge!( user_id: current_user.id )
-    @photo_detail = PhotoDetail.creation(params[:photo_details])
+    @photo_detail = PhotoDetail.creation(params[:photo_id], params[:photo_details])
 
     if @photo_detail.save
 

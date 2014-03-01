@@ -49,8 +49,8 @@
       <div>
         <% if current_user.id == @photo_viewer.photo.user_id %>
 
-        <% elsif @photo_viewer.photo.user_details(current_user.id).any? %>
-          <%= render "photo_details/form", url: @photo_viewer.url, method: "put", details: @photo_viewer.photo.user_details(current_user.id) %>
+        <% elsif @photo_viewer.details_for(current_user) %>
+          <%= render "photo_details/form", url: @photo_viewer.url, method: "put", details: @photo_viewer.details_for(current_user) %>
         <% else %>
           <%= render "photo_details/form", url: @photo_viewer.url, method: "post", details: nil %>
         <% end %>

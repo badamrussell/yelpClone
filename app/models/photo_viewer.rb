@@ -37,4 +37,8 @@ class PhotoViewer
 	def back_link
 		@back_url
 	end
+
+	def details_for(user)
+		photo.user_details(user.id).first
+	end
 end

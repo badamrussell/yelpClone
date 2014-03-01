@@ -52,9 +52,9 @@ describe Review do
   	it "rating_avg adjusts after a review is destroyed" do
       setup_factories
       user = User.first
-			review1 = create(:review, rating: 1, body: "awful", business: business, user_id: 1, user: user)
+			review1 = create(:review, rating: 1, body: "awful", business: business, user: user)
 			review1.destroy
-			review2 = create(:review, rating: 4, body: "yuck", business: business, user_id: 1, user: user)
+			review2 = create(:review, rating: 4, body: "yuck", business: business, user: user)
   		expect(business.reload.rating_avg).to eq(4)
   	end
 

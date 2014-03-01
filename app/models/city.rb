@@ -13,6 +13,6 @@ class City < ActiveRecord::Base
   has_many :neighborhoods, through: :areas, source: :neighborhoods
 
   def self.preloaded
-    @all_cities ||= City.all
+    @all_cities = City.all
   end
 end

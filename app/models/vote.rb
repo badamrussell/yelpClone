@@ -12,7 +12,8 @@ class Vote < ActiveRecord::Base
 
 
   def self.all_cached
-  	@all_votes ||= Vote.all
+  	# @all_votes ||= Vote.all
+    Vote.all
   end
 
 

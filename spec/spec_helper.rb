@@ -86,17 +86,17 @@ def setup_factories
   # create(:price_range, name: "$$$$", description: "$61+")
 
   create(:helpful, name: "Very Helpful", value: 2)
-  # create(:helpful, name: "Helpful", value: 1)
-  # create(:helpful, name: "Not Helpful", value: -2)
+  create(:helpful, name: "Helpful", value: 1)
+  create(:helpful, name: "Not Helpful", value: -2)
 
-  # create(:vote, name: "Useful")
-  # create(:vote, name: "Funny")
-  # create(:vote, name: "Cool")
+  create(:vote, name: "Useful")
+  create(:vote, name: "Funny")
+  create(:vote, name: "Cool")
 
-  # create(:compliment, name: "Thank You")
-  # create(:compliment, name: "Good Writer")
-  # create(:compliment, name: "Great Photo")
-  # create(:compliment, name: "Hot Stuff")
+  create(:compliment, name: "Thank You")
+  create(:compliment, name: "Good Writer")
+  create(:compliment, name: "Great Photo")
+  create(:compliment, name: "Hot Stuff")
 end
 
 def signupUser(username)
@@ -108,6 +108,12 @@ def signupUser(username)
   fill_in "user_password", with: "123456"
 
   click_button "signup-user"
+end
+
+def other_user_review
+  user2 = create(:user, email: "c@d.com")
+  business = create(:business) 
+  review1 = create(:review, rating: 1, body: "awful", business: business, user: user2)
 end
 
 def loginGuest

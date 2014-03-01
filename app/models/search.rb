@@ -82,7 +82,8 @@ class Search
 	end
 
 	def location
-		find_loc.blank? ? City.find(1).name : City.find(find_loc).name
+		puts find_loc
+		find_loc.blank? ? City.order(:id).first.name : City.find(find_loc).name
 	end
 
 	def sorted
