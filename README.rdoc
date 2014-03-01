@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/repos/52d489306956807316001321/badges/2d66498d2c1aa4d18032/gpa.png)](https://codeclimate.com/repos/52d489306956807316001321/feed)
+{<img src="https://codeclimate.com/repos/52d489306956807316001321/badges/2d66498d2c1aa4d18032/gpa.png" />}[https://codeclimate.com/repos/52d489306956807316001321/feed]
 == Yolp
 
 Yolp is a faux-site that was created for educational purposes. The idea was to take an existing site that had a lot going on and try to replicate its functionality. This way, I did not have to worry about the design aspects and could concentrate on functionality and essentially practice programming in a bigger sandbox.
