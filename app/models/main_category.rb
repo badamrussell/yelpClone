@@ -3,4 +3,8 @@ class MainCategory < ActiveRecord::Base
 
   validates :name, presence: true
   
+
+  def self.restaurantID
+  	MainCategory.find_by_name("Restaurants").id
+  end
 end

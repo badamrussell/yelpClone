@@ -27,6 +27,7 @@ class BusinessesController < ApplicationController
 
 
     if flash[:errors].empty?
+      flash[:success] = ["#{@business.name} was added!"]
       redirect_to business_url(@business.id)
     else
       @review = Review.new(params[:review])
