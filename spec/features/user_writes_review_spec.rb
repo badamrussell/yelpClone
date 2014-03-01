@@ -1,16 +1,14 @@
 require 'spec_helper'
 
 feature "User writes a review" do
-	before {
-		setup_db
-		
-		loginGuest
-	}
-
+	
 	scenario "from the business page", js: true do
+		setup_factories
+		loginGuest
+		
 		business = create(:business)
 
-		visit business_path(Business.first)
+		visit business_path(business)
 		click_button "Write a Review"
 
 		fill_in "review_body", with: "an awesome example of testing"
@@ -19,7 +17,7 @@ feature "User writes a review" do
 		
 		click_button "Post Review"
 
-		expect(current_path).to eq(business_path(Business.first))
+		expect(current_path).to eq(business_path(business))
 		expect(flash_notification).to have_content("Your 3 star review was added!")
 	end
 

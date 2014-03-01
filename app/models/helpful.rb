@@ -1,5 +1,5 @@
 class Helpful < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :value
 
-  validates :name, presence: true
+  validates :name, :value, presence: true
 end

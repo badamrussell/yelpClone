@@ -828,9 +828,9 @@ Feature.create!([
 
 
 Helpful.create!([
-  {name: "Very Helpful"},
-  {name: "Helpful"},
-  {name: "Not Helpful"}
+  {name: "Very Helpful", value: 2},
+  {name: "Helpful", value: 1},
+  {name: "Not Helpful", value: -2}
 ])
 
 Vote.create!([

@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 describe Review do
-  before { setup_db }
-
-	context "associations" do
+  
+  context "associations" do
 		it { should belong_to(:user) }
 		it { should belong_to(:business) }
 		it { should have_many(:photos) }
@@ -25,36 +24,46 @@ describe Review do
 
 	context "updates BUSINESS rating" do
 		let(:business) { create(:business) }
-  	# let(:review1) { create(:review, rating: 1, body: "awful", business_id: business.id) }
+  	# let(:review1) { create(:review, rating: 1, body: "awful", business: business) }
 
   	it ".reviews_count increases" do
-			review1 = create(:review, rating: 1, body: "awful", business_id: business.id)
+      setup_factories
+      user = User.first
+			review1 = create(:review, rating: 1, body: "awful", business: business, user: user)
 			expect(business.reload.reviews_count).to eq(1)
   	end
 
   	it ".reviews_count decreases" do
-			review1 = create(:review, rating: 1, body: "awful", business_id: business.id)
+      setup_factories
+      user = User.first
+			review1 = create(:review, rating: 1, body: "awful", business: business, user: user)
 			business.reload.reviews.destroy_all
 			expect(business.reload.reviews_count).to eq(0)
   	end
 
   	it "rating_avg is average of all reviews" do
-			review1 = create(:review, rating: 1, body: "awful", business_id: business.id, user_id: 1)
-			review2 = create(:review, rating: 4, body: "yuck", business_id: business.id, user_id: 1)
+      setup_factories
+      user = User.first
+			review1 = create(:review, rating: 1, body: "awful", business: business, user: user)
+			review2 = create(:review, rating: 4, body: "yuck", business: business, user: user)
   		expect(business.reload.rating_avg).to eq(2.5)
   	end
 
   	it "rating_avg adjusts after a review is destroyed" do
-			review1 = create(:review, rating: 1, body: "awful", business_id: business.id, user_id: 1)
+      setup_factories
+      user = User.first
+			review1 = create(:review, rating: 1, body: "awful", business: business, user_id: 1, user: user)
 			review1.destroy
-			review2 = create(:review, rating: 4, body: "yuck", business_id: business.id, user_id: 1)
+			review2 = create(:review, rating: 4, body: "yuck", business: business, user_id: 1, user: user)
   		expect(business.reload.rating_avg).to eq(4)
   	end
 
   	it "rating_avg to 0 after all reviews are destroyed" do
   		# user = create(:user)
-			review1 = create(:review, rating: 1, body: "awful", business_id: business.id)
-			review2 = create(:review, rating: 2, body: "yuck", business_id: business.id)
+      setup_factories
+      user = User.first
+			review1 = create(:review, rating: 1, body: "awful", business: business, user: user)
+			review2 = create(:review, rating: 2, body: "yuck", business: business, user: user)
 			business.reload
       # puts "COUNT B: #{business.reviews.count} : #{business.reviews_count}"
 			business.reviews.destroy_all
@@ -68,29 +77,37 @@ describe Review do
 		let(:business) { create(:business) }
 
 		it ".price_range reflects one review" do
-			review1 = create(:review, rating: 1, body: "awful", business_id: business.id, price_range: 4)
+      setup_factories
+      user = User.first
+			review1 = create(:review, rating: 1, body: "awful", business: business, price_range: 4, user: user)
 
 			expect(business.reload.price_range_avg).to eq(4)
 		end
 
 		it ".price_range reflects average" do
-			review1 = create(:review, rating: 1, body: "awful", business_id: business.id, price_range: 4)
-			review2 = create(:review, rating: 1, body: "awful", business_id: business.id, price_range: 1)
+      setup_factories
+      user = User.first
+			review1 = create(:review, rating: 1, body: "awful", business: business, price_range: 4, user: user)
+			review2 = create(:review, rating: 1, body: "awful", business: business, price_range: 1, user: user)
 
 			expect(business.reload.price_range_avg).to eq(2)
 		end
 
 		it ".price_range adjusts after destroy" do
-			review1 = create(:review, rating: 1, body: "awful", business_id: business.id, price_range: 4)
-			review2 = create(:review, rating: 1, body: "awful", business_id: business.id, price_range: 1)
+      setup_factories
+      user = User.first
+			review1 = create(:review, rating: 1, body: "awful", business: business, price_range: 4, user: user)
+			review2 = create(:review, rating: 1, body: "awful", business: business, price_range: 1, user: user)
 			review1.destroy
 
 			expect(business.reload.price_range_avg).to eq(1)
 		end
 
 		it ".price_range is 0 after all are deleted" do
-			review1 = create(:review, rating: 1, body: "awful", business_id: business.id, price_range: 4)
-			review2 = create(:review, rating: 1, body: "awful", business_id: business.id, price_range: 1)
+      setup_factories
+      user = User.first
+			review1 = create(:review, rating: 1, body: "awful", business: business, price_range: 4, user: user)
+			review2 = create(:review, rating: 1, body: "awful", business: business, price_range: 1, user: user)
 			business.reviews.destroy_all
 
 			expect(business.reload.price_range_avg).to eq(0)
@@ -100,12 +117,16 @@ describe Review do
   context "#snippet truncates text" do
 		let(:business) { create(:business) }
   	it "should leave short reviews alone " do
-	  	review1 = create(:review, rating: 1, body: "awful", business_id: business.id, price_range: 4)
+      setup_factories
+      user = User.first
+	  	review1 = create(:review, rating: 1, body: "awful", business: business, price_range: 4, user: user)
 	  	expect(review1.snippet).to eq("awful")
 	  end
 
 	  it "truncates text" do
-	  	review1 = create(:review, rating: 1, body: "awfullawful", business_id: business.id, price_range: 4)
+      setup_factories
+      user = User.first
+	  	review1 = create(:review, rating: 1, body: "awfullawful", business: business, price_range: 4, user: user)
 	  	expect(review1.snippet(10)).to eq("awfullawfu...")
 	  end
   end

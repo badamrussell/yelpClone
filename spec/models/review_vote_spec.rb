@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe ReviewVote do
-  before { setup_db }
-   
+  
   context "associations" do
   	it { should belong_to(:review) }
   	it { should belong_to(:user) }
@@ -17,7 +16,8 @@ describe ReviewVote do
 
   context "unique review_id/user_id/vote_id combination" do
     it "duplicate entry raises error" do
-      user = create(:user)
+      setup_factories
+      user = User.first
       business = Business.create(name: "terrible truckstop", country_id: 1)
       review = create(:review, rating: 1, body: "awful", business_id: business.id)
       create(:review_vote, review_id: review.id, user_id: user.id )
@@ -30,7 +30,8 @@ describe ReviewVote do
 
   context "#toggle" do
   	it "returns correct action" do
-      user = create(:user)
+      setup_factories
+      user = User.first
   		business = create(:business)
 	  	review = create(:review, business_id: business.id)
 	  	create(:review_vote, review_id: review.id, user_id: user.id )

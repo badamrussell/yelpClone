@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe User do
-  before { setup_db }
   
   context "associations" do
   	it { should have_one(:bio) }
@@ -83,10 +82,11 @@ describe User do
   context "PHOTOS" do
   	it "returns best photos" do
       user1 = create(:user)
-      photo1 = create(:photo, user_id: user1.id) 
-      photo2 = create(:photo, user_id: user1.id) 
+      helpful = create(:helpful, name: "great", value: 1)
+      photo1 = create(:photo, user: user1) 
+      photo2 = create(:photo, user: user1) 
 
-      detail = PhotoDetail.create(photo_id: photo1.id, helpful_id: 1, user_id: 2)
+      detail = PhotoDetail.create(photo_id: photo1.id, helpful_id: helpful.id, user_id: User.first.id)
       
       expect(user1.top_photos(2)).to eq([photo1, photo2])
   	end
@@ -95,7 +95,8 @@ describe User do
   context "VOTES" do
 
   	it "#voted? on review" do
-      user = create(:user)
+      setup_factories
+      user = User.first
       business = Business.create(name: "terrible truckstop", country_id: 1)
       review = create(:review, rating: 1, body: "awful", business_id: business.id)
       create(:review_vote, review_id: review.id, user_id: user.id )
@@ -105,7 +106,8 @@ describe User do
 
     context "#get_vote" do
     	it "returns valid vote" do
-        user = create(:user)
+        setup_factories
+        user = User.first
         business = Business.create(name: "terrible truckstop", country_id: 1)
         review = create(:review, rating: 1, body: "awful", business_id: business.id)
         review_vote = create(:review_vote, review_id: review.id, user_id: user.id )
@@ -114,7 +116,8 @@ describe User do
     	end
 
       it "returns nil for no match" do
-        user = create(:user)
+        setup_factories
+        user = User.first
         business = Business.create(name: "terrible truckstop", country_id: 1)
         review = create(:review, rating: 1, body: "awful", business_id: business.id)
         review_vote = create(:review_vote, review_id: review.id, user_id: user.id )
@@ -127,15 +130,16 @@ describe User do
 
   context "COMPLIMENTS" do
   	it "#compliment_count" do
+      setup_factories
       user = create(:user)
       compliment1 = Compliment.create(name: "smart")
       compliment2 = Compliment.create(name: "cool")
       business = Business.create(name: "terrible truckstop", country_id: 1)
-      review = create(:review, rating: 1, body: "awful", business_id: business.id, user_id: user.id)
-      review2 = create(:review, rating: 1, body: "awful", business_id: business.id, user_id: user.id)
-      create(:review_compliment, review_id: review.id, compliment_id: compliment1.id)
-      create(:review_compliment, review_id: review2.id, compliment_id: compliment2.id)
-      create(:review_compliment, review_id: review.id, compliment_id: compliment2.id)
+      review = create(:review, rating: 1, body: "awful", business_id: business.id, user: user)
+      review2 = create(:review, rating: 1, body: "awful", business_id: business.id, user: user)
+      create(:review_compliment, review_id: review.id, compliment_id: compliment1.id, user: User.first)
+      create(:review_compliment, review_id: review2.id, compliment_id: compliment2.id, user: User.first)
+      create(:review_compliment, review_id: review.id, compliment_id: compliment2.id, user: User.first)
 
       compliment_count = user.compliment_count
 
@@ -152,18 +156,19 @@ describe User do
 
   context "statistics" do
   	it "#vote_tallies" do
+      setup_factories
       user = create(:user)
       vote1 = create(:vote, name: "a")
       vote2 = create(:vote, name: "b")
       vote3 = create(:vote, name: "c")
-      compliment1 = Compliment.create(name: "smart")
-      compliment2 = Compliment.create(name: "cool")
-      business = Business.create(name: "terrible truckstop", country_id: 1)
-      review = create(:review, rating: 1, body: "awful", business_id: business.id, user_id: user.id)
-      review2 = create(:review, rating: 1, body: "awful", business_id: business.id, user_id: user.id)
-      create(:review_compliment, review_id: review.id, compliment_id: compliment1.id)
-      create(:review_compliment, review_id: review2.id, compliment_id: compliment2.id)
-      create(:review_compliment, review_id: review.id, compliment_id: compliment2.id)
+      compliment1 = Compliment.create!(name: "smart")
+      compliment2 = Compliment.create!(name: "cool")
+      business = Business.create!(name: "terrible truckstop", country_id: 1)
+      review = create(:review, rating: 1, body: "awful", business: business, user: user)
+      review2 = create(:review, rating: 1, body: "awful", business: business, user: user)
+      create(:review_compliment, review_id: review.id, compliment_id: compliment1.id, user: User.first)
+      create(:review_compliment, review_id: review2.id, compliment_id: compliment2.id, user: User.first)
+      create(:review_compliment, review_id: review.id, compliment_id: compliment2.id, user: User.first)
       create(:review_vote, review_id: review.id, user_id: 1, vote_id: vote1.id )
       create(:review_vote, review_id: review.id, user_id: 1 , vote_id: vote2.id)
       create(:review_vote, review_id: review2.id, user_id: 1 , vote_id: vote3.id)

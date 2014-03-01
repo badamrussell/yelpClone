@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140227202958) do
+ActiveRecord::Schema.define(:version => 20140301065822) do
 
   create_table "areas", :force => true do |t|
     t.integer  "city_id",    :null => false
@@ -164,9 +164,10 @@ ActiveRecord::Schema.define(:version => 20140227202958) do
   add_index "follows", ["leader_id"], :name => "index_follows_on_leader_id"
 
   create_table "helpfuls", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",                      :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "value",      :default => 0
   end
 
   create_table "list_reviews", :force => true do |t|

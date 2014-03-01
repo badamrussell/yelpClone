@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe BusinessFeature do
-  before { setup_db }
-  
   context "associations" do
   	it { should belong_to(:business) }
   	it { should belong_to(:feature) }
@@ -19,11 +17,13 @@ describe BusinessFeature do
 
   context "unique feature_id/review_id combination" do
     it "duplicate entry raises error" do
+      setup_factories
       business = Business.create(name: "terrible truckstop", country_id: 1)
       review1 = create(:review, rating: 1, body: "awful", business_id: business.id)
-      feature1 = create(:business_feature, business_id: business.id, review_id: review1.id)
       
+      feature1 = BusinessFeature.create(business_id: business.id, review_id: review1.id, feature_id: 1, value: true)
       feature2 = BusinessFeature.new(business_id: business.id, review_id: review1.id, feature_id: 1, value: true)
+      
       expect { feature2.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Feature has already been taken")
     end
   end
@@ -33,6 +33,7 @@ describe BusinessFeature do
   	# let(:review1) { create(:review) }
 
   	it "to add business_feeatures" do
+      setup_factories
   		bf_count = BusinessFeature.count
   		review1 = create(:review, rating: 1, body: "awful", business_id: business.id)
   		feature1 = create(:business_feature, business_id: business.id, review_id: review1.id)
@@ -43,6 +44,7 @@ describe BusinessFeature do
   	end
 
   	it "destroy if review is destroyed" do
+      setup_factories
   		bf_count = BusinessFeature.count
   		review1 = create(:review, rating: 1, body: "awful", business_id: business.id)
   		feature1 = create(:business_feature, business_id: business.id, review_id: review1.id)

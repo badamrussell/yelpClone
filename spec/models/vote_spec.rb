@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Vote do
-  before { setup_db }
   
   context "associations" do
   	it { should have_many(:review_votes) }
@@ -14,16 +13,21 @@ describe Vote do
 
   context "#counts" do
   	it "returns tallies of the different votes" do
-  		vote1 = create(:vote, name: "a")
+  		setup_factories
+
+      vote1 = create(:vote, name: "a")
   		vote2 = create(:vote, name: "b")
   		vote3 = create(:vote, name: "c")
-  		user = create(:user)
+  		user1 = User.first
+      user2 = create(:user, email: "a@b.com")
+      user3 = create(:user, email: "b@b.com")
+
   		business = create(:business)
-	  	review = create(:review, business_id: business.id)
-	  	create(:review_vote, review_id: review.id, user_id: user.id, vote_id: vote1.id )
-	  	create(:review_vote, review_id: review.id, user_id: user.id , vote_id: vote2.id)
-	  	create(:review_vote, review_id: review.id, user_id: user.id , vote_id: vote3.id)
-	  	create(:review_vote, review_id: review.id, user_id: 1, vote_id: vote2.id)
+	  	review = create(:review, business: business, user: user2)
+	  	create(:review_vote, review: review, user: user1, vote_id: vote1.id )
+	  	create(:review_vote, review: review, user: user1, vote_id: vote2.id)
+	  	create(:review_vote, review: review, user: user1, vote_id: vote3.id)
+	  	create(:review_vote, review: review, user: user3, vote_id: vote2.id)
 
 	  	results = Vote.vote_counts
 	  	

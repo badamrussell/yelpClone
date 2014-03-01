@@ -5,7 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-require 'open-uri'
 
 user1 = User.create!( email: "guest@example.com", password: "123456", first_name: "Guest", last_name: "Gusterson") )
 
@@ -19,12 +18,6 @@ UserBio.find_by_user_id(user1.id).update_attributes(
 
 neighborhood = Area.determine_neighborhood()
 ProfileLocation.create!(user_id: user1.id, address: neighborhood, name: "Home", primary: true)
-
-Business.create!(name: "Bob's Burgers", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long, category1_id: 1, category2_id: 4, category3_id: 7 )
-Business.create!(name: "Krusty Burger", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long, category1_id: 10, category2_id: 1, category3_id: 2 )
-Business.create!(name: "The Krusty Krab", country_id: 1, neighborhood_id: 1, latitude: Area.rand_lat, longitude: Area.rand_long, category1_id: 12, category2_id: 1, category3_id: 2 )
-
-# Photo.create!(user_id: user1.id, business_id: 1, file: open("https://s3.amazonaws.com/yolp_seed_images/store_0a.jpg") )
 
 MainCategory.create!([
   {name: "Restaurants"}
@@ -79,9 +72,6 @@ Country.create!([
   {name: "United States"}
 ])
 
-Review.create!([
-  {rating: 3, user_id: user1.id, business_id: 1, body: "Food was amazing!"}
-])
 
 PriceRange.create!([
   {name: "$", description: "$5-10"},

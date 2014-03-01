@@ -43,10 +43,9 @@ class PhotoDetail < ActiveRecord::Base
       thisPhoto.update_attributes(store_front_count: total)
     end
 
-    vals = [0,2,1,-2]
     if thisPhoto then
       # puts "--------"
-      total = thisPhoto.photo_details.inject(0) { |sum, p| sum + vals[p.helpful_id] }
+      total = thisPhoto.photo_details.inject(0) { |sum, p| sum + Helpful.find(helpful_id).value }
       thisPhoto.update_attributes(helpful_sum: total)
     end
 
