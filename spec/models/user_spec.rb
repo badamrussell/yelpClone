@@ -94,8 +94,11 @@ describe User do
 
   context "VOTES" do
 
-  	it "#voted? on review" do
+    before(:each) do
       setup_factories
+    end
+
+  	it "#voted? on review" do
       user = User.first
       business = Business.create(name: "terrible truckstop", country_id: 1)
       review = create(:review, rating: 1, body: "awful", business_id: business.id)
@@ -106,7 +109,6 @@ describe User do
 
     context "#get_vote" do
     	it "returns valid vote" do
-        setup_factories
         user = User.first
         business = Business.create(name: "terrible truckstop", country_id: 1)
         review = create(:review, rating: 1, body: "awful", business_id: business.id)
@@ -116,7 +118,6 @@ describe User do
     	end
 
       it "returns nil for no match" do
-        setup_factories
         user = User.first
         business = Business.create(name: "terrible truckstop", country_id: 1)
         review = create(:review, rating: 1, body: "awful", business_id: business.id)
@@ -129,8 +130,11 @@ describe User do
   end
 
   context "COMPLIMENTS" do
-  	it "#compliment_count" do
+    before(:each) do
       setup_factories
+    end
+
+  	it "#compliment_count" do
       user = create(:user)
       compliment1 = Compliment.create(name: "smart")
       compliment2 = Compliment.create(name: "cool")
@@ -155,8 +159,11 @@ describe User do
   end
 
   context "statistics" do
-  	it "#vote_tallies" do
+    before(:each) do
       setup_factories
+    end
+    
+  	it "#vote_tallies" do
       user = create(:user)
       vote1 = create(:vote, name: "a")
       vote2 = create(:vote, name: "b")

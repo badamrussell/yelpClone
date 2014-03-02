@@ -13,11 +13,13 @@ describe Photo do
  		it { should validate_presence_of(:user_id) }
  	end
 
+  before(:each) do
+    setup_factories
+  end
 
   context "for businesses" do
   	
   	it "updates the business avatar" do
-      setup_factories
   		business = create(:business)
   		photo1 = create(:photo, business_id: business.id) 
   		expect(photo1.url).to eq(business.reload.avatar)
@@ -27,7 +29,6 @@ describe Photo do
   	end
 
   	it "has the most-voted photo as avatar" do
-      setup_factories
   		business = create(:business)
 
   		photo1 = create(:photo, business_id: business.id, store_front_count: 0, user: User.first)

@@ -13,7 +13,8 @@ class Compliment < ActiveRecord::Base
   has_many :reviews, through: :review_compliments, source: :compliment
 
   def self.all_cached
-    @all_compliments ||= Compliment.all
+    # @all_compliments ||= Compliment.all
+    Compliment.all
   end
 
   def image_name

@@ -14,15 +14,20 @@ describe ReviewVote do
   	it { should validate_presence_of(:vote_id) }
   end
 
+  before(:each) do
+    setup_factories
+  end
+
+  let(:user) { User.first }
+  let(:business) { create(:business) }
+  let(:review) { create(:review, business_id: business.id) }
+  # let(:review_vote) { create(:review_vote, review_id: review.id, user_id: user.id ) }
+
   context "unique review_id/user_id/vote_id combination" do
     it "duplicate entry raises error" do
-      setup_factories
-      user = User.first
-      business = Business.create(name: "terrible truckstop", country_id: 1)
-      review = create(:review, rating: 1, body: "awful", business_id: business.id)
-      create(:review_vote, review_id: review.id, user_id: user.id )
+      create(:review_vote, review_id: review.id, user_id: user.id, vote_id: Vote.first.id )
 
-      review_vote2 = ReviewVote.new(review_id: review.id, user_id: user.id, vote_id: 1)
+      review_vote2 = ReviewVote.new(review_id: review.id, user_id: user.id, vote_id: Vote.first.id)
       expect { review_vote2.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Vote has already been taken")
     end
   end
@@ -30,10 +35,6 @@ describe ReviewVote do
 
   context "#toggle" do
   	it "returns correct action" do
-      setup_factories
-      user = User.first
-  		business = create(:business)
-	  	review = create(:review, business_id: business.id)
 	  	create(:review_vote, review_id: review.id, user_id: user.id )
 
 	  	expect(ReviewVote.toggle(user, review.id, 1)).to be(-1)

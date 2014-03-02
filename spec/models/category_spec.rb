@@ -11,11 +11,13 @@ describe Category do
   	it { should validate_presence_of(:name) }
   end
 
+  before(:each) do
+    setup_factories
+  end
 
   context "related businesses in a category" do
 
   	it "by best businesses" do
-      setup_factories
       category = create(:category, name: "a", main_category: MainCategory.first)
 	  	business1 = create(:business, category_ids: [category.id])
 	  	business2 = create(:business, category_ids: [category.id])
@@ -30,7 +32,6 @@ describe Category do
   	end
 
   	it "by new businesses" do
-      setup_factories
       category = create(:category, name: "a", main_category: MainCategory.first)
 	  	business1 = create(:business, category_ids: [category.id])
 	  	business2 = create(:business, category_ids: [category.id])
@@ -43,7 +44,6 @@ describe Category do
   context "related photos in a category" do
 
   	it "by most recent" do
-      setup_factories
       category = create(:category, name: "a", main_category: MainCategory.first)
       business1 = create(:business, category_ids: [category.id])
       user = User.first
@@ -59,7 +59,6 @@ describe Category do
   context "related reviews in a category" do
   	
     it "by most recent" do
-      setup_factories
       category = create(:category, name: "a", main_category: MainCategory.first)
       business1 = create(:business, category_ids: [category.id])
       business2 = create(:business, category_ids: [category.id]) 

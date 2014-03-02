@@ -13,10 +13,12 @@ describe PhotoDetail do
 		it { should validate_presence_of(:user_id) }
 	end
 
+  before(:each) do
+    setup_factories
+  end
+
   context "unique photo_id/user_id combination" do
     it "duplicate entry raises error" do
-      setup_factories
-
 
       user2 = create(:user, email: "b@b.com")
       business = Business.create(name: "terrible truckstop", country_id: 1)
@@ -32,7 +34,6 @@ describe PhotoDetail do
   context "when added" do
 
   	pending "associated photo is updated" do
-      setup_factories
   		puts "not sure how to write the Mock for this"
   		photo1 = Photo.create(user_id: 1, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
   		activated = false
@@ -43,7 +44,6 @@ describe PhotoDetail do
   	end
 
   	it "associated photo#store_front_count is increased" do
-      setup_factories
   		business = Business.create(name: "terrible truckstop", country_id: 1)
   		photo1 = Photo.create(business_id: business.id, user_id: 1, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
   		# allow(photo1).to receive(:update)
@@ -56,7 +56,6 @@ describe PhotoDetail do
   context "when removed" do
 
   	it "associated photo#store_front_count is is decreased" do
-      setup_factories
   		photo1 = Photo.create(user_id: 1, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
   		# allow(photo1).to receive(:update)
   		detail = PhotoDetail.create(photo_id: photo1.id, helpful_id: Helpful.first.id, store_front: true, user_id: 2)
@@ -68,7 +67,6 @@ describe PhotoDetail do
   context "associated business storefront" do
 
   	pending "is updated" do
-      setup_factories
   		business = Business.create(name: "terrible truckstop", country_id: 1)
   		photo1 = Photo.create(business_id: business.id, user_id: 1, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
   		photo2 = Photo.create(business_id: business.id, user_id: 1, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
@@ -78,7 +76,6 @@ describe PhotoDetail do
   	end
 
   	it "business avatar changes" do
-      setup_factories
   		business = Business.create(name: "terrible truckstop", country_id: 1)
       user2 = create(:user, email: "b@b.com")
   		photo1 = Photo.create(business_id: business.id, user_id: User.first, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
@@ -89,7 +86,6 @@ describe PhotoDetail do
   	end
 
   	it "business avatar remains the same" do
-      setup_factories
   		business = Business.create(name: "terrible truckstop", country_id: 1)
       user2 = create(:user, email: "b@b.com")
   		photo1 = Photo.create(business_id: business.id, user_id: User.first.id, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))

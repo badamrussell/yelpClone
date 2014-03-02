@@ -97,6 +97,10 @@ def setup_factories
   create(:compliment, name: "Good Writer")
   create(:compliment, name: "Great Photo")
   create(:compliment, name: "Hot Stuff")
+
+  # puts "COMPLIMENT: #{Compliment.first.id}"
+  # puts "VOTE: #{Vote.first.id}"
+  # puts "FEATURE: #{Feature.first.id}"
 end
 
 def signupUser(username)
