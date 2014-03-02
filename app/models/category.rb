@@ -12,7 +12,8 @@ class Category < ActiveRecord::Base
   )
 
   def self.all_cached
-    @all_categories ||= Category.all
+    # @all_categories ||= Category.all
+    Category.all
   end
 
   def self.best_businesses(num, id_set)

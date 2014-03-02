@@ -13,7 +13,8 @@ class FeatureCategory < ActiveRecord::Base
   BOOLCHOICE = Struct.new(:id, :name)
 
   def self.all_cached
-    @all_feature_categories ||= all
+    # @all_feature_categories ||= all
+    all
   end
 
   def self.basic_choice
@@ -21,6 +22,7 @@ class FeatureCategory < ActiveRecord::Base
   end
 
   def self.with_features
-    @features ||= FeatureCategory.includes(:features).all
+    # @features ||= FeatureCategory.includes(:features).all
+    FeatureCategory.includes(:features).all
   end
 end

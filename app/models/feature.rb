@@ -20,6 +20,7 @@ class Feature < ActiveRecord::Base
   has_many :businesses, through: :business_features, source: :business
 
   def self.quick_all
-    @features ||= Feature.all
+    # @features ||= Feature.all
+    Feature.all
   end
 end
