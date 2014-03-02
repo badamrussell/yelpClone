@@ -5,9 +5,9 @@ class Photo < ActiveRecord::Base
   validates :user_id, presence: true, numericality: true
   validates :business_id, :review_id, numericality: true, allow_nil: true
 
-  after_create :update_details
-  after_destroy :update_details
-  after_update :update_details
+  after_create :update_business
+  after_destroy :update_business
+  after_update :update_business
 
   belongs_to(
     :user,
@@ -48,24 +48,18 @@ class Photo < ActiveRecord::Base
   }
 
   def update_details
-    # puts "UPDATE PHOTO"
-    if self.business_id
+    totals = { store_front_count: 0, helpful_sum: 0 }
 
-      biz = self.business
-
-      details = biz.store_fronts(2)
-      # puts "#{biz.name} : #{biz.id}"
-      # puts "UPDATE PHOTO #{biz.store_front_id}, #{details}"
-
-      if details.empty? && biz.store_front_id
-        biz.update_attribute(:store_front_id, nil)
-      elsif details[0].id != biz.store_front_id
-        biz.update_attribute(:store_front_id, details[0].id)
-      end
-
-      # puts "UPDATED PHOTO #{biz.id} = #{biz.store_front_id}, #{biz.valid?}"
-      # p Business.find(biz.id)
+    photo_details.all.each do |detail|
+      totals[:helpful_sum] += (detail.helpful_id ? Helpful.find(detail.helpful_id).value : 0)
+      totals[:store_front_count] += 1 if detail.store_front
     end
+    
+    update_attributes(totals)
+  end
+
+  def update_business
+    self.business.update_store_fronts if self.business_id
   end
 
   def is_store_front?

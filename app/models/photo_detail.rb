@@ -5,9 +5,9 @@ class PhotoDetail < ActiveRecord::Base
   validates :user_id, uniqueness: {scope: :photo_id}
   validates :helpful_id, :photo_id, :user_id, numericality: true, allow_nil: true
 
-  after_create { update_details(1) }
-  after_destroy { update_details(-1) }
-  after_update { update_details(0) }
+  after_create { photo.update_details }
+  after_destroy { photo.update_details }
+  after_update { photo.update_details }
 
   belongs_to(
     :photo,
@@ -29,35 +29,6 @@ class PhotoDetail < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :helpful_id
   )
-
-  def update_details(increment)
-    # puts "UPDATE PHOTO DETAILS #{increment}, #{store_front}"
-
-    thisPhoto = Photo.find_by_id(photo_id)
-    # puts "------------------"
-    # p thisPhoto
-    if store_front
-      total = PhotoDetail.where(photo_id: photo_id, store_front: true).length
-      # puts "COUNT: #{total}"
-      total = 0 if total < 0
-      thisPhoto.update_attributes(store_front_count: total)
-    end
-
-    if thisPhoto then
-      # puts "--------"
-      total = thisPhoto.photo_details.inject(0) do |sum, p|
-        if helpful_id
-          sum + Helpful.find(helpful_id).value
-        else
-          sum
-        end
-      end
-
-      thisPhoto.update_attributes(helpful_sum: total)
-    end
-
-
-  end
 
   def self.creation(detail_photo_id, detail_params)
     photo = Photo.find(detail_photo_id)

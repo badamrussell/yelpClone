@@ -1,5 +1,7 @@
 class Business < ActiveRecord::Base
-  include BusinessPhoto, BusinessCategory, BusinessLocation
+  include Business::PhotoMethods
+  include Business::CategoryMethods
+  include Business::LocationMethods
 
   attr_accessible :country_id ,:name ,:address1 ,:address2 ,:city ,:state ,:zip_code ,:phone_number ,:website, :neighborhood_id, :latitude, :longitude
   attr_accessible :rating_avg, :store_front_id, :reviews_count, :photos_count, :price_range_avg
@@ -126,19 +128,6 @@ class Business < ActiveRecord::Base
       super options
     end
   end
-
-  # def to_elasticsearch_json
-  #   to_json( include: { top_review: { only: [:body], methods: [:user_avatar] },
-  #                       neighborhood: { include: :area },
-  #                       business_features: { only: [:feature_id] },
-  #                       # reviews: { only: [:id, :body] }
-  #                     },
-  #             methods: [:avatar, :rating_string, :location, :categories],
-  #             only: [:name, :id, :address1 ,:address2, :neighborhood_id, :longitude, :latitude, :city, :zip_code, :price_range_avg, :reviews_count]
-  #           )
-  # end
-
-  
 
   private
 

@@ -1,4 +1,5 @@
-module BusinessLocation
+class Business
+module LocationMethods
   extend ActiveSupport::Concern
 
   included do
@@ -9,7 +10,6 @@ module BusinessLocation
     after_validation :reverse_geocode
 
     before_validation :set_neighborhood
-
 
     belongs_to(
       :country,
@@ -57,5 +57,5 @@ module BusinessLocation
   def location
     [{ type: "point", lat: latitude, lon: longitude }]
   end
-
+end
 end

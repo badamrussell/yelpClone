@@ -1,4 +1,5 @@
-module BusinessPhoto
+class Business
+module PhotoMethods
   extend ActiveSupport::Concern
 
   included do
@@ -35,6 +36,18 @@ module BusinessPhoto
           .limit(size).all
   end
 
+  def update_store_fronts
+
+    details = store_fronts(1)
+    
+    if details.empty? && store_front_id
+      update_attribute(:store_front_id, nil)
+    elsif details[0].id != store_front_id
+      update_attribute(:store_front_id, details[0].id)
+    end
+
+  end
+
   def avatar(size = nil)
     # puts "AVATAR: #{id}: #{store_front_id}"
     return "/assets/default_house.jpg" unless store_front_id
@@ -52,4 +65,5 @@ module BusinessPhoto
     self.store_front_id.nil?
   end
 
+end
 end

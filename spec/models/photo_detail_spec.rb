@@ -24,6 +24,9 @@ describe PhotoDetail do
       business = Business.create(name: "terrible truckstop", country_id: 1)
       photo1 = Photo.create(business_id: business.id, user_id: User.first.id, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
       
+      # user2 = double(:user, id: 1)
+      # photo1 = double(:photo, id: 1)
+
       detail = PhotoDetail.create(photo_id: photo1.id, helpful_id: Helpful.first.id, store_front: true, user_id: user2.id)
       detail2 = PhotoDetail.new(photo_id: photo1.id, helpful_id: Helpful.first.id, store_front: true, user_id: user2.id)
       
@@ -59,20 +62,21 @@ describe PhotoDetail do
   		photo1 = Photo.create(user_id: 1, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
   		# allow(photo1).to receive(:update)
   		detail = PhotoDetail.create(photo_id: photo1.id, helpful_id: Helpful.first.id, store_front: true, user_id: 2)
+      # PhotoDetail.create(photo_id: photo1.id, helpful_id: Helpful.first.id, store_front: true, user_id: 3)
   		detail.destroy
-  		expect(Photo.find(photo1.id).store_front_count).to eq(0)
+  		expect(photo1.reload.store_front_count).to eq(0)
   	end
   end
 
   context "associated business storefront" do
 
-  	pending "is updated" do
+  	it "is updated" do
   		business = Business.create(name: "terrible truckstop", country_id: 1)
   		photo1 = Photo.create(business_id: business.id, user_id: 1, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
   		photo2 = Photo.create(business_id: business.id, user_id: 1, file: open("#{Rails.root.join}/app/assets/images/default_user.jpg"))
 
   		PhotoDetail.create(photo_id: photo1.id, helpful_id: Helpful.first.id, store_front: true, user_id: 2)
-  		expect(business.store_front_id).to eq(photo1.id)
+  		expect(business.reload.store_front_id).to eq(photo1.id)
   	end
 
   	it "business avatar changes" do

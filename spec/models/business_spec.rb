@@ -6,11 +6,6 @@ describe Business do
   	it { should have_many(:reviews) }
   	it { should have_many(:features) }
   	it { should have_one(:top_review) }
-
-    it { should have_many(:photos) }
-    it { should belong_to(:store_front_photo) }
-    it { should have_many(:photo_details) }
-
   end
 
   context "validations" do
@@ -22,23 +17,6 @@ describe Business do
   end
 
   subject(:business) { create(:business) }
-
-  context "#avatar" do
-    it "has default image" do
-      expect(business.avatar).to eq("/assets/default_house.jpg")
-    end
-  end
-
-  context "#store_fronts" do
-    it "returns correct number of photos in order" do
-      photo1 = create(:photo, business_id: business.id, store_front_count: 0, user: User.first)
-      photo2 = create(:photo, business_id: business.id, store_front_count: 3, user: User.first)
-      photo3 = create(:photo, business_id: business.id, store_front_count: 2, user: User.first)
-
-      expect(business.store_fronts(3)).to eq([photo2, photo3, photo1])
-    end
-  end
-
 
   context "#highlighted_reviews" do
   	it "returns best-rated reviews" do
@@ -71,18 +49,4 @@ describe Business do
   	end
   end
 
-  context "#categories" do
-  	it "have the correct categories" do
-      c1 = create(:category, name: "a", main_category: MainCategory.first)
-      c2 = create(:category, name: "b", main_category: MainCategory.first)
-      c3 = create(:category, name: "c", main_category: MainCategory.first)
-      business1 = Business.create(name: "Terrible Restaurant", country_id: 1, category_ids: [c1.id,c2.id,c3.id])
-
-      expect(business1.categories.pluck(:id)).to eq([c1.id,c2.id,c3.id]) 
-  	end
-  end
-
-  # pending "location" do
-    
-  # end
 end
