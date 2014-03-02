@@ -17,6 +17,7 @@ So Yolp is a reconstruction of the popular restaurant reviewing website yelp.com
 * Search
   - basic postgres searching using tsvector and tsquery
   - elasticsearch searches the text for the top review of each business. includes text highlighting and ranking.
+* RSPEC and Capybara Tests
 
 ==== Gems
 
